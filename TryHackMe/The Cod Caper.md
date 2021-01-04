@@ -163,6 +163,8 @@ lmao
 ## 6. LinEnum
 We need to get the linenum file into pingu's machine now. how? the room mentions using `SCP` which we can do since we have ssh-ed into the machine.
 
+[Get the linenum script](https://github.com/rebootuser/LinEnum/blob/master/LinEnum.sh)
+
 After copying using: `scp /path/to/LinEnum.sh pingu@IP:/tmp`, just do `chmod +x LinEnum.sh` and run.
 
 ### 1. What is the interesting path of the interesting suid file?
