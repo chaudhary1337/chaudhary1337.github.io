@@ -79,15 +79,19 @@ lets try an sql injection: `69 OR 1=1`
 works!
 
 okay so name of the person is james and ... we have the ssh private key printed out lmao. lets try:
+
 `❯ ssh -i key james@BOX_IP`
 
 key: the rsa key
+
 james: the username
+
 BOX_IP: IP address of the box.
 
 password protected ;-;
 
 ok so lets take that key and convert it into a better format.
+
 `python ssh2john.py id_rsa > id_rsa.hash`
 
 time to bruteforce!
