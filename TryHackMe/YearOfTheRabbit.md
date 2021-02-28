@@ -67,7 +67,8 @@ Shellcodes: No Results
 
 So we do have some paths that we can take later down, but currently, we need a foothold.
 
-While looking around, I first of all got rickrolled ;-; and secondly, found this ```
+While looking around, I first of all got rickrolled ;-; and secondly, found this 
+```
   /* Nice to see someone checking the stylesheets.
      Take a look at the page: /sup3r_s3cr3t_fl4g.php
   */
@@ -78,13 +79,11 @@ Nice. Let's go there.
 ![](https://i.imgur.com/ahceSmx.png)
 
 
-Very intersting. The page then redirects me to ... ANOTHER RICKROLL. 😠
-
-Let's try turning off the javascript.
+Very intersting. The page then redirects me to ... ANOTHER RICKROLL. 😠 Let's try turning off the javascript.
 
 ![](https://i.imgur.com/YZcZK4D.png)
 
-Well well well. Anyways, I want to have a look at the traffic, and how this redirect is happening. Let's fire up burp.
+Well well well. Anyways, I want to have a look at the traffic, and how this redirect is happening. Let's fire up burp. 
 
 Ah yes. We have
 
@@ -103,7 +102,7 @@ and a reverse image search tells us ... the image is of Lena Forsen, some Swedis
 I see no other place for exploration, so this is it then. We will search image for oddities.  
 
 
-Ah yes! doing strings on the `Hot_Babe.png` shows the ftp username and a list of passwords:
+Nice! doing `strings` on the `Hot_Babe.png` shows the ftp username and a list of passwords:
 
 ```
 Eh, you've earned this. Username for FTP is ftpuser
@@ -125,7 +124,7 @@ Hydra v9.1 (c) 2020 by van Hauser/THC & David Maciejak - Please do not use in mi
 Hydra (https://github.com/vanhauser-thc/thc-hydra) starting at 2021-02-24 23:01:00
 [DATA] max 16 tasks per 1 server, overall 16 tasks, 82 login tries (l:1/p:82), ~6 tries per task
 [DATA] attacking ftp://10.10.186.25:21/
-[21][ftp] host: 10.10.186.25   login: ftpuser   password: 5iez1wGXKfPKQ
+[21][ftp] host: 10.10.186.25   login: ftpuser   password: {brrrrrrrrr}
 1 of 1 target successfully completed, 1 valid password found
 Hydra (https://github.com/vanhauser-thc/thc-hydra) finished at 2021-02-24 23:01:16
 ```
@@ -162,7 +161,7 @@ Opening the creds we get something ... this looks like brainfuck, the langauge. 
 
 ```
 User: eli
-Password: DSpDiM1wAEwid
+Password: {brrrrrrrrrrr}
 ```
 
 There's nothing else, so let's login as `eli`.
@@ -194,7 +193,7 @@ ftp> pwd
 257 "/"
 ```
 
-After spending some disappointing amount of time on this, I realised this may be a `ssh` thing, not a `ftp` thing. <insert disappointment meme :( >
+After spending some disappointing amount of time on this, I realised we can using `ssh`. <insert disappointment meme :( >
 
 
 ```
@@ -225,9 +224,8 @@ Works! Now, I use the `locate` command to find all `*.txt` and I find these inte
 
 - `/home/gwendoline/user.txt`
 - `/var/ftp/uploads/Eli's_Creds.txt`
-- `/var/lib/exim4/berkeleydbvers.txt`
 
-We know the second one. The third prints `5.3`. I don't know what that is. The first one is what we are after.
+We know the second one. The first one is what we are after.
 
 Unsurprisingly, we have 
 
@@ -247,7 +245,7 @@ GG.
 ```
 eli@year-of-the-rabbit:~$ cat /usr/games/s3cr3t/.th1s_m3ss4ag3_15_f0r_gw3nd0l1n3_0nly!
 Your password is awful, Gwendoline. 
-It should be at least 60 characters long! Not just MniVCQVhQHUNI
+It should be at least 60 characters long! Not just {brrrrrrrrrrrr}
 Honestly!
 
 Yours sincerely
