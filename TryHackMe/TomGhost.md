@@ -80,7 +80,7 @@ We get:
   <display-name>Welcome to Tomcat</display-name>
   <description>
      Welcome to GhostCat
-        skyfuck:8730281lkjlkjdqlksalks
+        skyfuck:{haha, password go brr}
   </description>
 
 </web-app>
@@ -164,7 +164,7 @@ and now,
 gpg: WARNING: cipher algorithm CAST5 not found in recipient preferences
 gpg: encrypted with 1024-bit ELG key, ID 61E104A66184FBCC, created 2020-03-11
       "tryhackme <stuxnet@tryhackme.com>"
-merlin:asuyusdoiuqoilkda312j31k2j123j1g23g12k3g12kj3gk12jg3k12j3kj123j
+merlin:{haha, password go brr}
 ```
 
 We are done with the lateral movement!
