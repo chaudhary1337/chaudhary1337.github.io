@@ -2,7 +2,7 @@
 Trying out penetration testing. Currently doing TryHackMe :D
 
 ## TryHackMe
-Machines Done:
+CTF Machines Done:
 
 - Anonymous
 - Blog
