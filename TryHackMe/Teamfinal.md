@@ -2,7 +2,7 @@
 
 [Play](https://tryhackme.com/room/teamcw)
 
-## Recon
+## 1. Enumeration and Scanning
 
 As usual, we start off with `nmap` and `gobuster` scans. 
 
@@ -27,7 +27,7 @@ We see two things: that bug and the `team.thm` thing. The bug link is nothing sp
 ff02::1 ip6-allnodes
 ff02::2 ip6-allrouters
 ```
-
+### 1.1 Port Scanning
 ```
 ❯ nmap -sC -sV -A 10.10.82.31
 Starting Nmap 7.91 ( https://nmap.org ) at 2021-03-09 23:36 EST
@@ -49,16 +49,43 @@ Service Info: OSs: Unix, Linux; CPE: cpe:/o:linux:linux_kernel
 Service detection performed. Please report any incorrect results at https://nmap.org/submit/ .
 Nmap done: 1 IP address (1 host up) scanned in 48.96 seconds
 ```
-`nmap` is finished, and we can kill `gobuster` scan; since it does not look any useful.
 
-===
+### 1.2 Web Enumeration
+```
+❯ gobuster dir -u team.thm -w "/usr/share/dirbustrectory-list-2.3-medium.txt" -x "html,php,txt"
+=================================================
+Gobuster v3.0.1
+by OJ Reeves (@TheColonial) & Christian Mehlmauer
+=================================================
+[+] Url:            http://team.thm
+[+] Threads:        10
+[+] Wordlist:       /usr/share/dirbuster/wordlistt-2.3-medium.txt
+[+] Status codes:   200,204,301,302,307,401,403
+[+] User Agent:     gobuster/3.0.1
+[+] Extensions:     html,php,txt
+[+] Timeout:        10s
+=================================================
+2021/03/09 23:44:28 Starting gobuster
+=================================================
+/index.html (Status: 200)
+/images (Status: 301)
+/scripts (Status: 301)
+/assets (Status: 301)
+/robots.txt (Status: 200)
+```
 
+`scripts` I can't access, so i'll leave it be. We can run another `gobuster` on `team.thm/scripts`, but that is for later. `robots.txt` is always interesting.
+
+![](https://i.imgur.com/0u3oCyW.png)
+
+Is what is shows. Lmao. Probably the `ftp` username? Password we can bruteforce. This is another thing we can try.
 ![](https://i.imgur.com/OT9fQyi.png)
 
 Ah. we see a proper page up here. Looking at the source, we see `/assets` and `/images`. I don't like stego challenges, so I'll keep it for the end.
 
-Let's fire up `gobuster` again, on `team.thm` this time. While that runs, I tried looking around in the website, but nothing special. Same goes for trying out `anonymous` login in `ftp`. `searchsploit` did not return anything intersting either. 
+Let's fire up `gobuster` again, on `team.thm` this time. While that runs, I tried looking around in the website, but nothing special. Same goes for trying out `anonymous` login in `ftp`.
 
+### 1.3 Sub-Domains
 I've also learnt that this domain may not be the only one; we should look for subdomains as well. I will use `wfuzz`. Since this is the first time I'm mentioning this, I'll explain all the flags as well :P
 
 ```
@@ -92,37 +119,6 @@ The results look nice. Okay. One by one.
 - `-u` url
 - `-H` host name. `FUZZ` gets replaced by the `Payload`.
 - `--hc` hides responses having `400` error.
-
-Also, from `gobuster`, we have this uptill now.
-
-```
-❯ gobuster dir -u team.thm -w "/usr/share/dirbustrectory-list-2.3-medium.txt" -x "html,php,txt"
-=================================================
-Gobuster v3.0.1
-by OJ Reeves (@TheColonial) & Christian Mehlmauer
-=================================================
-[+] Url:            http://team.thm
-[+] Threads:        10
-[+] Wordlist:       /usr/share/dirbuster/wordlistt-2.3-medium.txt
-[+] Status codes:   200,204,301,302,307,401,403
-[+] User Agent:     gobuster/3.0.1
-[+] Extensions:     html,php,txt
-[+] Timeout:        10s
-=================================================
-2021/03/09 23:44:28 Starting gobuster
-=================================================
-/index.html (Status: 200)
-/images (Status: 301)
-/scripts (Status: 301)
-/assets (Status: 301)
-/robots.txt (Status: 200)
-```
-
-Interesting times. `scripts` I can't access, so i'll leave it be. We can run another `gobuster` on `team.thm/scripts`, but that is for later. `robots.txt` is always interesting.
-
-![](https://i.imgur.com/0u3oCyW.png)
-
-Is what is shows. Lmao. Probably the `ftp` username? Password we can bruteforce. This is another thing we can try.
 
 Pending paths:
 - images stego
@@ -336,4 +332,3 @@ THM{YEEEEEEEEEEEEEE}
 ```
 
 And we are done!
-
