@@ -27,6 +27,11 @@ We see two things: that bug and the `team.thm` thing. The bug link is nothing sp
 ff02::1 ip6-allnodes
 ff02::2 ip6-allrouters
 ```
+
+![](https://i.imgur.com/OT9fQyi.png)
+
+Ah. we see a proper page up here.
+
 ### 1.1 Port Scanning
 ```
 ❯ nmap -sC -sV -A 10.10.82.31
@@ -79,14 +84,14 @@ by OJ Reeves (@TheColonial) & Christian Mehlmauer
 ![](https://i.imgur.com/0u3oCyW.png)
 
 Is what is shows. Lmao. Probably the `ftp` username? Password we can bruteforce. This is another thing we can try.
-![](https://i.imgur.com/OT9fQyi.png)
 
-Ah. we see a proper page up here. Looking at the source, we see `/assets` and `/images`. I don't like stego challenges, so I'll keep it for the end.
 
-Let's fire up `gobuster` again, on `team.thm` this time. While that runs, I tried looking around in the website, but nothing special. Same goes for trying out `anonymous` login in `ftp`.
+Looking at the source, we see `/assets` and `/images`. I don't like stego challenges, so I'll keep it for the end.
+
+While that runs, I tried looking around in the website, but nothing special. Same goes for trying out `anonymous` login in `ftp`.
 
 ### 1.3 Sub-Domains
-I've also learnt that this domain may not be the only one; we should look for subdomains as well. I will use `wfuzz`. Since this is the first time I'm mentioning this, I'll explain all the flags as well :P
+I've also learnt that we should look for subdomains as well. I will use `wfuzz`. Since this is the first time I'm mentioning this, I'll explain all the flags as well :P
 
 ```
 ❯ wfuzz -c --hw 977 -w /usr/share/wfuzz/wordlist/general/common.txt -u http://team.thm/ -H "Host: FUZZ.team.thm" --hc 400
