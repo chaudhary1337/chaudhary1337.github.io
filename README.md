@@ -6,6 +6,7 @@ Machines Done:
 
 - [Anonymous](./TryHackMe/Anonymous.md)
 - [AgentSudo](./TryHackMe/AgentSudo.md)
+- [Blog](./TryHackMe/Blog.md)
 - [DogCatVM](./TryHackMe/DogCatVM.md)
 - [Ice](./TryHackMe/Ice.md)
 - [LookingGlass](./TryHackMe/LookingGlass.md)
