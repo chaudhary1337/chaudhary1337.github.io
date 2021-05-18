@@ -130,7 +130,7 @@ Okok so, I was looking around, went to archives, nothing interesting. But, I cli
 
 And damn there was something off about the way the sentence is framed. Have a look:
 
-![A screenshot of the RSS comments section page](https://i.imgur.com/tIro30h.png)
+![A screenshot of the RSS comments section page](https://i.imgur.com/jbF9PDd.png)
 
 "Leaving myself a note here just in case I forget how to spell it: {password}"
 
