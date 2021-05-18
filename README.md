@@ -1,5 +1,4 @@
-# Pen-Testing
-Trying out penetration testing. Currently doing TryHackMe :D
+Currently doing TryHackMe :D
 
 ## TryHackMe
 Machines Done:
