@@ -178,9 +178,9 @@ Doing some quick Google and YouTube search, [I found this YouTube video](https:/
 ## 3. Priviledge Escalation
 Interestingly, we have another thing hidden here - check the Recycle Bin! The executable required to run this exploit is already present :)
 
-![](https://i.imgur.com/MV8glyU.png)
+![A screenshot of the Windows Server: Click on "Show Details"](https://i.imgur.com/MV8glyU.png)
 
-![](https://i.imgur.com/Rp9leKG.png)
+![A screenshot of the Windows Server: Click on certificate thing](https://i.imgur.com/Rp9leKG.png)
 
 ![](https://i.imgur.com/fBHEPQN.png)
 
