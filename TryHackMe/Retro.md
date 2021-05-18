@@ -188,8 +188,10 @@ Click on certificate thing, open with browser
 "Page not displayed", this is a valid error since we do not have internet connection.
 
 ![A screenshot of the Windows Server: Save it using ctrl+s](https://i.imgur.com/7GrrZND.png)
+Save it using ctrl+s, or using the steps shown.
 
 ![](https://i.imgur.com/G0GPvAo.png)
+If you see the error message, you are on the right track!
 
 ![](https://i.imgur.com/ZSvFkZI.png)
 
