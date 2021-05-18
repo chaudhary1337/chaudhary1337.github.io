@@ -1,7 +1,7 @@
 # Looking Glass
 [Play](https://tryhackme.com/room/lookingglass)
 
-## Recon
+## 1. Recon
 
 nmap scan:
 
@@ -100,7 +100,7 @@ Enter Secret: <:D>
 jabberwock:WaxworksPreciousUnfastenedSorry
 ```
 
-## Foothold
+## 2. Foothold
 
 Let's login using the ssh 22 port (default).
 
@@ -227,7 +227,7 @@ alice@looking-glass:~$ ls
 kitten.txt
 ```
 
-## Priv Esc
+## 3. Priv Esc
 So since we are in, with a stable connection, lets run `linpeas.sh` :D
 
 Transfer using: `❯ scp -i path/to/id path/to/linpeas.sh alice@BOX_ID:~`
