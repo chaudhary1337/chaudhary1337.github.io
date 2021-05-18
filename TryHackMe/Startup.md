@@ -83,6 +83,6 @@ drwxr-xr-x    3 65534    65534        4096 Nov 12  2020 ..
 226 Directory send OK. 
 ```
 
-THe `ftp` directory was empty. Let's look at the other two files.
+The `ftp` directory was empty. Let's look at the other two files.
 
 
