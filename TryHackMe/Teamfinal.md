@@ -197,7 +197,7 @@ THM{HELL YEAH}
 
 We are done!
 
-## Priv Esc
+## 3. Priv Esc
 
 Okay! So the first thing I have learnt to do is check for `sudo` details.
 
