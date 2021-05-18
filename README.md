@@ -19,6 +19,5 @@ Machines Done:
 - [TokyoGhoul](./TryHackMe/TokyoGhoul.md)
 - [VulnUniversity](./TryHackMe/VulnUniversity.md)
 - [Wonderland](./TryHackMe/Wonderland.md)
-- [YearOfTheRabbit](./TryHackMe/YearOfTheRabbit.md)
 
 NOTE: Feel free to do whatever you want with this work. Its in the public domain. Have fun!
