@@ -180,7 +180,7 @@ Interestingly, we have another thing hidden here - check the Recycle Bin! The ex
 
 ![A screenshot of the Windows Server: Click on "Show Details"](https://i.imgur.com/MV8glyU.png)
 
-![A screenshot of the Windows Server: Click on certificate thing](https://i.imgur.com/Rp9leKG.png)
+![A screenshot of the Windows Server: Click on certificate thing, open with browser](https://i.imgur.com/Rp9leKG.png)
 
 ![](https://i.imgur.com/fBHEPQN.png)
 
