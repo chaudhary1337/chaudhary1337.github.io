@@ -1,4 +1,3 @@
-
 [Play](https://tryhackme.com/room/startup)
 
 ## 1. Enumeration & Scanning
