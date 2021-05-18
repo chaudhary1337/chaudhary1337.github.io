@@ -251,4 +251,4 @@ bash-5.1# whoami
 root
 ```
 
-hell yea
+:D
