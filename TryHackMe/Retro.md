@@ -162,18 +162,20 @@ Okay. Very interesting. I have never seen this shit before, so I looked it up: `
 I tried a bunch more common ports, but this wont budge. 
 
 
-### 1.7 Restarting
+## 2. Restarting - Getting a Foothold
 Note that we have another port 3389 having ms-wbt-server. Let's try going in using Remmina. We already have credentials.
 
 ![A screenshot of the Windows Server we logged in using Remmina](https://i.imgur.com/fpmQZPT.png)
 
 Very nice. User flag in our hands now!
 
-![A screenshot of the Google Chrome new tab page](https://i.imgur.com/O0VfOJT.png)
+Doing some exploration we have, ![A screenshot of the Google Chrome new tab page](https://i.imgur.com/O0VfOJT.png)
 
 Notice: the bookmark and the history. It refers to the link: https://nvd.nist.gov/vuln/detail/CVE-2019-1388
 
 Doing some quick Google and YouTube search, [I found this YouTube video](https://www.youtube.com/watch?v=3BQKpPNlTSo).
+
+## 3. Priviledge Escalation
 
 ![](https://i.imgur.com/MV8glyU.png)
 
