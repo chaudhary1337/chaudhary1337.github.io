@@ -194,5 +194,7 @@ Save it using ctrl+s, or using the steps shown.
 If you see the error message, you are on the right track!
 
 ![](https://i.imgur.com/ZSvFkZI.png)
+Save it using the name *.* in C:\\Windows\System32
 
 ![](https://i.imgur.com/gzjHCUL.png)
+:stonks:
