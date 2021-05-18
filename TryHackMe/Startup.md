@@ -104,6 +104,8 @@ One interesting thing to note is that the `ftp` directory is also writable.
 
 Going to the web page, we see that all of these files are hosted, which were present in ftp port. This includes the image and the notice. Recall that `ftp` is also writeable. Its very clear now that we have to upload a reverse shell.
 
+
+### 1.4 Reverse Shell
 Now, the question is, of what? php? Well going to `http://10.10.109.61/index.php` leads me to a "Not Found" page. Uh ... perl or something?
 
-
+Let's try php rev shell anyways. Use [revshells](https://www.revshells.com/) and get one for yourself. `put` the file in `fpt`.
