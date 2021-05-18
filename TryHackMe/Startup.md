@@ -160,7 +160,7 @@ lennie@startup:~$
 And we are in (stably) :D
 
 ## 3. PrivEsc
-Looking around, we do not really have much interesting files in the user Lennie. I also tried `lennie@startup:/$ file / -type f -perm -u=s 2>/dev/null`, which have empty results.
+I tried `lennie@startup:/$ file / -type f -perm -u=s 2>/dev/null`, which have empty results.
 
 The `sudo -l` command does not work either.
 ```
@@ -171,6 +171,25 @@ Sorry, user lennie may not run sudo on startup.
 lennie@startup:/$ 
 ```
 
+I checked the crontab, also not very interesting
+```
+lennie@startup:~/scripts$ cat /etc/crontab
+# /etc/crontab: system-wide crontab
+# Unlike any other crontab you don't have to run the `crontab'
+# command to install the new version when you edit this file
+# and files in /etc/cron.d. These files also have username fields,
+# that none of the other crontabs do.
 
+SHELL=/bin/sh
+PATH=/usr/local/sbin:/usr/local/bin:/sbin:/bin:/usr/sbin:/usr/bin
+
+# m h dom mon dow user  command
+17 *    * * *   root    cd / && run-parts --report /etc/cron.hourly
+25 6    * * *   root    test -x /usr/sbin/anacron || ( cd / && run-parts --report /etc/cron.daily )
+47 6    * * 7   root    test -x /usr/sbin/anacron || ( cd / && run-parts --report /etc/cron.weekly )
+52 6    1 * *   root    test -x /usr/sbin/anacron || ( cd / && run-parts --report /etc/cron.monthly )
+#
+lennie@startup:~/scripts$ 
+```
 
 c4ntg3t3n0ughsp1c3
