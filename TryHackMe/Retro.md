@@ -1,11 +1,12 @@
 # Retro
 [Play](https://tryhackme.com/room/retro)
 
-## Recon
+## 1. Scanning & Enumeration
 Let's start with the nmap scan and run gobuster in parallel, since the questions hint on it.
 
-Looking at the website, it looks like a windows server. Fuck I suck at those rn. This hard challenge has become insane for me :P
+Looking at the website, it looks like a windows server.
 
+### 1.1 Port Scanning
 ```
 kali㉿kali)-[~]
 └─$ nmap -sC -sV -A 10.10.96.15
