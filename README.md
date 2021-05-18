@@ -4,12 +4,12 @@ Trying out penetration testing. Currently doing TryHackMe :D
 ## TryHackMe
 Machines Done:
 
+- [Anonymous](./TryHackMe/Anonymous.md)
 - [Blue](./TryHackMe/Blue.md)
 - [DogCatVM](./TryHackMe/DogCatVM.md)
 - [Ice](./TryHackMe/Ice.md)
 - [LookingGlass](./TryHackMe/LookingGlass.md)
 - [MrRobot](./TryHackMe/MrRobot.md)
-- [MrRobot](./MrRobot.md)
 - [Overpass](./TryHackMe/Overpass.md)
 - [Overpass3](./TryHackMe/Overpass3.md)
 - [PickleRick](./TryHackMe/PickleRick.md)
