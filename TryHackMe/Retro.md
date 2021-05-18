@@ -165,19 +165,15 @@ I tried a bunch more common ports, but this wont budge.
 ### 1.7 Restarting
 Note that we have another port 3389 having ms-wbt-server. Let's try going in using Remmina. We already have credentials.
 
-![](https://i.imgur.com/fpmQZPT.png)
+![A screenshot of the Windows Server we logged in using Remmina](https://i.imgur.com/fpmQZPT.png)
 
 Very nice. User flag in our hands now!
 
+![A screenshot of the Google Chrome new tab page](https://i.imgur.com/O0VfOJT.png)
 
+Notice: the bookmark and the history. It refers to the link: https://nvd.nist.gov/vuln/detail/CVE-2019-1388
 
-![](https://i.imgur.com/O0VfOJT.png)
-
-bookmark + history
-
-https://nvd.nist.gov/vuln/detail/CVE-2019-1388
-
-found this youtube video https://www.youtube.com/watch?v=3BQKpPNlTSo
+Doing some quick Google and YouTube search, [I found this YouTube video](https://www.youtube.com/watch?v=3BQKpPNlTSo).
 
 ![](https://i.imgur.com/O0VfOJT.png)
 
