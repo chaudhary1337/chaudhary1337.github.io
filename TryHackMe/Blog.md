@@ -1,9 +1,9 @@
 # Blog
 [Play](https://tryhackme.com/room/blog)
 
-## Recon
+## 1. Recon
 
-### Nmap
+### 1.1 Nmap
 ```
 ┌──(kali㉿kali)-[~]
 └─$ nmap -sC -sV -A 10.10.129.188
@@ -67,7 +67,7 @@ ff02::1 ip6-allnodes
 ff02::2 ip6-allrouters
 ```
 
-### Exploration
+### 1.2 Exploration
 Looking and exploring the website we have:
 
 - comments and feed in the `meta` section not too interesting
@@ -81,7 +81,7 @@ Looking and exploring the website we have:
 Interesting! So, `bjoel` and `kwheel` are two usernames we have.
 
 
-### Gobuster
+### 1.3 Gobuster
 ```
 ┌──(kali㉿kali)-[~]
 └─$ gobuster dir -u 10.10.129.188 -w /usr/share/wordlists/dirbuster/directory-list-2.3-medium.txt -q
@@ -103,7 +103,7 @@ Interesting! So, `bjoel` and `kwheel` are two usernames we have.
 ```
 Nothing interesting. Looks like a WordPress CMS (no surprises - the template is from Frontity iirc).
 
-### SMB
+### 1.4 SMB
 Let's explore the SMB port that was open.
 ```
 ┌──(kali㉿kali)-[/tmp]
@@ -144,7 +144,7 @@ https://www.youtube.com/watch?v=eFTLKWw542g
 
 Clearly the rabbit hole.
 
-### Bruteforce passwords
+### 1.5 Bruteforce passwords
 I cant seem to find any creds lying around. So we'll try getting into `bjoel` and `kwheel`'s accounts by bruteforcing with Hydra.
 
 First we want the form structure. So, I fired up burpsuite, and got the following:
@@ -174,7 +174,7 @@ Hydra (https://github.com/vanhauser-thc/thc-hydra) starting at 2021-05-08 06:33:
 Hydra (https://github.com/vanhauser-thc/thc-hydra) finished at 2021-05-08 06:37:11
 ```
 
-## Foothold
+## 2. Foothold
 So, now that we have the credentials ... so now what? Well whenever in doubt, we go back to the nmap scan. We see that the version 5.0 is being used. Looking it up, we have something tasty :D
 
 Let's fire up `msfconsole` with the exploit [here in detail](https://blog.sonarsource.com/wordpress-image-remote-code-execution?redirect=rips) and [exploit-db](https://www.exploit-db.com/exploits/49512). Setup `options` and then `check`. Looks vulnerable, lesgooo.
@@ -206,7 +206,7 @@ So I checked the `bjoel/user.txt`, but ... the classic "TRY HARDER" was shown to
 
 Let's now look for the PrivEsc.
 
-## Priv Esc
+## 3. Priv Esc
 Let's first look at who all have the set-uid bit. 
 ```
 www-data@blog:/var/www/wordpress$ find / -type f -perm -u=s 2>/dev/null
