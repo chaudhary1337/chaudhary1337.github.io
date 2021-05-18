@@ -179,12 +179,15 @@ Doing some quick Google and YouTube search, [I found this YouTube video](https:/
 Interestingly, we have another thing hidden here - check the Recycle Bin! The executable required to run this exploit is already present :)
 
 ![A screenshot of the Windows Server: Click on "Show Details"](https://i.imgur.com/MV8glyU.png)
+Click on "Show Details"
 
 ![A screenshot of the Windows Server: Click on certificate thing, open with browser](https://i.imgur.com/Rp9leKG.png)
+Click on certificate thing, open with browser
 
-![](https://i.imgur.com/fBHEPQN.png)
+![A screenshot of the Windows Server: Page not displayed](https://i.imgur.com/fBHEPQN.png)
+"Page not displayed", this is a valid error since we do not have internet connection.
 
-![](https://i.imgur.com/7GrrZND.png)
+![A screenshot of the Windows Server: Save it using ctrl+s](https://i.imgur.com/7GrrZND.png)
 
 ![](https://i.imgur.com/G0GPvAo.png)
 
