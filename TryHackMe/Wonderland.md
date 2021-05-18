@@ -2,7 +2,7 @@
 
 [Play](https://tryhackme.com/room/wonderland)
 
-## Recon
+## 1. Recon
 
 ```
 ❯ nmap -script=default -sV -A -T4 10.10.133.60
@@ -74,7 +74,7 @@ So we must go on ... but where? I don't know.
 
 I was stuck for a while, and then stumbled upon the fact that its ssh `username:password`. "Open the door" makes sense now lmao.
 
-## Foothold
+## 2. Foothold
 
 I'm in!
 
@@ -110,7 +110,7 @@ rabbit@wonderland:/home/rabbit$ cat /root/user.txt
 thm{:stonks:}
 ```
 
-## Priv Esc
+## 3. Priv Esc
 
 We may need to get into the rabbit one. Meanwhile, let's check what we can sudo:
 
