@@ -8,7 +8,6 @@ Machines Done:
 - [AgentSudo](./TryHackMe/AgentSudo.md)
 - [Blog](./TryHackMe/Blog.md)
 - [DogCatVM](./TryHackMe/DogCatVM.md)
-- [Ice](./TryHackMe/Ice.md)
 - [LookingGlass](./TryHackMe/LookingGlass.md)
 - [MrRobot](./TryHackMe/MrRobot.md)
 - [Overpass](./TryHackMe/Overpass.md)
