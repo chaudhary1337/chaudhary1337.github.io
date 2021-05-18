@@ -112,11 +112,6 @@ Good job. I believe this is what you came for:
 ```
 ❯ steghide --extract --stegofile rize_and_kaneki.jpg
 Enter passphrase: 
-```
-
-```
-❯ steghide --extract --stegofile rize_and_kaneki.jpg
-Enter passphrase: 
 wrote extracted data to "yougotme.txt".
 ```
 
@@ -136,7 +131,7 @@ if you can talk it allright you got my secret directory
 
 Using: [CyberChef](http://icyberchef.com/)
 
-![](https://i.imgur.com/7fH5wOx.png)
+![](https://i.imgur.com/zVhiiBo.png)
 
 ![](https://i.imgur.com/qPK7Yzn.png)
 
