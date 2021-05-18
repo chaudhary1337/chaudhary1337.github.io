@@ -175,8 +175,6 @@ Notice: the bookmark and the history. It refers to the link: https://nvd.nist.go
 
 Doing some quick Google and YouTube search, [I found this YouTube video](https://www.youtube.com/watch?v=3BQKpPNlTSo).
 
-![](https://i.imgur.com/O0VfOJT.png)
-
 ![](https://i.imgur.com/MV8glyU.png)
 
 ![](https://i.imgur.com/Rp9leKG.png)
