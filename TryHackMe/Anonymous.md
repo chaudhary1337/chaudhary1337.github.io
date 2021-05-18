@@ -1,9 +1,9 @@
 # Anonymous
 [Play](https://tryhackme.com/room/anonymous)
 
-## Recon
+## 1. Recon
 
-nmap scan results
+### 1.1 Nmap
 ```
 ┌──(kali㉿kali)-[~]
 └─$ nmap -sC -sV 10.10.14.90 
@@ -65,6 +65,7 @@ Nmap done: 1 IP address (1 host up) scanned in 35.53 seconds
 
 Im not going to touch port 22 because ssh is cute. Port 21 is ftp allowing anon login.
 
+### 1.2 FTP
 ```
 ┌──(kali㉿kali)-[/tmp]
 └─$ ftp 10.10.14.90
@@ -114,6 +115,7 @@ ftp>
 
 Okay, let's explore them one by one.
 
+### 1.3 Exploration
 ```
 ┌──(kali㉿kali)-[/tmp]
 └─$ cat clean.sh                                                              1 ⨯
@@ -150,30 +152,9 @@ I really need to disable the anonymous login...it's really not safe
 
 lmao ikr.
 
-
-In another run I got this as the nmap results for all the ports:
-```
-...
-PORT      STATE    SERVICE
-21/tcp    open     ftp
-22/tcp    open     ssh
-139/tcp   open     netbios-ssn
-445/tcp   open     microsoft-ds
-3347/tcp  filtered phoenix-rpc
-3357/tcp  filtered adtech-test
-4694/tcp  filtered unknown
-7975/tcp  filtered unknown
-8587/tcp  filtered unknown
-22016/tcp filtered unknown
-26651/tcp filtered unknown
-28012/tcp filtered unknown
-37184/tcp filtered unknown
-57510/tcp filtered unknown
-59421/tcp filtered unknown
-...
-```
-
 Okay. So, one thing that the other questions hint at, is the smb shares on port 139 and 445. Let's explore that. 
+
+### 1.4 SMB
 
 ```
                                                                                   
@@ -211,7 +192,7 @@ Since there are no other active pathways available (other than clean.sh :P), we 
 
 So, ... I have been trolled. Nothing in images. "My disappointment is immeasurable and my day is ruined".
 
-## Foothold
+## 2. Foothold
 Okay. That clean.sh script looked tasty, let's break it down.
 
 ```
@@ -301,7 +282,7 @@ uid=1000(namelessone) gid=1000(namelessone) groups=1000(namelessone),4(adm),24(c
 
 NOICE. we are in!
 
-## PrivEsc
+## 3. PrivEsc
 
 okay. first things first. Let's get a better shell and see what sudo permissions we have. Just do `bash -i`. We get
 
@@ -325,7 +306,3 @@ cat /root/root.txt
 ```
 
 We are done!
-
-
-
-
