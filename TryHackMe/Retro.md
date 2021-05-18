@@ -130,7 +130,7 @@ Okok so, I was looking around, went to archives, nothing interesting. But, I cli
 
 And damn there was something off about the way the sentence is framed. Have a look:
 
-![](https://i.imgur.com/tIro30h.png)
+![A screenshot of the RSS comments section page](https://i.imgur.com/tIro30h.png)
 
 "Leaving myself a note here just in case I forget how to spell it: {password}"
 
@@ -138,9 +138,12 @@ Now, ofcourse, this could be about ready player one, whose protagonist is this g
 
 So, I tried logging in - no harm right, Hydra already running. And then I see this:
 
-![](https://i.imgur.com/4ntp2fG.png)
+![A screenshot of the WordPress Admin page](https://i.imgur.com/4ntp2fG.png)
 
-Ey voila! Stopped Hydra. We have some exploits for wordpress, in the 404 pages. Go to Appearance -> Theme Editor -> 404.php. We'll put a tasty reverse shell here and then go to an invalid page on the website - thus redirecting us to 404 and we are set.
+Ey voila! Stopped Hydra. 
+
+### 1.6 Rev-Shell Time (or maybe not)
+We have some exploits for wordpress, in the 404 pages. Go to Appearance -> Theme Editor -> 404.php. We'll put a tasty reverse shell here and then go to an invalid page on the website - thus redirecting us to 404 and we are set.
 
 Have a netcat listener setup on 1337 or a port of your choice: `nc -lvnp 1337`
 
@@ -159,8 +162,7 @@ Okay. Very interesting. I have never seen this shit before, so I looked it up: `
 I tried a bunch more common ports, but this wont budge. 
 
 
-Apparently this was a trap :D
-
+### 1.7 Restarting
 Note that we have another port 3389 having ms-wbt-server. Let's try going in using Remmina. We already have credentials.
 
 ![](https://i.imgur.com/fpmQZPT.png)
