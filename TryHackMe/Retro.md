@@ -181,7 +181,7 @@ Interestingly, we have another thing hidden here - check the Recycle Bin! The ex
 ![A screenshot of the Windows Server: Click on "Show Details"](https://i.imgur.com/MV8glyU.png)
 Click on "Show Details"
 
-![A screenshot of the Windows Server: Click on certificate thing, open with browser](https://i.imgur.com/Rp9leKG.png)
+![Click on certificate thing, open with browser](https://i.imgur.com/Rp9leKG.png)
 Click on certificate thing, open with browser
 
 ![A screenshot of the Windows Server: Page not displayed](https://i.imgur.com/fBHEPQN.png)
@@ -190,11 +190,11 @@ Click on certificate thing, open with browser
 ![A screenshot of the Windows Server: Save it using ctrl+s](https://i.imgur.com/7GrrZND.png)
 Save it using ctrl+s, or using the steps shown.
 
-![](https://i.imgur.com/G0GPvAo.png)
+![The error message](https://i.imgur.com/G0GPvAo.png)
 If you see the error message, you are on the right track!
 
-![](https://i.imgur.com/ZSvFkZI.png)
+![Saving the web page](https://i.imgur.com/ZSvFkZI.png)
 Save it using the name *.* in C:\\Windows\System32
 
-![](https://i.imgur.com/gzjHCUL.png)
-:stonks:
+![CMD as Admin](https://i.imgur.com/gzjHCUL.png)
+🗿📈
