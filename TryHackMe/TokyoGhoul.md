@@ -2,8 +2,8 @@
 
 [Play](https://tryhackme.com/room/tokyoghoul666)
 
-## Recon
-
+## 1. Scanning & Enumeration
+### 1.1 Port Scanning
 ```
 ❯ nmap -sC -sV -A 10.10.202.61
 Starting Nmap 7.91 ( https://nmap.org ) at 2021-03-17 01:48 EDT
@@ -40,15 +40,13 @@ Service Info: OSs: Unix, Linux; CPE: cpe:/o:linux:linux_kernel
 Service detection performed. Please report any incorrect results at https://nmap.org/submit/ .
 Nmap done: 1 IP address (1 host up) scanned in 47.17 seconds
 ```
-
+### 1.2 FTP
 ```
 ftp> ls
 200 PORT command successful. Consider using PASV.
 150 Here comes the directory listing.
 drwxr-xr-x    3 ftp      ftp          4096 Jan 23 22:26 need_Help?
 226 Directory send OK.
-ftp> cd need_help?
-550 Failed to change directory.
 ftp> cd need_Help?
 250 Directory successfully changed.
 ftp> ls
@@ -58,11 +56,7 @@ ftp> ls
 drwxr-xr-x    2 ftp      ftp          4096 Jan 23 22:26 Talk_with_me
 226 Directory send OK.
 ftp> get Aogiri_tree.txt
-local: Aogiri_tree.txt remote: Aogiri_tree.txt
-200 PORT command successful. Consider using PASV.
-150 Opening BINARY mode data connection for Aogiri_tree.txt (480 bytes).
-226 Transfer complete.
-480 bytes received in 0.00 secs (1.5310 MB/s)
+...
 ftp> cd Talk_with_me
 250 Directory successfully changed.
 ftp> ls
@@ -72,32 +66,14 @@ ftp> ls
 -rw-r--r--    1 ftp      ftp         46674 Jan 23 22:26 rize_and_kaneki.jpg
 226 Directory send OK.
 ftp> get need_to_talk
-local: need_to_talk remote: need_to_talk
-200 PORT command successful. Consider using PASV.
-150 Opening BINARY mode data connection for need_to_talk (17488 bytes).
-226 Transfer complete.
-17488 bytes received in 0.20 secs (85.6025 kB/s)
+...
 ftp> get rize_and_kaneki.jpg
-local: rize_and_kaneki.jpg remote: rize_and_kaneki.jpg
-200 PORT command successful. Consider using PASV.
-150 Opening BINARY mode data connection for rize_and_kaneki.jpg (46674 bytes).
-226 Transfer complete.
-46674 bytes received in 0.40 secs (114.8078 kB/s)
-ftp> 
+...
 ```
 
 ```
 ❯ file need_to_talk
 need_to_talk: ELF 64-bit LSB pie executable, x86-64, version 1 (SYSV), dynamically linked, interpreter /lib64/ld-linux-x86-64.so.2, BuildID[sha1]=adba55165982c79dd348a1b03c32d55e15e95cf6, for GNU/Linux 3.2.0, not stripped
-```
-
-```
-❯ ./need_to_talk
-Hey Kaneki finnaly you want to talk 
-Unfortunately before I can give you the kagune you need to give me the paraphrase
-Do you have what I'm looking for?
-
-> 
 ```
 
 ```
@@ -118,7 +94,7 @@ u/UH
 You_founH
 d_1t
 []A\A]A^A_
-kamishiro
+{username}
 ...
 ```
 
@@ -128,9 +104,9 @@ Hey Kaneki finnaly you want to talk
 Unfortunately before I can give you the kagune you need to give me the paraphrase
 Do you have what I'm looking for?
 
-> kamishiro
+> {username}
 Good job. I believe this is what you came for:
-You_found_1t
+{stego pass}
 ```
 
 ```
@@ -152,27 +128,8 @@ haha you are so smart kaneki but can you talk my code
 ....- ....-
 ....- -....
 --... ----.
-....- -..
-...-- ..---
-....- -..
-...-- ...--
-....- -..
-....- ---..
-....- .-
-...-- .....
-..... ---..
-...-- ..---
-....- .
--.... -.-.
--.... ..---
--.... .
-..... ..---
--.... -.-.
--.... ...--
--.... --...
-...-- -..
-...-- -..
-
+{truncated}
+...
 
 if you can talk it allright you got my secret directory 
 ```
@@ -181,14 +138,7 @@ Using: [CyberChef](http://icyberchef.com/)
 
 ![](https://i.imgur.com/7fH5wOx.png)
 
-
 ![](https://i.imgur.com/qPK7Yzn.png)
-
-
-```
-
-```
-
 
 ![](https://i.imgur.com/TOFQmZX.png)
 
