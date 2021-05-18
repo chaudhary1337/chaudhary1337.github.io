@@ -2,8 +2,8 @@
 
 [Play](https://tryhackme.com/room/rrootme)
 
-## Recon
-
+## 1. Scanning & Enumeration
+### 1.1 Port Scanning
 ```
 ┌──(kali㉿kali)-[~]
 └─$ nmap -sC -sV -A 10.10.35.149
@@ -36,8 +36,7 @@ While go buster and nmap runs, I wanted to see if the website is built on php or
 
 `http://10.10.35.149/index.php`
 
-Meanwhile
-
+### 1.2 Web Enumeration
 ```
 ┌──(kali㉿kali)-[~]
 └─$ gobuster dir -u 10.10.35.149 -w /usr/share/wordlists/dirbuster/directory-list-2.3-medium.txt -q
@@ -55,7 +54,9 @@ Success! Let’s check the uploads page.
 
 ![https://i.imgur.com/XV6CLIc.png](https://i.imgur.com/XV6CLIc.png)
 
-Great. Time for a phpreverseshell. Go to pentestmonkey or revshells.com and get the php one.
+
+### 1.3 Revshell Time
+Time for a phpreverseshell. Go to pentestmonkey or revshells.com and get the php one.
 
 ```
 <?php
@@ -79,7 +80,7 @@ Okay, time for uploading! ... and we get
 
 ![https://s3-us-west-2.amazonaws.com/secure.notion-static.com/b1a725c9-6fa3-471a-890e-ed702dc32876/Untitled.png](https://s3-us-west-2.amazonaws.com/secure.notion-static.com/b1a725c9-6fa3-471a-890e-ed702dc32876/Untitled.png)
 
-Okay. Clearly the extension is working against us, since `.md` passed. Oh and meanwhile
+Clearly the extension is working against us, since `.md` passed. Oh and meanwhile
 
 ```
 Nmap scan report for 10.10.35.149
