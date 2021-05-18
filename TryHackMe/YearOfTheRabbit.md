@@ -8,7 +8,7 @@
 2. Run a gobuster scan
 3. Run a nmap scan
 
-1. Website is the deafault apache website. Let's see if anything looks off. So the `css` is usually in the website, as seen from the [actual default page](). Here, its from `/assets/style.css`.
+1. Website is the deafault apache website. Let's see if anything looks off. So the `css` is usually in the website, as seen from the `actual default page`. Here, its from `/assets/style.css`.
 
 2. Gobuster also shows the same assets folder
 
@@ -312,4 +312,3 @@ THM{l33t}
 ```
 
 PWNED!
-
