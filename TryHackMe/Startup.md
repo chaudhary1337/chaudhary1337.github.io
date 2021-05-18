@@ -192,4 +192,17 @@ PATH=/usr/local/sbin:/usr/local/bin:/sbin:/bin:/usr/sbin:/usr/bin
 lennie@startup:~/scripts$ 
 ```
 
+Looking at the `/scripts/` folder, we have some scripts lying around. I tried running the planner, and it printed out "done". 
+
+```
+lennie@startup:~/scripts$ cat planner.sh 
+#!/bin/bash
+echo $LIST > /home/lennie/scripts/startup_list.txt
+/etc/print.sh
+```
+
+The startup_list is empty. Moreover running the script again shows `planner.sh: line 2: /home/lennie/scripts/startup_list.txt: Permission denied`
+
+This means we have two options. Make some use of `$LIST` or explore `/etc/print.sh`
+
 c4ntg3t3n0ughsp1c3
