@@ -125,6 +125,7 @@ The results look nice. Okay. One by one.
 - `-H` host name. `FUZZ` gets replaced by the `Payload`.
 - `--hc` hides responses having `400` error.
 
+### 1.4 Web Exploration
 Pending paths:
 - images stego
 - gobuster on `/scripts`
@@ -146,7 +147,7 @@ Both of these ideas combined, this looks very much like a `LFI`. Let's try `http
 
 Works! We see `dale`, `gyles` and some `ftpuser`. Interesting. Our first target is then to get into `dale`.
 
-## Foothold
+## 2. Foothold
 
 Okay. Since there was a `ssh` port open, we can assume `dale` is the username of that (It could be for `ftp` as well, who knows!).
 
