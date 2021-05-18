@@ -45,7 +45,7 @@ Nmap done: 1 IP address (1 host up) scanned in 40.64 seconds
 
 Gobuster returned empty on the dirb common list. One other thing I want to try out is check for subdomains.
 
-
+### 1.2 Sud Domains
 Using the command,
 
 ```
@@ -55,6 +55,8 @@ Using the command,
 
 
 we found out ... nothing. So, anyways, I looked at the hint, and they said ... run it on dirbuster medium list.
+
+### 1.3 Web Enumeration
 
 So I found out one directory named retro. Should have tried it the first thing lmao. Anyways, since they mention "the" directory, I'll stop the scan and we'll see what it holds for us.
 
@@ -87,8 +89,6 @@ Progress: 13495 / 220561 (6.12%)                                              ^C
 ![](https://i.imgur.com/Cd3WvVT.png)
 
 Okay. Looking around, we have a login page, which looks like its a wordpress website. Plus, we see that even the "Hello World" post in the start (at the bottom) is made by Wade. This means we can try bruteforcing wp-login using hydra. One another path could be uploading a reverse shell, since the first post has a link where we can upload stuff. However, it just redirects to an external website. We can come back to it if hydra does not work out.
-
-NOTE: wp-logins are apparently case sensitive.
 
 ![](https://i.imgur.com/93vX86A.png)
 
