@@ -123,6 +123,7 @@ hydra -l Wade -P /usr/share/wordlists/rockyou.txt 10.10.96.15 http-post-form "/r
 
 Okay so meanwhile, I had a look at the hint to see if I am on the right track. The hint mentions the presence of sensitive information. Is it just the username? or maybe, I can look at the posts while hydra attacks.
 
+### 1.5 Web Exploration
 Oh my god. LMAO.
 
 Okok so, I was looking around, went to archives, nothing interesting. But, I clicked on Wade and looked at some other things, "Entries RSS", "Comments RSS" looked interesting. So, the Entries was too filled up so I looked at comments first.
@@ -131,7 +132,7 @@ And damn there was something off about the way the sentence is framed. Have a lo
 
 ![](https://i.imgur.com/tIro30h.png)
 
-"Leaving myself a note here just in case I forget how to spell it: parzival"
+"Leaving myself a note here just in case I forget how to spell it: {password}"
 
 Now, ofcourse, this could be about ready player one, whose protagonist is this guy - and the story matches too XD
 
