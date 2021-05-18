@@ -162,6 +162,15 @@ And we are in (stably) :D
 ## 3. PrivEsc
 Looking around, we do not really have much interesting files in the user Lennie. I also tried `lennie@startup:/$ file / -type f -perm -u=s 2>/dev/null`, which have empty results.
 
+The `sudo -l` command does not work either.
+```
+lennie@startup:/$ sudo -l
+sudo: unable to resolve host startup
+[sudo] password for lennie: 
+Sorry, user lennie may not run sudo on startup.
+lennie@startup:/$ 
+```
+
 
 
 c4ntg3t3n0ughsp1c3
