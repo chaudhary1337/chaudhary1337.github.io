@@ -146,3 +146,18 @@ listening on [any] 1337 ...
 connect to [10.8.150.214] from (UNKNOWN) [10.10.109.61] 52080
 ```
 
+Looking around in the file, we have the passowrd hidden somewhere. Try finding it XD
+
+### 2.2 SSH
+```
+┌──(kali㉿kali)-[~]
+└─$ ssh lennie@10.10.109.61
+...
+$ bash -i
+lennie@startup:~$ 
+```
+
+And we are in (stably) :D
+
+
+c4ntg3t3n0ughsp1c3
