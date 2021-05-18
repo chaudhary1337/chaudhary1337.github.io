@@ -45,11 +45,7 @@ Nmap done: 1 IP address (1 host up) scanned in 50.09 seconds
 
 Anonymous login allowed ... why?
 
-### 1.2 Web Enumeration & Exploration
-
-![A screenshot of the website's intial page](https://i.imgur.com/xPZaCyo.png)
-
-### 1.3 FTP 
+### 1.2 FTP 
 
 ```
 ┌──(kali㉿kali)-[/tmp]
@@ -84,5 +80,30 @@ drwxr-xr-x    3 65534    65534        4096 Nov 12  2020 ..
 ```
 
 The `ftp` directory was empty. Let's look at the other two files.
+
+```
+┌──(kali㉿kali)-[/tmp]
+└─$ cat notice.txt 
+Whoever is leaving these damn Among Us memes in this share, it IS NOT FUNNY. People downloading documents from our website will think we are a joke! Now I dont know who it is, but Maya is looking pretty sus.
+```
+
+![The important.jpg image, which is an AmongUs meme](https://i.imgur.com/UEd15ea.png)
+
+One interesting thing to note is that the `ftp` directory is also writable.
+
+
+### 1.3 Web Enumeration & Exploration
+
+![A screenshot of the website's intial page](https://i.imgur.com/xPZaCyo.png)
+
+```
+┌──(kali㉿kali)-[~]
+└─$ gobuster dir -a R -u 10.10.109.61 -w /usr/share/wordlists/dirbuster/directory-list-2.3-medium.txt -q
+/files                (Status: 301) [Size: 312] [--> http://10.10.109.61/files/]
+```
+
+Going to the web page, we see that all of these files are hosted, which were present in ftp port. This includes the image and the notice. Recall that `ftp` is also writeable. Its very clear now that we have to upload a reverse shell.
+
+Now, the question is, of what? php? Well going to `http://10.10.109.61/index.php` leads me to a "Not Found" page. Uh ... perl or something?
 
 
