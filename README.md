@@ -14,6 +14,7 @@ Writeups:
 - [PickleRick](./TryHackMe/PickleRick.md)
 - [RootMe](./TryHackMe/RootMe.md)
 - [Retro](./TryHackMe/Retro.md)
+- [Startup](./TryHackMe/Startup.md)
 - [TomGhost](./TryHackMe/TomGhost.md)
 - [TokyoGhoul](./TryHackMe/TokyoGhoul.md)
 - [VulnUniversity](./TryHackMe/VulnUniversity.md)
