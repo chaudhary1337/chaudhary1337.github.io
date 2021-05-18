@@ -30,8 +30,6 @@ Service detection performed. Please report any incorrect results at https://nmap
 Nmap done: 1 IP address (1 host up) scanned in 35.57 seconds
 ```
 
-Okay nothing interesting at all. Let’s go for an all ports scan.
-
 While go buster and nmap runs, I wanted to see if the website is built on php or not. The following works!
 
 `http://10.10.35.149/index.php`
@@ -78,18 +76,9 @@ $debug = 0;
 
 Okay, time for uploading! ... and we get 
 
-![https://s3-us-west-2.amazonaws.com/secure.notion-static.com/b1a725c9-6fa3-471a-890e-ed702dc32876/Untitled.png](https://s3-us-west-2.amazonaws.com/secure.notion-static.com/b1a725c9-6fa3-471a-890e-ed702dc32876/Untitled.png)
+![A screenshot of rejected message from the uploads page](https://s3-us-west-2.amazonaws.com/secure.notion-static.com/b1a725c9-6fa3-471a-890e-ed702dc32876/Untitled.png)
 
-Clearly the extension is working against us, since `.md` passed. Oh and meanwhile
-
-```
-Nmap scan report for 10.10.35.149
-Host is up (0.20s latency).
-Not shown: 65533 closed ports
-PORT   STATE SERVICE
-22/tcp open  ssh
-80/tcp open  http
-```
+Clearly the extension is working against us, since `.md` passed. 
 
 So let's see what other extensions are allowed. [Source](https://www.guru99.com/what-is-php-first-php-program.html)
 
@@ -101,7 +90,7 @@ So let's see what other extensions are allowed. [Source](https://www.guru99.com/
 
 Okay. One by one.
 
-## Foothold
+## 2. Foothold
 
 ![https://s3-us-west-2.amazonaws.com/secure.notion-static.com/d4cc0a26-2daa-4b74-82bc-afc81ac4bed0/Untitled.png](https://s3-us-west-2.amazonaws.com/secure.notion-static.com/d4cc0a26-2daa-4b74-82bc-afc81ac4bed0/Untitled.png)
 
@@ -129,7 +118,7 @@ dev
 ... 
 ```
 
-## PrivEsc
+## 3. PrivEsc
 
 ```
 www-data@rootme:/home/rootme$ find / -type f -perm -u=s 2>/dev/null
