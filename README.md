@@ -5,6 +5,7 @@ Trying out penetration testing. Currently doing TryHackMe :D
 Machines Done:
 
 - [Anonymous](./TryHackMe/Anonymous.md)
+- [AgentSudo](./TryHackMe/AgentSudo.md)
 - [Blue](./TryHackMe/Blue.md)
 - [DogCatVM](./TryHackMe/DogCatVM.md)
 - [Ice](./TryHackMe/Ice.md)
