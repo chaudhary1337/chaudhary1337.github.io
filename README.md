@@ -1,7 +1,7 @@
 Currently doing TryHackMe :D
 
 ## TryHackMe
-Machines Done:
+Writeups:
 
 - [Anonymous](./TryHackMe/Anonymous.md)
 - [AgentSudo](./TryHackMe/AgentSudo.md)
