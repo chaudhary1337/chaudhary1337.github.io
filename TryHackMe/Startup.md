@@ -108,4 +108,4 @@ Going to the web page, we see that all of these files are hosted, which were pre
 ### 1.4 Reverse Shell
 Now, the question is, of what? php? Well going to `http://10.10.109.61/index.php` leads me to a "Not Found" page. Uh ... perl or something?
 
-Let's try php rev shell anyways. Use [revshells](https://www.revshells.com/) and get one for yourself. `put` the file in `fpt`.
+Let's try php rev shell anyways. Use [revshells](https://www.revshells.com/) and get one for yourself. `put` the file in `/ftp` folder.
