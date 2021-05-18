@@ -203,6 +203,29 @@ echo $LIST > /home/lennie/scripts/startup_list.txt
 
 The startup_list is empty. Moreover running the script again shows `planner.sh: line 2: /home/lennie/scripts/startup_list.txt: Permission denied`
 
-This means we have two options. Make some use of `$LIST` or explore `/etc/print.sh`
+This means we have two options. Make some use of `$LIST` or explore `/etc/print.sh`. Since we don't have permissions, 
+```
+lennie@startup:~/scripts$ ls -la
+total 16
+drwxr-xr-x 2 root   root   4096 Nov 12  2020 .
+drwx------ 5 lennie lennie 4096 May 18 11:33 ..
+-rwxr-xr-x 1 root   root     77 Nov 12  2020 planner.sh
+-rw-r--r-- 1 root   root      1 May 18 11:34 startup_list.txt
+```
+let's first look at `/etc/print.sh`.
+
+```
+lennie@startup:~/scripts$ cat /etc/print.sh
+#!/bin/bash
+echo "Done!"
+```
+
+We have permissions to edit this file, 
+```
+lennie@startup:~/scripts$ ls -la /etc/print.sh
+-rwx------ 1 lennie lennie 25 May 18 11:33 /etc/print.sh
+```
+
+This means that we can put a reverse shell in here ... and hope for the best.
 
 c4ntg3t3n0ughsp1c3
