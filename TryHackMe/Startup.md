@@ -239,5 +239,3 @@ root@startup:~#
 ```
 
 And ... we have root!
-
-c4ntg3t3n0ughsp1c3
