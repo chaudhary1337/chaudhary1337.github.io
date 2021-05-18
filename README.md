@@ -16,6 +16,7 @@ Machines Done:
 - [RootMe](./TryHackMe/RootMe.md)
 - [Retro](./TryHackMe/Retro.md)
 - [TomGhost](./TryHackMe/TomGhost.md)
+- [TokyoGhoul](./TryHackMe/TokyoGhoul.md)
 - [VulnUniversity](./TryHackMe/VulnUniversity.md)
 - [Wonderland](./TryHackMe/Wonderland.md)
 - [YearOfTheRabbit](./TryHackMe/YearOfTheRabbit.md)
