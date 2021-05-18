@@ -86,11 +86,11 @@ Progress: 13495 / 220561 (6.12%)                                              ^C
 ===============================================================
 ```
 
-![A screenshot of the login page, with Wade given as username](https://i.imgur.com/Cd3WvVT.png)
+![A screenshot of the WordPress Website](https://i.imgur.com/Cd3WvVT.png)
 
 Okay. Looking around, we have a login page, which looks like its a wordpress website. Plus, we see that even the "Hello World" post in the start (at the bottom) is made by Wade. This means we can try bruteforcing wp-login using hydra. One another path could be uploading a reverse shell, since the first post has a link where we can upload stuff. However, it just redirects to an external website. We can come back to it if hydra does not work out.
 
-![](https://i.imgur.com/93vX86A.png)
+![A screenshot of the login page, with Wade given as username](https://i.imgur.com/93vX86A.png)
 
 Okay. Let's fire up burp, and using the intercept option, we have 
 
