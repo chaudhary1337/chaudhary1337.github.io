@@ -13,7 +13,6 @@ Machines Done:
 - [Overpass](./TryHackMe/Overpass.md)
 - [Overpass3](./TryHackMe/Overpass3.md)
 - [PickleRick](./TryHackMe/PickleRick.md)
-- [Ra](./TryHackMe/Ra.md)
 - [TheCodCaper](./TryHackMe/TheCodCaper.md)
 - [TomGhost](./TryHackMe/TomGhost.md)
 - [VulnUniversity](./TryHackMe/VulnUniversity.md)
