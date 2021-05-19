@@ -1,4 +1,4 @@
-# TryHackMe: Agent Sudo Writeup
+# Agent Sudo
 
 [Play](https://tryhackme.com/room/agentsudoctf)
 
