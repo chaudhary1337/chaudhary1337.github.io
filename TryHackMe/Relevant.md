@@ -65,7 +65,30 @@ Nmap done: 1 IP address (1 host up) scanned in 160.20 seconds
 Quick information
 ![Information about port 139 and port 445 used for SMB protocol](https://i.imgur.com/Jd7M907.png)
 
+[Source](https://www.varonis.com/blog/smb-port/)
 
+I also did another full ports scan, just to be safe
+```
+PORT      STATE SERVICE
+80/tcp    open  http
+135/tcp   open  msrpc
+139/tcp   open  netbios-ssn
+445/tcp   open  microsoft-ds
+3389/tcp  open  ms-wbt-server
+49663/tcp open  unknown
+49667/tcp open  unknown
+49669/tcp open  unknown
+```
+
+It is evident that we have some sneaky ports there too. Let's explore them 
 
 ### 1.2 Web enumeration
+Gobuster returns an interesting page on `/*checkout*`, where we see
 
+![A sceenshot of the runtime error on the checkout page](https://imgur.com/470t5p7.png)
+A sceenshot of the runtime error on the checkout page
+
+We can come back and look into this later. We did not see any more results.
+
+### 1.3 SMB
+Since SMB was open, let's explore that.
