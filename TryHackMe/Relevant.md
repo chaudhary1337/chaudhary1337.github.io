@@ -80,7 +80,34 @@ PORT      STATE SERVICE
 49669/tcp open  unknown
 ```
 
-It is evident that we have some sneaky ports there too. Let's explore them 
+It is evident that we have some sneaky ports there too. Let's explore them.
+
+```
+┌──(kali㉿kali)-[~]
+└─$ nmap -sC -sV -A 10.10.252.107 -p 49663-49669
+Starting Nmap 7.91 ( https://nmap.org ) at 2021-05-18 22:45 EDT
+Nmap scan report for 10.10.252.107
+Host is up (0.31s latency).
+
+PORT      STATE    SERVICE VERSION
+49663/tcp open     http    Microsoft HTTPAPI httpd 2.0 (SSDP/UPnP)
+| http-methods: 
+|_  Potentially risky methods: TRACE
+|_http-server-header: Microsoft-IIS/10.0
+|_http-title: IIS Windows Server
+49664/tcp filtered unknown
+49665/tcp filtered unknown
+49666/tcp filtered unknown
+49667/tcp open     msrpc   Microsoft Windows RPC
+49668/tcp filtered unknown
+49669/tcp open     msrpc   Microsoft Windows RPC
+Service Info: OS: Windows; CPE: cpe:/o:microsoft:windows
+
+Service detection performed. Please report any incorrect results at https://nmap.org/submit/ .
+Nmap done: 1 IP address (1 host up) scanned in 79.13 seconds
+```
+
+Ah what do we have here! Another http service on port 49663 :D
 
 ### 1.2 Web enumeration
 Gobuster returns an interesting page on `/*checkout*`, where we see
