@@ -86,7 +86,7 @@ RTy8yh******
 
 ### 1.3 Decoding
 
-Using http://icyberchef.com/, I hoped to get some thing, but to no avail. It only says base64, but prints some garbage if we use it.
+Using [CyberChef](http://icyberchef.com/), I hoped to get some thing, but to no avail. It only says base64, but prints some garbage if we use it.
 
 Having some previous blockchain experience, I remember that BTC usernames and something something uses base58. Trying that out, we get:
 
@@ -210,7 +210,7 @@ Get the user flag. Easy. Nothing else too interesting. Except ... the sudo permi
 
 ## 3. PrivEsc
 
-Looking it up on https://gtfobins.github.io/ we get `sudo pkexec /bin/bash` as the command to run. Ez
+Looking it up on [gtfobins](https://gtfobins.github.io/) we get `sudo pkexec /bin/bash` as the command to run. Ez
 
 And ...
 
