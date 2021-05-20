@@ -88,9 +88,7 @@ RTy8yh******
 
 Using [CyberChef](http://icyberchef.com/), I hoped to get some thing, but to no avail. It only says base64, but prints some garbage if we use it.
 
-Having some previous blockchain experience, I remember that BTC usernames and something something uses base58. Trying that out, we get:
-
-`!#th3****`
+Having some previous blockchain experience, I remember that BTC usernames and something something uses base58. Trying that out, we get: `!#th3****`
 
 Using the `*****a**e` and the `!#th3****` as creds to ftp, we get in!
 
@@ -166,7 +164,7 @@ We get a username
 
 ... did not work on the user we saw.
 
-Tracing our steps back, we may have missed something important ... `ls -la` is always preferred over `ls`. I took note!
+Tracing our steps back, we may have missed something important: `ls -la` is always preferred over `ls`. I took note!
 
 Here's the interesting file we missed:
 
@@ -206,7 +204,7 @@ PS: You could use Hydra, but I feel that equal work.
 ****e@LianYu:~$ 
 ```
 
-Get the user flag. Easy. Nothing else too interesting. Except ... the sudo permissions.
+Get the user flag. Easy. Nothing else too interesting. Except - the sudo permissions.
 
 ## 3. PrivEsc
 
