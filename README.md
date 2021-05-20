@@ -21,4 +21,4 @@ Writeups:
 - [VulnUniversity](./TryHackMe/VulnUniversity.md)
 - [Wonderland](./TryHackMe/Wonderland.md)
 
-NOTE: Feel free to do whatever you want with this work. Its in the public domain. Have fun!
+NOTE: Feel free to do whatever you want with this work. Have fun!
