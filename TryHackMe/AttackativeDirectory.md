@@ -1,5 +1,7 @@
 # AttacktiveDirectory
 
+[Play](https://tryhackme.com/room/attacktivedirectory)
+
 Primer:
 - [[Video] Active Directory](https://www.youtube.com/watch?v=i9I5poSokow)
 - [[Video] [Hindi] Kerberos](https://www.youtube.com/watch?v=dH4hjHLDHV0) - decent overview
