@@ -6,6 +6,7 @@ Writeups:
 - [Anonymous](./TryHackMe/Anonymous.md)
 - [AgentSudo](./TryHackMe/AgentSudo.md)
 - [Attackative Directory](./TryHackMe/AttackativeDirectory.md)
+- [Biohazard](./TryHackMe/Biohazard.md)
 - [Blog](./TryHackMe/Blog.md)
 - [DogCatVM](./TryHackMe/DogCatVM.md)
 - [Lian_Yu](./TryHackMe/Lian_Yu.md)
