@@ -9,6 +9,7 @@ Writeups:
 - [Biohazard](./TryHackMe/Biohazard.md)
 - [Blog](./TryHackMe/Blog.md)
 - [DogCatVM](./TryHackMe/DogCatVM.md)
+- [LazyAdmin](./TryHackMe/LazyAdmin.md)
 - [Lian_Yu](./TryHackMe/Lian_Yu.md)
 - [LookingGlass](./TryHackMe/LookingGlass.md)
 - [MrRobot](./TryHackMe/MrRobot.md)
