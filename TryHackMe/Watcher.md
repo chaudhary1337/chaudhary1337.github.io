@@ -1,5 +1,7 @@
 # Watcher
 
+[Play](https://tryhackme.com/room/watcher)
+
 ## 1. Enumeration & Exploration
 ### 1.1. Port Scanning
 ```
@@ -43,25 +45,25 @@ This was fairly slow ... and in the end unhelpful. Doing simultaneous exploratio
 
 
 ### 1.3. Web Exploration
-The homepage
-![Homepage](https://i.imgur.com/c9ZFchq.png)
+The homepage,
+![homepage of the THM Watcher room](https://i.imgur.com/c9ZFchq.png)
 
-`robots.txt` is a good place to look.
-![](https://i.imgur.com/fPeuBjd.png)
+`robots.txt` is usually a good place to look.
+![A screenshot of the page showing robots.txt file](https://i.imgur.com/fPeuBjd.png)
 
 
 Yes! We have our first flag!
 
 Exploring more, we have the post structure ... sus. LFI?
-![php lfi??](https://i.imgur.com/P6M7dH9.png)
+![A page showing probable PHP LFI](https://i.imgur.com/P6M7dH9.png)
 
 ### 1.4. PHP LFI
 Let's try some basic stuff. `../../../etc/hosts` works!
 
-![](https://i.imgur.com/TXKROye.png)
+![/etc/hosts working. LFI present in the system.](https://i.imgur.com/TXKROye.png)
 
 How about `../../../etc/passwd`
-![](https://i.imgur.com/mDVT7Sp.png)
+![/etc/password working. Showing a list of interesting users.](https://i.imgur.com/mDVT7Sp.png)
 
 Interesting candidates:
 - mat
@@ -80,7 +82,7 @@ Log in.
 └─$ ftp 10.10.157.202
 Connected to 10.10.157.202.
 220 (vsFTPd 3.0.3)
-Name (10.10.157.202:kali): ftpuser
+Name (10.10.157.202:kali): *******
 331 Please specify the password.
 Password:
 230 Login successful.
@@ -113,7 +115,7 @@ local: haha.png remote: haha.png
 11007 bytes sent in 0.00 secs (37.4896 MB/s)
 ```
 
-![](https://i.imgur.com/qDyqE9I.png)
+![File upload working using LFI vulnerability and FTP](https://i.imgur.com/qDyqE9I.png)
 
 Works!
 
