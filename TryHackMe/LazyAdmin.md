@@ -5,6 +5,7 @@
 [Play](https://tryhackme.com/room/lazyadmin)
 
 ## 1. Enumeration + Exploration
+
 ### 1.1. Port Scanning
 ```
 ┌──(kali㉿kali)-[~]
@@ -88,7 +89,7 @@ We also see some backup files as below.
 ### 1.4. Hash Cracking
 We get the hash, and we can now use an online tool like CrackStation 
 
-![](https://i.imgur.com/PR00S0g.png)
+![Hash cracking using CrackStation](https://i.imgur.com/PR00S0g.png)
 
 `42f749ade7f9e195bf475f37a44****: ***********`
 
@@ -101,7 +102,7 @@ There's one link that we missed out on before.
 
 Let's go to: `/content/as/`
 
-![](https://i.imgur.com/KhaWHVq.png)
+![Login page for admin](https://i.imgur.com/KhaWHVq.png)
 
 Using the credentials as found before, we are in!
 
