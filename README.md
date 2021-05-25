@@ -22,6 +22,7 @@ Writeups:
 - [TomGhost](./TryHackMe/TomGhost.md)
 - [TokyoGhoul](./TryHackMe/TokyoGhoul.md)
 - [VulnUniversity](./TryHackMe/VulnUniversity.md)
+- [Watcher](./TryHackMe/Watcher.md)
 - [Wonderland](./TryHackMe/Wonderland.md)
 
 NOTE: Feel free to do whatever you want with this work. Have fun!
