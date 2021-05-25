@@ -1,7 +1,10 @@
 # LazyAdmin
 
-## 1. Enumeration + Exploration
+![An image of Lazy Admin THM room](https://i.imgur.com/3B6uSkg.jpg)
 
+[Play](https://tryhackme.com/room/lazyadmin)
+
+## 1. Enumeration + Exploration
 ### 1.1. Port Scanning
 ```
 ┌──(kali㉿kali)-[~]
