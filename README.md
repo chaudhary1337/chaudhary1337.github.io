@@ -3,6 +3,7 @@ Currently doing TryHackMe :D
 ## TryHackMe
 Writeups:
 
+- [0day](./TryHackMe/0day.md)
 - [Anonymous](./TryHackMe/Anonymous.md)
 - [AgentSudo](./TryHackMe/AgentSudo.md)
 - [Attackative Directory](./TryHackMe/AttackativeDirectory.md)
