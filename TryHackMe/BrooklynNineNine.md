@@ -91,7 +91,7 @@ From Amy,
 
 Jake please change your password. It is too weak and holt will be mad if someone hacks into the nine nine
 ```
-This is another pathway we can take.
+This is one pathway we can take.
 
 ### 1.4 Steganography
 Let's get the image: `http://10.10.150.90/brooklyn99.jpg`.
