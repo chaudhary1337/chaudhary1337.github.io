@@ -9,6 +9,7 @@ Writeups:
 - [Attackative Directory](./TryHackMe/AttackativeDirectory.md)
 - [Biohazard](./TryHackMe/Biohazard.md)
 - [Blog](./TryHackMe/Blog.md)
+- [Brooklyn Nine Nine](./TryHackMe/BrooklynNineNine.md)
 - [DogCatVM](./TryHackMe/DogCatVM.md)
 - [LazyAdmin](./TryHackMe/LazyAdmin.md)
 - [Lian_Yu](./TryHackMe/Lian_Yu.md)
