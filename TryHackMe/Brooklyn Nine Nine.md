@@ -1,5 +1,4 @@
 # Brooklyn Nine Nine
-###### tags: `THM` `OSCP`
 
 This is an easy room with 2 equally fun paths to exploit. Steganography or Brute-forcing, Holt or Peralta. Then use GTFO bins to get the root.
 
