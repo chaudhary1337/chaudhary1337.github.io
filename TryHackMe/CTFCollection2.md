@@ -78,7 +78,7 @@ Go to the directory and view the source code.
 ### Easter 4
 I used sqlmap to do the attacks automatically.
 ```
-Database: THM_f0und_m3
+Database: THM_*****_**
 Table: nothing_inside
 [1 entry]
 +-------------------------+
@@ -117,7 +117,7 @@ Checking the cookies.
 
 
 ### Easter 8
-We change our user agent using curl as
+We change our user agent using curl as,
 
 `curl -A "Mozilla/5.0 (iPhone; CPU iPhone OS 13_1_2 like Mac OS X) AppleWebKit/605.1.15 (KHTML, like Gecko) Version/13.0.1 Mobile/15E148 Safari/604.1" 10.10.9.174 > rich.txt`
 
@@ -163,7 +163,7 @@ We find a hidden and useless javascript file in the Network tab.
 Go to console and execute the function.
 
 ### Easter 13
-Destroy the world to get the flag. Related to 9. Let the redirect happen.
+Destroy the world to get the flag. Press the big button on the home page. Related to 9. Let the redirect happen.
 
 ### Easter 14
 Viewing the source code of the main page, we get the following comment:
@@ -210,7 +210,7 @@ The YES to say to the eggs one.
 Easy :)
 
 ### Easter 19
-The thick dark line. Check the source code :)
+The thick dark line is an image. Check the source code :)
 
 ### Easter 20
 
