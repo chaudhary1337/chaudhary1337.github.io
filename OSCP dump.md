@@ -13,3 +13,9 @@ Random things I found about it, some resources, some advice, some experiences.
 ```
 From Fawaz, THM
 
+
+2021/06/01.
+Okay, so I'm starting this -
+eJPT: https://my.ine.com/CyberSecurity/learning-paths/a223968e-3a74-45ed-884d-2d16760b8bbd/penetration-testing-student Using the starter pass, let's see how it goes.
+
+
