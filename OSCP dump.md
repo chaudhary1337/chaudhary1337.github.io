@@ -13,6 +13,7 @@ Random things I found about it, some resources, some advice, some experiences.
 ```
 From Fawaz, THM
 
+[Muirland Oracle's thoughts on OSCP](https://muirlandoracle.co.uk/2020/12/06/oscp-thoughts/)
 
 2021/06/01.
 Okay, so I'm starting this -
