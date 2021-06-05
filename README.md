@@ -11,6 +11,7 @@ Writeups:
 - [Blog](./TryHackMe/Blog.md)
 - [Brooklyn Nine Nine](./TryHackMe/BrooklynNineNine.md)
 - [CTF Collection 2](./TryHackMe/CTFCollection2.md)
+- [Different CTF](./TryHackMe/DifferentCTF.md)
 - [DogCatVM](./TryHackMe/DogCatVM.md)
 - [LazyAdmin](./TryHackMe/LazyAdmin.md)
 - [Lian_Yu](./TryHackMe/Lian_Yu.md)
