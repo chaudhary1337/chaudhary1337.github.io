@@ -1,5 +1,7 @@
 Currently doing TryHackMe :D
 
+Check the website! https://chaudhary1337.github.io/
+
 ## TryHackMe
 Writeups:
 
@@ -13,6 +15,7 @@ Writeups:
 - [CTF Collection 2](./TryHackMe/CTFCollection2.md)
 - [Different CTF](./TryHackMe/DifferentCTF.md)
 - [DogCatVM](./TryHackMe/DogCatVM.md)
+- [HA Joker CTF](./TryHackMe/JokerCTF.md)
 - [LazyAdmin](./TryHackMe/LazyAdmin.md)
 - [Lian_Yu](./TryHackMe/Lian_Yu.md)
 - [LookingGlass](./TryHackMe/LookingGlass.md)
