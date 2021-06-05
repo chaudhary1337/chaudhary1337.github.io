@@ -51,7 +51,7 @@ Port 8080 gives us a login form, http-get. We can try brute-forcing it using Hyd
 ### 1.4. Password Bruteforcing: Hydra
 ```
 ┌──(kali㉿kali)-[~]
-└─$ hydra 10.10.183.215 -s 8080 -l joker -P /usr/share/wordlists/rockyou.txt http-get
+└─$ hydra 10.10.183.215 -s 8080 -l {username} -P /usr/share/wordlists/rockyou.txt http-get
 Hydra v9.1 (c) 2020 by van Hauser/THC & David Maciejak - Please do not use in military or secret service organizations, or for illegal purposes (this is non-binding, these *** ignore laws and ethics anyway).
 
 Hydra (https://github.com/vanhauser-thc/thc-hydra) starting at 2021-06-03 03:13:22
@@ -93,7 +93,7 @@ Let's go to `/administrator/`. I explore how to get the password in the next sec
 ### 1.6. Web Enumeration (Again)
 ```
 ┌──(kali㉿kali)-[~]
-└─$ gobuster dir -u http://10.10.183.215:8080/ -U joker -P hannah -w /usr/share/wordlists/dirbuster/directory-list-2.3-medium.txt -x 'php,html,txt' -t 108 -q
+└─$ gobuster dir -u http://10.10.183.215:8080/ -U {username} -P {password} -w /usr/share/wordlists/dirbuster/directory-list-2.3-medium.txt -x 'php,html,txt' -t 108 -q
 /templates            (Status: 301) [Size: 325] [--> http://10.10.183.215:8080/templates/]
 /modules              (Status: 301) [Size: 323] [--> http://10.10.183.215:8080/modules/]  
 /bin                  (Status: 301) [Size: 319] [--> http://10.10.183.215:8080/bin/]      
