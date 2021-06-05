@@ -89,7 +89,7 @@ StegSeek 0.6 - https://github.com/RickdeJager/StegSeek
 
 ┌──(kali㉿kali)-[/tmp]
 └─$ cat ant.jpg.out
-RlRQLUxPR0lOClVTRVI6IGhha2FuZnRwClBBU1M6IDEyM2FkYW5h{hidden ... }
+RlRQLUxPR0{hidden ... }
 ```
 
 We decode this, which looks like a base64. It gives us FTP credentials! Also, quite interesting is the same prefix is used for both the passwords ...
@@ -107,7 +107,7 @@ Looking around, we get an interesting file, `wp-config.php`.
 define( 'DB_NAME', 'phpmyadmin1' );
 
 /** MySQL database username */
-define( 'DB_USER', '{I hid this;) }' );
+define( 'DB_USER', '{I hid this ;) }' );
 
 /** MySQL database password */
 define( 'DB_PASSWORD', '{oooo noice}' );
@@ -146,7 +146,7 @@ Find the correct mode in hashcat, and we have:
 ```
 ┌──(kali㉿kali)-[/tmp]
 └─$ hashcat -m {mode} hash.txt /usr/share/wordlists/rockyou.txt --quiet
-{hash}:{password ;) }
+{hash}:{password :D }
 ```
 
 YES!
@@ -406,11 +406,11 @@ So we need something more, let's do `ltrace`.
 strcat("war", "zone")                                                          = "warzone"
 strcat("warzone", "in")                                                        = "warzonein"
 strcat("warzonein", "ada")                                                     = "warzoneinada"
-strcat("warzoneinada", "na")                                                   = "warzoneinadana"
+strcat("{woah is this it?}", "na")                                                   = "{very very nice}"
 printf("I think you should enter the cor"...)                                  = 52
 __isoc99_scanf(0x55e7ade00edd, 0x7fff37c28a60, 0, 0I think you should enter the correct string here ==>warzoneinada
 )                           = 1
-strcmp("warzoneinada", "warzoneinadana")                                       = -110
+strcmp("{hidden}", "{redacted}")                                       = -110
 strcat("pki", "l")                                                             = "pkil"
 strcat("pkil", "l")                                                            = "pkill"
 strcat("pkill", " -9")                                                         = "pkill -9"
@@ -424,15 +424,14 @@ system("pkill -9 -t pts/0" <no return ...>
 
 ```
 
-Putting in `warzoneinada` works! Let's do it on the target system.
+Putting in the last word works! Let's do it on the target system.
 ```
 hakanbey@ubuntu:~$ ./usr/bin/binary
 ./usr/bin/binary
 bash: ./usr/bin/binary: No such file or directory
 hakanbey@ubuntu:~$ /usr/bin/binary
 /usr/bin/binary
-I think you should enter the correct string here ==>warzoneinadana
-warzoneinadana
+I think you should enter the correct string here ==>{yee haww}
 Hint! : Hexeditor 00000020 ==> ???? ==> /home/hakanbey/Desktop/root.jpg (CyberChef)
 
 Copy /root/root.jpg ==> /home/hakanbey/root.jpg
