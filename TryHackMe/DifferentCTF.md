@@ -82,22 +82,17 @@ Against what list? The one given to us in the same directory :)
 └─$ stegseek -wl wordlist.txt ant.jpg
 StegSeek 0.6 - https://github.com/RickdeJager/StegSeek
 
-[i] Found passphrase: "123adanaantinwar"
+[i] Found passphrase: "123adana{sorry, the rest was so tasty ... }"
 [i] Original filename: "user-pass-ftp.txt".
 [i] Extracting to "ant.jpg.out".
 
 
 ┌──(kali㉿kali)-[/tmp]
 └─$ cat ant.jpg.out
-RlRQLUxPR0lOClVTRVI6IGhha2FuZnRwClBBU1M6IDEyM2FkYW5hY3JhY2s=
-
-
-┌──(kali㉿kali)-[/tmp]
-└─$ echo "RlRQLUxPR0lOClVTRVI6IGhha2FuZnRwClBBU1M6IDEyM2FkYW5hY3JhY2s=" | base64 -d
-FTP-LOGIN
-USER: hakanftp
-PASS: 123adanacrack
+RlRQLUxPR0lOClVTRVI6IGhha2FuZnRwClBBU1M6IDEyM2FkYW5h{hidden ... }
 ```
+
+We decode this, which looks like a base64. It gives us FTP credentials! Also, quite interesting is the same prefix is used for both the passwords ...
 
 ### 1.5 FTP
 Looking around, we get an interesting file, `wp-config.php`.
@@ -112,10 +107,10 @@ Looking around, we get an interesting file, `wp-config.php`.
 define( 'DB_NAME', 'phpmyadmin1' );
 
 /** MySQL database username */
-define( 'DB_USER', 'phpmyadmin' );
+define( 'DB_USER', '{I hid this;) }' );
 
 /** MySQL database password */
-define( 'DB_PASSWORD', '12345' );
+define( 'DB_PASSWORD', '{oooo noice}' );
 
 /** MySQL hostname */
 define( 'DB_HOST', 'localhost' );
@@ -126,6 +121,7 @@ Info gathered:
 - Database name
 - Database username
 - Database password
+- Database hostname
 
 We have the database credentials ... how could we use them? 
 
@@ -158,7 +154,7 @@ YES!
 ### 1.8. WordPress Login
 ![WordPress login page, entering credentials we saw above](https://i.imgur.com/aqVgSnL.png)
 
-Uh oh. Checking the `wp-config`, we see 
+Uh oh. Checking the `wp-config` again, we see:
 ```
 /** MySQL hostname */
 define( 'DB_HOST', 'localhost' );
@@ -170,7 +166,7 @@ sneaky, don't you think? Could be `adana.thm` ... or maybe it isn't. Checking th
 Edit the line 
 `10.10.190.211   adana.thm`
 to
-`10.10.190.211   adana.thm subdomain.adana.thm`
+`10.10.190.211   adana.thm subdomain.adana.thm`.
 
 ![WordPress admin page on the subdomain](https://i.imgur.com/mru5pq8.png)
 
@@ -197,7 +193,7 @@ ftp> chmod 777 404.php
 200 SITE CHMOD command ok.
 ```
 
-Upload a reverse shell using the route 1 mentioned above. Shell taken from [Reverse Shell Generator](https://www.revshells.com/)
+Upload a reverse shell using the route 1 mentioned above. Shell taken from [Reverse Shell Generator](https://www.revshells.com/).
 
 ```
 ┌──(kali㉿kali)-[/tmp]
@@ -223,14 +219,14 @@ We are in the system!
 Now, let's get **linpeas** to find priv esc vectors.
 ![Getting linpeas to find priv esc vectors](https://i.imgur.com/yQfXRti.png)
 
-
+Here's the stuff it marked:
 ```
 [+] Unmounted file-system?
 [i] Check if you can mount umounted devices                                             
 /dev/disk/by-id/dm-uuid-LVM-2vWU08UHAxgr0umysQPoxtHSdFdx70llz4fwL1Q9vtLr2IL1fPcyJc851c7izh0w    /       ext4    defaults        0 0                                             
 /dev/disk/by-uuid/069d6843-2a0d-4a97-b8cd-948aa75be772  /boot   ext4    defaults       0 0
 ```
-Nothing interesting
+^Nothing interesting
 
 
 ```
@@ -244,7 +240,7 @@ apache2 process found (dump creds from memory as root)
 sshd Not Found
 
 ```
-Nothing interesting
+^Nothing interesting
 
 
 ```
@@ -253,7 +249,7 @@ Nothing interesting
 /proc/sys/kernel/yama/ptrace_scope is not enabled (1)                                                                            
 gdb was found in PATH
 ```
-Interesting
+^Interesting
 
 ```
 [+] Searching ssl/ssh files
@@ -267,13 +263,13 @@ Possible private SSH keys were found!
 /etc/hosts.allow
 
 ```
-False positive
+^False positive
 
 ```
 [+] Passwords inside pam.d
 /etc/pam.d/lightdm:auth    sufficient      pam_succeed_if.so user ingroup nopasswdlogin  
 ```
-Useless (?)
+^Useless (?)
 
 ### 3.1. Sudo Token Vulnerability (Fail)
 Requirements to escalate privileges:
@@ -283,7 +279,7 @@ Requirements to escalate privileges:
 - [x] gdb is accessible (you can be able to upload it)
 
 
-> You can temporarily enable ptrace_scope with echo 0 | sudo tee /proc/sys/kernel/yama/ptrace_scope or permanently modifying /etc/sysctl.d/10-ptrace.conf and setting kernel.yama.ptrace_scope = 0
+> You can temporarily enable ptrace_scope with `echo 0 | sudo tee /proc/sys/kernel/yama/ptrace_scope` or permanently modifying `/etc/sysctl.d/10-ptrace.conf` and setting `kernel.yama.ptrace_scope = 0`
 
 [Source for the exploit](https://book.hacktricks.xyz/linux-unix/privilege-escalation#reusing-sudo-tokens)
 
@@ -292,7 +288,7 @@ But I can't edit `ptrace_scope` or check the point 2. Dead end.
 ### 3.2. Lateral Escalation: Password Cracking
 Since we do not have `ssh`, we can try bruteforcing `sudo su`. We can use the wordlist we saw during steganography bruteforcing.
 
-Download the sucrack files: [.deb from here](http://archive.ubuntu.com/ubuntu/pool/universe/s/sucrack/sucrack_1.2.3-4_amd64.deb
+Download the sucrack files. [.deb from here](http://archive.ubuntu.com/ubuntu/pool/universe/s/sucrack/sucrack_1.2.3-4_amd64.deb
 ).
 
 Transfer this again.
@@ -316,7 +312,7 @@ dpkg -x sucrack_1.2.3-4_amd64.deb sucrack
 
 I tried with the wordlist we have aleady, but it was taking too long. According to THM Discord, it should not. Maybe I'm doing something wrong?
 
-I realised that `123adana` is a prefix we saw for both the above passowrds. Maybe the password is also starting from that? I looked it in the list and there was only one match. Did not work.
+I realised that `123adana` is a prefix we saw for both the above passwords. Maybe the password is also starting from that? I looked it in the list and there was only one match. Did not work.
 
 How about pre-pending `123adana` to all the words?
 
