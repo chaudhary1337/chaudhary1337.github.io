@@ -114,7 +114,7 @@ Nothing that we don't know. How about `nikto` to find more interesting things?
 
 ```
 ┌──(kali㉿kali)-[~]
-└─$ nikto -h http://10.10.173.69:8080/ -id joker:hannah
+└─$ nikto -h http://10.10.173.69:8080/ -id {username}:{password}
 - Nikto v2.1.6
 ---------------------------------------------------------------------------
 + Target IP:          10.10.173.69
