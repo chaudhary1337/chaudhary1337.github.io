@@ -15,6 +15,7 @@ Writeups:
 - [CTF Collection 2](./TryHackMe/CTFCollection2.md)
 - [Different CTF](./TryHackMe/DifferentCTF.md)
 - [DogCatVM](./TryHackMe/DogCatVM.md)
+- [Fowsniff CTF](./TryHackMe/FowsniffCTF.md)
 - [HA Joker CTF](./TryHackMe/JokerCTF.md)
 - [LazyAdmin](./TryHackMe/LazyAdmin.md)
 - [Lian_Yu](./TryHackMe/Lian_Yu.md)
