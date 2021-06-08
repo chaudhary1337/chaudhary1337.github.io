@@ -1,5 +1,4 @@
 # TryHackMe: Fowsniff CTF Writeup
-###### tags: `OSCP` `THM`
 
 ![THM easy room Fowniff CTF image](https://tryhackme-images.s3.amazonaws.com/room-icons/97b218eed9688e9a5cbe136714b86288.jpeg)
 
