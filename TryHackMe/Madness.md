@@ -1,6 +1,6 @@
 # Madness
 
-Easy rated diffulty THM room. Lots of Staganography, and looking in the most obvious places for clues. Add to it some python3 scripting. Fun little priv-esc!
+Easy rated THM room. Lots of Steganography, and looking in the most obvious places for clues. Add to it some python3 scripting. Fun little priv-esc!
 
 ![THM room Madness image of a joker](https://i.imgur.com/Ord2COL.png)
 
@@ -38,7 +38,7 @@ Nothing extraordinary.
 
 In the homepage, which is a default ubuntu page, we see the `thm.jpg` image, that does not render out properly. We see it in the source code.
 
-### Steganography
+### 1.3. Steganography
 Exploring the image using `strings`, `binwalk` and `steghide` does not return anything. 
 
 At this point, one thing CTF challenges often have is the change in the magic number of the file.
@@ -51,16 +51,16 @@ We see the hidden directory mentioned in the image!
 
 PS: It is also a good idea to download the image ... just in case, you know?
 
-### Hidden Directory Exploration
+### 1.4. Hidden Directory Exploration
 ![The hidden directory screenshot, asking for a secret number](https://i.imgur.com/oih7N23.png)
 
 Info gathered:
 - We have to enter a secret
-- Source code mentiones something about the type of input and the size of input.
+- Source code mentions something about the type of input and the size of input.
 - The question is thus: How do we input?
 
 
-### Finding the Secret
+### 1.5. Finding the Secret
 Trying the below gives us an expected response. Note how the parameter is accepted.
 ```
 ┌──(kali㉿kali)-[/tmp]
@@ -108,7 +108,7 @@ And we get the secret number, which gets us a key!
 
 But, to what?
 
-### Steganography
+### 1.6. Steganography
 Remember the image we fixed earlier? Well, this is where the key is being used.
 ```
 ┌──(kali㉿kali)-[/tmp]
