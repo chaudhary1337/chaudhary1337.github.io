@@ -30,11 +30,12 @@ Writeups:
 23. [Relevant](./TryHackMe/Relevant.md)
 24. [Retro](./TryHackMe/Retro.md)
 25. [RootMe](./TryHackMe/RootMe.md)
-26. [Startup](./TryHackMe/Startup.md)
-27. [TomGhost](./TryHackMe/TomGhost.md)
-28. [TokyoGhoul](./TryHackMe/TokyoGhoul.md)
-29. [VulnUniversity](./TryHackMe/VulnUniversity.md)
-30. [Watcher](./TryHackMe/Watcher.md)
-31. [Wonderland](./TryHackMe/Wonderland.md)
+26. [Smag Grotto](./TryHackMe/SmagGrtto.md)
+27. [Startup](./TryHackMe/Startup.md)
+28. [TomGhost](./TryHackMe/TomGhost.md)
+29. [TokyoGhoul](./TryHackMe/TokyoGhoul.md)
+30. [VulnUniversity](./TryHackMe/VulnUniversity.md)
+31. [Watcher](./TryHackMe/Watcher.md)
+32. [Wonderland](./TryHackMe/Wonderland.md)
 
 This work is in the public domain. Have fun!
