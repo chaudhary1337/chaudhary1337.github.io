@@ -1,9 +1,4 @@
-NOTE: THE WEBSITE IS CURRENTLY BEING UPDATED, AND BEING MADE BETTER.
-FEEL FREE TO CHECKOUT THE BACKUP DIRECTORY FOR WRITEUPS.
-
-THANK YOU FOR CO-OPERATION!
-
-Currently doing TryHackMe :D
+Updated website with Hugo.
 
 [Check the website!](https://chaudhary1337.github.io/)
 
