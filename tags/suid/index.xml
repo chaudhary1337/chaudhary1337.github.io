@@ -8,21 +8,21 @@
     <language>en-us</language>
     <lastBuildDate>Tue, 15 Jun 2021 00:00:00 +0000</lastBuildDate><atom:link href="/tags/suid/index.xml" rel="self" type="application/rss+xml" />
     <item>
-      <title>Anonymous</title>
-      <link>/p/anonymous/</link>
+      <title>TryHackMe: Anonymous Writeup</title>
+      <link>/p/tryhackme-anonymous-writeup/</link>
       <pubDate>Tue, 15 Jun 2021 00:00:00 +0000</pubDate>
       
-      <guid>/p/anonymous/</guid>
+      <guid>/p/tryhackme-anonymous-writeup/</guid>
       <description>Play
 1. Recon 1.1 Nmap ┌──(kali㉿kali)-[~] └─$ nmap -sC -sV 10.10.14.90 Starting Nmap 7.91 ( https://nmap.org ) at 2021-05-07 06:15 EDT Nmap scan report for 10.10.14.90 Host is up (0.20s latency). Not shown: 996 closed ports PORT STATE SERVICE VERSION 21/tcp open ftp vsftpd 2.0.8 or later | ftp-anon: Anonymous FTP login allowed (FTP code 230) |_drwxrwxrwx 2 111 113 4096 Jun 04 2020 scripts [NSE: writeable] | ftp-syst: | STAT: | FTP server status: | Connected to ::ffff:10.</description>
     </item>
     
     <item>
-      <title>ColdBox (All Paths)</title>
-      <link>/p/coldbox-all-paths/</link>
+      <title>TryHackMe: ColdBox Writeup (All Paths)</title>
+      <link>/p/tryhackme-coldbox-writeup-all-paths/</link>
       <pubDate>Tue, 15 Jun 2021 00:00:00 +0000</pubDate>
       
-      <guid>/p/coldbox-all-paths/</guid>
+      <guid>/p/tryhackme-coldbox-writeup-all-paths/</guid>
       <description>Play
 1. Scanning &amp;amp; Enumeration We do the below scans in parallel.
 1.1. Port Scanning Not shown: 999 closed ports PORT STATE SERVICE VERSION 80/tcp open http Apache httpd 2.4.18 ((Ubuntu)) |_http-generator: WordPress 4.1.31 | http-methods: |_ Supported Methods: GET HEAD POST OPTIONS |_http-server-header: Apache/2.4.18 (Ubuntu) |_http-title: ColddBox | One more machine Nothing interesting. Only port 80 open, no ssh.
@@ -30,42 +30,42 @@ Not shown: 65530 closed ports PORT STATE SERVICE 80/tcp open http 4512/tcp open 
     </item>
     
     <item>
-      <title>Looking Glass</title>
-      <link>/p/looking-glass/</link>
+      <title>TryHackMe: Looking Glass Writeup</title>
+      <link>/p/tryhackme-looking-glass-writeup/</link>
       <pubDate>Tue, 15 Jun 2021 00:00:00 +0000</pubDate>
       
-      <guid>/p/looking-glass/</guid>
+      <guid>/p/tryhackme-looking-glass-writeup/</guid>
       <description>Play
 1. Recon nmap scan:
 ❯ nmap -script=default -sV -A -T4 10.10.216.198 Starting Nmap 7.91 ( https://nmap.org ) at 2021-02-27 23:58 EST Nmap scan report for 10.10.216.198 Host is up (0.23s latency). Not shown: 916 closed ports PORT STATE SERVICE VERSION 22/tcp open ssh OpenSSH 7.6p1 Ubuntu 4ubuntu0.3 (Ubuntu Linux; protocol 2.0) | ssh-hostkey: | 2048 3f:15:19:70:35:fd:dd:0d:07:a0:50:a3:7d:fa:10:a0 (RSA) | 256 a8:67:5c:52:77:02:41:d7:90:e7:ed:32:d2:01:d9:65 (ECDSA) |_ 256 26:92:59:2d:5e:25:90:89:09:f5:e5:e0:33:81:77:6a (ED25519) 9000/tcp open ssh Dropbear sshd (protocol 2.</description>
     </item>
     
     <item>
-      <title>Mr Robot</title>
-      <link>/p/mr-robot/</link>
+      <title>TryHackMe: Mr Robot Writeup</title>
+      <link>/p/tryhackme-mr-robot-writeup/</link>
       <pubDate>Tue, 15 Jun 2021 00:00:00 +0000</pubDate>
       
-      <guid>/p/mr-robot/</guid>
+      <guid>/p/tryhackme-mr-robot-writeup/</guid>
       <description>Play
 1. Recon 1.1 Port Scanning ❯ nmap -sC -sV -A -T4 10.10.91.137 Starting Nmap 7.91 ( https://nmap.org ) at 2021-03-05 21:55 EST Nmap scan report for 10.10.91.137 Host is up (0.31s latency). Not shown: 997 filtered ports PORT STATE SERVICE VERSION 22/tcp closed ssh 80/tcp open http Apache httpd |_http-server-header: Apache |_http-title: Site doesn&#39;t have a title (text/html). 443/tcp open ssl/http Apache httpd |_http-server-header: Apache |_http-title: 400 Bad Request | ssl-cert: Subject: commonName=www.</description>
     </item>
     
     <item>
-      <title>Root Me</title>
-      <link>/p/root-me/</link>
+      <title>TryHackMe: Root Me Writeup</title>
+      <link>/p/tryhackme-root-me-writeup/</link>
       <pubDate>Tue, 15 Jun 2021 00:00:00 +0000</pubDate>
       
-      <guid>/p/root-me/</guid>
+      <guid>/p/tryhackme-root-me-writeup/</guid>
       <description>Play
 1. Scanning &amp;amp; Enumeration 1.1 Port Scanning ┌──(kali㉿kali)-[~] └─$ nmap -sC -sV -A 10.10.35.149 Starting Nmap 7.91 ( https://nmap.org ) at 2021-05-09 01:18 EDT Nmap scan report for 10.10.35.149 Host is up (0.20s latency). Not shown: 998 closed ports PORT STATE SERVICE VERSION 22/tcp open ssh OpenSSH 7.6p1 Ubuntu 4ubuntu0.3 (Ubuntu Linux; protocol 2.0) | ssh-hostkey: | 2048 4a:b9:16:08:84:c2:54:48:ba:5c:fd:3f:22:5f:22:14 (RSA) | 256 a9:a6:86:e8:ec:96:c3:f0:03:cd:16:d5:49:73:d0:82 (ECDSA) |_ 256 22:f6:b5:a6:54:d9:78:7c:26:03:5a:95:f3:f9:df:cd (ED25519) 80/tcp open http Apache httpd 2.</description>
     </item>
     
     <item>
-      <title>Vuln University</title>
-      <link>/p/vuln-university/</link>
+      <title>TryHackMe: Vuln University Writeup</title>
+      <link>/p/tryhackme-vuln-university-writeup/</link>
       <pubDate>Tue, 15 Jun 2021 00:00:00 +0000</pubDate>
       
-      <guid>/p/vuln-university/</guid>
+      <guid>/p/tryhackme-vuln-university-writeup/</guid>
       <description>Play
 Task 1 - Deploy the machine ezpz
 Task 2 - Recon classic nmap scan

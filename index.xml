@@ -7,12 +7,12 @@
         <generator>Hugo -- gohugo.io</generator>
         <language>en-us</language>
         <lastBuildDate>Tue, 15 Jun 2021 00:00:00 +0000</lastBuildDate><atom:link href="/index.xml" rel="self" type="application/rss+xml" /><item>
-        <title>0day</title>
-        <link>/p/0day/</link>
+        <title>TryHackMe: 0day Writeup</title>
+        <link>/p/tryhackme-0day-writeup/</link>
         <pubDate>Tue, 15 Jun 2021 00:00:00 +0000</pubDate>
         
-        <guid>/p/0day/</guid>
-        <description>&lt;img src="https://imgur.com/jJe7K0O.png" alt="Featured image of post 0day" /&gt;&lt;p&gt;A pretty easy THM room. You just need to know what to do, and the rest is a cake-walk.&lt;/p&gt;
+        <guid>/p/tryhackme-0day-writeup/</guid>
+        <description>&lt;img src="https://imgur.com/jJe7K0O.png" alt="Featured image of post TryHackMe: 0day Writeup" /&gt;&lt;p&gt;A pretty easy THM room. You just need to know what to do, and the rest is a cake-walk.&lt;/p&gt;
 &lt;p&gt;&lt;a class=&#34;link&#34; href=&#34;https://tryhackme.com/room/0day&#34;  target=&#34;_blank&#34; rel=&#34;noopener&#34;
     &gt;Play&lt;/a&gt;&lt;/p&gt;
 &lt;h2 id=&#34;1-enumeration-and-scanning&#34;&gt;1. Enumeration and Scanning&lt;/h2&gt;
@@ -163,12 +163,12 @@ root
 </description>
         </item>
         <item>
-        <title>Agent Sudo</title>
-        <link>/p/agent-sudo/</link>
+        <title>TryHackMe: Agent Sudo Writeup</title>
+        <link>/p/tryhackme-agent-sudo-writeup/</link>
         <pubDate>Tue, 15 Jun 2021 00:00:00 +0000</pubDate>
         
-        <guid>/p/agent-sudo/</guid>
-        <description>&lt;img src="https://i.imgur.com/NoIdF01.png" alt="Featured image of post Agent Sudo" /&gt;&lt;p&gt;&lt;a class=&#34;link&#34; href=&#34;https://tryhackme.com/room/agentsudoctf&#34;  target=&#34;_blank&#34; rel=&#34;noopener&#34;
+        <guid>/p/tryhackme-agent-sudo-writeup/</guid>
+        <description>&lt;img src="https://i.imgur.com/NoIdF01.png" alt="Featured image of post TryHackMe: Agent Sudo Writeup" /&gt;&lt;p&gt;&lt;a class=&#34;link&#34; href=&#34;https://tryhackme.com/room/agentsudoctf&#34;  target=&#34;_blank&#34; rel=&#34;noopener&#34;
     &gt;Play&lt;/a&gt;&lt;/p&gt;
 &lt;h3 id=&#34;1-enumeration--exploration&#34;&gt;1. Enumeration &amp;amp; Exploration&lt;/h3&gt;
 &lt;h3 id=&#34;11-portscanning&#34;&gt;1.1 Port Scanning&lt;/h3&gt;
@@ -373,12 +373,12 @@ root@agent-sudo:~#
 </description>
         </item>
         <item>
-        <title>Anonymous</title>
-        <link>/p/anonymous/</link>
+        <title>TryHackMe: Anonymous Writeup</title>
+        <link>/p/tryhackme-anonymous-writeup/</link>
         <pubDate>Tue, 15 Jun 2021 00:00:00 +0000</pubDate>
         
-        <guid>/p/anonymous/</guid>
-        <description>&lt;img src="https://i.imgur.com/kd6mc4d.jpg" alt="Featured image of post Anonymous" /&gt;&lt;p&gt;&lt;a class=&#34;link&#34; href=&#34;https://tryhackme.com/room/anonymous&#34;  target=&#34;_blank&#34; rel=&#34;noopener&#34;
+        <guid>/p/tryhackme-anonymous-writeup/</guid>
+        <description>&lt;img src="https://i.imgur.com/kd6mc4d.jpg" alt="Featured image of post TryHackMe: Anonymous Writeup" /&gt;&lt;p&gt;&lt;a class=&#34;link&#34; href=&#34;https://tryhackme.com/room/anonymous&#34;  target=&#34;_blank&#34; rel=&#34;noopener&#34;
     &gt;Play&lt;/a&gt;&lt;/p&gt;
 &lt;h2 id=&#34;1-recon&#34;&gt;1. Recon&lt;/h2&gt;
 &lt;h3 id=&#34;11-nmap&#34;&gt;1.1 Nmap&lt;/h3&gt;
@@ -631,12 +631,12 @@ cat /root/root.txt
 </description>
         </item>
         <item>
-        <title>Attackative Directory</title>
-        <link>/p/attackative-directory/</link>
+        <title>TryHackMe: Attackative Directory Writeup</title>
+        <link>/p/tryhackme-attackative-directory-writeup/</link>
         <pubDate>Tue, 15 Jun 2021 00:00:00 +0000</pubDate>
         
-        <guid>/p/attackative-directory/</guid>
-        <description>&lt;img src="https://i.imgur.com/4WSAwTY.png" alt="Featured image of post Attackative Directory" /&gt;&lt;p&gt;&lt;a class=&#34;link&#34; href=&#34;https://tryhackme.com/room/attacktivedirectory&#34;  target=&#34;_blank&#34; rel=&#34;noopener&#34;
+        <guid>/p/tryhackme-attackative-directory-writeup/</guid>
+        <description>&lt;img src="https://i.imgur.com/4WSAwTY.png" alt="Featured image of post TryHackMe: Attackative Directory Writeup" /&gt;&lt;p&gt;&lt;a class=&#34;link&#34; href=&#34;https://tryhackme.com/room/attacktivedirectory&#34;  target=&#34;_blank&#34; rel=&#34;noopener&#34;
     &gt;Play&lt;/a&gt;&lt;/p&gt;
 &lt;p&gt;Primer:&lt;/p&gt;
 &lt;ul&gt;
@@ -889,12 +889,12 @@ d-----         4/4/2020  12:18 PM                {user1}
 </description>
         </item>
         <item>
-        <title>Biohazard</title>
-        <link>/p/biohazard/</link>
+        <title>TryHackMe: Biohazard Writeup</title>
+        <link>/p/tryhackme-biohazard-writeup/</link>
         <pubDate>Tue, 15 Jun 2021 00:00:00 +0000</pubDate>
         
-        <guid>/p/biohazard/</guid>
-        <description>&lt;img src="https://i.imgur.com/d7dVxxR.png" alt="Featured image of post Biohazard" /&gt;&lt;p&gt;&lt;a class=&#34;link&#34; href=&#34;https://tryhackme.com/room/biohazard&#34;  target=&#34;_blank&#34; rel=&#34;noopener&#34;
+        <guid>/p/tryhackme-biohazard-writeup/</guid>
+        <description>&lt;img src="https://i.imgur.com/d7dVxxR.png" alt="Featured image of post TryHackMe: Biohazard Writeup" /&gt;&lt;p&gt;&lt;a class=&#34;link&#34; href=&#34;https://tryhackme.com/room/biohazard&#34;  target=&#34;_blank&#34; rel=&#34;noopener&#34;
     &gt;Play&lt;/a&gt;&lt;/p&gt;
 &lt;h2 id=&#34;1-introduction&#34;&gt;1. Introduction&lt;/h2&gt;
 &lt;p&gt;We start with nmap for port scanning and do some web exploration meanwhile.&lt;/p&gt;
@@ -1175,12 +1175,12 @@ User weasker may run the following commands on umbrella_corp:
 </description>
         </item>
         <item>
-        <title>Blog</title>
-        <link>/p/blog/</link>
+        <title>TryHackMe: Blog Writeup</title>
+        <link>/p/tryhackme-blog-writeup/</link>
         <pubDate>Tue, 15 Jun 2021 00:00:00 +0000</pubDate>
         
-        <guid>/p/blog/</guid>
-        <description>&lt;img src="https://i.imgur.com/rP25U0x.png" alt="Featured image of post Blog" /&gt;&lt;p&gt;&lt;a class=&#34;link&#34; href=&#34;https://tryhackme.com/room/blog&#34;  target=&#34;_blank&#34; rel=&#34;noopener&#34;
+        <guid>/p/tryhackme-blog-writeup/</guid>
+        <description>&lt;img src="https://i.imgur.com/rP25U0x.png" alt="Featured image of post TryHackMe: Blog Writeup" /&gt;&lt;p&gt;&lt;a class=&#34;link&#34; href=&#34;https://tryhackme.com/room/blog&#34;  target=&#34;_blank&#34; rel=&#34;noopener&#34;
     &gt;Play&lt;/a&gt;&lt;/p&gt;
 &lt;h2 id=&#34;1-recon&#34;&gt;1. Recon&lt;/h2&gt;
 &lt;h3 id=&#34;11-nmap&#34;&gt;1.1 Nmap&lt;/h3&gt;
@@ -1429,12 +1429,12 @@ find / -type f -name user.txt 2&amp;gt;/dev/null
 </description>
         </item>
         <item>
-        <title>Blue</title>
-        <link>/p/blue/</link>
+        <title>TryHackMe: Blue Writeup</title>
+        <link>/p/tryhackme-blue-writeup/</link>
         <pubDate>Tue, 15 Jun 2021 00:00:00 +0000</pubDate>
         
-        <guid>/p/blue/</guid>
-        <description>&lt;img src="https://i.imgur.com/TqRvxBA.png" alt="Featured image of post Blue" /&gt;&lt;h2 id=&#34;1-recon&#34;&gt;1. Recon&lt;/h2&gt;
+        <guid>/p/tryhackme-blue-writeup/</guid>
+        <description>&lt;img src="https://i.imgur.com/TqRvxBA.png" alt="Featured image of post TryHackMe: Blue Writeup" /&gt;&lt;h2 id=&#34;1-recon&#34;&gt;1. Recon&lt;/h2&gt;
 &lt;p&gt;Reconnaissance&lt;/p&gt;
 &lt;h3 id=&#34;scan-the-machine-if-you-are-unsure-how-to-tackle-this-i-recommend-checking-out-the-nmap-room&#34;&gt;Scan the machine. (If you are unsure how to tackle this, I recommend checking out the Nmap room)&lt;/h3&gt;
 &lt;p&gt;&lt;code&gt;❯ nmap --script=vuln -sV -A 10.10.233.113&lt;/code&gt;&lt;/p&gt;
@@ -1726,12 +1726,12 @@ Found 6 results...
 </description>
         </item>
         <item>
-        <title>Break Out The Cage</title>
-        <link>/p/break-out-the-cage/</link>
+        <title>TryHackMe: Break Out The Cage Writeup</title>
+        <link>/p/tryhackme-break-out-the-cage-writeup/</link>
         <pubDate>Tue, 15 Jun 2021 00:00:00 +0000</pubDate>
         
-        <guid>/p/break-out-the-cage/</guid>
-        <description>&lt;img src="https://i.imgur.com/0MxLYQa.png" alt="Featured image of post Break Out The Cage" /&gt;&lt;p&gt;&lt;a class=&#34;link&#34; href=&#34;https://tryhackme.com/room/breakoutthecage1&#34;  target=&#34;_blank&#34; rel=&#34;noopener&#34;
+        <guid>/p/tryhackme-break-out-the-cage-writeup/</guid>
+        <description>&lt;img src="https://i.imgur.com/0MxLYQa.png" alt="Featured image of post TryHackMe: Break Out The Cage Writeup" /&gt;&lt;p&gt;&lt;a class=&#34;link&#34; href=&#34;https://tryhackme.com/room/breakoutthecage1&#34;  target=&#34;_blank&#34; rel=&#34;noopener&#34;
     &gt;Play&lt;/a&gt;&lt;/p&gt;
 &lt;h2 id=&#34;1-scanning--enumeration&#34;&gt;1. Scanning &amp;amp; Enumeration&lt;/h2&gt;
 &lt;p&gt;We do the below scans in parallel.&lt;/p&gt;
@@ -2010,12 +2010,12 @@ Sean Archer
 </description>
         </item>
         <item>
-        <title>Brooklyn Nine Nine (All Paths)</title>
-        <link>/p/brooklyn-nine-nine-all-paths/</link>
+        <title>TryHackMe: Brooklyn Nine Nine Writeup (All Paths)</title>
+        <link>/p/tryhackme-brooklyn-nine-nine-writeup-all-paths/</link>
         <pubDate>Tue, 15 Jun 2021 00:00:00 +0000</pubDate>
         
-        <guid>/p/brooklyn-nine-nine-all-paths/</guid>
-        <description>&lt;img src="https://i.imgur.com/6XcDCc8.jpg" alt="Featured image of post Brooklyn Nine Nine (All Paths)" /&gt;&lt;h6 id=&#34;tags-thm-oscp&#34;&gt;tags: &lt;code&gt;THM&lt;/code&gt; &lt;code&gt;OSCP&lt;/code&gt;&lt;/h6&gt;
+        <guid>/p/tryhackme-brooklyn-nine-nine-writeup-all-paths/</guid>
+        <description>&lt;img src="https://i.imgur.com/6XcDCc8.jpg" alt="Featured image of post TryHackMe: Brooklyn Nine Nine Writeup (All Paths)" /&gt;&lt;h6 id=&#34;tags-thm-oscp&#34;&gt;tags: &lt;code&gt;THM&lt;/code&gt; &lt;code&gt;OSCP&lt;/code&gt;&lt;/h6&gt;
 &lt;p&gt;This is an easy room with 2 equally fun paths to exploit. Steganography or Brute-forcing, Holt or Peralta. Then use GTFO bins to get the root.&lt;/p&gt;
 &lt;h2 id=&#34;1-scanning--enumeration&#34;&gt;1. Scanning &amp;amp; Enumeration&lt;/h2&gt;
 &lt;h3 id=&#34;11-port-scanning&#34;&gt;1.1. Port Scanning&lt;/h3&gt;
@@ -2181,12 +2181,12 @@ jake@brookly_nine_nine:~$
 </description>
         </item>
         <item>
-        <title>Brute It</title>
-        <link>/p/brute-it/</link>
+        <title>TryHackMe: Brute It Writeup</title>
+        <link>/p/tryhackme-brute-it-writeup/</link>
         <pubDate>Tue, 15 Jun 2021 00:00:00 +0000</pubDate>
         
-        <guid>/p/brute-it/</guid>
-        <description>&lt;img src="https://i.imgur.com/oMbEPD6.jpg" alt="Featured image of post Brute It" /&gt;&lt;p&gt;&lt;a class=&#34;link&#34; href=&#34;https://tryhackme.com/room/bruteit&#34;  target=&#34;_blank&#34; rel=&#34;noopener&#34;
+        <guid>/p/tryhackme-brute-it-writeup/</guid>
+        <description>&lt;img src="https://i.imgur.com/oMbEPD6.jpg" alt="Featured image of post TryHackMe: Brute It Writeup" /&gt;&lt;p&gt;&lt;a class=&#34;link&#34; href=&#34;https://tryhackme.com/room/bruteit&#34;  target=&#34;_blank&#34; rel=&#34;noopener&#34;
     &gt;Play&lt;/a&gt;&lt;/p&gt;
 &lt;h2 id=&#34;1-scanning--enumeration&#34;&gt;1. Scanning &amp;amp; Enumeration&lt;/h2&gt;
 &lt;p&gt;We do the below scans in parallel.&lt;/p&gt;
@@ -2356,12 +2356,12 @@ Session completed
 </description>
         </item>
         <item>
-        <title>ColdBox (All Paths)</title>
-        <link>/p/coldbox-all-paths/</link>
+        <title>TryHackMe: ColdBox Writeup (All Paths)</title>
+        <link>/p/tryhackme-coldbox-writeup-all-paths/</link>
         <pubDate>Tue, 15 Jun 2021 00:00:00 +0000</pubDate>
         
-        <guid>/p/coldbox-all-paths/</guid>
-        <description>&lt;img src="https://i.imgur.com/k2cJkVq.png" alt="Featured image of post ColdBox (All Paths)" /&gt;&lt;p&gt;&lt;a class=&#34;link&#34; href=&#34;https://tryhackme.com/room/colddboxeasy&#34;  target=&#34;_blank&#34; rel=&#34;noopener&#34;
+        <guid>/p/tryhackme-coldbox-writeup-all-paths/</guid>
+        <description>&lt;img src="https://i.imgur.com/k2cJkVq.png" alt="Featured image of post TryHackMe: ColdBox Writeup (All Paths)" /&gt;&lt;p&gt;&lt;a class=&#34;link&#34; href=&#34;https://tryhackme.com/room/colddboxeasy&#34;  target=&#34;_blank&#34; rel=&#34;noopener&#34;
     &gt;Play&lt;/a&gt;&lt;/p&gt;
 &lt;h2 id=&#34;1-scanning--enumeration&#34;&gt;1. Scanning &amp;amp; Enumeration&lt;/h2&gt;
 &lt;p&gt;We do the below scans in parallel.&lt;/p&gt;
@@ -2585,12 +2585,12 @@ El usuario c0ldd puede ejecutar los siguientes comandos en ColddBox-Easy:
 </description>
         </item>
         <item>
-        <title>CTF Collection Vol. 2</title>
-        <link>/p/ctf-collection-vol.-2/</link>
+        <title>TryHackMe: CTF Collection Vol. 2 Writeup</title>
+        <link>/p/tryhackme-ctf-collection-vol.-2-writeup/</link>
         <pubDate>Tue, 15 Jun 2021 00:00:00 +0000</pubDate>
         
-        <guid>/p/ctf-collection-vol.-2/</guid>
-        <description>&lt;img src="https://i.imgur.com/nS97pns.png" alt="Featured image of post CTF Collection Vol. 2" /&gt;&lt;p&gt;Challenge home page.
+        <guid>/p/tryhackme-ctf-collection-vol.-2-writeup/</guid>
+        <description>&lt;img src="https://i.imgur.com/nS97pns.png" alt="Featured image of post TryHackMe: CTF Collection Vol. 2 Writeup" /&gt;&lt;p&gt;Challenge home page.
 &lt;img src=&#34;https://i.imgur.com/IrNcLcf.png&#34; alt=&#34;Home page of the challenge&#34;  /&gt;&lt;/p&gt;
 &lt;h2 id=&#34;0-scanning--enumeration&#34;&gt;0. Scanning &amp;amp; Enumeration&lt;/h2&gt;
 &lt;h3 id=&#34;port-scanning&#34;&gt;Port Scanning&lt;/h3&gt;
@@ -2749,12 +2749,12 @@ PPS: And what does mapping map to, in python lingo?&lt;/p&gt;
 </description>
         </item>
         <item>
-        <title>Different CTF</title>
-        <link>/p/different-ctf/</link>
+        <title>TryHackMe: Different CTF Writeup</title>
+        <link>/p/tryhackme-different-ctf-writeup/</link>
         <pubDate>Tue, 15 Jun 2021 00:00:00 +0000</pubDate>
         
-        <guid>/p/different-ctf/</guid>
-        <description>&lt;img src="https://i.imgur.com/uAE0SRq.png" alt="Featured image of post Different CTF" /&gt;&lt;p&gt;&lt;a class=&#34;link&#34; href=&#34;https://tryhackme.com/room/adana&#34;  target=&#34;_blank&#34; rel=&#34;noopener&#34;
+        <guid>/p/tryhackme-different-ctf-writeup/</guid>
+        <description>&lt;img src="https://i.imgur.com/uAE0SRq.png" alt="Featured image of post TryHackMe: Different CTF Writeup" /&gt;&lt;p&gt;&lt;a class=&#34;link&#34; href=&#34;https://tryhackme.com/room/adana&#34;  target=&#34;_blank&#34; rel=&#34;noopener&#34;
     &gt;Play&lt;/a&gt;&lt;/p&gt;
 &lt;p&gt;NOTE: There is an issue in the machine sometimes. On a previous run, I got:
 &lt;img src=&#34;https://i.imgur.com/ZMCTsca.png&#34; alt=&#34;Home page of the website showing a database error&#34;  /&gt;
@@ -3116,12 +3116,12 @@ THM{wowowowowow}
 </description>
         </item>
         <item>
-        <title>Dog Cat VM</title>
-        <link>/p/dog-cat-vm/</link>
+        <title>TryHackMe: Dog Cat VM Writeup</title>
+        <link>/p/tryhackme-dog-cat-vm-writeup/</link>
         <pubDate>Tue, 15 Jun 2021 00:00:00 +0000</pubDate>
         
-        <guid>/p/dog-cat-vm/</guid>
-        <description>&lt;img src="https://i.imgur.com/nSkIlFr.png" alt="Featured image of post Dog Cat VM" /&gt;&lt;p&gt;&lt;a class=&#34;link&#34; href=&#34;https://tryhackme.com/room/dogcat&#34;  target=&#34;_blank&#34; rel=&#34;noopener&#34;
+        <guid>/p/tryhackme-dog-cat-vm-writeup/</guid>
+        <description>&lt;img src="https://i.imgur.com/nSkIlFr.png" alt="Featured image of post TryHackMe: Dog Cat VM Writeup" /&gt;&lt;p&gt;&lt;a class=&#34;link&#34; href=&#34;https://tryhackme.com/room/dogcat&#34;  target=&#34;_blank&#34; rel=&#34;noopener&#34;
     &gt;Play here&lt;/a&gt;&lt;/p&gt;
 &lt;h2 id=&#34;recon&#34;&gt;Recon&lt;/h2&gt;
 &lt;p&gt;Exploring the website, we see that images come in the form of:
@@ -3287,12 +3287,12 @@ THM{PWNED}
 </description>
         </item>
         <item>
-        <title>Fowsniff CTF</title>
-        <link>/p/fowsniff-ctf/</link>
+        <title>TryHackMe: Fowsniff CTF Writeup</title>
+        <link>/p/tryhackme-fowsniff-ctf-writeup/</link>
         <pubDate>Tue, 15 Jun 2021 00:00:00 +0000</pubDate>
         
-        <guid>/p/fowsniff-ctf/</guid>
-        <description>&lt;img src="https://tryhackme-images.s3.amazonaws.com/room-icons/97b218eed9688e9a5cbe136714b86288.jpeg" alt="Featured image of post Fowsniff CTF" /&gt;&lt;p&gt;&lt;a class=&#34;link&#34; href=&#34;https://tryhackme.com/room/ctf&#34;  target=&#34;_blank&#34; rel=&#34;noopener&#34;
+        <guid>/p/tryhackme-fowsniff-ctf-writeup/</guid>
+        <description>&lt;img src="https://tryhackme-images.s3.amazonaws.com/room-icons/97b218eed9688e9a5cbe136714b86288.jpeg" alt="Featured image of post TryHackMe: Fowsniff CTF Writeup" /&gt;&lt;p&gt;&lt;a class=&#34;link&#34; href=&#34;https://tryhackme.com/room/ctf&#34;  target=&#34;_blank&#34; rel=&#34;noopener&#34;
     &gt;Play&lt;/a&gt;&lt;/p&gt;
 &lt;h2 id=&#34;1-scanning--enumeration&#34;&gt;1. Scanning &amp;amp; Enumeration&lt;/h2&gt;
 &lt;p&gt;We do the below scans in parallel.&lt;/p&gt;
@@ -3583,12 +3583,12 @@ sh /opt/cube/cube.sh
 </description>
         </item>
         <item>
-        <title>HA Joker CTF</title>
-        <link>/p/ha-joker-ctf/</link>
+        <title>TryHackMe: HA Joker CTF Writeup</title>
+        <link>/p/tryhackme-ha-joker-ctf-writeup/</link>
         <pubDate>Tue, 15 Jun 2021 00:00:00 +0000</pubDate>
         
-        <guid>/p/ha-joker-ctf/</guid>
-        <description>&lt;img src="https://tryhackme-images.s3.amazonaws.com/room-icons/ed910d9d7c419b8266128e044a40c7e2.jpeg" alt="Featured image of post HA Joker CTF" /&gt;&lt;p&gt;&lt;a class=&#34;link&#34; href=&#34;https://tryhackme.com/room/jokerctf&#34;  target=&#34;_blank&#34; rel=&#34;noopener&#34;
+        <guid>/p/tryhackme-ha-joker-ctf-writeup/</guid>
+        <description>&lt;img src="https://tryhackme-images.s3.amazonaws.com/room-icons/ed910d9d7c419b8266128e044a40c7e2.jpeg" alt="Featured image of post TryHackMe: HA Joker CTF Writeup" /&gt;&lt;p&gt;&lt;a class=&#34;link&#34; href=&#34;https://tryhackme.com/room/jokerctf&#34;  target=&#34;_blank&#34; rel=&#34;noopener&#34;
     &gt;Play&lt;/a&gt;&lt;/p&gt;
 &lt;h2 id=&#34;1-scanning--enumeration&#34;&gt;1. Scanning &amp;amp; Enumeration&lt;/h2&gt;
 &lt;p&gt;We do the below scans in parallel.&lt;/p&gt;
@@ -3826,12 +3826,12 @@ Aarti Singh: https://in.linkedin.com/in/aarti-singh-353698114
 </description>
         </item>
         <item>
-        <title>Lazy Admin</title>
-        <link>/p/lazy-admin/</link>
+        <title>TryHackMe: Lazy Admin Writeup</title>
+        <link>/p/tryhackme-lazy-admin-writeup/</link>
         <pubDate>Tue, 15 Jun 2021 00:00:00 +0000</pubDate>
         
-        <guid>/p/lazy-admin/</guid>
-        <description>&lt;img src="https://i.imgur.com/3B6uSkg.jpg" alt="Featured image of post Lazy Admin" /&gt;&lt;p&gt;&lt;a class=&#34;link&#34; href=&#34;https://tryhackme.com/room/lazyadmin&#34;  target=&#34;_blank&#34; rel=&#34;noopener&#34;
+        <guid>/p/tryhackme-lazy-admin-writeup/</guid>
+        <description>&lt;img src="https://i.imgur.com/3B6uSkg.jpg" alt="Featured image of post TryHackMe: Lazy Admin Writeup" /&gt;&lt;p&gt;&lt;a class=&#34;link&#34; href=&#34;https://tryhackme.com/room/lazyadmin&#34;  target=&#34;_blank&#34; rel=&#34;noopener&#34;
     &gt;Play&lt;/a&gt;&lt;/p&gt;
 &lt;h2 id=&#34;1-enumeration--exploration&#34;&gt;1. Enumeration + Exploration&lt;/h2&gt;
 &lt;h3 id=&#34;11-port-scanning&#34;&gt;1.1. Port Scanning&lt;/h3&gt;
@@ -3971,12 +3971,12 @@ ls -la /etc/copy.sh
 </description>
         </item>
         <item>
-        <title>Lian Yu</title>
-        <link>/p/lian-yu/</link>
+        <title>TryHackMe: Lian Yu Writeup</title>
+        <link>/p/tryhackme-lian-yu-writeup/</link>
         <pubDate>Tue, 15 Jun 2021 00:00:00 +0000</pubDate>
         
-        <guid>/p/lian-yu/</guid>
-        <description>&lt;img src="https://i.imgur.com/SBMvmJZ.jpg" alt="Featured image of post Lian Yu" /&gt;&lt;h2 id=&#34;1-port-scanning--enumeration&#34;&gt;1. Port Scanning &amp;amp; Enumeration&lt;/h2&gt;
+        <guid>/p/tryhackme-lian-yu-writeup/</guid>
+        <description>&lt;img src="https://i.imgur.com/SBMvmJZ.jpg" alt="Featured image of post TryHackMe: Lian Yu Writeup" /&gt;&lt;h2 id=&#34;1-port-scanning--enumeration&#34;&gt;1. Port Scanning &amp;amp; Enumeration&lt;/h2&gt;
 &lt;h3 id=&#34;11-port-scanning&#34;&gt;1.1 Port Scanning&lt;/h3&gt;
 &lt;pre&gt;&lt;code&gt;┌──(kali㉿kali)-[~]
 └─$ nmap -sC -sV -A 10.10.185.218
@@ -4133,12 +4133,12 @@ root@LianYu:~# cat /root/root.txt
 </description>
         </item>
         <item>
-        <title>Looking Glass</title>
-        <link>/p/looking-glass/</link>
+        <title>TryHackMe: Looking Glass Writeup</title>
+        <link>/p/tryhackme-looking-glass-writeup/</link>
         <pubDate>Tue, 15 Jun 2021 00:00:00 +0000</pubDate>
         
-        <guid>/p/looking-glass/</guid>
-        <description>&lt;img src="https://i.imgur.com/UsmIsXh.png" alt="Featured image of post Looking Glass" /&gt;&lt;p&gt;&lt;a class=&#34;link&#34; href=&#34;https://tryhackme.com/room/lookingglass&#34;  target=&#34;_blank&#34; rel=&#34;noopener&#34;
+        <guid>/p/tryhackme-looking-glass-writeup/</guid>
+        <description>&lt;img src="https://i.imgur.com/UsmIsXh.png" alt="Featured image of post TryHackMe: Looking Glass Writeup" /&gt;&lt;p&gt;&lt;a class=&#34;link&#34; href=&#34;https://tryhackme.com/room/lookingglass&#34;  target=&#34;_blank&#34; rel=&#34;noopener&#34;
     &gt;Play&lt;/a&gt;&lt;/p&gt;
 &lt;h2 id=&#34;1-recon&#34;&gt;1. Recon&lt;/h2&gt;
 &lt;p&gt;nmap scan:&lt;/p&gt;
@@ -4322,12 +4322,12 @@ root@looking-glass:~#
 &lt;/code&gt;&lt;/pre&gt;</description>
         </item>
         <item>
-        <title>Madness</title>
-        <link>/p/madness/</link>
+        <title>TryHackMe: Madness Writeup</title>
+        <link>/p/tryhackme-madness-writeup/</link>
         <pubDate>Tue, 15 Jun 2021 00:00:00 +0000</pubDate>
         
-        <guid>/p/madness/</guid>
-        <description>&lt;img src="https://i.imgur.com/Ord2COL.png" alt="Featured image of post Madness" /&gt;&lt;p&gt;&lt;a class=&#34;link&#34; href=&#34;https://tryhackme.com/room/madness&#34;  target=&#34;_blank&#34; rel=&#34;noopener&#34;
+        <guid>/p/tryhackme-madness-writeup/</guid>
+        <description>&lt;img src="https://i.imgur.com/Ord2COL.png" alt="Featured image of post TryHackMe: Madness Writeup" /&gt;&lt;p&gt;&lt;a class=&#34;link&#34; href=&#34;https://tryhackme.com/room/madness&#34;  target=&#34;_blank&#34; rel=&#34;noopener&#34;
     &gt;Play&lt;/a&gt;&lt;/p&gt;
 &lt;h2 id=&#34;1-scanning--enumeration&#34;&gt;1. Scanning &amp;amp; Enumeration&lt;/h2&gt;
 &lt;p&gt;We do the below scans in parallel.&lt;/p&gt;
@@ -4514,12 +4514,12 @@ root
 </description>
         </item>
         <item>
-        <title>Mr Robot</title>
-        <link>/p/mr-robot/</link>
+        <title>TryHackMe: Mr Robot Writeup</title>
+        <link>/p/tryhackme-mr-robot-writeup/</link>
         <pubDate>Tue, 15 Jun 2021 00:00:00 +0000</pubDate>
         
-        <guid>/p/mr-robot/</guid>
-        <description>&lt;img src="https://i.imgur.com/gsFux0D.png" alt="Featured image of post Mr Robot" /&gt;&lt;p&gt;&lt;a class=&#34;link&#34; href=&#34;https://tryhackme.com/room/mrrobot&#34;  target=&#34;_blank&#34; rel=&#34;noopener&#34;
+        <guid>/p/tryhackme-mr-robot-writeup/</guid>
+        <description>&lt;img src="https://i.imgur.com/gsFux0D.png" alt="Featured image of post TryHackMe: Mr Robot Writeup" /&gt;&lt;p&gt;&lt;a class=&#34;link&#34; href=&#34;https://tryhackme.com/room/mrrobot&#34;  target=&#34;_blank&#34; rel=&#34;noopener&#34;
     &gt;Play&lt;/a&gt;&lt;/p&gt;
 &lt;h2 id=&#34;1-recon&#34;&gt;1. Recon&lt;/h2&gt;
 &lt;h3 id=&#34;11-port-scanning&#34;&gt;1.1 Port Scanning&lt;/h3&gt;
@@ -4821,12 +4821,12 @@ root
 </description>
         </item>
         <item>
-        <title>Overpass</title>
-        <link>/p/overpass/</link>
+        <title>TryHackMe: Overpass Writeup</title>
+        <link>/p/tryhackme-overpass-writeup/</link>
         <pubDate>Tue, 15 Jun 2021 00:00:00 +0000</pubDate>
         
-        <guid>/p/overpass/</guid>
-        <description>&lt;img src="https://i.imgur.com/LPggi78.png" alt="Featured image of post Overpass" /&gt;&lt;h2 id=&#34;1-recon&#34;&gt;1. Recon&lt;/h2&gt;
+        <guid>/p/tryhackme-overpass-writeup/</guid>
+        <description>&lt;img src="https://i.imgur.com/LPggi78.png" alt="Featured image of post TryHackMe: Overpass Writeup" /&gt;&lt;h2 id=&#34;1-recon&#34;&gt;1. Recon&lt;/h2&gt;
 &lt;h3 id=&#34;11-port-scanning&#34;&gt;1.1 Port Scanning&lt;/h3&gt;
 &lt;pre&gt;&lt;code&gt;❯ nmap -sC -sV -A BOX_IP
 Starting Nmap 7.91 ( https://nmap.org ) at 2021-02-02 22:56 EST
@@ -4983,12 +4983,12 @@ Serving HTTP on 0.0.0.0 port 80 (http://0.0.0.0:80/) ...
 </description>
         </item>
         <item>
-        <title>Overpass3</title>
-        <link>/p/overpass3/</link>
+        <title>TryHackMe: Overpass3 Writeup</title>
+        <link>/p/tryhackme-overpass3-writeup/</link>
         <pubDate>Tue, 15 Jun 2021 00:00:00 +0000</pubDate>
         
-        <guid>/p/overpass3/</guid>
-        <description>&lt;img src="https://i.imgur.com/ElTbvct.jpg" alt="Featured image of post Overpass3" /&gt;&lt;h2 id=&#34;1-recon&#34;&gt;1. Recon&lt;/h2&gt;
+        <guid>/p/tryhackme-overpass3-writeup/</guid>
+        <description>&lt;img src="https://i.imgur.com/ElTbvct.jpg" alt="Featured image of post TryHackMe: Overpass3 Writeup" /&gt;&lt;h2 id=&#34;1-recon&#34;&gt;1. Recon&lt;/h2&gt;
 &lt;p&gt;we run the nmap scan and the gobuster parallely, while we explore the website.&lt;/p&gt;
 &lt;h3 id=&#34;11-port-scanning&#34;&gt;1.1 Port Scanning&lt;/h3&gt;
 &lt;pre&gt;&lt;code&gt;❯ nmap -script=vuln -sV -A -T4 -Pn 10.10.16.10
@@ -5171,12 +5171,12 @@ root
 </description>
         </item>
         <item>
-        <title>Pickle Rick</title>
-        <link>/p/pickle-rick/</link>
+        <title>TryHackMe: Pickle Rick Writeup</title>
+        <link>/p/tryhackme-pickle-rick-writeup/</link>
         <pubDate>Tue, 15 Jun 2021 00:00:00 +0000</pubDate>
         
-        <guid>/p/pickle-rick/</guid>
-        <description>&lt;img src="https://i.imgur.com/NLn7Ikj.jpg" alt="Featured image of post Pickle Rick" /&gt;&lt;h2 id=&#34;1-recon&#34;&gt;1. Recon&lt;/h2&gt;
+        <guid>/p/tryhackme-pickle-rick-writeup/</guid>
+        <description>&lt;img src="https://i.imgur.com/NLn7Ikj.jpg" alt="Featured image of post TryHackMe: Pickle Rick Writeup" /&gt;&lt;h2 id=&#34;1-recon&#34;&gt;1. Recon&lt;/h2&gt;
 &lt;p&gt;lets look at the website first. Okay. Nothing special. Looking at the source we have something in the comments:&lt;/p&gt;
 &lt;pre&gt;&lt;code&gt;
   &amp;lt;!--
@@ -5318,12 +5318,12 @@ sudo cat /root/3rd.txt
 </description>
         </item>
         <item>
-        <title>Relevant</title>
-        <link>/p/relevant/</link>
+        <title>TryHackMe: Relevant Writeup</title>
+        <link>/p/tryhackme-relevant-writeup/</link>
         <pubDate>Tue, 15 Jun 2021 00:00:00 +0000</pubDate>
         
-        <guid>/p/relevant/</guid>
-        <description>&lt;img src="https://i.imgur.com/AG5H2Sg.jpg" alt="Featured image of post Relevant" /&gt;&lt;p&gt;&lt;a class=&#34;link&#34; href=&#34;https://tryhackme.com/room/relevant&#34;  target=&#34;_blank&#34; rel=&#34;noopener&#34;
+        <guid>/p/tryhackme-relevant-writeup/</guid>
+        <description>&lt;img src="https://i.imgur.com/AG5H2Sg.jpg" alt="Featured image of post TryHackMe: Relevant Writeup" /&gt;&lt;p&gt;&lt;a class=&#34;link&#34; href=&#34;https://tryhackme.com/room/relevant&#34;  target=&#34;_blank&#34; rel=&#34;noopener&#34;
     &gt;Play&lt;/a&gt;&lt;/p&gt;
 &lt;h2 id=&#34;1-enumeration--exploration&#34;&gt;1. Enumeration &amp;amp; Exploration&lt;/h2&gt;
 &lt;p&gt;Note: All of the below may look sequential, but are done is parallel.&lt;/p&gt;
@@ -5583,12 +5583,12 @@ nt authority\system
 </description>
         </item>
         <item>
-        <title>Retro</title>
-        <link>/p/retro/</link>
+        <title>TryHackMe: Retro Writeup</title>
+        <link>/p/tryhackme-retro-writeup/</link>
         <pubDate>Tue, 15 Jun 2021 00:00:00 +0000</pubDate>
         
-        <guid>/p/retro/</guid>
-        <description>&lt;img src="https://i.imgur.com/Cd3WvVT.png" alt="Featured image of post Retro" /&gt;&lt;p&gt;&lt;a class=&#34;link&#34; href=&#34;https://tryhackme.com/room/retro&#34;  target=&#34;_blank&#34; rel=&#34;noopener&#34;
+        <guid>/p/tryhackme-retro-writeup/</guid>
+        <description>&lt;img src="https://i.imgur.com/Cd3WvVT.png" alt="Featured image of post TryHackMe: Retro Writeup" /&gt;&lt;p&gt;&lt;a class=&#34;link&#34; href=&#34;https://tryhackme.com/room/retro&#34;  target=&#34;_blank&#34; rel=&#34;noopener&#34;
     &gt;Play&lt;/a&gt;&lt;/p&gt;
 &lt;h2 id=&#34;1-scanning--enumeration&#34;&gt;1. Scanning &amp;amp; Enumeration&lt;/h2&gt;
 &lt;p&gt;Let&amp;rsquo;s start with the nmap scan and run gobuster in parallel, since the questions hint on it.&lt;/p&gt;
@@ -5727,12 +5727,12 @@ Save it using the name &lt;em&gt;.&lt;/em&gt; in C:\Windows\System32&lt;/p&gt;
 </description>
         </item>
         <item>
-        <title>Root Me</title>
-        <link>/p/root-me/</link>
+        <title>TryHackMe: Root Me Writeup</title>
+        <link>/p/tryhackme-root-me-writeup/</link>
         <pubDate>Tue, 15 Jun 2021 00:00:00 +0000</pubDate>
         
-        <guid>/p/root-me/</guid>
-        <description>&lt;img src="https://i.imgur.com/1xtAlAB.png" alt="Featured image of post Root Me" /&gt;&lt;p&gt;&lt;a class=&#34;link&#34; href=&#34;https://tryhackme.com/room/rrootme&#34;  target=&#34;_blank&#34; rel=&#34;noopener&#34;
+        <guid>/p/tryhackme-root-me-writeup/</guid>
+        <description>&lt;img src="https://i.imgur.com/1xtAlAB.png" alt="Featured image of post TryHackMe: Root Me Writeup" /&gt;&lt;p&gt;&lt;a class=&#34;link&#34; href=&#34;https://tryhackme.com/room/rrootme&#34;  target=&#34;_blank&#34; rel=&#34;noopener&#34;
     &gt;Play&lt;/a&gt;&lt;/p&gt;
 &lt;h2 id=&#34;1-scanning--enumeration&#34;&gt;1. Scanning &amp;amp; Enumeration&lt;/h2&gt;
 &lt;h3 id=&#34;11-port-scanning&#34;&gt;1.1 Port Scanning&lt;/h3&gt;
@@ -5867,12 +5867,12 @@ bash-4.4$
 </description>
         </item>
         <item>
-        <title>Smag Grotto</title>
-        <link>/p/smag-grotto/</link>
+        <title>TryHackMe: Smag Grotto Writeup</title>
+        <link>/p/tryhackme-smag-grotto-writeup/</link>
         <pubDate>Tue, 15 Jun 2021 00:00:00 +0000</pubDate>
         
-        <guid>/p/smag-grotto/</guid>
-        <description>&lt;img src="https://i.imgur.com/C5DIAQd.png" alt="Featured image of post Smag Grotto" /&gt;&lt;p&gt;&lt;a class=&#34;link&#34; href=&#34;https://tryhackme.com/room/room_name_here&#34;  target=&#34;_blank&#34; rel=&#34;noopener&#34;
+        <guid>/p/tryhackme-smag-grotto-writeup/</guid>
+        <description>&lt;img src="https://i.imgur.com/C5DIAQd.png" alt="Featured image of post TryHackMe: Smag Grotto Writeup" /&gt;&lt;p&gt;&lt;a class=&#34;link&#34; href=&#34;https://tryhackme.com/room/room_name_here&#34;  target=&#34;_blank&#34; rel=&#34;noopener&#34;
     &gt;Play&lt;/a&gt;&lt;/p&gt;
 &lt;h2 id=&#34;1-scanning--enumeration&#34;&gt;1. Scanning &amp;amp; Enumeration&lt;/h2&gt;
 &lt;p&gt;We do the below scans in parallel.&lt;/p&gt;
@@ -6008,12 +6008,12 @@ root
 </description>
         </item>
         <item>
-        <title>Startup</title>
-        <link>/p/startup/</link>
+        <title>TryHackMe: Startup Writeup</title>
+        <link>/p/tryhackme-startup-writeup/</link>
         <pubDate>Tue, 15 Jun 2021 00:00:00 +0000</pubDate>
         
-        <guid>/p/startup/</guid>
-        <description>&lt;img src="https://i.imgur.com/xPZaCyo.png" alt="Featured image of post Startup" /&gt;&lt;p&gt;&lt;a class=&#34;link&#34; href=&#34;https://tryhackme.com/room/startup&#34;  target=&#34;_blank&#34; rel=&#34;noopener&#34;
+        <guid>/p/tryhackme-startup-writeup/</guid>
+        <description>&lt;img src="https://i.imgur.com/xPZaCyo.png" alt="Featured image of post TryHackMe: Startup Writeup" /&gt;&lt;p&gt;&lt;a class=&#34;link&#34; href=&#34;https://tryhackme.com/room/startup&#34;  target=&#34;_blank&#34; rel=&#34;noopener&#34;
     &gt;Play&lt;/a&gt;&lt;/p&gt;
 &lt;h2 id=&#34;1-enumeration--scanning&#34;&gt;1. Enumeration &amp;amp; Scanning&lt;/h2&gt;
 &lt;h3 id=&#34;11-port-scanning&#34;&gt;1.1 Port Scanning&lt;/h3&gt;
@@ -6190,12 +6190,12 @@ root@startup:~#
 </description>
         </item>
         <item>
-        <title>Team Final</title>
-        <link>/p/team-final/</link>
+        <title>TryHackMe: Team Final Writeup</title>
+        <link>/p/tryhackme-team-final-writeup/</link>
         <pubDate>Tue, 15 Jun 2021 00:00:00 +0000</pubDate>
         
-        <guid>/p/team-final/</guid>
-        <description>&lt;img src="https://i.imgur.com/OT9fQyi.png" alt="Featured image of post Team Final" /&gt;&lt;p&gt;&lt;a class=&#34;link&#34; href=&#34;https://tryhackme.com/room/teamcw&#34;  target=&#34;_blank&#34; rel=&#34;noopener&#34;
+        <guid>/p/tryhackme-team-final-writeup/</guid>
+        <description>&lt;img src="https://i.imgur.com/OT9fQyi.png" alt="Featured image of post TryHackMe: Team Final Writeup" /&gt;&lt;p&gt;&lt;a class=&#34;link&#34; href=&#34;https://tryhackme.com/room/teamcw&#34;  target=&#34;_blank&#34; rel=&#34;noopener&#34;
     &gt;Play&lt;/a&gt;&lt;/p&gt;
 &lt;h2 id=&#34;1-enumeration-and-scanning&#34;&gt;1. Enumeration and Scanning&lt;/h2&gt;
 &lt;p&gt;As usual, we start off with &lt;code&gt;nmap&lt;/code&gt; and &lt;code&gt;gobuster&lt;/code&gt; scans.&lt;/p&gt;
@@ -6435,12 +6435,12 @@ THM{YEEEEEEEEEEEEEE}
 </description>
         </item>
         <item>
-        <title>The Cod Caper</title>
-        <link>/p/the-cod-caper/</link>
+        <title>TryHackMe: The Cod Caper Writeup</title>
+        <link>/p/tryhackme-the-cod-caper-writeup/</link>
         <pubDate>Tue, 15 Jun 2021 00:00:00 +0000</pubDate>
         
-        <guid>/p/the-cod-caper/</guid>
-        <description>&lt;img src="https://i.imgur.com/Z1wn3xE.png" alt="Featured image of post The Cod Caper" /&gt;&lt;h2 id=&#34;task-1-intro&#34;&gt;Task 1: Intro&lt;/h2&gt;
+        <guid>/p/tryhackme-the-cod-caper-writeup/</guid>
+        <description>&lt;img src="https://i.imgur.com/Z1wn3xE.png" alt="Featured image of post TryHackMe: The Cod Caper Writeup" /&gt;&lt;h2 id=&#34;task-1-intro&#34;&gt;Task 1: Intro&lt;/h2&gt;
 &lt;p&gt;pingu story&lt;/p&gt;
 &lt;h2 id=&#34;task-2-host-enumeration&#34;&gt;Task 2: Host Enumeration&lt;/h2&gt;
 &lt;p&gt;&lt;code&gt;nmap -sC -sV -A 10.10.40.189&lt;/code&gt;&lt;/p&gt;
@@ -6578,12 +6578,12 @@ pingu is not in the sudoers file.  This incident will be reported.
 </description>
         </item>
         <item>
-        <title>Tokyo Ghoul</title>
-        <link>/p/tokyo-ghoul/</link>
+        <title>TryHackMe: Tokyo Ghoul Writeup</title>
+        <link>/p/tryhackme-tokyo-ghoul-writeup/</link>
         <pubDate>Tue, 15 Jun 2021 00:00:00 +0000</pubDate>
         
-        <guid>/p/tokyo-ghoul/</guid>
-        <description>&lt;img src="https://i.imgur.com/nqdEYNI.png" alt="Featured image of post Tokyo Ghoul" /&gt;&lt;p&gt;&lt;a class=&#34;link&#34; href=&#34;https://tryhackme.com/room/tokyoghoul666&#34;  target=&#34;_blank&#34; rel=&#34;noopener&#34;
+        <guid>/p/tryhackme-tokyo-ghoul-writeup/</guid>
+        <description>&lt;img src="https://i.imgur.com/nqdEYNI.png" alt="Featured image of post TryHackMe: Tokyo Ghoul Writeup" /&gt;&lt;p&gt;&lt;a class=&#34;link&#34; href=&#34;https://tryhackme.com/room/tokyoghoul666&#34;  target=&#34;_blank&#34; rel=&#34;noopener&#34;
     &gt;Play&lt;/a&gt;&lt;/p&gt;
 &lt;h2 id=&#34;1-scanning--enumeration&#34;&gt;1. Scanning &amp;amp; Enumeration&lt;/h2&gt;
 &lt;h3 id=&#34;11-port-scanning&#34;&gt;1.1 Port Scanning&lt;/h3&gt;
@@ -6771,12 +6771,12 @@ No Kaneki you are so dead
 </description>
         </item>
         <item>
-        <title>Tom Ghost Cat</title>
-        <link>/p/tom-ghost-cat/</link>
+        <title>TryHackMe: Tom Ghost Cat Writeup</title>
+        <link>/p/tryhackme-tom-ghost-cat-writeup/</link>
         <pubDate>Tue, 15 Jun 2021 00:00:00 +0000</pubDate>
         
-        <guid>/p/tom-ghost-cat/</guid>
-        <description>&lt;img src="https://i.imgur.com/8ALIytx.png" alt="Featured image of post Tom Ghost Cat" /&gt;&lt;p&gt;&lt;a class=&#34;link&#34; href=&#34;https://tryhackme.com/room/tomghost&#34;  target=&#34;_blank&#34; rel=&#34;noopener&#34;
+        <guid>/p/tryhackme-tom-ghost-cat-writeup/</guid>
+        <description>&lt;img src="https://i.imgur.com/8ALIytx.png" alt="Featured image of post TryHackMe: Tom Ghost Cat Writeup" /&gt;&lt;p&gt;&lt;a class=&#34;link&#34; href=&#34;https://tryhackme.com/room/tomghost&#34;  target=&#34;_blank&#34; rel=&#34;noopener&#34;
     &gt;Play&lt;/a&gt;&lt;/p&gt;
 &lt;h2 id=&#34;recon&#34;&gt;Recon&lt;/h2&gt;
 &lt;pre&gt;&lt;code&gt;❯ nmap -sC -sV -A -T4 10.10.218.100
@@ -6954,12 +6954,12 @@ THM{pwned!}
 &lt;/code&gt;&lt;/pre&gt;</description>
         </item>
         <item>
-        <title>Vuln University</title>
-        <link>/p/vuln-university/</link>
+        <title>TryHackMe: Vuln University Writeup</title>
+        <link>/p/tryhackme-vuln-university-writeup/</link>
         <pubDate>Tue, 15 Jun 2021 00:00:00 +0000</pubDate>
         
-        <guid>/p/vuln-university/</guid>
-        <description>&lt;img src="https://i.imgur.com/5x36aqY.png" alt="Featured image of post Vuln University" /&gt;&lt;p&gt;&lt;a class=&#34;link&#34; href=&#34;https://tryhackme.com/room/vulnversity&#34;  target=&#34;_blank&#34; rel=&#34;noopener&#34;
+        <guid>/p/tryhackme-vuln-university-writeup/</guid>
+        <description>&lt;img src="https://i.imgur.com/5x36aqY.png" alt="Featured image of post TryHackMe: Vuln University Writeup" /&gt;&lt;p&gt;&lt;a class=&#34;link&#34; href=&#34;https://tryhackme.com/room/vulnversity&#34;  target=&#34;_blank&#34; rel=&#34;noopener&#34;
     &gt;Play&lt;/a&gt;&lt;/p&gt;
 &lt;h2 id=&#34;task-1---deploy-the-machine&#34;&gt;Task 1 - Deploy the machine&lt;/h2&gt;
 &lt;p&gt;ezpz&lt;/p&gt;
@@ -7112,12 +7112,12 @@ root@vulnuniversity:~#
 &lt;/code&gt;&lt;/pre&gt;</description>
         </item>
         <item>
-        <title>Watcher</title>
-        <link>/p/watcher/</link>
+        <title>TryHackMe: Watcher Writeup</title>
+        <link>/p/tryhackme-watcher-writeup/</link>
         <pubDate>Tue, 15 Jun 2021 00:00:00 +0000</pubDate>
         
-        <guid>/p/watcher/</guid>
-        <description>&lt;img src="https://i.imgur.com/WSIsuRG.jpg" alt="Featured image of post Watcher" /&gt;&lt;p&gt;&lt;a class=&#34;link&#34; href=&#34;https://tryhackme.com/room/watcher&#34;  target=&#34;_blank&#34; rel=&#34;noopener&#34;
+        <guid>/p/tryhackme-watcher-writeup/</guid>
+        <description>&lt;img src="https://i.imgur.com/WSIsuRG.jpg" alt="Featured image of post TryHackMe: Watcher Writeup" /&gt;&lt;p&gt;&lt;a class=&#34;link&#34; href=&#34;https://tryhackme.com/room/watcher&#34;  target=&#34;_blank&#34; rel=&#34;noopener&#34;
     &gt;Play&lt;/a&gt;&lt;/p&gt;
 &lt;h2 id=&#34;1-enumeration--exploration&#34;&gt;1. Enumeration &amp;amp; Exploration&lt;/h2&gt;
 &lt;h3 id=&#34;11-port-scanning&#34;&gt;1.1. Port Scanning&lt;/h3&gt;
@@ -7415,12 +7415,12 @@ root@watcher:~#
 </description>
         </item>
         <item>
-        <title>Wonderland</title>
-        <link>/p/wonderland/</link>
+        <title>TryHackMe: Wonderland Writeup</title>
+        <link>/p/tryhackme-wonderland-writeup/</link>
         <pubDate>Tue, 15 Jun 2021 00:00:00 +0000</pubDate>
         
-        <guid>/p/wonderland/</guid>
-        <description>&lt;img src="https://i.imgur.com/wnL3bIR.jpg" alt="Featured image of post Wonderland" /&gt;&lt;p&gt;&lt;a class=&#34;link&#34; href=&#34;https://tryhackme.com/room/wonderland&#34;  target=&#34;_blank&#34; rel=&#34;noopener&#34;
+        <guid>/p/tryhackme-wonderland-writeup/</guid>
+        <description>&lt;img src="https://i.imgur.com/wnL3bIR.jpg" alt="Featured image of post TryHackMe: Wonderland Writeup" /&gt;&lt;p&gt;&lt;a class=&#34;link&#34; href=&#34;https://tryhackme.com/room/wonderland&#34;  target=&#34;_blank&#34; rel=&#34;noopener&#34;
     &gt;Play&lt;/a&gt;&lt;/p&gt;
 &lt;h2 id=&#34;1-recon&#34;&gt;1. Recon&lt;/h2&gt;
 &lt;pre&gt;&lt;code&gt;❯ nmap -script=default -sV -A -T4 10.10.133.60
@@ -7573,12 +7573,12 @@ root
 </description>
         </item>
         <item>
-        <title>Year Of The Rabbit</title>
-        <link>/p/year-of-the-rabbit/</link>
+        <title>TryHackMe: Year Of The Rabbit Writeup</title>
+        <link>/p/tryhackme-year-of-the-rabbit-writeup/</link>
         <pubDate>Tue, 15 Jun 2021 00:00:00 +0000</pubDate>
         
-        <guid>/p/year-of-the-rabbit/</guid>
-        <description>&lt;img src="https://i.imgur.com/EKb6pFE.png" alt="Featured image of post Year Of The Rabbit" /&gt;&lt;h2 id=&#34;challenge-room&#34;&gt;Challenge Room&lt;/h2&gt;
+        <guid>/p/tryhackme-year-of-the-rabbit-writeup/</guid>
+        <description>&lt;img src="https://i.imgur.com/EKb6pFE.png" alt="Featured image of post TryHackMe: Year Of The Rabbit Writeup" /&gt;&lt;h2 id=&#34;challenge-room&#34;&gt;Challenge Room&lt;/h2&gt;
 &lt;p&gt;&lt;a class=&#34;link&#34; href=&#34;https://tryhackme.com/room/yearoftherabbit&#34;  target=&#34;_blank&#34; rel=&#34;noopener&#34;
     &gt;Play here&lt;/a&gt;&lt;/p&gt;
 &lt;h2 id=&#34;recon&#34;&gt;Recon&lt;/h2&gt;

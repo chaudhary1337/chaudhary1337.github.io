@@ -8,21 +8,21 @@
     <language>en-us</language>
     <lastBuildDate>Tue, 15 Jun 2021 00:00:00 +0000</lastBuildDate><atom:link href="/tags/multiple-paths/index.xml" rel="self" type="application/rss+xml" />
     <item>
-      <title>Brooklyn Nine Nine (All Paths)</title>
-      <link>/p/brooklyn-nine-nine-all-paths/</link>
+      <title>TryHackMe: Brooklyn Nine Nine Writeup (All Paths)</title>
+      <link>/p/tryhackme-brooklyn-nine-nine-writeup-all-paths/</link>
       <pubDate>Tue, 15 Jun 2021 00:00:00 +0000</pubDate>
       
-      <guid>/p/brooklyn-nine-nine-all-paths/</guid>
+      <guid>/p/tryhackme-brooklyn-nine-nine-writeup-all-paths/</guid>
       <description>tags: THM OSCP This is an easy room with 2 equally fun paths to exploit. Steganography or Brute-forcing, Holt or Peralta. Then use GTFO bins to get the root.
 1. Scanning &amp;amp; Enumeration 1.1. Port Scanning Not shown: 997 closed ports PORT STATE SERVICE VERSION 21/tcp open ftp vsftpd 3.0.3 | ftp-anon: Anonymous FTP login allowed (FTP code 230) |_-rw-r--r-- 1 0 0 119 May 17 2020 note_to_jake.txt | ftp-syst: | STAT: | FTP server status: | Connected to ::ffff:10.</description>
     </item>
     
     <item>
-      <title>ColdBox (All Paths)</title>
-      <link>/p/coldbox-all-paths/</link>
+      <title>TryHackMe: ColdBox Writeup (All Paths)</title>
+      <link>/p/tryhackme-coldbox-writeup-all-paths/</link>
       <pubDate>Tue, 15 Jun 2021 00:00:00 +0000</pubDate>
       
-      <guid>/p/coldbox-all-paths/</guid>
+      <guid>/p/tryhackme-coldbox-writeup-all-paths/</guid>
       <description>Play
 1. Scanning &amp;amp; Enumeration We do the below scans in parallel.
 1.1. Port Scanning Not shown: 999 closed ports PORT STATE SERVICE VERSION 80/tcp open http Apache httpd 2.4.18 ((Ubuntu)) |_http-generator: WordPress 4.1.31 | http-methods: |_ Supported Methods: GET HEAD POST OPTIONS |_http-server-header: Apache/2.4.18 (Ubuntu) |_http-title: ColddBox | One more machine Nothing interesting. Only port 80 open, no ssh.

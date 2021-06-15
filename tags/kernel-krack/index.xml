@@ -8,11 +8,11 @@
     <language>en-us</language>
     <lastBuildDate>Tue, 15 Jun 2021 00:00:00 +0000</lastBuildDate><atom:link href="/tags/kernel-krack/index.xml" rel="self" type="application/rss+xml" />
     <item>
-      <title>0day</title>
-      <link>/p/0day/</link>
+      <title>TryHackMe: 0day Writeup</title>
+      <link>/p/tryhackme-0day-writeup/</link>
       <pubDate>Tue, 15 Jun 2021 00:00:00 +0000</pubDate>
       
-      <guid>/p/0day/</guid>
+      <guid>/p/tryhackme-0day-writeup/</guid>
       <description>A pretty easy THM room. You just need to know what to do, and the rest is a cake-walk.
 Play
 1. Enumeration and Scanning 1.1. Web Exploration We find the /secret/ directory in the enumeration. We find a id_rsa key, in /backup/

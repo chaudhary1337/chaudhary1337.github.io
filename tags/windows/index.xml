@@ -8,11 +8,11 @@
     <language>en-us</language>
     <lastBuildDate>Tue, 15 Jun 2021 00:00:00 +0000</lastBuildDate><atom:link href="/tags/windows/index.xml" rel="self" type="application/rss+xml" />
     <item>
-      <title>Attackative Directory</title>
-      <link>/p/attackative-directory/</link>
+      <title>TryHackMe: Attackative Directory Writeup</title>
+      <link>/p/tryhackme-attackative-directory-writeup/</link>
       <pubDate>Tue, 15 Jun 2021 00:00:00 +0000</pubDate>
       
-      <guid>/p/attackative-directory/</guid>
+      <guid>/p/tryhackme-attackative-directory-writeup/</guid>
       <description>Play
 Primer:
  [Video] Active Directory [Video] [Hindi] Kerberos - decent overview [Video] Kerberos - has good visualizations  If this is your first time, as was mine, the above resoruces provide a decent overview of the stuff we are going to deal with.
@@ -21,33 +21,33 @@ Primer:
     </item>
     
     <item>
-      <title>Blue</title>
-      <link>/p/blue/</link>
+      <title>TryHackMe: Blue Writeup</title>
+      <link>/p/tryhackme-blue-writeup/</link>
       <pubDate>Tue, 15 Jun 2021 00:00:00 +0000</pubDate>
       
-      <guid>/p/blue/</guid>
+      <guid>/p/tryhackme-blue-writeup/</guid>
       <description>1. Recon Reconnaissance
 Scan the machine. (If you are unsure how to tackle this, I recommend checking out the Nmap room) ❯ nmap --script=vuln -sV -A 10.10.233.113
 Nmap scan report for 10.10.233.113 Host is up (0.43s latency). Not shown: 991 closed ports PORT STATE SERVICE VERSION 135/tcp open msrpc Microsoft Windows RPC 139/tcp open netbios-ssn Microsoft Windows netbios-ssn 445/tcp open microsoft-ds Microsoft Windows 7 - 10 microsoft-ds (workgroup: WORKGROUP) 3389/tcp open ssl/ms-wbt-server?</description>
     </item>
     
     <item>
-      <title>Relevant</title>
-      <link>/p/relevant/</link>
+      <title>TryHackMe: Relevant Writeup</title>
+      <link>/p/tryhackme-relevant-writeup/</link>
       <pubDate>Tue, 15 Jun 2021 00:00:00 +0000</pubDate>
       
-      <guid>/p/relevant/</guid>
+      <guid>/p/tryhackme-relevant-writeup/</guid>
       <description>Play
 1. Enumeration &amp;amp; Exploration Note: All of the below may look sequential, but are done is parallel.
 1.1 Port Scanning Not shown: 995 filtered ports PORT STATE SERVICE VERSION 80/tcp open http Microsoft IIS httpd 10.0 | http-methods: | Supported Methods: OPTIONS TRACE GET HEAD POST |_ Potentially risky methods: TRACE |_http-server-header: Microsoft-IIS/10.0 |_http-title: IIS Windows Server 135/tcp open msrpc Microsoft Windows RPC 139/tcp open netbios-ssn Microsoft Windows netbios-ssn 445/tcp open microsoft-ds Windows Server 2016 Standard Evaluation 14393 microsoft-ds 3389/tcp open ms-wbt-server Microsoft Terminal Services | rdp-ntlm-info: | Target_Name: RELEVANT | NetBIOS_Domain_Name: RELEVANT | NetBIOS_Computer_Name: RELEVANT | DNS_Domain_Name: Relevant | DNS_Computer_Name: Relevant | Product_Version: 10.</description>
     </item>
     
     <item>
-      <title>Retro</title>
-      <link>/p/retro/</link>
+      <title>TryHackMe: Retro Writeup</title>
+      <link>/p/tryhackme-retro-writeup/</link>
       <pubDate>Tue, 15 Jun 2021 00:00:00 +0000</pubDate>
       
-      <guid>/p/retro/</guid>
+      <guid>/p/tryhackme-retro-writeup/</guid>
       <description>Play
 1. Scanning &amp;amp; Enumeration Let&amp;rsquo;s start with the nmap scan and run gobuster in parallel, since the questions hint on it.
 Looking at the website, it looks like a windows server.

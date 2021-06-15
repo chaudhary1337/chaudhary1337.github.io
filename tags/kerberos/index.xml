@@ -8,11 +8,11 @@
     <language>en-us</language>
     <lastBuildDate>Tue, 15 Jun 2021 00:00:00 +0000</lastBuildDate><atom:link href="/tags/kerberos/index.xml" rel="self" type="application/rss+xml" />
     <item>
-      <title>Attackative Directory</title>
-      <link>/p/attackative-directory/</link>
+      <title>TryHackMe: Attackative Directory Writeup</title>
+      <link>/p/tryhackme-attackative-directory-writeup/</link>
       <pubDate>Tue, 15 Jun 2021 00:00:00 +0000</pubDate>
       
-      <guid>/p/attackative-directory/</guid>
+      <guid>/p/tryhackme-attackative-directory-writeup/</guid>
       <description>Play
 Primer:
  [Video] Active Directory [Video] [Hindi] Kerberos - decent overview [Video] Kerberos - has good visualizations  If this is your first time, as was mine, the above resoruces provide a decent overview of the stuff we are going to deal with.

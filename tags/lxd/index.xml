@@ -8,11 +8,11 @@
     <language>en-us</language>
     <lastBuildDate>Tue, 15 Jun 2021 00:00:00 +0000</lastBuildDate><atom:link href="/tags/lxd/index.xml" rel="self" type="application/rss+xml" />
     <item>
-      <title>HA Joker CTF</title>
-      <link>/p/ha-joker-ctf/</link>
+      <title>TryHackMe: HA Joker CTF Writeup</title>
+      <link>/p/tryhackme-ha-joker-ctf-writeup/</link>
       <pubDate>Tue, 15 Jun 2021 00:00:00 +0000</pubDate>
       
-      <guid>/p/ha-joker-ctf/</guid>
+      <guid>/p/tryhackme-ha-joker-ctf-writeup/</guid>
       <description>Play
 1. Scanning &amp;amp; Enumeration We do the below scans in parallel.
 1.1. Port Scanning PORT STATE SERVICE VERSION 22/tcp open ssh OpenSSH 7.6p1 Ubuntu 4ubuntu0.3 (Ubuntu Linux; protocol 2.0) | ssh-hostkey: | 2048 ad:20:1f:f4:33:1b:00:70:b3:85:cb:87:00:c4:f4:f7 (RSA) | 256 1b:f9:a8:ec:fd:35:ec:fb:04:d5:ee:2a:a1:7a:4f:78 (ECDSA) |_ 256 dc:d7:dd:6e:f6:71:1f:8c:2c:2c:a1:34:6d:29:99:20 (ED25519) 80/tcp open http Apache httpd 2.4.29 ((Ubuntu)) | http-methods: |_ Supported Methods: GET POST OPTIONS HEAD |_http-server-header: Apache/2.4.29 (Ubuntu) |_http-title: HA: Joker 8080/tcp open http Apache httpd 2.</description>

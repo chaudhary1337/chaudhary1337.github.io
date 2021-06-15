@@ -8,11 +8,11 @@
     <language>en-us</language>
     <lastBuildDate>Tue, 15 Jun 2021 00:00:00 +0000</lastBuildDate><atom:link href="/tags/pop3/index.xml" rel="self" type="application/rss+xml" />
     <item>
-      <title>Fowsniff CTF</title>
-      <link>/p/fowsniff-ctf/</link>
+      <title>TryHackMe: Fowsniff CTF Writeup</title>
+      <link>/p/tryhackme-fowsniff-ctf-writeup/</link>
       <pubDate>Tue, 15 Jun 2021 00:00:00 +0000</pubDate>
       
-      <guid>/p/fowsniff-ctf/</guid>
+      <guid>/p/tryhackme-fowsniff-ctf-writeup/</guid>
       <description>Play
 1. Scanning &amp;amp; Enumeration We do the below scans in parallel.
 1.1. Port Scanning Not shown: 996 closed ports PORT STATE SERVICE VERSION 22/tcp open ssh OpenSSH 7.2p2 Ubuntu 4ubuntu2.4 (Ubuntu Linux; protocol 2.0) | ssh-hostkey: | 2048 90:35:66:f4:c6:d2:95:12:1b:e8:cd:de:aa:4e:03:23 (RSA) | 256 53:9d:23:67:34:cf:0a:d5:5a:9a:11:74:bd:fd:de:71 (ECDSA) |_ 256 a2:8f:db:ae:9e:3d:c9:e6:a9:ca:03:b1:d7:1b:66:83 (ED25519) 80/tcp open http Apache httpd 2.4.18 ((Ubuntu)) | http-methods: |_ Supported Methods: GET HEAD POST OPTIONS | http-robots.txt: 1 disallowed entry |_/ |_http-server-header: Apache/2.</description>

@@ -8,11 +8,11 @@
     <language>en-us</language>
     <lastBuildDate>Tue, 15 Jun 2021 00:00:00 +0000</lastBuildDate><atom:link href="/tags/sub-domain/index.xml" rel="self" type="application/rss+xml" />
     <item>
-      <title>Team Final</title>
-      <link>/p/team-final/</link>
+      <title>TryHackMe: Team Final Writeup</title>
+      <link>/p/tryhackme-team-final-writeup/</link>
       <pubDate>Tue, 15 Jun 2021 00:00:00 +0000</pubDate>
       
-      <guid>/p/team-final/</guid>
+      <guid>/p/tryhackme-team-final-writeup/</guid>
       <description>Play
 1. Enumeration and Scanning As usual, we start off with nmap and gobuster scans.
 ❯ nmap -sC -sV -A 10.10.82.31

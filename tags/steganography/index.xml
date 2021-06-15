@@ -8,42 +8,42 @@
     <language>en-us</language>
     <lastBuildDate>Tue, 15 Jun 2021 00:00:00 +0000</lastBuildDate><atom:link href="/tags/steganography/index.xml" rel="self" type="application/rss+xml" />
     <item>
-      <title>Agent Sudo</title>
-      <link>/p/agent-sudo/</link>
+      <title>TryHackMe: Agent Sudo Writeup</title>
+      <link>/p/tryhackme-agent-sudo-writeup/</link>
       <pubDate>Tue, 15 Jun 2021 00:00:00 +0000</pubDate>
       
-      <guid>/p/agent-sudo/</guid>
+      <guid>/p/tryhackme-agent-sudo-writeup/</guid>
       <description>Play
 1. Enumeration &amp;amp; Exploration 1.1 Port Scanning ┌──(kali㉿kali)-[~] └─$ nmap -sC -sV -A 10.10.170.197 Starting Nmap 7.91 (https://nmap.org ) at 2021-05-16 00:45 EDT Nmap scan report for 10.10.170.197 Host is up (0.22s latency). Not shown: 997 closed ports PORT STATE SERVICE VERSION 21/tcp open ftp vsftpd 3.0.3 22/tcp open ssh OpenSSH 7.6p1 Ubuntu 4ubuntu0.3 (Ubuntu Linux; protocol 2.0) | ssh-hostkey: | 2048 ef:1f:5d:04:d4:77:95:06:60:72:ec:f0:58:f2:cc:07 (RSA) | 256 5e:02:d1:9a:c4:e7:43:06:62:c1:9e:25:84:8a:e7:ea (ECDSA) |_ 256 2d:00:5c:b9:fd:a8:c8:d8:80:e3:92:4f:8b:4f:18:e2 (ED25519) 80/tcp open http Apache httpd 2.</description>
     </item>
     
     <item>
-      <title>Biohazard</title>
-      <link>/p/biohazard/</link>
+      <title>TryHackMe: Biohazard Writeup</title>
+      <link>/p/tryhackme-biohazard-writeup/</link>
       <pubDate>Tue, 15 Jun 2021 00:00:00 +0000</pubDate>
       
-      <guid>/p/biohazard/</guid>
+      <guid>/p/tryhackme-biohazard-writeup/</guid>
       <description>Play
 1. Introduction We start with nmap for port scanning and do some web exploration meanwhile.
 1.1. Port Scanning ┌──(kali㉿kali)-[~] └─$ nmap -sC -sV -A 10.10.111.73 Starting Nmap 7.91 ( https://nmap.org ) at 2021-05-22 00:26 EDT Nmap scan report for 10.10.111.73 Host is up (0.21s latency). Not shown: 997 closed ports PORT STATE SERVICE VERSION 21/tcp open ftp vsftpd 3.0.3 22/tcp open ssh OpenSSH 7.6p1 Ubuntu 4ubuntu0.3 (Ubuntu Linux; protocol 2.</description>
     </item>
     
     <item>
-      <title>Brooklyn Nine Nine (All Paths)</title>
-      <link>/p/brooklyn-nine-nine-all-paths/</link>
+      <title>TryHackMe: Brooklyn Nine Nine Writeup (All Paths)</title>
+      <link>/p/tryhackme-brooklyn-nine-nine-writeup-all-paths/</link>
       <pubDate>Tue, 15 Jun 2021 00:00:00 +0000</pubDate>
       
-      <guid>/p/brooklyn-nine-nine-all-paths/</guid>
+      <guid>/p/tryhackme-brooklyn-nine-nine-writeup-all-paths/</guid>
       <description>tags: THM OSCP This is an easy room with 2 equally fun paths to exploit. Steganography or Brute-forcing, Holt or Peralta. Then use GTFO bins to get the root.
 1. Scanning &amp;amp; Enumeration 1.1. Port Scanning Not shown: 997 closed ports PORT STATE SERVICE VERSION 21/tcp open ftp vsftpd 3.0.3 | ftp-anon: Anonymous FTP login allowed (FTP code 230) |_-rw-r--r-- 1 0 0 119 May 17 2020 note_to_jake.txt | ftp-syst: | STAT: | FTP server status: | Connected to ::ffff:10.</description>
     </item>
     
     <item>
-      <title>Different CTF</title>
-      <link>/p/different-ctf/</link>
+      <title>TryHackMe: Different CTF Writeup</title>
+      <link>/p/tryhackme-different-ctf-writeup/</link>
       <pubDate>Tue, 15 Jun 2021 00:00:00 +0000</pubDate>
       
-      <guid>/p/different-ctf/</guid>
+      <guid>/p/tryhackme-different-ctf-writeup/</guid>
       <description>Play
 NOTE: There is an issue in the machine sometimes. On a previous run, I got: nmap shows its a WordPress website, but &amp;hellip; we do not see anything here except the error.
 Redeploy the machine to fix the error. You may also see it later, and not immediately. Don&amp;rsquo;t panic, just reset.
@@ -52,32 +52,32 @@ Redeploy the machine to fix the error. You may also see it later, and not immedi
     </item>
     
     <item>
-      <title>Madness</title>
-      <link>/p/madness/</link>
+      <title>TryHackMe: Madness Writeup</title>
+      <link>/p/tryhackme-madness-writeup/</link>
       <pubDate>Tue, 15 Jun 2021 00:00:00 +0000</pubDate>
       
-      <guid>/p/madness/</guid>
+      <guid>/p/tryhackme-madness-writeup/</guid>
       <description>Play
 1. Scanning &amp;amp; Enumeration We do the below scans in parallel.
 1.1. Port Scanning Not shown: 998 closed ports PORT STATE SERVICE VERSION 22/tcp open ssh OpenSSH 7.2p2 Ubuntu 4ubuntu2.8 (Ubuntu Linux; protocol 2.0) | ssh-hostkey: | 2048 ac:f9:85:10:52:65:6e:17:f5:1c:34:e7:d8:64:67:b1 (RSA) | 256 dd:8e:5a:ec:b1:95:cd:dc:4d:01:b3:fe:5f:4e:12:c1 (ECDSA) |_ 256 e9:ed:e3:eb:58:77:3b:00:5e:3a:f5:24:d8:58:34:8e (ED25519) 80/tcp open http Apache httpd 2.4.18 ((Ubuntu)) | http-methods: |_ Supported Methods: GET HEAD POST OPTIONS |_http-server-header: Apache/2.4.18 (Ubuntu) |_http-title: Apache2 Ubuntu Default Page: It works Service Info: OS: Linux; CPE: cpe:/o:linux:linux_kernel Nothing extraordinary.</description>
     </item>
     
     <item>
-      <title>Tokyo Ghoul</title>
-      <link>/p/tokyo-ghoul/</link>
+      <title>TryHackMe: Tokyo Ghoul Writeup</title>
+      <link>/p/tryhackme-tokyo-ghoul-writeup/</link>
       <pubDate>Tue, 15 Jun 2021 00:00:00 +0000</pubDate>
       
-      <guid>/p/tokyo-ghoul/</guid>
+      <guid>/p/tryhackme-tokyo-ghoul-writeup/</guid>
       <description>Play
 1. Scanning &amp;amp; Enumeration 1.1 Port Scanning ❯ nmap -sC -sV -A 10.10.202.61 Starting Nmap 7.91 ( https://nmap.org ) at 2021-03-17 01:48 EDT Nmap scan report for 10.10.202.61 Host is up (0.19s latency). Not shown: 997 closed ports PORT STATE SERVICE VERSION 21/tcp open ftp vsftpd 3.0.3 | ftp-anon: Anonymous FTP login allowed (FTP code 230) |_drwxr-xr-x 3 ftp ftp 4096 Jan 23 22:26 need_Help? | ftp-syst: | STAT: | FTP server status: | Connected to ::ffff:10.</description>
     </item>
     
     <item>
-      <title>Year Of The Rabbit</title>
-      <link>/p/year-of-the-rabbit/</link>
+      <title>TryHackMe: Year Of The Rabbit Writeup</title>
+      <link>/p/tryhackme-year-of-the-rabbit-writeup/</link>
       <pubDate>Tue, 15 Jun 2021 00:00:00 +0000</pubDate>
       
-      <guid>/p/year-of-the-rabbit/</guid>
+      <guid>/p/tryhackme-year-of-the-rabbit-writeup/</guid>
       <description>Challenge Room Play here
 Recon   Go to the website
   Run a gobuster scan
