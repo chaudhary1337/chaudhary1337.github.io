@@ -1,0 +1,47 @@
+<?xml version="1.0" encoding="utf-8" standalone="yes"?>
+<rss version="2.0" xmlns:atom="http://www.w3.org/2005/Atom">
+  <channel>
+    <title>lfi on Tanishq Chaudhary</title>
+    <link>/tags/lfi/</link>
+    <description>Recent content in lfi on Tanishq Chaudhary</description>
+    <generator>Hugo -- gohugo.io</generator>
+    <language>en-us</language>
+    <lastBuildDate>Tue, 15 Jun 2021 00:00:00 +0000</lastBuildDate><atom:link href="/tags/lfi/index.xml" rel="self" type="application/rss+xml" />
+    <item>
+      <title>Dog Cat VM</title>
+      <link>/p/dog-cat-vm/</link>
+      <pubDate>Tue, 15 Jun 2021 00:00:00 +0000</pubDate>
+      
+      <guid>/p/dog-cat-vm/</guid>
+      <description>Play here
+Recon Exploring the website, we see that images come in the form of: http://10.10.13.155/cats/7.jpg
+❯ nmap -script=default -sV -A 10.10.13.155 Starting Nmap 7.91 ( https://nmap.org ) at 2021-03-01 23:30 EST Nmap scan report for 10.10.13.155 Host is up (0.23s latency). Not shown: 998 closed ports PORT STATE SERVICE VERSION 22/tcp open ssh OpenSSH 7.6p1 Ubuntu 4ubuntu0.3 (Ubuntu Linux; protocol 2.0) | ssh-hostkey: | 2048 24:31:19:2a:b1:97:1a:04:4e:2c:36:ac:84:0a:75:87 (RSA) | 256 21:3d:46:18:93:aa:f9:e7:c9:b5:4c:0f:16:0b:71:e1 (ECDSA) |_ 256 c1:fb:7d:73:2b:57:4a:8b:dc:d7:6f:49:bb:3b:d0:20 (ED25519) 80/tcp open http Apache httpd 2.</description>
+    </item>
+    
+    <item>
+      <title>Team Final</title>
+      <link>/p/team-final/</link>
+      <pubDate>Tue, 15 Jun 2021 00:00:00 +0000</pubDate>
+      
+      <guid>/p/team-final/</guid>
+      <description>Play
+1. Enumeration and Scanning As usual, we start off with nmap and gobuster scans.
+❯ nmap -sC -sV -A 10.10.82.31
+❯ gobuster dir -u 10.10.82.31 -w &amp;quot;/usr/share/dirbuster/wordlists/directory-list-2.3-medium.txt&amp;quot; -x &amp;quot;html,php,txt&amp;quot;
+While they run, let&amp;rsquo;s check out the webpage itself. Looks like the default page.
+We see two things: that bug and the team.thm thing. The bug link is nothing special. Let&amp;rsquo;s add team.thm to our host list.
+❯ sudo vim /etc/hosts ❯ cat /etc/hosts 127.</description>
+    </item>
+    
+    <item>
+      <title>Watcher</title>
+      <link>/p/watcher/</link>
+      <pubDate>Tue, 15 Jun 2021 00:00:00 +0000</pubDate>
+      
+      <guid>/p/watcher/</guid>
+      <description>Play
+1. Enumeration &amp;amp; Exploration 1.1. Port Scanning ┌──(kali㉿kali)-[~] └─$ nmap -sC -sV -A 10.10.157.202 Starting Nmap 7.91 ( https://nmap.org ) at 2021-05-25 11:48 EDT Nmap scan report for 10.10.157.202 Host is up (0.24s latency). Not shown: 996 closed ports PORT STATE SERVICE VERSION 21/tcp open ftp vsftpd 3.0.3 22/tcp open ssh OpenSSH 7.6p1 Ubuntu 4ubuntu0.3 (Ubuntu Linux; protocol 2.0) | ssh-hostkey: | 2048 e1:80:ec:1f:26:9e:32:eb:27:3f:26:ac:d2:37:ba:96 (RSA) | 256 36:ff:70:11:05:8e:d4:50:7a:29:91:58:75:ac:2e:76 (ECDSA) |_ 256 48:d2:3e:45:da:0c:f0:f6:65:4e:f9:78:97:37:aa:8a (ED25519) 80/tcp open http Apache httpd 2.</description>
+    </item>
+    
+  </channel>
+</rss>

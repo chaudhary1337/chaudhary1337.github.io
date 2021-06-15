@@ -1,0 +1,22 @@
+<?xml version="1.0" encoding="utf-8" standalone="yes"?>
+<rss version="2.0" xmlns:atom="http://www.w3.org/2005/Atom">
+  <channel>
+    <title>log-poisoning on Tanishq Chaudhary</title>
+    <link>/tags/log-poisoning/</link>
+    <description>Recent content in log-poisoning on Tanishq Chaudhary</description>
+    <generator>Hugo -- gohugo.io</generator>
+    <language>en-us</language>
+    <lastBuildDate>Tue, 15 Jun 2021 00:00:00 +0000</lastBuildDate><atom:link href="/tags/log-poisoning/index.xml" rel="self" type="application/rss+xml" />
+    <item>
+      <title>Dog Cat VM</title>
+      <link>/p/dog-cat-vm/</link>
+      <pubDate>Tue, 15 Jun 2021 00:00:00 +0000</pubDate>
+      
+      <guid>/p/dog-cat-vm/</guid>
+      <description>Play here
+Recon Exploring the website, we see that images come in the form of: http://10.10.13.155/cats/7.jpg
+❯ nmap -script=default -sV -A 10.10.13.155 Starting Nmap 7.91 ( https://nmap.org ) at 2021-03-01 23:30 EST Nmap scan report for 10.10.13.155 Host is up (0.23s latency). Not shown: 998 closed ports PORT STATE SERVICE VERSION 22/tcp open ssh OpenSSH 7.6p1 Ubuntu 4ubuntu0.3 (Ubuntu Linux; protocol 2.0) | ssh-hostkey: | 2048 24:31:19:2a:b1:97:1a:04:4e:2c:36:ac:84:0a:75:87 (RSA) | 256 21:3d:46:18:93:aa:f9:e7:c9:b5:4c:0f:16:0b:71:e1 (ECDSA) |_ 256 c1:fb:7d:73:2b:57:4a:8b:dc:d7:6f:49:bb:3b:d0:20 (ED25519) 80/tcp open http Apache httpd 2.</description>
+    </item>
+    
+  </channel>
+</rss>

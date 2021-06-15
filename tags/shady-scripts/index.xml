@@ -1,0 +1,106 @@
+<?xml version="1.0" encoding="utf-8" standalone="yes"?>
+<rss version="2.0" xmlns:atom="http://www.w3.org/2005/Atom">
+  <channel>
+    <title>shady-scripts on Tanishq Chaudhary</title>
+    <link>/tags/shady-scripts/</link>
+    <description>Recent content in shady-scripts on Tanishq Chaudhary</description>
+    <generator>Hugo -- gohugo.io</generator>
+    <language>en-us</language>
+    <lastBuildDate>Tue, 15 Jun 2021 00:00:00 +0000</lastBuildDate><atom:link href="/tags/shady-scripts/index.xml" rel="self" type="application/rss+xml" />
+    <item>
+      <title>Anonymous</title>
+      <link>/p/anonymous/</link>
+      <pubDate>Tue, 15 Jun 2021 00:00:00 +0000</pubDate>
+      
+      <guid>/p/anonymous/</guid>
+      <description>Play
+1. Recon 1.1 Nmap ┌──(kali㉿kali)-[~] └─$ nmap -sC -sV 10.10.14.90 Starting Nmap 7.91 ( https://nmap.org ) at 2021-05-07 06:15 EDT Nmap scan report for 10.10.14.90 Host is up (0.20s latency). Not shown: 996 closed ports PORT STATE SERVICE VERSION 21/tcp open ftp vsftpd 2.0.8 or later | ftp-anon: Anonymous FTP login allowed (FTP code 230) |_drwxrwxrwx 2 111 113 4096 Jun 04 2020 scripts [NSE: writeable] | ftp-syst: | STAT: | FTP server status: | Connected to ::ffff:10.</description>
+    </item>
+    
+    <item>
+      <title>Blog</title>
+      <link>/p/blog/</link>
+      <pubDate>Tue, 15 Jun 2021 00:00:00 +0000</pubDate>
+      
+      <guid>/p/blog/</guid>
+      <description>Play
+1. Recon 1.1 Nmap ┌──(kali㉿kali)-[~] └─$ nmap -sC -sV -A 10.10.129.188 Starting Nmap 7.91 ( https://nmap.org ) at 2021-05-08 04:01 EDT Nmap scan report for 10.10.129.188 Host is up (0.21s latency). Not shown: 996 closed ports PORT STATE SERVICE VERSION 22/tcp open ssh OpenSSH 7.6p1 Ubuntu 4ubuntu0.3 (Ubuntu Linux; protocol 2.0) | ssh-hostkey: | 2048 57:8a:da:90:ba:ed:3a:47:0c:05:a3:f7:a8:0a:8d:78 (RSA) | 256 c2:64:ef:ab:b1:9a:1c:87:58:7c:4b:d5:0f:20:46:26 (ECDSA) |_ 256 5a:f2:62:92:11:8e:ad:8a:9b:23:82:2d:ad:53:bc:16 (ED25519) 80/tcp open http Apache httpd 2.</description>
+    </item>
+    
+    <item>
+      <title>Break Out The Cage</title>
+      <link>/p/break-out-the-cage/</link>
+      <pubDate>Tue, 15 Jun 2021 00:00:00 +0000</pubDate>
+      
+      <guid>/p/break-out-the-cage/</guid>
+      <description>Play
+1. Scanning &amp;amp; Enumeration We do the below scans in parallel.
+1.1. Port Scanning Not shown: 997 closed ports PORT STATE SERVICE VERSION 21/tcp open ftp vsftpd 3.0.3 | ftp-anon: Anonymous FTP login allowed (FTP code 230) |_-rw-r--r-- 1 0 0 396 May 25 2020 dad_tasks | ftp-syst: | STAT: | FTP server status: | Connected to ::ffff:10.17.8.184 | Logged in as ftp | TYPE: ASCII | No session bandwidth limit | Session timeout in seconds is 300 | Control connection is plain text | Data connections will be plain text | At session startup, client count was 2 | vsFTPd 3.</description>
+    </item>
+    
+    <item>
+      <title>Lazy Admin</title>
+      <link>/p/lazy-admin/</link>
+      <pubDate>Tue, 15 Jun 2021 00:00:00 +0000</pubDate>
+      
+      <guid>/p/lazy-admin/</guid>
+      <description>Play
+1. Enumeration + Exploration 1.1. Port Scanning ┌──(kali㉿kali)-[~] └─$ nmap -sC -sV -A 10.10.249.26 Starting Nmap 7.91 ( https://nmap.org ) at 2021-05-24 02:40 EDT Nmap scan report for 10.10.249.26 Host is up (0.20s latency). Not shown: 998 closed ports PORT STATE SERVICE VERSION 22/tcp open ssh OpenSSH 7.2p2 Ubuntu 4ubuntu2.8 (Ubuntu Linux; protocol 2.0) | ssh-hostkey: | 2048 49:7c:f7:41:10:43:73:da:2c:e6:38:95:86:f8:e0:f0 (RSA) | 256 2f:d7:c4:4c:e8:1b:5a:90:44:df:c0:63:8c:72:ae:55 (ECDSA) |_ 256 61:84:62:27:c6:c3:29:17:dd:27:45:9e:29:cb:90:5e (ED25519) 80/tcp open http Apache httpd 2.</description>
+    </item>
+    
+    <item>
+      <title>Overpass</title>
+      <link>/p/overpass/</link>
+      <pubDate>Tue, 15 Jun 2021 00:00:00 +0000</pubDate>
+      
+      <guid>/p/overpass/</guid>
+      <description>1. Recon 1.1 Port Scanning ❯ nmap -sC -sV -A BOX_IP Starting Nmap 7.91 ( https://nmap.org ) at 2021-02-02 22:56 EST Stats: 0:00:24 elapsed; 0 hosts completed (1 up), 1 undergoing Connect Scan Connect Scan Timing: About 49.58% done; ETC: 22:56 (0:00:23 remaining) Stats: 0:00:41 elapsed; 0 hosts completed (1 up), 1 undergoing Connect Scan Connect Scan Timing: About 66.33% done; ETC: 22:57 (0:00:20 remaining) Nmap scan report for BOX_IP Host is up (0.</description>
+    </item>
+    
+    <item>
+      <title>Startup</title>
+      <link>/p/startup/</link>
+      <pubDate>Tue, 15 Jun 2021 00:00:00 +0000</pubDate>
+      
+      <guid>/p/startup/</guid>
+      <description>Play
+1. Enumeration &amp;amp; Scanning 1.1 Port Scanning ┌──(kali㉿kali)-[/tmp] └─$ nmap -sC -sV -A 10.10.109.61 Starting Nmap 7.91 ( https://nmap.org ) at 2021-05-18 06:31 EDT Nmap scan report for 10.10.109.61 Host is up (0.24s latency). Not shown: 997 closed ports PORT STATE SERVICE VERSION 21/tcp open ftp vsftpd 3.0.3 | ftp-anon: Anonymous FTP login allowed (FTP code 230) | drwxrwxrwx 2 65534 65534 4096 Nov 12 2020 ftp [NSE: writeable] | -rw-r--r-- 1 0 0 251631 Nov 12 2020 important.</description>
+    </item>
+    
+    <item>
+      <title>Team Final</title>
+      <link>/p/team-final/</link>
+      <pubDate>Tue, 15 Jun 2021 00:00:00 +0000</pubDate>
+      
+      <guid>/p/team-final/</guid>
+      <description>Play
+1. Enumeration and Scanning As usual, we start off with nmap and gobuster scans.
+❯ nmap -sC -sV -A 10.10.82.31
+❯ gobuster dir -u 10.10.82.31 -w &amp;quot;/usr/share/dirbuster/wordlists/directory-list-2.3-medium.txt&amp;quot; -x &amp;quot;html,php,txt&amp;quot;
+While they run, let&amp;rsquo;s check out the webpage itself. Looks like the default page.
+We see two things: that bug and the team.thm thing. The bug link is nothing special. Let&amp;rsquo;s add team.thm to our host list.
+❯ sudo vim /etc/hosts ❯ cat /etc/hosts 127.</description>
+    </item>
+    
+    <item>
+      <title>Tokyo Ghoul</title>
+      <link>/p/tokyo-ghoul/</link>
+      <pubDate>Tue, 15 Jun 2021 00:00:00 +0000</pubDate>
+      
+      <guid>/p/tokyo-ghoul/</guid>
+      <description>Play
+1. Scanning &amp;amp; Enumeration 1.1 Port Scanning ❯ nmap -sC -sV -A 10.10.202.61 Starting Nmap 7.91 ( https://nmap.org ) at 2021-03-17 01:48 EDT Nmap scan report for 10.10.202.61 Host is up (0.19s latency). Not shown: 997 closed ports PORT STATE SERVICE VERSION 21/tcp open ftp vsftpd 3.0.3 | ftp-anon: Anonymous FTP login allowed (FTP code 230) |_drwxr-xr-x 3 ftp ftp 4096 Jan 23 22:26 need_Help? | ftp-syst: | STAT: | FTP server status: | Connected to ::ffff:10.</description>
+    </item>
+    
+    <item>
+      <title>Wonderland</title>
+      <link>/p/wonderland/</link>
+      <pubDate>Tue, 15 Jun 2021 00:00:00 +0000</pubDate>
+      
+      <guid>/p/wonderland/</guid>
+      <description>Play
+1. Recon ❯ nmap -script=default -sV -A -T4 10.10.133.60 Starting Nmap 7.91 ( https://nmap.org ) at 2021-02-26 21:51 EST Nmap scan report for 10.10.133.60 Host is up (0.24s latency). Not shown: 998 closed ports PORT STATE SERVICE VERSION 22/tcp open ssh OpenSSH 7.6p1 Ubuntu 4ubuntu0.3 (Ubuntu Linux; protocol 2.0) | ssh-hostkey: | 2048 8e:ee:fb:96:ce:ad:70:dd:05:a9:3b:0d:b0:71:b8:63 (RSA) | 256 7a:92:79:44:16:4f:20:43:50:a9:a8:47:e2:c2:be:84 (ECDSA) |_ 256 00:0b:80:44:e6:3d:4b:69:47:92:2c:55:14:7e:2a:c9 (ED25519) 80/tcp open http Golang net/http server (Go-IPFS json-rpc or InfluxDB API) |_http-title: Follow the white rabbit.</description>
+    </item>
+    
+  </channel>
+</rss>

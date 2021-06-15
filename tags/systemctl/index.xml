@@ -1,0 +1,23 @@
+<?xml version="1.0" encoding="utf-8" standalone="yes"?>
+<rss version="2.0" xmlns:atom="http://www.w3.org/2005/Atom">
+  <channel>
+    <title>systemctl on Tanishq Chaudhary</title>
+    <link>/tags/systemctl/</link>
+    <description>Recent content in systemctl on Tanishq Chaudhary</description>
+    <generator>Hugo -- gohugo.io</generator>
+    <language>en-us</language>
+    <lastBuildDate>Tue, 15 Jun 2021 00:00:00 +0000</lastBuildDate><atom:link href="/tags/systemctl/index.xml" rel="self" type="application/rss+xml" />
+    <item>
+      <title>Vuln University</title>
+      <link>/p/vuln-university/</link>
+      <pubDate>Tue, 15 Jun 2021 00:00:00 +0000</pubDate>
+      
+      <guid>/p/vuln-university/</guid>
+      <description>Play
+Task 1 - Deploy the machine ezpz
+Task 2 - Recon classic nmap scan
+❯ nmap -sC -sV -A 10.10.197.89 Starting Nmap 7.91 ( https://nmap.org ) at 2021-03-07 21:43 EST Nmap scan report for 10.10.197.89 Host is up (0.18s latency). Not shown: 994 closed ports PORT STATE SERVICE VERSION 21/tcp open ftp vsftpd 3.0.3 22/tcp open ssh OpenSSH 7.2p2 Ubuntu 4ubuntu2.7 (Ubuntu Linux; protocol 2.0) | ssh-hostkey: | 2048 5a:4f:fc:b8:c8:76:1c:b5:85:1c:ac:b2:86:41:1c:5a (RSA) | 256 ac:9d:ec:44:61:0c:28:85:00:88:e9:68:e9:d0:cb:3d (ECDSA) |_ 256 30:50:cb:70:5a:86:57:22:cb:52:d9:36:34:dc:a5:58 (ED25519) 139/tcp open netbios-ssn Samba smbd 3.</description>
+    </item>
+    
+  </channel>
+</rss>

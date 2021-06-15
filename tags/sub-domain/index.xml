@@ -1,0 +1,26 @@
+<?xml version="1.0" encoding="utf-8" standalone="yes"?>
+<rss version="2.0" xmlns:atom="http://www.w3.org/2005/Atom">
+  <channel>
+    <title>sub-domain on Tanishq Chaudhary</title>
+    <link>/tags/sub-domain/</link>
+    <description>Recent content in sub-domain on Tanishq Chaudhary</description>
+    <generator>Hugo -- gohugo.io</generator>
+    <language>en-us</language>
+    <lastBuildDate>Tue, 15 Jun 2021 00:00:00 +0000</lastBuildDate><atom:link href="/tags/sub-domain/index.xml" rel="self" type="application/rss+xml" />
+    <item>
+      <title>Team Final</title>
+      <link>/p/team-final/</link>
+      <pubDate>Tue, 15 Jun 2021 00:00:00 +0000</pubDate>
+      
+      <guid>/p/team-final/</guid>
+      <description>Play
+1. Enumeration and Scanning As usual, we start off with nmap and gobuster scans.
+❯ nmap -sC -sV -A 10.10.82.31
+❯ gobuster dir -u 10.10.82.31 -w &amp;quot;/usr/share/dirbuster/wordlists/directory-list-2.3-medium.txt&amp;quot; -x &amp;quot;html,php,txt&amp;quot;
+While they run, let&amp;rsquo;s check out the webpage itself. Looks like the default page.
+We see two things: that bug and the team.thm thing. The bug link is nothing special. Let&amp;rsquo;s add team.thm to our host list.
+❯ sudo vim /etc/hosts ❯ cat /etc/hosts 127.</description>
+    </item>
+    
+  </channel>
+</rss>

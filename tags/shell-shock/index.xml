@@ -1,0 +1,23 @@
+<?xml version="1.0" encoding="utf-8" standalone="yes"?>
+<rss version="2.0" xmlns:atom="http://www.w3.org/2005/Atom">
+  <channel>
+    <title>shell-shock on Tanishq Chaudhary</title>
+    <link>/tags/shell-shock/</link>
+    <description>Recent content in shell-shock on Tanishq Chaudhary</description>
+    <generator>Hugo -- gohugo.io</generator>
+    <language>en-us</language>
+    <lastBuildDate>Tue, 15 Jun 2021 00:00:00 +0000</lastBuildDate><atom:link href="/tags/shell-shock/index.xml" rel="self" type="application/rss+xml" />
+    <item>
+      <title>0day</title>
+      <link>/p/0day/</link>
+      <pubDate>Tue, 15 Jun 2021 00:00:00 +0000</pubDate>
+      
+      <guid>/p/0day/</guid>
+      <description>A pretty easy THM room. You just need to know what to do, and the rest is a cake-walk.
+Play
+1. Enumeration and Scanning 1.1. Web Exploration We find the /secret/ directory in the enumeration. We find a id_rsa key, in /backup/
+1.2. Web Enumeration: Nikto ┌──(kali㉿kali)-[~] └─$ nikto -h 10.10.157.88 - Nikto v2.1.6 --------------------------------------------------------------------------- + Target IP: 10.10.157.88 + Target Hostname: 10.10.157.88 + Target Port: 80 + Start Time: 2021-05-28 04:11:18 (GMT-4) --------------------------------------------------------------------------- + Server: Apache/2.</description>
+    </item>
+    
+  </channel>
+</rss>

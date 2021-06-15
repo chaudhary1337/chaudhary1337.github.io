@@ -1,0 +1,52 @@
+<?xml version="1.0" encoding="utf-8" standalone="yes"?>
+<rss version="2.0" xmlns:atom="http://www.w3.org/2005/Atom">
+  <channel>
+    <title>crontab on Tanishq Chaudhary</title>
+    <link>/tags/crontab/</link>
+    <description>Recent content in crontab on Tanishq Chaudhary</description>
+    <generator>Hugo -- gohugo.io</generator>
+    <language>en-us</language>
+    <lastBuildDate>Tue, 15 Jun 2021 00:00:00 +0000</lastBuildDate><atom:link href="/tags/crontab/index.xml" rel="self" type="application/rss+xml" />
+    <item>
+      <title>Looking Glass</title>
+      <link>/p/looking-glass/</link>
+      <pubDate>Tue, 15 Jun 2021 00:00:00 +0000</pubDate>
+      
+      <guid>/p/looking-glass/</guid>
+      <description>Play
+1. Recon nmap scan:
+❯ nmap -script=default -sV -A -T4 10.10.216.198 Starting Nmap 7.91 ( https://nmap.org ) at 2021-02-27 23:58 EST Nmap scan report for 10.10.216.198 Host is up (0.23s latency). Not shown: 916 closed ports PORT STATE SERVICE VERSION 22/tcp open ssh OpenSSH 7.6p1 Ubuntu 4ubuntu0.3 (Ubuntu Linux; protocol 2.0) | ssh-hostkey: | 2048 3f:15:19:70:35:fd:dd:0d:07:a0:50:a3:7d:fa:10:a0 (RSA) | 256 a8:67:5c:52:77:02:41:d7:90:e7:ed:32:d2:01:d9:65 (ECDSA) |_ 256 26:92:59:2d:5e:25:90:89:09:f5:e5:e0:33:81:77:6a (ED25519) 9000/tcp open ssh Dropbear sshd (protocol 2.</description>
+    </item>
+    
+    <item>
+      <title>Overpass</title>
+      <link>/p/overpass/</link>
+      <pubDate>Tue, 15 Jun 2021 00:00:00 +0000</pubDate>
+      
+      <guid>/p/overpass/</guid>
+      <description>1. Recon 1.1 Port Scanning ❯ nmap -sC -sV -A BOX_IP Starting Nmap 7.91 ( https://nmap.org ) at 2021-02-02 22:56 EST Stats: 0:00:24 elapsed; 0 hosts completed (1 up), 1 undergoing Connect Scan Connect Scan Timing: About 49.58% done; ETC: 22:56 (0:00:23 remaining) Stats: 0:00:41 elapsed; 0 hosts completed (1 up), 1 undergoing Connect Scan Connect Scan Timing: About 66.33% done; ETC: 22:57 (0:00:20 remaining) Nmap scan report for BOX_IP Host is up (0.</description>
+    </item>
+    
+    <item>
+      <title>Smag Grotto</title>
+      <link>/p/smag-grotto/</link>
+      <pubDate>Tue, 15 Jun 2021 00:00:00 +0000</pubDate>
+      
+      <guid>/p/smag-grotto/</guid>
+      <description>Play
+1. Scanning &amp;amp; Enumeration We do the below scans in parallel.
+1.1. Port Scanning Not shown: 998 closed ports PORT STATE SERVICE VERSION 22/tcp open ssh OpenSSH 7.2p2 Ubuntu 4ubuntu2.8 (Ubuntu Linux; protocol 2.0) | ssh-hostkey: | 2048 74:e0:e1:b4:05:85:6a:15:68:7e:16:da:f2:c7:6b:ee (RSA) | 256 bd:43:62:b9:a1:86:51:36:f8:c7:df:f9:0f:63:8f:a3 (ECDSA) |_ 256 f9:e7:da:07:8f:10:af:97:0b:32:87:c9:32:d7:1b:76 (ED25519) 80/tcp open http Apache httpd 2.4.18 ((Ubuntu)) | http-methods: |_ Supported Methods: GET HEAD POST OPTIONS |_http-server-header: Apache/2.4.18 (Ubuntu) |_http-title: Smag Service Info: OS: Linux; CPE: cpe:/o:linux:linux_kernel Nothing too special.</description>
+    </item>
+    
+    <item>
+      <title>Watcher</title>
+      <link>/p/watcher/</link>
+      <pubDate>Tue, 15 Jun 2021 00:00:00 +0000</pubDate>
+      
+      <guid>/p/watcher/</guid>
+      <description>Play
+1. Enumeration &amp;amp; Exploration 1.1. Port Scanning ┌──(kali㉿kali)-[~] └─$ nmap -sC -sV -A 10.10.157.202 Starting Nmap 7.91 ( https://nmap.org ) at 2021-05-25 11:48 EDT Nmap scan report for 10.10.157.202 Host is up (0.24s latency). Not shown: 996 closed ports PORT STATE SERVICE VERSION 21/tcp open ftp vsftpd 3.0.3 22/tcp open ssh OpenSSH 7.6p1 Ubuntu 4ubuntu0.3 (Ubuntu Linux; protocol 2.0) | ssh-hostkey: | 2048 e1:80:ec:1f:26:9e:32:eb:27:3f:26:ac:d2:37:ba:96 (RSA) | 256 36:ff:70:11:05:8e:d4:50:7a:29:91:58:75:ac:2e:76 (ECDSA) |_ 256 48:d2:3e:45:da:0c:f0:f6:65:4e:f9:78:97:37:aa:8a (ED25519) 80/tcp open http Apache httpd 2.</description>
+    </item>
+    
+  </channel>
+</rss>

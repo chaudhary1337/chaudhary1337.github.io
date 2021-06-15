@@ -1,0 +1,107 @@
+<?xml version="1.0" encoding="utf-8" standalone="yes"?>
+<rss version="2.0" xmlns:atom="http://www.w3.org/2005/Atom">
+  <channel>
+    <title>ctf on Tanishq Chaudhary</title>
+    <link>/tags/ctf/</link>
+    <description>Recent content in ctf on Tanishq Chaudhary</description>
+    <generator>Hugo -- gohugo.io</generator>
+    <language>en-us</language>
+    <lastBuildDate>Tue, 15 Jun 2021 00:00:00 +0000</lastBuildDate><atom:link href="/tags/ctf/index.xml" rel="self" type="application/rss+xml" />
+    <item>
+      <title>Biohazard</title>
+      <link>/p/biohazard/</link>
+      <pubDate>Tue, 15 Jun 2021 00:00:00 +0000</pubDate>
+      
+      <guid>/p/biohazard/</guid>
+      <description>Play
+1. Introduction We start with nmap for port scanning and do some web exploration meanwhile.
+1.1. Port Scanning ┌──(kali㉿kali)-[~] └─$ nmap -sC -sV -A 10.10.111.73 Starting Nmap 7.91 ( https://nmap.org ) at 2021-05-22 00:26 EDT Nmap scan report for 10.10.111.73 Host is up (0.21s latency). Not shown: 997 closed ports PORT STATE SERVICE VERSION 21/tcp open ftp vsftpd 3.0.3 22/tcp open ssh OpenSSH 7.6p1 Ubuntu 4ubuntu0.3 (Ubuntu Linux; protocol 2.</description>
+    </item>
+    
+    <item>
+      <title>Break Out The Cage</title>
+      <link>/p/break-out-the-cage/</link>
+      <pubDate>Tue, 15 Jun 2021 00:00:00 +0000</pubDate>
+      
+      <guid>/p/break-out-the-cage/</guid>
+      <description>Play
+1. Scanning &amp;amp; Enumeration We do the below scans in parallel.
+1.1. Port Scanning Not shown: 997 closed ports PORT STATE SERVICE VERSION 21/tcp open ftp vsftpd 3.0.3 | ftp-anon: Anonymous FTP login allowed (FTP code 230) |_-rw-r--r-- 1 0 0 396 May 25 2020 dad_tasks | ftp-syst: | STAT: | FTP server status: | Connected to ::ffff:10.17.8.184 | Logged in as ftp | TYPE: ASCII | No session bandwidth limit | Session timeout in seconds is 300 | Control connection is plain text | Data connections will be plain text | At session startup, client count was 2 | vsFTPd 3.</description>
+    </item>
+    
+    <item>
+      <title>CTF Collection Vol. 2</title>
+      <link>/p/ctf-collection-vol.-2/</link>
+      <pubDate>Tue, 15 Jun 2021 00:00:00 +0000</pubDate>
+      
+      <guid>/p/ctf-collection-vol.-2/</guid>
+      <description>Challenge home page. 0. Scanning &amp;amp; Enumeration Port Scanning PORT STATE SERVICE VERSION 6/tcp filtered unknown 22/tcp open ssh OpenSSH 5.9p1 Debian 5ubuntu1.10 (Ubuntu Linux; protocol 2.0) | ssh-hostkey: | 1024 1b:c2:b6:2d:fb:32:cc:11:68:61:ab:31:5b:45:5c:f4 (DSA) | 2048 8d:88:65:9d:31:ff:b4:62:f9:28:f2:7d:42:07:89:58 (RSA) |_ 256 40:2e:b0:ed:2a:5a:9d:83:6a:6e:59:31:db:09:4c:cb (ECDSA) 80/tcp open http Apache httpd 2.2.22 ((Ubuntu)) | http-methods: |_ Supported Methods: GET HEAD POST OPTIONS | http-robots.txt: 1 disallowed entry |_/VlNCcElFSWdTQ0JKSUVZZ1dTQm5JR1VnYVNCQ0lGUWdTU0JFSUVrZ1p5QldJR2tnUWlCNklFa2dSaUJuSUdjZ1RTQjVJRUlnVHlCSklFY2dkeUJuSUZjZ1V5QkJJSG9nU1NCRklHOGdaeUJpSUVNZ1FpQnJJRWtnUlNCWklHY2dUeUJUSUVJZ2NDQkpJRVlnYXlCbklGY2dReUJDSUU4Z1NTQkhJSGNnUFElM0QlM0Q= |_http-server-header: Apache/2.2.22 (Ubuntu) |_http-title: 360 No Scope! Service Info: OS: Linux; CPE: cpe:/o:linux:linux_kernel I do not know about port 6, but we see some interesting stuff in robots.</description>
+    </item>
+    
+    <item>
+      <title>Different CTF</title>
+      <link>/p/different-ctf/</link>
+      <pubDate>Tue, 15 Jun 2021 00:00:00 +0000</pubDate>
+      
+      <guid>/p/different-ctf/</guid>
+      <description>Play
+NOTE: There is an issue in the machine sometimes. On a previous run, I got: nmap shows its a WordPress website, but &amp;hellip; we do not see anything here except the error.
+Redeploy the machine to fix the error. You may also see it later, and not immediately. Don&amp;rsquo;t panic, just reset.
+1. Scanning &amp;amp; Enumeration We do the below scans in parallel.
+1.1. Port Scanning PORT STATE SERVICE VERSION 21/tcp open ftp vsftpd 3.</description>
+    </item>
+    
+    <item>
+      <title>HA Joker CTF</title>
+      <link>/p/ha-joker-ctf/</link>
+      <pubDate>Tue, 15 Jun 2021 00:00:00 +0000</pubDate>
+      
+      <guid>/p/ha-joker-ctf/</guid>
+      <description>Play
+1. Scanning &amp;amp; Enumeration We do the below scans in parallel.
+1.1. Port Scanning PORT STATE SERVICE VERSION 22/tcp open ssh OpenSSH 7.6p1 Ubuntu 4ubuntu0.3 (Ubuntu Linux; protocol 2.0) | ssh-hostkey: | 2048 ad:20:1f:f4:33:1b:00:70:b3:85:cb:87:00:c4:f4:f7 (RSA) | 256 1b:f9:a8:ec:fd:35:ec:fb:04:d5:ee:2a:a1:7a:4f:78 (ECDSA) |_ 256 dc:d7:dd:6e:f6:71:1f:8c:2c:2c:a1:34:6d:29:99:20 (ED25519) 80/tcp open http Apache httpd 2.4.29 ((Ubuntu)) | http-methods: |_ Supported Methods: GET POST OPTIONS HEAD |_http-server-header: Apache/2.4.29 (Ubuntu) |_http-title: HA: Joker 8080/tcp open http Apache httpd 2.</description>
+    </item>
+    
+    <item>
+      <title>Lian Yu</title>
+      <link>/p/lian-yu/</link>
+      <pubDate>Tue, 15 Jun 2021 00:00:00 +0000</pubDate>
+      
+      <guid>/p/lian-yu/</guid>
+      <description>1. Port Scanning &amp;amp; Enumeration 1.1 Port Scanning ┌──(kali㉿kali)-[~] └─$ nmap -sC -sV -A 10.10.185.218 Starting Nmap 7.91 ( https://nmap.org ) at 2021-05-19 04:00 EDT Nmap scan report for 10.10.185.218 Host is up (0.19s latency). Not shown: 996 closed ports PORT STATE SERVICE VERSION 21/tcp open ftp vsftpd 3.0.2 22/tcp open ssh OpenSSH 6.7p1 Debian 5+deb8u8 (protocol 2.0) | ssh-hostkey: | 1024 56:50:bd:11:ef:d4:ac:56:32:c3:ee:73:3e:de:87:f4 (DSA) | 2048 39:6f:3a:9c:b6:2d:ad:0c:d8:6d:be:77:13:07:25:d6 (RSA) | 256 a6:69:96:d7:6d:61:27:96:7e:bb:9f:83:60:1b:52:12 (ECDSA) |_ 256 3f:43:76:75:a8:5a:a6:cd:33:b0:66:42:04:91:fe:a0 (ED25519) 80/tcp open http Apache httpd |_http-server-header: Apache |_http-title: Purgatory 111/tcp open rpcbind 2-4 (RPC #100000) | rpcinfo: | program version port/proto service | 100000 2,3,4 111/tcp rpcbind | 100000 2,3,4 111/udp rpcbind | 100000 3,4 111/tcp6 rpcbind | 100000 3,4 111/udp6 rpcbind | 100024 1 34042/udp status | 100024 1 40662/tcp status | 100024 1 41729/tcp6 status |_ 100024 1 46517/udp6 status Service Info: OSs: Unix, Linux; CPE: cpe:/o:linux:linux_kernel Service detection performed.</description>
+    </item>
+    
+    <item>
+      <title>Madness</title>
+      <link>/p/madness/</link>
+      <pubDate>Tue, 15 Jun 2021 00:00:00 +0000</pubDate>
+      
+      <guid>/p/madness/</guid>
+      <description>Play
+1. Scanning &amp;amp; Enumeration We do the below scans in parallel.
+1.1. Port Scanning Not shown: 998 closed ports PORT STATE SERVICE VERSION 22/tcp open ssh OpenSSH 7.2p2 Ubuntu 4ubuntu2.8 (Ubuntu Linux; protocol 2.0) | ssh-hostkey: | 2048 ac:f9:85:10:52:65:6e:17:f5:1c:34:e7:d8:64:67:b1 (RSA) | 256 dd:8e:5a:ec:b1:95:cd:dc:4d:01:b3:fe:5f:4e:12:c1 (ECDSA) |_ 256 e9:ed:e3:eb:58:77:3b:00:5e:3a:f5:24:d8:58:34:8e (ED25519) 80/tcp open http Apache httpd 2.4.18 ((Ubuntu)) | http-methods: |_ Supported Methods: GET HEAD POST OPTIONS |_http-server-header: Apache/2.4.18 (Ubuntu) |_http-title: Apache2 Ubuntu Default Page: It works Service Info: OS: Linux; CPE: cpe:/o:linux:linux_kernel Nothing extraordinary.</description>
+    </item>
+    
+    <item>
+      <title>Pickle Rick</title>
+      <link>/p/pickle-rick/</link>
+      <pubDate>Tue, 15 Jun 2021 00:00:00 +0000</pubDate>
+      
+      <guid>/p/pickle-rick/</guid>
+      <description>1. Recon lets look at the website first. Okay. Nothing special. Looking at the source we have something in the comments:
+ &amp;lt;!-- Note to self, remember username! Username: R1ckRul3s --&amp;gt; nice. lets try running gobuster meanwhile, along with nmap.
+❯ nmap -script=default -sV -A -T4 10.10.106.44 Starting Nmap 7.91 ( https://nmap.org ) at 2021-02-17 21:19 EST Nmap scan report for 10.10.106.44 Host is up (0.18s latency). Not shown: 998 closed ports PORT STATE SERVICE VERSION 22/tcp open ssh OpenSSH 7.</description>
+    </item>
+    
+    <item>
+      <title>Tokyo Ghoul</title>
+      <link>/p/tokyo-ghoul/</link>
+      <pubDate>Tue, 15 Jun 2021 00:00:00 +0000</pubDate>
+      
+      <guid>/p/tokyo-ghoul/</guid>
+      <description>Play
+1. Scanning &amp;amp; Enumeration 1.1 Port Scanning ❯ nmap -sC -sV -A 10.10.202.61 Starting Nmap 7.91 ( https://nmap.org ) at 2021-03-17 01:48 EDT Nmap scan report for 10.10.202.61 Host is up (0.19s latency). Not shown: 997 closed ports PORT STATE SERVICE VERSION 21/tcp open ftp vsftpd 3.0.3 | ftp-anon: Anonymous FTP login allowed (FTP code 230) |_drwxr-xr-x 3 ftp ftp 4096 Jan 23 22:26 need_Help? | ftp-syst: | STAT: | FTP server status: | Connected to ::ffff:10.</description>
+    </item>
+    
+  </channel>
+</rss>

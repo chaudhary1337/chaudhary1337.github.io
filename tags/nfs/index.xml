@@ -1,0 +1,21 @@
+<?xml version="1.0" encoding="utf-8" standalone="yes"?>
+<rss version="2.0" xmlns:atom="http://www.w3.org/2005/Atom">
+  <channel>
+    <title>nfs on Tanishq Chaudhary</title>
+    <link>/tags/nfs/</link>
+    <description>Recent content in nfs on Tanishq Chaudhary</description>
+    <generator>Hugo -- gohugo.io</generator>
+    <language>en-us</language>
+    <lastBuildDate>Tue, 15 Jun 2021 00:00:00 +0000</lastBuildDate><atom:link href="/tags/nfs/index.xml" rel="self" type="application/rss+xml" />
+    <item>
+      <title>Overpass3</title>
+      <link>/p/overpass3/</link>
+      <pubDate>Tue, 15 Jun 2021 00:00:00 +0000</pubDate>
+      
+      <guid>/p/overpass3/</guid>
+      <description>1. Recon we run the nmap scan and the gobuster parallely, while we explore the website.
+1.1 Port Scanning ❯ nmap -script=vuln -sV -A -T4 -Pn 10.10.16.10 Host discovery disabled (-Pn). All addresses will be marked &#39;up&#39; and scan times will be slower. Starting Nmap 7.91 ( https://nmap.org ) at 2021-02-06 21:54 EST Nmap scan report for 10.10.16.10 Host is up (0.52s latency). Not shown: 997 filtered ports PORT STATE SERVICE VERSION 21/tcp open ftp vsftpd 3.</description>
+    </item>
+    
+  </channel>
+</rss>

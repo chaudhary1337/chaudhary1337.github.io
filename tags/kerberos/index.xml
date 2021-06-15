@@ -1,0 +1,24 @@
+<?xml version="1.0" encoding="utf-8" standalone="yes"?>
+<rss version="2.0" xmlns:atom="http://www.w3.org/2005/Atom">
+  <channel>
+    <title>kerberos on Tanishq Chaudhary</title>
+    <link>/tags/kerberos/</link>
+    <description>Recent content in kerberos on Tanishq Chaudhary</description>
+    <generator>Hugo -- gohugo.io</generator>
+    <language>en-us</language>
+    <lastBuildDate>Tue, 15 Jun 2021 00:00:00 +0000</lastBuildDate><atom:link href="/tags/kerberos/index.xml" rel="self" type="application/rss+xml" />
+    <item>
+      <title>Attackative Directory</title>
+      <link>/p/attackative-directory/</link>
+      <pubDate>Tue, 15 Jun 2021 00:00:00 +0000</pubDate>
+      
+      <guid>/p/attackative-directory/</guid>
+      <description>Play
+Primer:
+ [Video] Active Directory [Video] [Hindi] Kerberos - decent overview [Video] Kerberos - has good visualizations  If this is your first time, as was mine, the above resoruces provide a decent overview of the stuff we are going to deal with.
+1. Deploy Follow the steps!
+2. Install Tools Install and follow the steps listed. Add the below too as well. Check their GitHub for more information</description>
+    </item>
+    
+  </channel>
+</rss>

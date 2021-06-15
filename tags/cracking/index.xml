@@ -1,0 +1,21 @@
+<?xml version="1.0" encoding="utf-8" standalone="yes"?>
+<rss version="2.0" xmlns:atom="http://www.w3.org/2005/Atom">
+  <channel>
+    <title>cracking on Tanishq Chaudhary</title>
+    <link>/tags/cracking/</link>
+    <description>Recent content in cracking on Tanishq Chaudhary</description>
+    <generator>Hugo -- gohugo.io</generator>
+    <language>en-us</language>
+    <lastBuildDate>Tue, 15 Jun 2021 00:00:00 +0000</lastBuildDate><atom:link href="/tags/cracking/index.xml" rel="self" type="application/rss+xml" />
+    <item>
+      <title>Tokyo Ghoul</title>
+      <link>/p/tokyo-ghoul/</link>
+      <pubDate>Tue, 15 Jun 2021 00:00:00 +0000</pubDate>
+      
+      <guid>/p/tokyo-ghoul/</guid>
+      <description>Play
+1. Scanning &amp;amp; Enumeration 1.1 Port Scanning ❯ nmap -sC -sV -A 10.10.202.61 Starting Nmap 7.91 ( https://nmap.org ) at 2021-03-17 01:48 EDT Nmap scan report for 10.10.202.61 Host is up (0.19s latency). Not shown: 997 closed ports PORT STATE SERVICE VERSION 21/tcp open ftp vsftpd 3.0.3 | ftp-anon: Anonymous FTP login allowed (FTP code 230) |_drwxr-xr-x 3 ftp ftp 4096 Jan 23 22:26 need_Help? | ftp-syst: | STAT: | FTP server status: | Connected to ::ffff:10.</description>
+    </item>
+    
+  </channel>
+</rss>
