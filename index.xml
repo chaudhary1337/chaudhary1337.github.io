@@ -12,7 +12,7 @@
         <pubDate>Wed, 16 Jun 2021 00:00:00 +0000</pubDate>
         
         <guid>/p/tryhackme-mustacchio-writeup/</guid>
-        <description>&lt;img src="https://i.imgur.com/dorXlbA.png" alt="Featured image of post TryHackMe: Mustacchio Writeup" /&gt;&lt;p&gt;&lt;a class=&#34;link&#34; href=&#34;https://tryhackme.com/room/room_name_here&#34;  target=&#34;_blank&#34; rel=&#34;noopener&#34;
+        <description>&lt;img src="https://i.imgur.com/dorXlbA.png" alt="Featured image of post TryHackMe: Mustacchio Writeup" /&gt;&lt;p&gt;&lt;a class=&#34;link&#34; href=&#34;https://tryhackme.com/room/mustacchio&#34;  target=&#34;_blank&#34; rel=&#34;noopener&#34;
     &gt;Play&lt;/a&gt;&lt;/p&gt;
 &lt;h2 id=&#34;1-scanning--enumeration&#34;&gt;1. Scanning &amp;amp; Enumeration&lt;/h2&gt;
 &lt;p&gt;We do the below scans in parallel.&lt;/p&gt;
