@@ -6,7 +6,43 @@
     <description>Recent content in Tags on Tanishq Chaudhary</description>
     <generator>Hugo -- gohugo.io</generator>
     <language>en-us</language>
-    <lastBuildDate>Tue, 15 Jun 2021 00:00:00 +0000</lastBuildDate><atom:link href="/tags/index.xml" rel="self" type="application/rss+xml" />
+    <lastBuildDate>Wed, 16 Jun 2021 00:00:00 +0000</lastBuildDate><atom:link href="/tags/index.xml" rel="self" type="application/rss+xml" />
+    <item>
+      <title>cracking</title>
+      <link>/tags/cracking/</link>
+      <pubDate>Wed, 16 Jun 2021 00:00:00 +0000</pubDate>
+      
+      <guid>/tags/cracking/</guid>
+      <description></description>
+    </item>
+    
+    <item>
+      <title>path-hijacking</title>
+      <link>/tags/path-hijacking/</link>
+      <pubDate>Wed, 16 Jun 2021 00:00:00 +0000</pubDate>
+      
+      <guid>/tags/path-hijacking/</guid>
+      <description></description>
+    </item>
+    
+    <item>
+      <title>web-work</title>
+      <link>/tags/web-work/</link>
+      <pubDate>Wed, 16 Jun 2021 00:00:00 +0000</pubDate>
+      
+      <guid>/tags/web-work/</guid>
+      <description></description>
+    </item>
+    
+    <item>
+      <title>xml</title>
+      <link>/tags/xml/</link>
+      <pubDate>Wed, 16 Jun 2021 00:00:00 +0000</pubDate>
+      
+      <guid>/tags/xml/</guid>
+      <description></description>
+    </item>
+    
     <item>
       <title>active-directory</title>
       <link>/tags/active-directory/</link>
@@ -49,15 +85,6 @@
       <pubDate>Tue, 15 Jun 2021 00:00:00 +0000</pubDate>
       
       <guid>/tags/cms/</guid>
-      <description></description>
-    </item>
-    
-    <item>
-      <title>cracking</title>
-      <link>/tags/cracking/</link>
-      <pubDate>Tue, 15 Jun 2021 00:00:00 +0000</pubDate>
-      
-      <guid>/tags/cracking/</guid>
       <description></description>
     </item>
     
@@ -197,15 +224,6 @@
     </item>
     
     <item>
-      <title>pass-the-hash</title>
-      <link>/tags/pass-the-hash/</link>
-      <pubDate>Tue, 15 Jun 2021 00:00:00 +0000</pubDate>
-      
-      <guid>/tags/pass-the-hash/</guid>
-      <description></description>
-    </item>
-    
-    <item>
       <title>pcap</title>
       <link>/tags/pcap/</link>
       <pubDate>Tue, 15 Jun 2021 00:00:00 +0000</pubDate>
@@ -328,15 +346,6 @@
       <pubDate>Tue, 15 Jun 2021 00:00:00 +0000</pubDate>
       
       <guid>/tags/systemctl/</guid>
-      <description></description>
-    </item>
-    
-    <item>
-      <title>web-work</title>
-      <link>/tags/web-work/</link>
-      <pubDate>Tue, 15 Jun 2021 00:00:00 +0000</pubDate>
-      
-      <guid>/tags/web-work/</guid>
       <description></description>
     </item>
     

