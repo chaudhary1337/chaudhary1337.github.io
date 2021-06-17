@@ -4,7 +4,67 @@
   
   <url>
     <loc>/categories/</loc>
-    <lastmod>2021-06-16T00:00:00+00:00</lastmod>
+    <lastmod>2021-06-17T00:00:00+00:00</lastmod>
+  </url>
+  
+  <url>
+    <loc>/p/how-to-openssl-cap_setuid-ep-privesc-exploit/</loc>
+    <lastmod>2021-06-17T00:00:00+00:00</lastmod>
+  </url>
+  
+  <url>
+    <loc>/categories/how-to/</loc>
+    <lastmod>2021-06-17T00:00:00+00:00</lastmod>
+  </url>
+  
+  <url>
+    <loc>/tags/nfs/</loc>
+    <lastmod>2021-06-17T00:00:00+00:00</lastmod>
+  </url>
+  
+  <url>
+    <loc>/tags/openssl/</loc>
+    <lastmod>2021-06-17T00:00:00+00:00</lastmod>
+  </url>
+  
+  <url>
+    <loc>/post/</loc>
+    <lastmod>2021-06-17T00:00:00+00:00</lastmod>
+  </url>
+  
+  <url>
+    <loc>/tags/redis/</loc>
+    <lastmod>2021-06-17T00:00:00+00:00</lastmod>
+  </url>
+  
+  <url>
+    <loc>/tags/rsync/</loc>
+    <lastmod>2021-06-17T00:00:00+00:00</lastmod>
+  </url>
+  
+  <url>
+    <loc>/tags/smb/</loc>
+    <lastmod>2021-06-17T00:00:00+00:00</lastmod>
+  </url>
+  
+  <url>
+    <loc>/tags/</loc>
+    <lastmod>2021-06-17T00:00:00+00:00</lastmod>
+  </url>
+  
+  <url>
+    <loc>/</loc>
+    <lastmod>2021-06-17T00:00:00+00:00</lastmod>
+  </url>
+  
+  <url>
+    <loc>/categories/thm/</loc>
+    <lastmod>2021-06-17T00:00:00+00:00</lastmod>
+  </url>
+  
+  <url>
+    <loc>/p/tryhackme-vulnnet-internal-writeup/</loc>
+    <lastmod>2021-06-17T00:00:00+00:00</lastmod>
   </url>
   
   <url>
@@ -14,26 +74,6 @@
   
   <url>
     <loc>/tags/path-hijacking/</loc>
-    <lastmod>2021-06-16T00:00:00+00:00</lastmod>
-  </url>
-  
-  <url>
-    <loc>/post/</loc>
-    <lastmod>2021-06-16T00:00:00+00:00</lastmod>
-  </url>
-  
-  <url>
-    <loc>/tags/</loc>
-    <lastmod>2021-06-16T00:00:00+00:00</lastmod>
-  </url>
-  
-  <url>
-    <loc>/</loc>
-    <lastmod>2021-06-16T00:00:00+00:00</lastmod>
-  </url>
-  
-  <url>
-    <loc>/categories/thm/</loc>
     <lastmod>2021-06-16T00:00:00+00:00</lastmod>
   </url>
   
@@ -148,11 +188,6 @@
   </url>
   
   <url>
-    <loc>/tags/nfs/</loc>
-    <lastmod>2021-06-15T00:00:00+00:00</lastmod>
-  </url>
-  
-  <url>
     <loc>/tags/pcap/</loc>
     <lastmod>2021-06-15T00:00:00+00:00</lastmod>
   </url>
@@ -179,11 +214,6 @@
   
   <url>
     <loc>/tags/shell-shock/</loc>
-    <lastmod>2021-06-15T00:00:00+00:00</lastmod>
-  </url>
-  
-  <url>
-    <loc>/tags/smb/</loc>
     <lastmod>2021-06-15T00:00:00+00:00</lastmod>
   </url>
   

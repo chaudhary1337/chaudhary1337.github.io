@@ -6,11 +6,20 @@
     <description>Recent content in Categories on Tanishq Chaudhary</description>
     <generator>Hugo -- gohugo.io</generator>
     <language>en-us</language>
-    <lastBuildDate>Wed, 16 Jun 2021 00:00:00 +0000</lastBuildDate><atom:link href="/categories/index.xml" rel="self" type="application/rss+xml" />
+    <lastBuildDate>Thu, 17 Jun 2021 00:00:00 +0000</lastBuildDate><atom:link href="/categories/index.xml" rel="self" type="application/rss+xml" />
+    <item>
+      <title>how-to</title>
+      <link>/categories/how-to/</link>
+      <pubDate>Thu, 17 Jun 2021 00:00:00 +0000</pubDate>
+      
+      <guid>/categories/how-to/</guid>
+      <description></description>
+    </item>
+    
     <item>
       <title>TryHackMe</title>
       <link>/categories/thm/</link>
-      <pubDate>Wed, 16 Jun 2021 00:00:00 +0000</pubDate>
+      <pubDate>Thu, 17 Jun 2021 00:00:00 +0000</pubDate>
       
       <guid>/categories/thm/</guid>
       <description></description>

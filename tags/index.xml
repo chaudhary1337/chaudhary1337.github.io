@@ -6,7 +6,52 @@
     <description>Recent content in Tags on Tanishq Chaudhary</description>
     <generator>Hugo -- gohugo.io</generator>
     <language>en-us</language>
-    <lastBuildDate>Wed, 16 Jun 2021 00:00:00 +0000</lastBuildDate><atom:link href="/tags/index.xml" rel="self" type="application/rss+xml" />
+    <lastBuildDate>Thu, 17 Jun 2021 00:00:00 +0000</lastBuildDate><atom:link href="/tags/index.xml" rel="self" type="application/rss+xml" />
+    <item>
+      <title>nfs</title>
+      <link>/tags/nfs/</link>
+      <pubDate>Thu, 17 Jun 2021 00:00:00 +0000</pubDate>
+      
+      <guid>/tags/nfs/</guid>
+      <description></description>
+    </item>
+    
+    <item>
+      <title>openssl</title>
+      <link>/tags/openssl/</link>
+      <pubDate>Thu, 17 Jun 2021 00:00:00 +0000</pubDate>
+      
+      <guid>/tags/openssl/</guid>
+      <description></description>
+    </item>
+    
+    <item>
+      <title>redis</title>
+      <link>/tags/redis/</link>
+      <pubDate>Thu, 17 Jun 2021 00:00:00 +0000</pubDate>
+      
+      <guid>/tags/redis/</guid>
+      <description></description>
+    </item>
+    
+    <item>
+      <title>rsync</title>
+      <link>/tags/rsync/</link>
+      <pubDate>Thu, 17 Jun 2021 00:00:00 +0000</pubDate>
+      
+      <guid>/tags/rsync/</guid>
+      <description></description>
+    </item>
+    
+    <item>
+      <title>smb</title>
+      <link>/tags/smb/</link>
+      <pubDate>Thu, 17 Jun 2021 00:00:00 +0000</pubDate>
+      
+      <guid>/tags/smb/</guid>
+      <description></description>
+    </item>
+    
     <item>
       <title>cracking</title>
       <link>/tags/cracking/</link>
@@ -215,15 +260,6 @@
     </item>
     
     <item>
-      <title>nfs</title>
-      <link>/tags/nfs/</link>
-      <pubDate>Tue, 15 Jun 2021 00:00:00 +0000</pubDate>
-      
-      <guid>/tags/nfs/</guid>
-      <description></description>
-    </item>
-    
-    <item>
       <title>pcap</title>
       <link>/tags/pcap/</link>
       <pubDate>Tue, 15 Jun 2021 00:00:00 +0000</pubDate>
@@ -274,15 +310,6 @@
       <pubDate>Tue, 15 Jun 2021 00:00:00 +0000</pubDate>
       
       <guid>/tags/shell-shock/</guid>
-      <description></description>
-    </item>
-    
-    <item>
-      <title>smb</title>
-      <link>/tags/smb/</link>
-      <pubDate>Tue, 15 Jun 2021 00:00:00 +0000</pubDate>
-      
-      <guid>/tags/smb/</guid>
       <description></description>
     </item>
     
