@@ -13,10 +13,9 @@
       <pubDate>Thu, 17 Jun 2021 00:00:00 +0000</pubDate>
       
       <guid>/p/how-to-openssl-cap_setuid-ep-privesc-exploit/</guid>
-      <description>Consider the binary /usr/bin/openssl has capabilities set as the following.
-/usr/bin/openssl = cap_setuid+ep
-Is there a way to become root from a normal user by using this? YES! Let&amp;rsquo;s explore how.
-Checklist: Will It Work For Me? Search all the binaries&#39; capibilities using: getcap -r / 2&amp;gt;/dev/null. Explaination:
+      <description>Consider the binary /usr/bin/openssl has capabilities set as: /usr/bin/openssl = cap_setuid+ep Is there a way to become root from a normal user by using this?
+YES! Let&amp;rsquo;s explore how.
+0. Checklist: Will It Work For Me? Search all the binaries&#39; capibilities using: getcap -r / 2&amp;gt;/dev/null.
  getcap is the tool we will use -r is the recursive flag 2&amp;gt;/dev/null directs the standard error stream to /dev/null  If you see /usr/bin/openssl = cap_setuid+ep, we are set for success.</description>
     </item>
     

