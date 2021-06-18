@@ -4,7 +4,42 @@
   
   <url>
     <loc>/categories/</loc>
-    <lastmod>2021-06-17T00:00:00+00:00</lastmod>
+    <lastmod>2021-06-18T00:00:00+00:00</lastmod>
+  </url>
+  
+  <url>
+    <loc>/tags/ctf-style/</loc>
+    <lastmod>2021-06-18T00:00:00+00:00</lastmod>
+  </url>
+  
+  <url>
+    <loc>/post/</loc>
+    <lastmod>2021-06-18T00:00:00+00:00</lastmod>
+  </url>
+  
+  <url>
+    <loc>/tags/scripting/</loc>
+    <lastmod>2021-06-18T00:00:00+00:00</lastmod>
+  </url>
+  
+  <url>
+    <loc>/tags/</loc>
+    <lastmod>2021-06-18T00:00:00+00:00</lastmod>
+  </url>
+  
+  <url>
+    <loc>/</loc>
+    <lastmod>2021-06-18T00:00:00+00:00</lastmod>
+  </url>
+  
+  <url>
+    <loc>/categories/thm/</loc>
+    <lastmod>2021-06-18T00:00:00+00:00</lastmod>
+  </url>
+  
+  <url>
+    <loc>/p/tryhackme-mindgames-writeup/</loc>
+    <lastmod>2021-06-18T00:00:00+00:00</lastmod>
   </url>
   
   <url>
@@ -28,11 +63,6 @@
   </url>
   
   <url>
-    <loc>/post/</loc>
-    <lastmod>2021-06-17T00:00:00+00:00</lastmod>
-  </url>
-  
-  <url>
     <loc>/tags/redis/</loc>
     <lastmod>2021-06-17T00:00:00+00:00</lastmod>
   </url>
@@ -44,21 +74,6 @@
   
   <url>
     <loc>/tags/smb/</loc>
-    <lastmod>2021-06-17T00:00:00+00:00</lastmod>
-  </url>
-  
-  <url>
-    <loc>/tags/</loc>
-    <lastmod>2021-06-17T00:00:00+00:00</lastmod>
-  </url>
-  
-  <url>
-    <loc>/</loc>
-    <lastmod>2021-06-17T00:00:00+00:00</lastmod>
-  </url>
-  
-  <url>
-    <loc>/categories/thm/</loc>
     <lastmod>2021-06-17T00:00:00+00:00</lastmod>
   </url>
   
@@ -199,11 +214,6 @@
   
   <url>
     <loc>/tags/pop3/</loc>
-    <lastmod>2021-06-15T00:00:00+00:00</lastmod>
-  </url>
-  
-  <url>
-    <loc>/tags/scripting/</loc>
     <lastmod>2021-06-15T00:00:00+00:00</lastmod>
   </url>
   

