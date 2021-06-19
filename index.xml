@@ -6,7 +6,57 @@
         <description>Recent content on Tanishq Chaudhary</description>
         <generator>Hugo -- gohugo.io</generator>
         <language>en-us</language>
-        <lastBuildDate>Fri, 18 Jun 2021 00:00:00 +0000</lastBuildDate><atom:link href="/index.xml" rel="self" type="application/rss+xml" /><item>
+        <lastBuildDate>Sat, 19 Jun 2021 00:00:00 +0000</lastBuildDate><atom:link href="/index.xml" rel="self" type="application/rss+xml" /><item>
+        <title>TryHackMe: Juicy Details Writeup</title>
+        <link>/p/tryhackme-juicy-details-writeup/</link>
+        <pubDate>Sat, 19 Jun 2021 00:00:00 +0000</pubDate>
+        
+        <guid>/p/tryhackme-juicy-details-writeup/</guid>
+        <description>&lt;img src="https://i.imgur.com/7NQjTHj.png" alt="Featured image of post TryHackMe: Juicy Details Writeup" /&gt;&lt;p&gt;&lt;a class=&#34;link&#34; href=&#34;https://tryhackme.com/room/juicydetails&#34;  target=&#34;_blank&#34; rel=&#34;noopener&#34;
+    &gt;Play&lt;/a&gt;&lt;/p&gt;
+&lt;h2 id=&#34;task-1-reconnaissance&#34;&gt;Task 1. Reconnaissance&lt;/h2&gt;
+&lt;h4 id=&#34;what-tools-did-the-attacker-use-order-by-the-occurrence-in-the-log&#34;&gt;What tools did the attacker use? (Order by the occurrence in the log)&lt;/h4&gt;
+&lt;p&gt;Explore the file &lt;code&gt;access.log&lt;/code&gt;. We see the following, in order:&lt;/p&gt;
+&lt;ul&gt;
+&lt;li&gt;nmap&lt;/li&gt;
+&lt;li&gt;hydra&lt;/li&gt;
+&lt;li&gt;sqlmap&lt;/li&gt;
+&lt;li&gt;curl&lt;/li&gt;
+&lt;li&gt;feroxbuster&lt;/li&gt;
+&lt;/ul&gt;
+&lt;p&gt;Check the last part of the line. For example, the hydra tool uses the &lt;code&gt;(Hydra)&lt;/code&gt; marker at the end. sqlmap similarly has &lt;code&gt;(http://sqlmap.org)&lt;/code&gt;.&lt;/p&gt;
+&lt;h4 id=&#34;what-endpoint-was-vulnerable-to-a-brute-force-attack&#34;&gt;What endpoint was vulnerable to a brute-force attack?&lt;/h4&gt;
+&lt;p&gt;In &lt;code&gt;access.log&lt;/code&gt; we check the endpoint where Hydra is being used.&lt;/p&gt;
+&lt;p&gt;&lt;code&gt;/rest/user/login&lt;/code&gt;&lt;/p&gt;
+&lt;h4 id=&#34;what-endpoint-was-vulnerable-to-sql-injection&#34;&gt;What endpoint was vulnerable to SQL injection?&lt;/h4&gt;
+&lt;p&gt;Similar to above, we look for user-agents specified as sqlmap.&lt;/p&gt;
+&lt;p&gt;&lt;code&gt;/rest/products/search&lt;/code&gt;&lt;/p&gt;
+&lt;h4 id=&#34;what-parameter-was-used-for-the-sql-injection&#34;&gt;What parameter was used for the SQL injection?&lt;/h4&gt;
+&lt;p&gt;Any one line would tell you the parameter. How? &lt;code&gt;/rest/products/search?q=...&lt;/code&gt;&lt;/p&gt;
+&lt;p&gt;The parameter is thus &lt;code&gt;q&lt;/code&gt;.&lt;/p&gt;
+&lt;h4 id=&#34;what-endpoint-did-the-attacker-try-to-use-to-retrieve-files-include-the-&#34;&gt;What endpoint did the attacker try to use to retrieve files? (Include the /)&lt;/h4&gt;
+&lt;p&gt;So, we are looking for file retrieving. This is found at the very end, once the hacker has done both the Hydra and sqlmap attacks.&lt;/p&gt;
+&lt;p&gt;&lt;code&gt;/ftp&lt;/code&gt;&lt;/p&gt;
+&lt;h2 id=&#34;task-2-stolen-data&#34;&gt;Task 2. Stolen data&lt;/h2&gt;
+&lt;h4 id=&#34;what-section-of-the-website-did-the-attacker-use-to-scrape-user-email-addresses&#34;&gt;What section of the website did the attacker use to scrape user email addresses?&lt;/h4&gt;
+&lt;p&gt;We are looking for something related to users. Maybe socre board? Nope. Looking a bit earlier, we see product reviews! These are given as &lt;code&gt;/rest/product/x/reviews&lt;/code&gt; where &lt;code&gt;x&lt;/code&gt; is the product number (I&amp;rsquo;m guessing).&lt;/p&gt;
+&lt;h4 id=&#34;was-their-brute-force-attack-successful-if-so-what-is-the-timestamp-of-the-successful-login-yaynay-11apr202109xxxx-0000&#34;&gt;Was their brute-force attack successful? If so, what is the timestamp of the successful login? (Yay/Nay, 11/Apr/2021:09:xx:xx +0000)&lt;/h4&gt;
+&lt;p&gt;Yes it was. That&amp;rsquo;s how they were able to login. It is clear we are looking for Hydra part, since that is what was being used for bruteforcing.&lt;/p&gt;
+&lt;p&gt;Now, we know Hydra stops after its found a password. So, we are looking at the last line? No! Hydra runs with a deafault thread size of 16. Which means we are looking at  &lt;em&gt;one&lt;/em&gt; of the last 16 attempts.&lt;/p&gt;
+&lt;p&gt;We then find one with size that is anomalous and has a response of 200. That&amp;rsquo;s the one!&lt;/p&gt;
+&lt;h4 id=&#34;what-user-information-was-the-attacker-able-to-retrieve-from-the-endpoint-vulnerable-to-sql-injection&#34;&gt;What user information was the attacker able to retrieve from the endpoint vulnerable to SQL injection?&lt;/h4&gt;
+&lt;p&gt;Check the last UNION SELECT operations. We see &lt;code&gt;id, email, password, ...&lt;/code&gt; from &lt;code&gt;Users&lt;/code&gt; table. &lt;code&gt;id&lt;/code&gt; is not relevant for us.&lt;/p&gt;
+&lt;h4 id=&#34;what-files-did-they-try-to-download-from-the-vulnerable-endpoint-endpoint-from-the-previous-task-question-5&#34;&gt;What files did they try to download from the vulnerable endpoint? (endpoint from the previous task, question #5)&lt;/h4&gt;
+&lt;p&gt;We know the hackers were trying to get into ftp, which is what the question asks for.&lt;/p&gt;
+&lt;p&gt;Checking the &lt;code&gt;vsftpd.log&lt;/code&gt;, we see the last two lines trying to get the two files!&lt;/p&gt;
+&lt;h4 id=&#34;what-service-and-account-name-were-used-to-retrieve-files-from-the-previous-question-service-username&#34;&gt;What service and account name were used to retrieve files from the previous question? (service, username)&lt;/h4&gt;
+&lt;p&gt;We see that anonymous login has been used for ftp.&lt;/p&gt;
+&lt;h4 id=&#34;what-service-and-username-were-used-to-gain-shell-access-to-the-server-service-username&#34;&gt;What service and username were used to gain shell access to the server? (service, username)&lt;/h4&gt;
+&lt;p&gt;Take a wild guess :kekw: It is present in the &lt;code&gt;auth.log&lt;/code&gt; file, when the access was successful, on &lt;code&gt;Apr 11 09:41:32&lt;/code&gt;.&lt;/p&gt;
+&lt;p&gt;Figured the log files. Job done!&lt;/p&gt;
+</description>
+        </item>
+        <item>
         <title>TryHackMe: Mindgames Writeup</title>
         <link>/p/tryhackme-mindgames-writeup/</link>
         <pubDate>Fri, 18 Jun 2021 00:00:00 +0000</pubDate>

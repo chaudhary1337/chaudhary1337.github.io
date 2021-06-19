@@ -1,0 +1,23 @@
+<?xml version="1.0" encoding="utf-8" standalone="yes"?>
+<rss version="2.0" xmlns:atom="http://www.w3.org/2005/Atom">
+  <channel>
+    <title>logs on Tanishq Chaudhary</title>
+    <link>/tags/logs/</link>
+    <description>Recent content in logs on Tanishq Chaudhary</description>
+    <generator>Hugo -- gohugo.io</generator>
+    <language>en-us</language>
+    <lastBuildDate>Sat, 19 Jun 2021 00:00:00 +0000</lastBuildDate><atom:link href="/tags/logs/index.xml" rel="self" type="application/rss+xml" />
+    <item>
+      <title>TryHackMe: Juicy Details Writeup</title>
+      <link>/p/tryhackme-juicy-details-writeup/</link>
+      <pubDate>Sat, 19 Jun 2021 00:00:00 +0000</pubDate>
+      
+      <guid>/p/tryhackme-juicy-details-writeup/</guid>
+      <description>Play
+Task 1. Reconnaissance What tools did the attacker use? (Order by the occurrence in the log) Explore the file access.log. We see the following, in order:
+ nmap hydra sqlmap curl feroxbuster  Check the last part of the line. For example, the hydra tool uses the (Hydra) marker at the end. sqlmap similarly has (http://sqlmap.org).
+What endpoint was vulnerable to a brute-force attack? In access.log we check the endpoint where Hydra is being used.</description>
+    </item>
+    
+  </channel>
+</rss>
