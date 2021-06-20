@@ -2,9 +2,9 @@
 <rss version="2.0" xmlns:atom="http://www.w3.org/2005/Atom">
   <channel>
     <title>HackTheBox on Tanishq Chaudhary</title>
-    <link>/categories/htb/</link>
+    <link>https://chaudhary1337.github.io/categories/htb/</link>
     <description>Recent content in HackTheBox on Tanishq Chaudhary</description>
     <generator>Hugo -- gohugo.io</generator>
-    <language>en-us</language><atom:link href="/categories/htb/index.xml" rel="self" type="application/rss+xml" />
+    <language>en-us</language><atom:link href="https://chaudhary1337.github.io/categories/htb/index.xml" rel="self" type="application/rss+xml" />
   </channel>
 </rss>

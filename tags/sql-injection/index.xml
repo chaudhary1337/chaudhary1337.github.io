@@ -2,26 +2,26 @@
 <rss version="2.0" xmlns:atom="http://www.w3.org/2005/Atom">
   <channel>
     <title>sql-injection on Tanishq Chaudhary</title>
-    <link>/tags/sql-injection/</link>
+    <link>https://chaudhary1337.github.io/tags/sql-injection/</link>
     <description>Recent content in sql-injection on Tanishq Chaudhary</description>
     <generator>Hugo -- gohugo.io</generator>
     <language>en-us</language>
-    <lastBuildDate>Tue, 15 Jun 2021 00:00:00 +0000</lastBuildDate><atom:link href="/tags/sql-injection/index.xml" rel="self" type="application/rss+xml" />
+    <lastBuildDate>Tue, 15 Jun 2021 00:00:00 +0000</lastBuildDate><atom:link href="https://chaudhary1337.github.io/tags/sql-injection/index.xml" rel="self" type="application/rss+xml" />
     <item>
       <title>TryHackMe: Overpass Writeup</title>
-      <link>/p/tryhackme-overpass-writeup/</link>
+      <link>https://chaudhary1337.github.io/p/tryhackme-overpass-writeup/</link>
       <pubDate>Tue, 15 Jun 2021 00:00:00 +0000</pubDate>
       
-      <guid>/p/tryhackme-overpass-writeup/</guid>
+      <guid>https://chaudhary1337.github.io/p/tryhackme-overpass-writeup/</guid>
       <description>1. Recon 1.1 Port Scanning ❯ nmap -sC -sV -A BOX_IP Starting Nmap 7.91 ( https://nmap.org ) at 2021-02-02 22:56 EST Stats: 0:00:24 elapsed; 0 hosts completed (1 up), 1 undergoing Connect Scan Connect Scan Timing: About 49.58% done; ETC: 22:56 (0:00:23 remaining) Stats: 0:00:41 elapsed; 0 hosts completed (1 up), 1 undergoing Connect Scan Connect Scan Timing: About 66.33% done; ETC: 22:57 (0:00:20 remaining) Nmap scan report for BOX_IP Host is up (0.</description>
     </item>
     
     <item>
       <title>TryHackMe: The Cod Caper Writeup</title>
-      <link>/p/tryhackme-the-cod-caper-writeup/</link>
+      <link>https://chaudhary1337.github.io/p/tryhackme-the-cod-caper-writeup/</link>
       <pubDate>Tue, 15 Jun 2021 00:00:00 +0000</pubDate>
       
-      <guid>/p/tryhackme-the-cod-caper-writeup/</guid>
+      <guid>https://chaudhary1337.github.io/p/tryhackme-the-cod-caper-writeup/</guid>
       <description>Task 1: Intro pingu story
 Task 2: Host Enumeration nmap -sC -sV -A 10.10.40.189
 -A: Enable OS detection, version detection, script scanning, and traceroute

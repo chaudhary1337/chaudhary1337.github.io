@@ -2,47 +2,47 @@
 <rss version="2.0" xmlns:atom="http://www.w3.org/2005/Atom">
   <channel>
     <title>brute-forcing on Tanishq Chaudhary</title>
-    <link>/tags/brute-forcing/</link>
+    <link>https://chaudhary1337.github.io/tags/brute-forcing/</link>
     <description>Recent content in brute-forcing on Tanishq Chaudhary</description>
     <generator>Hugo -- gohugo.io</generator>
     <language>en-us</language>
-    <lastBuildDate>Tue, 15 Jun 2021 00:00:00 +0000</lastBuildDate><atom:link href="/tags/brute-forcing/index.xml" rel="self" type="application/rss+xml" />
+    <lastBuildDate>Tue, 15 Jun 2021 00:00:00 +0000</lastBuildDate><atom:link href="https://chaudhary1337.github.io/tags/brute-forcing/index.xml" rel="self" type="application/rss+xml" />
     <item>
       <title>TryHackMe: Agent Sudo Writeup</title>
-      <link>/p/tryhackme-agent-sudo-writeup/</link>
+      <link>https://chaudhary1337.github.io/p/tryhackme-agent-sudo-writeup/</link>
       <pubDate>Tue, 15 Jun 2021 00:00:00 +0000</pubDate>
       
-      <guid>/p/tryhackme-agent-sudo-writeup/</guid>
+      <guid>https://chaudhary1337.github.io/p/tryhackme-agent-sudo-writeup/</guid>
       <description>Play
 1. Enumeration &amp;amp; Exploration 1.1 Port Scanning ┌──(kali㉿kali)-[~] └─$ nmap -sC -sV -A 10.10.170.197 Starting Nmap 7.91 (https://nmap.org ) at 2021-05-16 00:45 EDT Nmap scan report for 10.10.170.197 Host is up (0.22s latency). Not shown: 997 closed ports PORT STATE SERVICE VERSION 21/tcp open ftp vsftpd 3.0.3 22/tcp open ssh OpenSSH 7.6p1 Ubuntu 4ubuntu0.3 (Ubuntu Linux; protocol 2.0) | ssh-hostkey: | 2048 ef:1f:5d:04:d4:77:95:06:60:72:ec:f0:58:f2:cc:07 (RSA) | 256 5e:02:d1:9a:c4:e7:43:06:62:c1:9e:25:84:8a:e7:ea (ECDSA) |_ 256 2d:00:5c:b9:fd:a8:c8:d8:80:e3:92:4f:8b:4f:18:e2 (ED25519) 80/tcp open http Apache httpd 2.</description>
     </item>
     
     <item>
       <title>TryHackMe: Blog Writeup</title>
-      <link>/p/tryhackme-blog-writeup/</link>
+      <link>https://chaudhary1337.github.io/p/tryhackme-blog-writeup/</link>
       <pubDate>Tue, 15 Jun 2021 00:00:00 +0000</pubDate>
       
-      <guid>/p/tryhackme-blog-writeup/</guid>
+      <guid>https://chaudhary1337.github.io/p/tryhackme-blog-writeup/</guid>
       <description>Play
 1. Recon 1.1 Nmap ┌──(kali㉿kali)-[~] └─$ nmap -sC -sV -A 10.10.129.188 Starting Nmap 7.91 ( https://nmap.org ) at 2021-05-08 04:01 EDT Nmap scan report for 10.10.129.188 Host is up (0.21s latency). Not shown: 996 closed ports PORT STATE SERVICE VERSION 22/tcp open ssh OpenSSH 7.6p1 Ubuntu 4ubuntu0.3 (Ubuntu Linux; protocol 2.0) | ssh-hostkey: | 2048 57:8a:da:90:ba:ed:3a:47:0c:05:a3:f7:a8:0a:8d:78 (RSA) | 256 c2:64:ef:ab:b1:9a:1c:87:58:7c:4b:d5:0f:20:46:26 (ECDSA) |_ 256 5a:f2:62:92:11:8e:ad:8a:9b:23:82:2d:ad:53:bc:16 (ED25519) 80/tcp open http Apache httpd 2.</description>
     </item>
     
     <item>
       <title>TryHackMe: Brooklyn Nine Nine Writeup (All Paths)</title>
-      <link>/p/tryhackme-brooklyn-nine-nine-writeup-all-paths/</link>
+      <link>https://chaudhary1337.github.io/p/tryhackme-brooklyn-nine-nine-writeup-all-paths/</link>
       <pubDate>Tue, 15 Jun 2021 00:00:00 +0000</pubDate>
       
-      <guid>/p/tryhackme-brooklyn-nine-nine-writeup-all-paths/</guid>
+      <guid>https://chaudhary1337.github.io/p/tryhackme-brooklyn-nine-nine-writeup-all-paths/</guid>
       <description>tags: THM OSCP This is an easy room with 2 equally fun paths to exploit. Steganography or Brute-forcing, Holt or Peralta. Then use GTFO bins to get the root.
 1. Scanning &amp;amp; Enumeration 1.1. Port Scanning Not shown: 997 closed ports PORT STATE SERVICE VERSION 21/tcp open ftp vsftpd 3.0.3 | ftp-anon: Anonymous FTP login allowed (FTP code 230) |_-rw-r--r-- 1 0 0 119 May 17 2020 note_to_jake.txt | ftp-syst: | STAT: | FTP server status: | Connected to ::ffff:10.</description>
     </item>
     
     <item>
       <title>TryHackMe: Brute It Writeup</title>
-      <link>/p/tryhackme-brute-it-writeup/</link>
+      <link>https://chaudhary1337.github.io/p/tryhackme-brute-it-writeup/</link>
       <pubDate>Tue, 15 Jun 2021 00:00:00 +0000</pubDate>
       
-      <guid>/p/tryhackme-brute-it-writeup/</guid>
+      <guid>https://chaudhary1337.github.io/p/tryhackme-brute-it-writeup/</guid>
       <description>Play
 1. Scanning &amp;amp; Enumeration We do the below scans in parallel.
 1.1. Port Scanning Not shown: 998 closed ports PORT STATE SERVICE VERSION 22/tcp open ssh OpenSSH 7.6p1 Ubuntu 4ubuntu0.3 (Ubuntu Linux; protocol 2.0) | ssh-hostkey: | 2048 4b:0e:bf:14:fa:54:b3:5c:44:15:ed:b2:5d:a0:ac:8f (RSA) | 256 d0:3a:81:55:13:5e:87:0c:e8:52:1e:cf:44:e0:3a:54 (ECDSA) |_ 256 da:ce:79:e0:45:eb:17:25:ef:62:ac:98:f0:cf:bb:04 (ED25519) 80/tcp open http Apache httpd 2.4.29 ((Ubuntu)) | http-methods: |_ Supported Methods: OPTIONS HEAD GET POST |_http-server-header: Apache/2.4.29 (Ubuntu) |_http-title: Apache2 Ubuntu Default Page: It works Service Info: OS: Linux; CPE: cpe:/o:linux:linux_kernel Info gathered answers the following questions:</description>
@@ -50,10 +50,10 @@
     
     <item>
       <title>TryHackMe: Different CTF Writeup</title>
-      <link>/p/tryhackme-different-ctf-writeup/</link>
+      <link>https://chaudhary1337.github.io/p/tryhackme-different-ctf-writeup/</link>
       <pubDate>Tue, 15 Jun 2021 00:00:00 +0000</pubDate>
       
-      <guid>/p/tryhackme-different-ctf-writeup/</guid>
+      <guid>https://chaudhary1337.github.io/p/tryhackme-different-ctf-writeup/</guid>
       <description>Play
 NOTE: There is an issue in the machine sometimes. On a previous run, I got: nmap shows its a WordPress website, but &amp;hellip; we do not see anything here except the error.
 Redeploy the machine to fix the error. You may also see it later, and not immediately. Don&amp;rsquo;t panic, just reset.
@@ -63,10 +63,10 @@ Redeploy the machine to fix the error. You may also see it later, and not immedi
     
     <item>
       <title>TryHackMe: HA Joker CTF Writeup</title>
-      <link>/p/tryhackme-ha-joker-ctf-writeup/</link>
+      <link>https://chaudhary1337.github.io/p/tryhackme-ha-joker-ctf-writeup/</link>
       <pubDate>Tue, 15 Jun 2021 00:00:00 +0000</pubDate>
       
-      <guid>/p/tryhackme-ha-joker-ctf-writeup/</guid>
+      <guid>https://chaudhary1337.github.io/p/tryhackme-ha-joker-ctf-writeup/</guid>
       <description>Play
 1. Scanning &amp;amp; Enumeration We do the below scans in parallel.
 1.1. Port Scanning PORT STATE SERVICE VERSION 22/tcp open ssh OpenSSH 7.6p1 Ubuntu 4ubuntu0.3 (Ubuntu Linux; protocol 2.0) | ssh-hostkey: | 2048 ad:20:1f:f4:33:1b:00:70:b3:85:cb:87:00:c4:f4:f7 (RSA) | 256 1b:f9:a8:ec:fd:35:ec:fb:04:d5:ee:2a:a1:7a:4f:78 (ECDSA) |_ 256 dc:d7:dd:6e:f6:71:1f:8c:2c:2c:a1:34:6d:29:99:20 (ED25519) 80/tcp open http Apache httpd 2.4.29 ((Ubuntu)) | http-methods: |_ Supported Methods: GET POST OPTIONS HEAD |_http-server-header: Apache/2.4.29 (Ubuntu) |_http-title: HA: Joker 8080/tcp open http Apache httpd 2.</description>
@@ -74,10 +74,10 @@ Redeploy the machine to fix the error. You may also see it later, and not immedi
     
     <item>
       <title>TryHackMe: Looking Glass Writeup</title>
-      <link>/p/tryhackme-looking-glass-writeup/</link>
+      <link>https://chaudhary1337.github.io/p/tryhackme-looking-glass-writeup/</link>
       <pubDate>Tue, 15 Jun 2021 00:00:00 +0000</pubDate>
       
-      <guid>/p/tryhackme-looking-glass-writeup/</guid>
+      <guid>https://chaudhary1337.github.io/p/tryhackme-looking-glass-writeup/</guid>
       <description>Play
 1. Recon nmap scan:
 ❯ nmap -script=default -sV -A -T4 10.10.216.198 Starting Nmap 7.91 ( https://nmap.org ) at 2021-02-27 23:58 EST Nmap scan report for 10.10.216.198 Host is up (0.23s latency). Not shown: 916 closed ports PORT STATE SERVICE VERSION 22/tcp open ssh OpenSSH 7.6p1 Ubuntu 4ubuntu0.3 (Ubuntu Linux; protocol 2.0) | ssh-hostkey: | 2048 3f:15:19:70:35:fd:dd:0d:07:a0:50:a3:7d:fa:10:a0 (RSA) | 256 a8:67:5c:52:77:02:41:d7:90:e7:ed:32:d2:01:d9:65 (ECDSA) |_ 256 26:92:59:2d:5e:25:90:89:09:f5:e5:e0:33:81:77:6a (ED25519) 9000/tcp open ssh Dropbear sshd (protocol 2.</description>
@@ -85,20 +85,20 @@ Redeploy the machine to fix the error. You may also see it later, and not immedi
     
     <item>
       <title>TryHackMe: Mr Robot Writeup</title>
-      <link>/p/tryhackme-mr-robot-writeup/</link>
+      <link>https://chaudhary1337.github.io/p/tryhackme-mr-robot-writeup/</link>
       <pubDate>Tue, 15 Jun 2021 00:00:00 +0000</pubDate>
       
-      <guid>/p/tryhackme-mr-robot-writeup/</guid>
+      <guid>https://chaudhary1337.github.io/p/tryhackme-mr-robot-writeup/</guid>
       <description>Play
 1. Recon 1.1 Port Scanning ❯ nmap -sC -sV -A -T4 10.10.91.137 Starting Nmap 7.91 ( https://nmap.org ) at 2021-03-05 21:55 EST Nmap scan report for 10.10.91.137 Host is up (0.31s latency). Not shown: 997 filtered ports PORT STATE SERVICE VERSION 22/tcp closed ssh 80/tcp open http Apache httpd |_http-server-header: Apache |_http-title: Site doesn&#39;t have a title (text/html). 443/tcp open ssl/http Apache httpd |_http-server-header: Apache |_http-title: 400 Bad Request | ssl-cert: Subject: commonName=www.</description>
     </item>
     
     <item>
       <title>TryHackMe: Retro Writeup</title>
-      <link>/p/tryhackme-retro-writeup/</link>
+      <link>https://chaudhary1337.github.io/p/tryhackme-retro-writeup/</link>
       <pubDate>Tue, 15 Jun 2021 00:00:00 +0000</pubDate>
       
-      <guid>/p/tryhackme-retro-writeup/</guid>
+      <guid>https://chaudhary1337.github.io/p/tryhackme-retro-writeup/</guid>
       <description>Play
 1. Scanning &amp;amp; Enumeration Let&amp;rsquo;s start with the nmap scan and run gobuster in parallel, since the questions hint on it.
 Looking at the website, it looks like a windows server.
@@ -107,10 +107,10 @@ Looking at the website, it looks like a windows server.
     
     <item>
       <title>TryHackMe: Team Final Writeup</title>
-      <link>/p/tryhackme-team-final-writeup/</link>
+      <link>https://chaudhary1337.github.io/p/tryhackme-team-final-writeup/</link>
       <pubDate>Tue, 15 Jun 2021 00:00:00 +0000</pubDate>
       
-      <guid>/p/tryhackme-team-final-writeup/</guid>
+      <guid>https://chaudhary1337.github.io/p/tryhackme-team-final-writeup/</guid>
       <description>Play
 1. Enumeration and Scanning As usual, we start off with nmap and gobuster scans.
 ❯ nmap -sC -sV -A 10.10.82.31
@@ -122,10 +122,10 @@ We see two things: that bug and the team.thm thing. The bug link is nothing spec
     
     <item>
       <title>TryHackMe: Year Of The Rabbit Writeup</title>
-      <link>/p/tryhackme-year-of-the-rabbit-writeup/</link>
+      <link>https://chaudhary1337.github.io/p/tryhackme-year-of-the-rabbit-writeup/</link>
       <pubDate>Tue, 15 Jun 2021 00:00:00 +0000</pubDate>
       
-      <guid>/p/tryhackme-year-of-the-rabbit-writeup/</guid>
+      <guid>https://chaudhary1337.github.io/p/tryhackme-year-of-the-rabbit-writeup/</guid>
       <description>Challenge Room Play here
 Recon   Go to the website
   Run a gobuster scan

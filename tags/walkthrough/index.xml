@@ -2,17 +2,17 @@
 <rss version="2.0" xmlns:atom="http://www.w3.org/2005/Atom">
   <channel>
     <title>walkthrough on Tanishq Chaudhary</title>
-    <link>/tags/walkthrough/</link>
+    <link>https://chaudhary1337.github.io/tags/walkthrough/</link>
     <description>Recent content in walkthrough on Tanishq Chaudhary</description>
     <generator>Hugo -- gohugo.io</generator>
     <language>en-us</language>
-    <lastBuildDate>Sat, 19 Jun 2021 00:00:00 +0000</lastBuildDate><atom:link href="/tags/walkthrough/index.xml" rel="self" type="application/rss+xml" />
+    <lastBuildDate>Sat, 19 Jun 2021 00:00:00 +0000</lastBuildDate><atom:link href="https://chaudhary1337.github.io/tags/walkthrough/index.xml" rel="self" type="application/rss+xml" />
     <item>
       <title>TryHackMe: Juicy Details Writeup</title>
-      <link>/p/tryhackme-juicy-details-writeup/</link>
+      <link>https://chaudhary1337.github.io/p/tryhackme-juicy-details-writeup/</link>
       <pubDate>Sat, 19 Jun 2021 00:00:00 +0000</pubDate>
       
-      <guid>/p/tryhackme-juicy-details-writeup/</guid>
+      <guid>https://chaudhary1337.github.io/p/tryhackme-juicy-details-writeup/</guid>
       <description>Play
 Task 1. Reconnaissance What tools did the attacker use? (Order by the occurrence in the log) Explore the file access.log. We see the following, in order:
  nmap hydra sqlmap curl feroxbuster  Check the last part of the line. For example, the hydra tool uses the (Hydra) marker at the end. sqlmap similarly has (http://sqlmap.org).

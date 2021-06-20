@@ -2,27 +2,27 @@
 <rss version="2.0" xmlns:atom="http://www.w3.org/2005/Atom">
   <channel>
     <title>sudo on Tanishq Chaudhary</title>
-    <link>/tags/sudo/</link>
+    <link>https://chaudhary1337.github.io/tags/sudo/</link>
     <description>Recent content in sudo on Tanishq Chaudhary</description>
     <generator>Hugo -- gohugo.io</generator>
     <language>en-us</language>
-    <lastBuildDate>Tue, 15 Jun 2021 00:00:00 +0000</lastBuildDate><atom:link href="/tags/sudo/index.xml" rel="self" type="application/rss+xml" />
+    <lastBuildDate>Tue, 15 Jun 2021 00:00:00 +0000</lastBuildDate><atom:link href="https://chaudhary1337.github.io/tags/sudo/index.xml" rel="self" type="application/rss+xml" />
     <item>
       <title>TryHackMe: Agent Sudo Writeup</title>
-      <link>/p/tryhackme-agent-sudo-writeup/</link>
+      <link>https://chaudhary1337.github.io/p/tryhackme-agent-sudo-writeup/</link>
       <pubDate>Tue, 15 Jun 2021 00:00:00 +0000</pubDate>
       
-      <guid>/p/tryhackme-agent-sudo-writeup/</guid>
+      <guid>https://chaudhary1337.github.io/p/tryhackme-agent-sudo-writeup/</guid>
       <description>Play
 1. Enumeration &amp;amp; Exploration 1.1 Port Scanning ┌──(kali㉿kali)-[~] └─$ nmap -sC -sV -A 10.10.170.197 Starting Nmap 7.91 (https://nmap.org ) at 2021-05-16 00:45 EDT Nmap scan report for 10.10.170.197 Host is up (0.22s latency). Not shown: 997 closed ports PORT STATE SERVICE VERSION 21/tcp open ftp vsftpd 3.0.3 22/tcp open ssh OpenSSH 7.6p1 Ubuntu 4ubuntu0.3 (Ubuntu Linux; protocol 2.0) | ssh-hostkey: | 2048 ef:1f:5d:04:d4:77:95:06:60:72:ec:f0:58:f2:cc:07 (RSA) | 256 5e:02:d1:9a:c4:e7:43:06:62:c1:9e:25:84:8a:e7:ea (ECDSA) |_ 256 2d:00:5c:b9:fd:a8:c8:d8:80:e3:92:4f:8b:4f:18:e2 (ED25519) 80/tcp open http Apache httpd 2.</description>
     </item>
     
     <item>
       <title>TryHackMe: Biohazard Writeup</title>
-      <link>/p/tryhackme-biohazard-writeup/</link>
+      <link>https://chaudhary1337.github.io/p/tryhackme-biohazard-writeup/</link>
       <pubDate>Tue, 15 Jun 2021 00:00:00 +0000</pubDate>
       
-      <guid>/p/tryhackme-biohazard-writeup/</guid>
+      <guid>https://chaudhary1337.github.io/p/tryhackme-biohazard-writeup/</guid>
       <description>Play
 1. Introduction We start with nmap for port scanning and do some web exploration meanwhile.
 1.1. Port Scanning ┌──(kali㉿kali)-[~] └─$ nmap -sC -sV -A 10.10.111.73 Starting Nmap 7.91 ( https://nmap.org ) at 2021-05-22 00:26 EDT Nmap scan report for 10.10.111.73 Host is up (0.21s latency). Not shown: 997 closed ports PORT STATE SERVICE VERSION 21/tcp open ftp vsftpd 3.0.3 22/tcp open ssh OpenSSH 7.6p1 Ubuntu 4ubuntu0.3 (Ubuntu Linux; protocol 2.</description>
@@ -30,10 +30,10 @@
     
     <item>
       <title>TryHackMe: Brute It Writeup</title>
-      <link>/p/tryhackme-brute-it-writeup/</link>
+      <link>https://chaudhary1337.github.io/p/tryhackme-brute-it-writeup/</link>
       <pubDate>Tue, 15 Jun 2021 00:00:00 +0000</pubDate>
       
-      <guid>/p/tryhackme-brute-it-writeup/</guid>
+      <guid>https://chaudhary1337.github.io/p/tryhackme-brute-it-writeup/</guid>
       <description>Play
 1. Scanning &amp;amp; Enumeration We do the below scans in parallel.
 1.1. Port Scanning Not shown: 998 closed ports PORT STATE SERVICE VERSION 22/tcp open ssh OpenSSH 7.6p1 Ubuntu 4ubuntu0.3 (Ubuntu Linux; protocol 2.0) | ssh-hostkey: | 2048 4b:0e:bf:14:fa:54:b3:5c:44:15:ed:b2:5d:a0:ac:8f (RSA) | 256 d0:3a:81:55:13:5e:87:0c:e8:52:1e:cf:44:e0:3a:54 (ECDSA) |_ 256 da:ce:79:e0:45:eb:17:25:ef:62:ac:98:f0:cf:bb:04 (ED25519) 80/tcp open http Apache httpd 2.4.29 ((Ubuntu)) | http-methods: |_ Supported Methods: OPTIONS HEAD GET POST |_http-server-header: Apache/2.4.29 (Ubuntu) |_http-title: Apache2 Ubuntu Default Page: It works Service Info: OS: Linux; CPE: cpe:/o:linux:linux_kernel Info gathered answers the following questions:</description>
@@ -41,10 +41,10 @@
     
     <item>
       <title>TryHackMe: Dog Cat VM Writeup</title>
-      <link>/p/tryhackme-dog-cat-vm-writeup/</link>
+      <link>https://chaudhary1337.github.io/p/tryhackme-dog-cat-vm-writeup/</link>
       <pubDate>Tue, 15 Jun 2021 00:00:00 +0000</pubDate>
       
-      <guid>/p/tryhackme-dog-cat-vm-writeup/</guid>
+      <guid>https://chaudhary1337.github.io/p/tryhackme-dog-cat-vm-writeup/</guid>
       <description>Play here
 Recon Exploring the website, we see that images come in the form of: http://10.10.13.155/cats/7.jpg
 ❯ nmap -script=default -sV -A 10.10.13.155 Starting Nmap 7.91 ( https://nmap.org ) at 2021-03-01 23:30 EST Nmap scan report for 10.10.13.155 Host is up (0.23s latency). Not shown: 998 closed ports PORT STATE SERVICE VERSION 22/tcp open ssh OpenSSH 7.6p1 Ubuntu 4ubuntu0.3 (Ubuntu Linux; protocol 2.0) | ssh-hostkey: | 2048 24:31:19:2a:b1:97:1a:04:4e:2c:36:ac:84:0a:75:87 (RSA) | 256 21:3d:46:18:93:aa:f9:e7:c9:b5:4c:0f:16:0b:71:e1 (ECDSA) |_ 256 c1:fb:7d:73:2b:57:4a:8b:dc:d7:6f:49:bb:3b:d0:20 (ED25519) 80/tcp open http Apache httpd 2.</description>
@@ -52,19 +52,19 @@ Recon Exploring the website, we see that images come in the form of: http://10.1
     
     <item>
       <title>TryHackMe: Lian Yu Writeup</title>
-      <link>/p/tryhackme-lian-yu-writeup/</link>
+      <link>https://chaudhary1337.github.io/p/tryhackme-lian-yu-writeup/</link>
       <pubDate>Tue, 15 Jun 2021 00:00:00 +0000</pubDate>
       
-      <guid>/p/tryhackme-lian-yu-writeup/</guid>
+      <guid>https://chaudhary1337.github.io/p/tryhackme-lian-yu-writeup/</guid>
       <description>1. Port Scanning &amp;amp; Enumeration 1.1 Port Scanning ┌──(kali㉿kali)-[~] └─$ nmap -sC -sV -A 10.10.185.218 Starting Nmap 7.91 ( https://nmap.org ) at 2021-05-19 04:00 EDT Nmap scan report for 10.10.185.218 Host is up (0.19s latency). Not shown: 996 closed ports PORT STATE SERVICE VERSION 21/tcp open ftp vsftpd 3.0.2 22/tcp open ssh OpenSSH 6.7p1 Debian 5+deb8u8 (protocol 2.0) | ssh-hostkey: | 1024 56:50:bd:11:ef:d4:ac:56:32:c3:ee:73:3e:de:87:f4 (DSA) | 2048 39:6f:3a:9c:b6:2d:ad:0c:d8:6d:be:77:13:07:25:d6 (RSA) | 256 a6:69:96:d7:6d:61:27:96:7e:bb:9f:83:60:1b:52:12 (ECDSA) |_ 256 3f:43:76:75:a8:5a:a6:cd:33:b0:66:42:04:91:fe:a0 (ED25519) 80/tcp open http Apache httpd |_http-server-header: Apache |_http-title: Purgatory 111/tcp open rpcbind 2-4 (RPC #100000) | rpcinfo: | program version port/proto service | 100000 2,3,4 111/tcp rpcbind | 100000 2,3,4 111/udp rpcbind | 100000 3,4 111/tcp6 rpcbind | 100000 3,4 111/udp6 rpcbind | 100024 1 34042/udp status | 100024 1 40662/tcp status | 100024 1 41729/tcp6 status |_ 100024 1 46517/udp6 status Service Info: OSs: Unix, Linux; CPE: cpe:/o:linux:linux_kernel Service detection performed.</description>
     </item>
     
     <item>
       <title>TryHackMe: Smag Grotto Writeup</title>
-      <link>/p/tryhackme-smag-grotto-writeup/</link>
+      <link>https://chaudhary1337.github.io/p/tryhackme-smag-grotto-writeup/</link>
       <pubDate>Tue, 15 Jun 2021 00:00:00 +0000</pubDate>
       
-      <guid>/p/tryhackme-smag-grotto-writeup/</guid>
+      <guid>https://chaudhary1337.github.io/p/tryhackme-smag-grotto-writeup/</guid>
       <description>Play
 1. Scanning &amp;amp; Enumeration We do the below scans in parallel.
 1.1. Port Scanning Not shown: 998 closed ports PORT STATE SERVICE VERSION 22/tcp open ssh OpenSSH 7.2p2 Ubuntu 4ubuntu2.8 (Ubuntu Linux; protocol 2.0) | ssh-hostkey: | 2048 74:e0:e1:b4:05:85:6a:15:68:7e:16:da:f2:c7:6b:ee (RSA) | 256 bd:43:62:b9:a1:86:51:36:f8:c7:df:f9:0f:63:8f:a3 (ECDSA) |_ 256 f9:e7:da:07:8f:10:af:97:0b:32:87:c9:32:d7:1b:76 (ED25519) 80/tcp open http Apache httpd 2.4.18 ((Ubuntu)) | http-methods: |_ Supported Methods: GET HEAD POST OPTIONS |_http-server-header: Apache/2.4.18 (Ubuntu) |_http-title: Smag Service Info: OS: Linux; CPE: cpe:/o:linux:linux_kernel Nothing too special.</description>
@@ -72,10 +72,10 @@ Recon Exploring the website, we see that images come in the form of: http://10.1
     
     <item>
       <title>TryHackMe: Year Of The Rabbit Writeup</title>
-      <link>/p/tryhackme-year-of-the-rabbit-writeup/</link>
+      <link>https://chaudhary1337.github.io/p/tryhackme-year-of-the-rabbit-writeup/</link>
       <pubDate>Tue, 15 Jun 2021 00:00:00 +0000</pubDate>
       
-      <guid>/p/tryhackme-year-of-the-rabbit-writeup/</guid>
+      <guid>https://chaudhary1337.github.io/p/tryhackme-year-of-the-rabbit-writeup/</guid>
       <description>Challenge Room Play here
 Recon   Go to the website
   Run a gobuster scan

@@ -2,17 +2,17 @@
 <rss version="2.0" xmlns:atom="http://www.w3.org/2005/Atom">
   <channel>
     <title>hash-cracking on Tanishq Chaudhary</title>
-    <link>/tags/hash-cracking/</link>
+    <link>https://chaudhary1337.github.io/tags/hash-cracking/</link>
     <description>Recent content in hash-cracking on Tanishq Chaudhary</description>
     <generator>Hugo -- gohugo.io</generator>
     <language>en-us</language>
-    <lastBuildDate>Tue, 15 Jun 2021 00:00:00 +0000</lastBuildDate><atom:link href="/tags/hash-cracking/index.xml" rel="self" type="application/rss+xml" />
+    <lastBuildDate>Tue, 15 Jun 2021 00:00:00 +0000</lastBuildDate><atom:link href="https://chaudhary1337.github.io/tags/hash-cracking/index.xml" rel="self" type="application/rss+xml" />
     <item>
       <title>TryHackMe: Blue Writeup</title>
-      <link>/p/tryhackme-blue-writeup/</link>
+      <link>https://chaudhary1337.github.io/p/tryhackme-blue-writeup/</link>
       <pubDate>Tue, 15 Jun 2021 00:00:00 +0000</pubDate>
       
-      <guid>/p/tryhackme-blue-writeup/</guid>
+      <guid>https://chaudhary1337.github.io/p/tryhackme-blue-writeup/</guid>
       <description>1. Recon Reconnaissance
 Scan the machine. (If you are unsure how to tackle this, I recommend checking out the Nmap room) ❯ nmap --script=vuln -sV -A 10.10.233.113
 Nmap scan report for 10.10.233.113 Host is up (0.43s latency). Not shown: 991 closed ports PORT STATE SERVICE VERSION 135/tcp open msrpc Microsoft Windows RPC 139/tcp open netbios-ssn Microsoft Windows netbios-ssn 445/tcp open microsoft-ds Microsoft Windows 7 - 10 microsoft-ds (workgroup: WORKGROUP) 3389/tcp open ssl/ms-wbt-server?</description>
@@ -20,10 +20,10 @@ Nmap scan report for 10.10.233.113 Host is up (0.43s latency). Not shown: 991 cl
     
     <item>
       <title>TryHackMe: Fowsniff CTF Writeup</title>
-      <link>/p/tryhackme-fowsniff-ctf-writeup/</link>
+      <link>https://chaudhary1337.github.io/p/tryhackme-fowsniff-ctf-writeup/</link>
       <pubDate>Tue, 15 Jun 2021 00:00:00 +0000</pubDate>
       
-      <guid>/p/tryhackme-fowsniff-ctf-writeup/</guid>
+      <guid>https://chaudhary1337.github.io/p/tryhackme-fowsniff-ctf-writeup/</guid>
       <description>Play
 1. Scanning &amp;amp; Enumeration We do the below scans in parallel.
 1.1. Port Scanning Not shown: 996 closed ports PORT STATE SERVICE VERSION 22/tcp open ssh OpenSSH 7.2p2 Ubuntu 4ubuntu2.4 (Ubuntu Linux; protocol 2.0) | ssh-hostkey: | 2048 90:35:66:f4:c6:d2:95:12:1b:e8:cd:de:aa:4e:03:23 (RSA) | 256 53:9d:23:67:34:cf:0a:d5:5a:9a:11:74:bd:fd:de:71 (ECDSA) |_ 256 a2:8f:db:ae:9e:3d:c9:e6:a9:ca:03:b1:d7:1b:66:83 (ED25519) 80/tcp open http Apache httpd 2.4.18 ((Ubuntu)) | http-methods: |_ Supported Methods: GET HEAD POST OPTIONS | http-robots.txt: 1 disallowed entry |_/ |_http-server-header: Apache/2.</description>
@@ -31,20 +31,20 @@ Nmap scan report for 10.10.233.113 Host is up (0.43s latency). Not shown: 991 cl
     
     <item>
       <title>TryHackMe: Lazy Admin Writeup</title>
-      <link>/p/tryhackme-lazy-admin-writeup/</link>
+      <link>https://chaudhary1337.github.io/p/tryhackme-lazy-admin-writeup/</link>
       <pubDate>Tue, 15 Jun 2021 00:00:00 +0000</pubDate>
       
-      <guid>/p/tryhackme-lazy-admin-writeup/</guid>
+      <guid>https://chaudhary1337.github.io/p/tryhackme-lazy-admin-writeup/</guid>
       <description>Play
 1. Enumeration + Exploration 1.1. Port Scanning ┌──(kali㉿kali)-[~] └─$ nmap -sC -sV -A 10.10.249.26 Starting Nmap 7.91 ( https://nmap.org ) at 2021-05-24 02:40 EDT Nmap scan report for 10.10.249.26 Host is up (0.20s latency). Not shown: 998 closed ports PORT STATE SERVICE VERSION 22/tcp open ssh OpenSSH 7.2p2 Ubuntu 4ubuntu2.8 (Ubuntu Linux; protocol 2.0) | ssh-hostkey: | 2048 49:7c:f7:41:10:43:73:da:2c:e6:38:95:86:f8:e0:f0 (RSA) | 256 2f:d7:c4:4c:e8:1b:5a:90:44:df:c0:63:8c:72:ae:55 (ECDSA) |_ 256 61:84:62:27:c6:c3:29:17:dd:27:45:9e:29:cb:90:5e (ED25519) 80/tcp open http Apache httpd 2.</description>
     </item>
     
     <item>
       <title>TryHackMe: The Cod Caper Writeup</title>
-      <link>/p/tryhackme-the-cod-caper-writeup/</link>
+      <link>https://chaudhary1337.github.io/p/tryhackme-the-cod-caper-writeup/</link>
       <pubDate>Tue, 15 Jun 2021 00:00:00 +0000</pubDate>
       
-      <guid>/p/tryhackme-the-cod-caper-writeup/</guid>
+      <guid>https://chaudhary1337.github.io/p/tryhackme-the-cod-caper-writeup/</guid>
       <description>Task 1: Intro pingu story
 Task 2: Host Enumeration nmap -sC -sV -A 10.10.40.189
 -A: Enable OS detection, version detection, script scanning, and traceroute

@@ -2,17 +2,17 @@
 <rss version="2.0" xmlns:atom="http://www.w3.org/2005/Atom">
   <channel>
     <title>scripting on Tanishq Chaudhary</title>
-    <link>/tags/scripting/</link>
+    <link>https://chaudhary1337.github.io/tags/scripting/</link>
     <description>Recent content in scripting on Tanishq Chaudhary</description>
     <generator>Hugo -- gohugo.io</generator>
     <language>en-us</language>
-    <lastBuildDate>Fri, 18 Jun 2021 00:00:00 +0000</lastBuildDate><atom:link href="/tags/scripting/index.xml" rel="self" type="application/rss+xml" />
+    <lastBuildDate>Fri, 18 Jun 2021 00:00:00 +0000</lastBuildDate><atom:link href="https://chaudhary1337.github.io/tags/scripting/index.xml" rel="self" type="application/rss+xml" />
     <item>
       <title>TryHackMe: Mindgames Writeup</title>
-      <link>/p/tryhackme-mindgames-writeup/</link>
+      <link>https://chaudhary1337.github.io/p/tryhackme-mindgames-writeup/</link>
       <pubDate>Fri, 18 Jun 2021 00:00:00 +0000</pubDate>
       
-      <guid>/p/tryhackme-mindgames-writeup/</guid>
+      <guid>https://chaudhary1337.github.io/p/tryhackme-mindgames-writeup/</guid>
       <description>Play
 1. Scanning &amp;amp; Enumeration We do the below scans in parallel.
 1.1. Port Scanning Not shown: 998 closed ports PORT STATE SERVICE VERSION 22/tcp open ssh OpenSSH 7.6p1 Ubuntu 4ubuntu0.3 (Ubuntu Linux; protocol 2.0) | ssh-hostkey: | 2048 24:4f:06:26:0e:d3:7c:b8:18:42:40:12:7a:9e:3b:71 (RSA) | 256 5c:2b:3c:56:fd:60:2f:f7:28:34:47:55:d6:f8:8d:c1 (ECDSA) |_ 256 da:16:8b:14:aa:58:0e:e1:74:85:6f:af:bf:6b:8d:58 (ED25519) 80/tcp open http Golang net/http server (Go-IPFS json-rpc or InfluxDB API) | http-methods: |_ Supported Methods: GET HEAD POST OPTIONS |_http-title: Mindgames.</description>
@@ -20,10 +20,10 @@
     
     <item>
       <title>TryHackMe: Madness Writeup</title>
-      <link>/p/tryhackme-madness-writeup/</link>
+      <link>https://chaudhary1337.github.io/p/tryhackme-madness-writeup/</link>
       <pubDate>Tue, 15 Jun 2021 00:00:00 +0000</pubDate>
       
-      <guid>/p/tryhackme-madness-writeup/</guid>
+      <guid>https://chaudhary1337.github.io/p/tryhackme-madness-writeup/</guid>
       <description>Play
 1. Scanning &amp;amp; Enumeration We do the below scans in parallel.
 1.1. Port Scanning Not shown: 998 closed ports PORT STATE SERVICE VERSION 22/tcp open ssh OpenSSH 7.2p2 Ubuntu 4ubuntu2.8 (Ubuntu Linux; protocol 2.0) | ssh-hostkey: | 2048 ac:f9:85:10:52:65:6e:17:f5:1c:34:e7:d8:64:67:b1 (RSA) | 256 dd:8e:5a:ec:b1:95:cd:dc:4d:01:b3:fe:5f:4e:12:c1 (ECDSA) |_ 256 e9:ed:e3:eb:58:77:3b:00:5e:3a:f5:24:d8:58:34:8e (ED25519) 80/tcp open http Apache httpd 2.4.18 ((Ubuntu)) | http-methods: |_ Supported Methods: GET HEAD POST OPTIONS |_http-server-header: Apache/2.4.18 (Ubuntu) |_http-title: Apache2 Ubuntu Default Page: It works Service Info: OS: Linux; CPE: cpe:/o:linux:linux_kernel Nothing extraordinary.</description>

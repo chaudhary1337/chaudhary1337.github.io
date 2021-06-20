@@ -2,17 +2,17 @@
 <rss version="2.0" xmlns:atom="http://www.w3.org/2005/Atom">
   <channel>
     <title>web-work on Tanishq Chaudhary</title>
-    <link>/tags/web-work/</link>
+    <link>https://chaudhary1337.github.io/tags/web-work/</link>
     <description>Recent content in web-work on Tanishq Chaudhary</description>
     <generator>Hugo -- gohugo.io</generator>
     <language>en-us</language>
-    <lastBuildDate>Wed, 16 Jun 2021 00:00:00 +0000</lastBuildDate><atom:link href="/tags/web-work/index.xml" rel="self" type="application/rss+xml" />
+    <lastBuildDate>Wed, 16 Jun 2021 00:00:00 +0000</lastBuildDate><atom:link href="https://chaudhary1337.github.io/tags/web-work/index.xml" rel="self" type="application/rss+xml" />
     <item>
       <title>TryHackMe: Mustacchio Writeup</title>
-      <link>/p/tryhackme-mustacchio-writeup/</link>
+      <link>https://chaudhary1337.github.io/p/tryhackme-mustacchio-writeup/</link>
       <pubDate>Wed, 16 Jun 2021 00:00:00 +0000</pubDate>
       
-      <guid>/p/tryhackme-mustacchio-writeup/</guid>
+      <guid>https://chaudhary1337.github.io/p/tryhackme-mustacchio-writeup/</guid>
       <description>Play
 1. Scanning &amp;amp; Enumeration We do the below scans in parallel.
 1.1. Port Scanning Not shown: 998 filtered ports PORT STATE SERVICE VERSION 22/tcp open ssh OpenSSH 7.2p2 Ubuntu 4ubuntu2.10 (Ubuntu Linux; protocol 2.0) | ssh-hostkey: | 2048 d3:9e:50:66:5f:27:a0:60:a7:e8:8b:cb:a9:2a:f0:19 (RSA) | 256 5f:98:f4:5d:dc:a1:ee:01:3e:91:65:0a:80:52:de:ef (ECDSA) |_ 256 5e:17:6e:cd:44:35:a8:0b:46:18:cb:00:8d:49:b3:f6 (ED25519) 80/tcp open http Apache httpd 2.4.18 ((Ubuntu)) | http-methods: |_ Supported Methods: GET HEAD POST OPTIONS |_http-server-header: Apache/2.4.18 (Ubuntu) |_http-title: Mustacchio | Home Service Info: OS: Linux; CPE: cpe:/o:linux:linux_kernel Info Gathered:</description>
@@ -20,20 +20,20 @@
     
     <item>
       <title>TryHackMe: Agent Sudo Writeup</title>
-      <link>/p/tryhackme-agent-sudo-writeup/</link>
+      <link>https://chaudhary1337.github.io/p/tryhackme-agent-sudo-writeup/</link>
       <pubDate>Tue, 15 Jun 2021 00:00:00 +0000</pubDate>
       
-      <guid>/p/tryhackme-agent-sudo-writeup/</guid>
+      <guid>https://chaudhary1337.github.io/p/tryhackme-agent-sudo-writeup/</guid>
       <description>Play
 1. Enumeration &amp;amp; Exploration 1.1 Port Scanning ┌──(kali㉿kali)-[~] └─$ nmap -sC -sV -A 10.10.170.197 Starting Nmap 7.91 (https://nmap.org ) at 2021-05-16 00:45 EDT Nmap scan report for 10.10.170.197 Host is up (0.22s latency). Not shown: 997 closed ports PORT STATE SERVICE VERSION 21/tcp open ftp vsftpd 3.0.3 22/tcp open ssh OpenSSH 7.6p1 Ubuntu 4ubuntu0.3 (Ubuntu Linux; protocol 2.0) | ssh-hostkey: | 2048 ef:1f:5d:04:d4:77:95:06:60:72:ec:f0:58:f2:cc:07 (RSA) | 256 5e:02:d1:9a:c4:e7:43:06:62:c1:9e:25:84:8a:e7:ea (ECDSA) |_ 256 2d:00:5c:b9:fd:a8:c8:d8:80:e3:92:4f:8b:4f:18:e2 (ED25519) 80/tcp open http Apache httpd 2.</description>
     </item>
     
     <item>
       <title>TryHackMe: Biohazard Writeup</title>
-      <link>/p/tryhackme-biohazard-writeup/</link>
+      <link>https://chaudhary1337.github.io/p/tryhackme-biohazard-writeup/</link>
       <pubDate>Tue, 15 Jun 2021 00:00:00 +0000</pubDate>
       
-      <guid>/p/tryhackme-biohazard-writeup/</guid>
+      <guid>https://chaudhary1337.github.io/p/tryhackme-biohazard-writeup/</guid>
       <description>Play
 1. Introduction We start with nmap for port scanning and do some web exploration meanwhile.
 1.1. Port Scanning ┌──(kali㉿kali)-[~] └─$ nmap -sC -sV -A 10.10.111.73 Starting Nmap 7.91 ( https://nmap.org ) at 2021-05-22 00:26 EDT Nmap scan report for 10.10.111.73 Host is up (0.21s latency). Not shown: 997 closed ports PORT STATE SERVICE VERSION 21/tcp open ftp vsftpd 3.0.3 22/tcp open ssh OpenSSH 7.6p1 Ubuntu 4ubuntu0.3 (Ubuntu Linux; protocol 2.</description>
@@ -41,10 +41,10 @@
     
     <item>
       <title>TryHackMe: Break Out The Cage Writeup</title>
-      <link>/p/tryhackme-break-out-the-cage-writeup/</link>
+      <link>https://chaudhary1337.github.io/p/tryhackme-break-out-the-cage-writeup/</link>
       <pubDate>Tue, 15 Jun 2021 00:00:00 +0000</pubDate>
       
-      <guid>/p/tryhackme-break-out-the-cage-writeup/</guid>
+      <guid>https://chaudhary1337.github.io/p/tryhackme-break-out-the-cage-writeup/</guid>
       <description>Play
 1. Scanning &amp;amp; Enumeration We do the below scans in parallel.
 1.1. Port Scanning Not shown: 997 closed ports PORT STATE SERVICE VERSION 21/tcp open ftp vsftpd 3.0.3 | ftp-anon: Anonymous FTP login allowed (FTP code 230) |_-rw-r--r-- 1 0 0 396 May 25 2020 dad_tasks | ftp-syst: | STAT: | FTP server status: | Connected to ::ffff:10.17.8.184 | Logged in as ftp | TYPE: ASCII | No session bandwidth limit | Session timeout in seconds is 300 | Control connection is plain text | Data connections will be plain text | At session startup, client count was 2 | vsFTPd 3.</description>
@@ -52,10 +52,10 @@
     
     <item>
       <title>TryHackMe: ColdBox Writeup (All Paths)</title>
-      <link>/p/tryhackme-coldbox-writeup-all-paths/</link>
+      <link>https://chaudhary1337.github.io/p/tryhackme-coldbox-writeup-all-paths/</link>
       <pubDate>Tue, 15 Jun 2021 00:00:00 +0000</pubDate>
       
-      <guid>/p/tryhackme-coldbox-writeup-all-paths/</guid>
+      <guid>https://chaudhary1337.github.io/p/tryhackme-coldbox-writeup-all-paths/</guid>
       <description>Play
 1. Scanning &amp;amp; Enumeration We do the below scans in parallel.
 1.1. Port Scanning Not shown: 999 closed ports PORT STATE SERVICE VERSION 80/tcp open http Apache httpd 2.4.18 ((Ubuntu)) |_http-generator: WordPress 4.1.31 | http-methods: |_ Supported Methods: GET HEAD POST OPTIONS |_http-server-header: Apache/2.4.18 (Ubuntu) |_http-title: ColddBox | One more machine Nothing interesting. Only port 80 open, no ssh.
@@ -64,38 +64,38 @@ Not shown: 65530 closed ports PORT STATE SERVICE 80/tcp open http 4512/tcp open 
     
     <item>
       <title>TryHackMe: CTF Collection Vol. 2 Writeup</title>
-      <link>/p/tryhackme-ctf-collection-vol.-2-writeup/</link>
+      <link>https://chaudhary1337.github.io/p/tryhackme-ctf-collection-vol.-2-writeup/</link>
       <pubDate>Tue, 15 Jun 2021 00:00:00 +0000</pubDate>
       
-      <guid>/p/tryhackme-ctf-collection-vol.-2-writeup/</guid>
+      <guid>https://chaudhary1337.github.io/p/tryhackme-ctf-collection-vol.-2-writeup/</guid>
       <description>Challenge home page. 0. Scanning &amp;amp; Enumeration Port Scanning PORT STATE SERVICE VERSION 6/tcp filtered unknown 22/tcp open ssh OpenSSH 5.9p1 Debian 5ubuntu1.10 (Ubuntu Linux; protocol 2.0) | ssh-hostkey: | 1024 1b:c2:b6:2d:fb:32:cc:11:68:61:ab:31:5b:45:5c:f4 (DSA) | 2048 8d:88:65:9d:31:ff:b4:62:f9:28:f2:7d:42:07:89:58 (RSA) |_ 256 40:2e:b0:ed:2a:5a:9d:83:6a:6e:59:31:db:09:4c:cb (ECDSA) 80/tcp open http Apache httpd 2.2.22 ((Ubuntu)) | http-methods: |_ Supported Methods: GET HEAD POST OPTIONS | http-robots.txt: 1 disallowed entry |_/VlNCcElFSWdTQ0JKSUVZZ1dTQm5JR1VnYVNCQ0lGUWdTU0JFSUVrZ1p5QldJR2tnUWlCNklFa2dSaUJuSUdjZ1RTQjVJRUlnVHlCSklFY2dkeUJuSUZjZ1V5QkJJSG9nU1NCRklHOGdaeUJpSUVNZ1FpQnJJRWtnUlNCWklHY2dUeUJUSUVJZ2NDQkpJRVlnYXlCbklGY2dReUJDSUU4Z1NTQkhJSGNnUFElM0QlM0Q= |_http-server-header: Apache/2.2.22 (Ubuntu) |_http-title: 360 No Scope! Service Info: OS: Linux; CPE: cpe:/o:linux:linux_kernel I do not know about port 6, but we see some interesting stuff in robots.</description>
     </item>
     
     <item>
       <title>TryHackMe: Lian Yu Writeup</title>
-      <link>/p/tryhackme-lian-yu-writeup/</link>
+      <link>https://chaudhary1337.github.io/p/tryhackme-lian-yu-writeup/</link>
       <pubDate>Tue, 15 Jun 2021 00:00:00 +0000</pubDate>
       
-      <guid>/p/tryhackme-lian-yu-writeup/</guid>
+      <guid>https://chaudhary1337.github.io/p/tryhackme-lian-yu-writeup/</guid>
       <description>1. Port Scanning &amp;amp; Enumeration 1.1 Port Scanning ┌──(kali㉿kali)-[~] └─$ nmap -sC -sV -A 10.10.185.218 Starting Nmap 7.91 ( https://nmap.org ) at 2021-05-19 04:00 EDT Nmap scan report for 10.10.185.218 Host is up (0.19s latency). Not shown: 996 closed ports PORT STATE SERVICE VERSION 21/tcp open ftp vsftpd 3.0.2 22/tcp open ssh OpenSSH 6.7p1 Debian 5+deb8u8 (protocol 2.0) | ssh-hostkey: | 1024 56:50:bd:11:ef:d4:ac:56:32:c3:ee:73:3e:de:87:f4 (DSA) | 2048 39:6f:3a:9c:b6:2d:ad:0c:d8:6d:be:77:13:07:25:d6 (RSA) | 256 a6:69:96:d7:6d:61:27:96:7e:bb:9f:83:60:1b:52:12 (ECDSA) |_ 256 3f:43:76:75:a8:5a:a6:cd:33:b0:66:42:04:91:fe:a0 (ED25519) 80/tcp open http Apache httpd |_http-server-header: Apache |_http-title: Purgatory 111/tcp open rpcbind 2-4 (RPC #100000) | rpcinfo: | program version port/proto service | 100000 2,3,4 111/tcp rpcbind | 100000 2,3,4 111/udp rpcbind | 100000 3,4 111/tcp6 rpcbind | 100000 3,4 111/udp6 rpcbind | 100024 1 34042/udp status | 100024 1 40662/tcp status | 100024 1 41729/tcp6 status |_ 100024 1 46517/udp6 status Service Info: OSs: Unix, Linux; CPE: cpe:/o:linux:linux_kernel Service detection performed.</description>
     </item>
     
     <item>
       <title>TryHackMe: Wonderland Writeup</title>
-      <link>/p/tryhackme-wonderland-writeup/</link>
+      <link>https://chaudhary1337.github.io/p/tryhackme-wonderland-writeup/</link>
       <pubDate>Tue, 15 Jun 2021 00:00:00 +0000</pubDate>
       
-      <guid>/p/tryhackme-wonderland-writeup/</guid>
+      <guid>https://chaudhary1337.github.io/p/tryhackme-wonderland-writeup/</guid>
       <description>Play
 1. Recon ❯ nmap -script=default -sV -A -T4 10.10.133.60 Starting Nmap 7.91 ( https://nmap.org ) at 2021-02-26 21:51 EST Nmap scan report for 10.10.133.60 Host is up (0.24s latency). Not shown: 998 closed ports PORT STATE SERVICE VERSION 22/tcp open ssh OpenSSH 7.6p1 Ubuntu 4ubuntu0.3 (Ubuntu Linux; protocol 2.0) | ssh-hostkey: | 2048 8e:ee:fb:96:ce:ad:70:dd:05:a9:3b:0d:b0:71:b8:63 (RSA) | 256 7a:92:79:44:16:4f:20:43:50:a9:a8:47:e2:c2:be:84 (ECDSA) |_ 256 00:0b:80:44:e6:3d:4b:69:47:92:2c:55:14:7e:2a:c9 (ED25519) 80/tcp open http Golang net/http server (Go-IPFS json-rpc or InfluxDB API) |_http-title: Follow the white rabbit.</description>
     </item>
     
     <item>
       <title>TryHackMe: Year Of The Rabbit Writeup</title>
-      <link>/p/tryhackme-year-of-the-rabbit-writeup/</link>
+      <link>https://chaudhary1337.github.io/p/tryhackme-year-of-the-rabbit-writeup/</link>
       <pubDate>Tue, 15 Jun 2021 00:00:00 +0000</pubDate>
       
-      <guid>/p/tryhackme-year-of-the-rabbit-writeup/</guid>
+      <guid>https://chaudhary1337.github.io/p/tryhackme-year-of-the-rabbit-writeup/</guid>
       <description>Challenge Room Play here
 Recon   Go to the website
   Run a gobuster scan

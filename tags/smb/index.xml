@@ -2,37 +2,37 @@
 <rss version="2.0" xmlns:atom="http://www.w3.org/2005/Atom">
   <channel>
     <title>smb on Tanishq Chaudhary</title>
-    <link>/tags/smb/</link>
+    <link>https://chaudhary1337.github.io/tags/smb/</link>
     <description>Recent content in smb on Tanishq Chaudhary</description>
     <generator>Hugo -- gohugo.io</generator>
     <language>en-us</language>
-    <lastBuildDate>Thu, 17 Jun 2021 00:00:00 +0000</lastBuildDate><atom:link href="/tags/smb/index.xml" rel="self" type="application/rss+xml" />
+    <lastBuildDate>Thu, 17 Jun 2021 00:00:00 +0000</lastBuildDate><atom:link href="https://chaudhary1337.github.io/tags/smb/index.xml" rel="self" type="application/rss+xml" />
     <item>
       <title>TryHackMe: VulnNet Internal Writeup</title>
-      <link>/p/tryhackme-vulnnet-internal-writeup/</link>
+      <link>https://chaudhary1337.github.io/p/tryhackme-vulnnet-internal-writeup/</link>
       <pubDate>Thu, 17 Jun 2021 00:00:00 +0000</pubDate>
       
-      <guid>/p/tryhackme-vulnnet-internal-writeup/</guid>
+      <guid>https://chaudhary1337.github.io/p/tryhackme-vulnnet-internal-writeup/</guid>
       <description>Play
 1. Scanning &amp;amp; Enumeration 1.1. Port Scanning Not shown: 993 closed ports PORT STATE SERVICE VERSION 22/tcp open ssh OpenSSH 7.6p1 Ubuntu 4ubuntu0.3 (Ubuntu Linux; protocol 2.0) | ssh-hostkey: | 2048 5e:27:8f:48:ae:2f:f8:89:bb:89:13:e3:9a:fd:63:40 (RSA) | 256 f4:fe:0b:e2:5c:88:b5:63:13:85:50:dd:d5:86:ab:bd (ECDSA) |_ 256 82:ea:48:85:f0:2a:23:7e:0e:a9:d9:14:0a:60:2f:ad (ED25519) 111/tcp open rpcbind 2-4 (RPC #100000) | rpcinfo: | program version port/proto service | 100000 2,3,4 111/tcp rpcbind | 100000 2,3,4 111/udp rpcbind | 100000 3,4 111/tcp6 rpcbind | 100000 3,4 111/udp6 rpcbind | 100003 3 2049/udp nfs | 100003 3 2049/udp6 nfs | 100003 3,4 2049/tcp nfs | 100003 3,4 2049/tcp6 nfs | 100005 1,2,3 35488/udp6 mountd | 100005 1,2,3 54985/tcp mountd | 100005 1,2,3 56181/tcp6 mountd | 100005 1,2,3 56789/udp mountd | 100021 1,3,4 32910/udp nlockmgr | 100021 1,3,4 42203/tcp6 nlockmgr | 100021 1,3,4 42497/tcp nlockmgr | 100021 1,3,4 49999/udp6 nlockmgr | 100227 3 2049/tcp nfs_acl | 100227 3 2049/tcp6 nfs_acl | 100227 3 2049/udp nfs_acl |_ 100227 3 2049/udp6 nfs_acl 139/tcp open netbios-ssn Samba smbd 3.</description>
     </item>
     
     <item>
       <title>TryHackMe: Anonymous Writeup</title>
-      <link>/p/tryhackme-anonymous-writeup/</link>
+      <link>https://chaudhary1337.github.io/p/tryhackme-anonymous-writeup/</link>
       <pubDate>Tue, 15 Jun 2021 00:00:00 +0000</pubDate>
       
-      <guid>/p/tryhackme-anonymous-writeup/</guid>
+      <guid>https://chaudhary1337.github.io/p/tryhackme-anonymous-writeup/</guid>
       <description>Play
 1. Recon 1.1 Nmap ┌──(kali㉿kali)-[~] └─$ nmap -sC -sV 10.10.14.90 Starting Nmap 7.91 ( https://nmap.org ) at 2021-05-07 06:15 EDT Nmap scan report for 10.10.14.90 Host is up (0.20s latency). Not shown: 996 closed ports PORT STATE SERVICE VERSION 21/tcp open ftp vsftpd 2.0.8 or later | ftp-anon: Anonymous FTP login allowed (FTP code 230) |_drwxrwxrwx 2 111 113 4096 Jun 04 2020 scripts [NSE: writeable] | ftp-syst: | STAT: | FTP server status: | Connected to ::ffff:10.</description>
     </item>
     
     <item>
       <title>TryHackMe: Attackative Directory Writeup</title>
-      <link>/p/tryhackme-attackative-directory-writeup/</link>
+      <link>https://chaudhary1337.github.io/p/tryhackme-attackative-directory-writeup/</link>
       <pubDate>Tue, 15 Jun 2021 00:00:00 +0000</pubDate>
       
-      <guid>/p/tryhackme-attackative-directory-writeup/</guid>
+      <guid>https://chaudhary1337.github.io/p/tryhackme-attackative-directory-writeup/</guid>
       <description>Play
 Primer:
  [Video] Active Directory [Video] [Hindi] Kerberos - decent overview [Video] Kerberos - has good visualizations  If this is your first time, as was mine, the above resoruces provide a decent overview of the stuff we are going to deal with.
@@ -42,20 +42,20 @@ Primer:
     
     <item>
       <title>TryHackMe: Blog Writeup</title>
-      <link>/p/tryhackme-blog-writeup/</link>
+      <link>https://chaudhary1337.github.io/p/tryhackme-blog-writeup/</link>
       <pubDate>Tue, 15 Jun 2021 00:00:00 +0000</pubDate>
       
-      <guid>/p/tryhackme-blog-writeup/</guid>
+      <guid>https://chaudhary1337.github.io/p/tryhackme-blog-writeup/</guid>
       <description>Play
 1. Recon 1.1 Nmap ┌──(kali㉿kali)-[~] └─$ nmap -sC -sV -A 10.10.129.188 Starting Nmap 7.91 ( https://nmap.org ) at 2021-05-08 04:01 EDT Nmap scan report for 10.10.129.188 Host is up (0.21s latency). Not shown: 996 closed ports PORT STATE SERVICE VERSION 22/tcp open ssh OpenSSH 7.6p1 Ubuntu 4ubuntu0.3 (Ubuntu Linux; protocol 2.0) | ssh-hostkey: | 2048 57:8a:da:90:ba:ed:3a:47:0c:05:a3:f7:a8:0a:8d:78 (RSA) | 256 c2:64:ef:ab:b1:9a:1c:87:58:7c:4b:d5:0f:20:46:26 (ECDSA) |_ 256 5a:f2:62:92:11:8e:ad:8a:9b:23:82:2d:ad:53:bc:16 (ED25519) 80/tcp open http Apache httpd 2.</description>
     </item>
     
     <item>
       <title>TryHackMe: Relevant Writeup</title>
-      <link>/p/tryhackme-relevant-writeup/</link>
+      <link>https://chaudhary1337.github.io/p/tryhackme-relevant-writeup/</link>
       <pubDate>Tue, 15 Jun 2021 00:00:00 +0000</pubDate>
       
-      <guid>/p/tryhackme-relevant-writeup/</guid>
+      <guid>https://chaudhary1337.github.io/p/tryhackme-relevant-writeup/</guid>
       <description>Play
 1. Enumeration &amp;amp; Exploration Note: All of the below may look sequential, but are done is parallel.
 1.1 Port Scanning Not shown: 995 filtered ports PORT STATE SERVICE VERSION 80/tcp open http Microsoft IIS httpd 10.0 | http-methods: | Supported Methods: OPTIONS TRACE GET HEAD POST |_ Potentially risky methods: TRACE |_http-server-header: Microsoft-IIS/10.0 |_http-title: IIS Windows Server 135/tcp open msrpc Microsoft Windows RPC 139/tcp open netbios-ssn Microsoft Windows netbios-ssn 445/tcp open microsoft-ds Windows Server 2016 Standard Evaluation 14393 microsoft-ds 3389/tcp open ms-wbt-server Microsoft Terminal Services | rdp-ntlm-info: | Target_Name: RELEVANT | NetBIOS_Domain_Name: RELEVANT | NetBIOS_Computer_Name: RELEVANT | DNS_Domain_Name: Relevant | DNS_Computer_Name: Relevant | Product_Version: 10.</description>

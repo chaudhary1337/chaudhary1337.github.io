@@ -2,17 +2,17 @@
 <rss version="2.0" xmlns:atom="http://www.w3.org/2005/Atom">
   <channel>
     <title>backups on Tanishq Chaudhary</title>
-    <link>/tags/backups/</link>
+    <link>https://chaudhary1337.github.io/tags/backups/</link>
     <description>Recent content in backups on Tanishq Chaudhary</description>
     <generator>Hugo -- gohugo.io</generator>
     <language>en-us</language>
-    <lastBuildDate>Tue, 15 Jun 2021 00:00:00 +0000</lastBuildDate><atom:link href="/tags/backups/index.xml" rel="self" type="application/rss+xml" />
+    <lastBuildDate>Tue, 15 Jun 2021 00:00:00 +0000</lastBuildDate><atom:link href="https://chaudhary1337.github.io/tags/backups/index.xml" rel="self" type="application/rss+xml" />
     <item>
       <title>TryHackMe: HA Joker CTF Writeup</title>
-      <link>/p/tryhackme-ha-joker-ctf-writeup/</link>
+      <link>https://chaudhary1337.github.io/p/tryhackme-ha-joker-ctf-writeup/</link>
       <pubDate>Tue, 15 Jun 2021 00:00:00 +0000</pubDate>
       
-      <guid>/p/tryhackme-ha-joker-ctf-writeup/</guid>
+      <guid>https://chaudhary1337.github.io/p/tryhackme-ha-joker-ctf-writeup/</guid>
       <description>Play
 1. Scanning &amp;amp; Enumeration We do the below scans in parallel.
 1.1. Port Scanning PORT STATE SERVICE VERSION 22/tcp open ssh OpenSSH 7.6p1 Ubuntu 4ubuntu0.3 (Ubuntu Linux; protocol 2.0) | ssh-hostkey: | 2048 ad:20:1f:f4:33:1b:00:70:b3:85:cb:87:00:c4:f4:f7 (RSA) | 256 1b:f9:a8:ec:fd:35:ec:fb:04:d5:ee:2a:a1:7a:4f:78 (ECDSA) |_ 256 dc:d7:dd:6e:f6:71:1f:8c:2c:2c:a1:34:6d:29:99:20 (ED25519) 80/tcp open http Apache httpd 2.4.29 ((Ubuntu)) | http-methods: |_ Supported Methods: GET POST OPTIONS HEAD |_http-server-header: Apache/2.4.29 (Ubuntu) |_http-title: HA: Joker 8080/tcp open http Apache httpd 2.</description>
@@ -20,20 +20,20 @@
     
     <item>
       <title>TryHackMe: Lazy Admin Writeup</title>
-      <link>/p/tryhackme-lazy-admin-writeup/</link>
+      <link>https://chaudhary1337.github.io/p/tryhackme-lazy-admin-writeup/</link>
       <pubDate>Tue, 15 Jun 2021 00:00:00 +0000</pubDate>
       
-      <guid>/p/tryhackme-lazy-admin-writeup/</guid>
+      <guid>https://chaudhary1337.github.io/p/tryhackme-lazy-admin-writeup/</guid>
       <description>Play
 1. Enumeration + Exploration 1.1. Port Scanning ┌──(kali㉿kali)-[~] └─$ nmap -sC -sV -A 10.10.249.26 Starting Nmap 7.91 ( https://nmap.org ) at 2021-05-24 02:40 EDT Nmap scan report for 10.10.249.26 Host is up (0.20s latency). Not shown: 998 closed ports PORT STATE SERVICE VERSION 22/tcp open ssh OpenSSH 7.2p2 Ubuntu 4ubuntu2.8 (Ubuntu Linux; protocol 2.0) | ssh-hostkey: | 2048 49:7c:f7:41:10:43:73:da:2c:e6:38:95:86:f8:e0:f0 (RSA) | 256 2f:d7:c4:4c:e8:1b:5a:90:44:df:c0:63:8c:72:ae:55 (ECDSA) |_ 256 61:84:62:27:c6:c3:29:17:dd:27:45:9e:29:cb:90:5e (ED25519) 80/tcp open http Apache httpd 2.</description>
     </item>
     
     <item>
       <title>TryHackMe: Overpass3 Writeup</title>
-      <link>/p/tryhackme-overpass3-writeup/</link>
+      <link>https://chaudhary1337.github.io/p/tryhackme-overpass3-writeup/</link>
       <pubDate>Tue, 15 Jun 2021 00:00:00 +0000</pubDate>
       
-      <guid>/p/tryhackme-overpass3-writeup/</guid>
+      <guid>https://chaudhary1337.github.io/p/tryhackme-overpass3-writeup/</guid>
       <description>1. Recon we run the nmap scan and the gobuster parallely, while we explore the website.
 1.1 Port Scanning ❯ nmap -script=vuln -sV -A -T4 -Pn 10.10.16.10 Host discovery disabled (-Pn). All addresses will be marked &#39;up&#39; and scan times will be slower. Starting Nmap 7.91 ( https://nmap.org ) at 2021-02-06 21:54 EST Nmap scan report for 10.10.16.10 Host is up (0.52s latency). Not shown: 997 filtered ports PORT STATE SERVICE VERSION 21/tcp open ftp vsftpd 3.</description>
     </item>

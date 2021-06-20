@@ -2,17 +2,17 @@
 <rss version="2.0" xmlns:atom="http://www.w3.org/2005/Atom">
   <channel>
     <title>phpmyadmin on Tanishq Chaudhary</title>
-    <link>/tags/phpmyadmin/</link>
+    <link>https://chaudhary1337.github.io/tags/phpmyadmin/</link>
     <description>Recent content in phpmyadmin on Tanishq Chaudhary</description>
     <generator>Hugo -- gohugo.io</generator>
     <language>en-us</language>
-    <lastBuildDate>Tue, 15 Jun 2021 00:00:00 +0000</lastBuildDate><atom:link href="/tags/phpmyadmin/index.xml" rel="self" type="application/rss+xml" />
+    <lastBuildDate>Tue, 15 Jun 2021 00:00:00 +0000</lastBuildDate><atom:link href="https://chaudhary1337.github.io/tags/phpmyadmin/index.xml" rel="self" type="application/rss+xml" />
     <item>
       <title>TryHackMe: Different CTF Writeup</title>
-      <link>/p/tryhackme-different-ctf-writeup/</link>
+      <link>https://chaudhary1337.github.io/p/tryhackme-different-ctf-writeup/</link>
       <pubDate>Tue, 15 Jun 2021 00:00:00 +0000</pubDate>
       
-      <guid>/p/tryhackme-different-ctf-writeup/</guid>
+      <guid>https://chaudhary1337.github.io/p/tryhackme-different-ctf-writeup/</guid>
       <description>Play
 NOTE: There is an issue in the machine sometimes. On a previous run, I got: nmap shows its a WordPress website, but &amp;hellip; we do not see anything here except the error.
 Redeploy the machine to fix the error. You may also see it later, and not immediately. Don&amp;rsquo;t panic, just reset.

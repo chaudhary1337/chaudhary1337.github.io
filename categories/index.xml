@@ -2,35 +2,35 @@
 <rss version="2.0" xmlns:atom="http://www.w3.org/2005/Atom">
   <channel>
     <title>Categories on Tanishq Chaudhary</title>
-    <link>/categories/</link>
+    <link>https://chaudhary1337.github.io/categories/</link>
     <description>Recent content in Categories on Tanishq Chaudhary</description>
     <generator>Hugo -- gohugo.io</generator>
     <language>en-us</language>
-    <lastBuildDate>Sat, 19 Jun 2021 00:00:00 +0000</lastBuildDate><atom:link href="/categories/index.xml" rel="self" type="application/rss+xml" />
+    <lastBuildDate>Sat, 19 Jun 2021 00:00:00 +0000</lastBuildDate><atom:link href="https://chaudhary1337.github.io/categories/index.xml" rel="self" type="application/rss+xml" />
     <item>
       <title>TryHackMe</title>
-      <link>/categories/thm/</link>
+      <link>https://chaudhary1337.github.io/categories/thm/</link>
       <pubDate>Sat, 19 Jun 2021 00:00:00 +0000</pubDate>
       
-      <guid>/categories/thm/</guid>
+      <guid>https://chaudhary1337.github.io/categories/thm/</guid>
       <description></description>
     </item>
     
     <item>
       <title>how-to</title>
-      <link>/categories/how-to/</link>
+      <link>https://chaudhary1337.github.io/categories/how-to/</link>
       <pubDate>Thu, 17 Jun 2021 00:00:00 +0000</pubDate>
       
-      <guid>/categories/how-to/</guid>
+      <guid>https://chaudhary1337.github.io/categories/how-to/</guid>
       <description></description>
     </item>
     
     <item>
       <title>HackTheBox</title>
-      <link>/categories/htb/</link>
+      <link>https://chaudhary1337.github.io/categories/htb/</link>
       <pubDate>Mon, 01 Jan 0001 00:00:00 +0000</pubDate>
       
-      <guid>/categories/htb/</guid>
+      <guid>https://chaudhary1337.github.io/categories/htb/</guid>
       <description></description>
     </item>
     
