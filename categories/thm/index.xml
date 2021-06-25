@@ -6,7 +6,18 @@
     <description>Recent content in TryHackMe on Tanishq Chaudhary</description>
     <generator>Hugo -- gohugo.io</generator>
     <language>en-us</language>
-    <lastBuildDate>Sat, 19 Jun 2021 00:00:00 +0000</lastBuildDate><atom:link href="https://chaudhary1337.github.io/categories/thm/index.xml" rel="self" type="application/rss+xml" />
+    <lastBuildDate>Fri, 25 Jun 2021 00:00:00 +0000</lastBuildDate><atom:link href="https://chaudhary1337.github.io/categories/thm/index.xml" rel="self" type="application/rss+xml" />
+    <item>
+      <title>TryHackMe: Cooctus Stories Writeup</title>
+      <link>https://chaudhary1337.github.io/p/tryhackme-cooctus-stories-writeup/</link>
+      <pubDate>Fri, 25 Jun 2021 00:00:00 +0000</pubDate>
+      
+      <guid>https://chaudhary1337.github.io/p/tryhackme-cooctus-stories-writeup/</guid>
+      <description>Play
+1. Scanning &amp;amp; Enumeration We do the below scans in parallel.
+1.1. Port Scanning Not shown: 996 closed ports PORT STATE SERVICE VERSION 22/tcp open ssh OpenSSH 7.6p1 Ubuntu 4ubuntu0.3 (Ubuntu Linux; protocol 2.0) | ssh-hostkey: | 2048 e5:44:62:91:90:08:99:5d:e8:55:4f:69:ca:02:1c:10 (RSA) | 256 e5:a7:b0:14:52:e1:c9:4e:0d:b8:1a:db:c5:d6:7e:f0 (ECDSA) |_ 256 02:97:18:d6:cd:32:58:17:50:43:dd:d2:2f:ba:15:53 (ED25519) 111/tcp open rpcbind 2-4 (RPC #100000) | rpcinfo: | program version port/proto service | 100000 2,3,4 111/tcp rpcbind | 100000 2,3,4 111/udp rpcbind | 100000 3,4 111/tcp6 rpcbind | 100000 3,4 111/udp6 rpcbind | 100003 3 2049/udp nfs | 100003 3 2049/udp6 nfs | 100003 3,4 2049/tcp nfs | 100003 3,4 2049/tcp6 nfs | 100005 1,2,3 34481/tcp6 mountd | 100005 1,2,3 37413/udp6 mountd | 100005 1,2,3 43347/udp mountd | 100005 1,2,3 56545/tcp mountd | 100021 1,3,4 34901/tcp6 nlockmgr | 100021 1,3,4 46744/udp nlockmgr | 100021 1,3,4 46749/tcp nlockmgr | 100021 1,3,4 60804/udp6 nlockmgr | 100227 3 2049/tcp nfs_acl | 100227 3 2049/tcp6 nfs_acl | 100227 3 2049/udp nfs_acl |_ 100227 3 2049/udp6 nfs_acl 2049/tcp open nfs_acl 3 (RPC #100227) 8080/tcp open http Werkzeug httpd 0.</description>
+    </item>
+    
     <item>
       <title>TryHackMe: Juicy Details Writeup</title>
       <link>https://chaudhary1337.github.io/p/tryhackme-juicy-details-writeup/</link>
