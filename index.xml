@@ -1016,7 +1016,7 @@ root
 &lt;li&gt;We were not able to see this because there was the other stuff listed out, which in effect, &lt;em&gt;hid&lt;/em&gt; the &lt;code&gt;/root/&lt;/code&gt; directory till we lifted the mount.&lt;/li&gt;
 &lt;/ul&gt;
 &lt;p&gt;You can explore more on the &lt;a class=&#34;link&#34; href=&#34;https://linux.die.net/man/8/mount&#34;  target=&#34;_blank&#34; rel=&#34;noopener&#34;
-    &gt;linux mount&lt;/a&gt; what &lt;strong&gt;exactly&lt;/strong&gt; was happening. Look for the &lt;code&gt;bind&lt;/code&gt; keyword! Thanks to @crazyjointje for the explaination and andother fellow hacker for pointing out the &lt;code&gt;bind&lt;/code&gt; functionality (#room-hints, TryHackMe Discord).&lt;/p&gt;
+    &gt;linux mount&lt;/a&gt; what &lt;strong&gt;exactly&lt;/strong&gt; was happening. Look for the &lt;code&gt;bind&lt;/code&gt; keyword! Thanks to @crazyjointje for the explaination and myiops#2207 for pointing out the &lt;code&gt;bind&lt;/code&gt; functionality (#room-hints, TryHackMe Discord).&lt;/p&gt;
 &lt;p&gt;Nice. Let&amp;rsquo;s see the contents -&lt;/p&gt;
 &lt;pre&gt;&lt;code&gt;varg@cchq:/opt/CooctFS$ cd root/
 varg@cchq:/opt/CooctFS/root$ ls -la
