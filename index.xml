@@ -255,7 +255,7 @@ Matching Defaults entries for server-admin on duckyinc:
 User server-admin may run the following commands on duckyinc:
     (root) /bin/systemctl start duckyinc.service, /bin/systemctl enable duckyinc.service, /bin/systemctl restart
         duckyinc.service, /bin/systemctl daemon-reload, sudoedit /etc/systemd/system/duckyinc.service
-&lt;/code&gt;&lt;/pre&gt;&lt;p&gt;Great! Looks like sudo can lead us to!&lt;/p&gt;
+&lt;/code&gt;&lt;/pre&gt;&lt;p&gt;Great! Looks like sudo can lead us to root!&lt;/p&gt;
 &lt;h2 id=&#34;3-privesc&#34;&gt;3. PrivEsc&lt;/h2&gt;
 &lt;h3 id=&#34;31-getting-root&#34;&gt;3.1. Getting root&lt;/h3&gt;
 &lt;p&gt;Type in: &lt;code&gt;sudoedit /etc/systemd/system/duckyinc.service&lt;/code&gt; and replace the contents with the below.&lt;/p&gt;
