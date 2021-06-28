@@ -1,0 +1,22 @@
+<?xml version="1.0" encoding="utf-8" standalone="yes"?>
+<rss version="2.0" xmlns:atom="http://www.w3.org/2005/Atom">
+  <channel>
+    <title>reversing on Tanishq Chaudhary</title>
+    <link>https://chaudhary1337.github.io/tags/reversing/</link>
+    <description>Recent content in reversing on Tanishq Chaudhary</description>
+    <generator>Hugo -- gohugo.io</generator>
+    <language>en-us</language>
+    <lastBuildDate>Mon, 28 Jun 2021 00:00:00 +0000</lastBuildDate><atom:link href="https://chaudhary1337.github.io/tags/reversing/index.xml" rel="self" type="application/rss+xml" />
+    <item>
+      <title>TryHackMe: Cat Pictures Writeup</title>
+      <link>https://chaudhary1337.github.io/p/tryhackme-cat-pictures-writeup/</link>
+      <pubDate>Mon, 28 Jun 2021 00:00:00 +0000</pubDate>
+      
+      <guid>https://chaudhary1337.github.io/p/tryhackme-cat-pictures-writeup/</guid>
+      <description>Play
+1. Scanning &amp;amp; Enumeration We do the below scans in parallel.
+1.1. Port Scanning Not shown: 998 closed ports PORT STATE SERVICE VERSION 22/tcp open ssh OpenSSH 7.6p1 Ubuntu 4ubuntu0.3 (Ubuntu Linux; protocol 2.0) | ssh-hostkey: | 2048 37:43:64:80:d3:5a:74:62:81:b7:80:6b:1a:23:d8:4a (RSA) | 256 53:c6:82:ef:d2:77:33:ef:c1:3d:9c:15:13:54:0e:b2 (ECDSA) |_ 256 ba:97:c3:23:d4:f2:cc:08:2c:e1:2b:30:06:18:95:41 (ED25519) 8080/tcp open http Apache httpd 2.4.46 ((Unix) OpenSSL/1.1.1d PHP/7.3.27) | http-methods: |_ Supported Methods: GET HEAD POST OPTIONS | http-open-proxy: Potentially OPEN proxy.</description>
+    </item>
+    
+  </channel>
+</rss>
