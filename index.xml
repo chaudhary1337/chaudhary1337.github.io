@@ -6,7 +6,42 @@
         <description>Recent content on Tanishq Chaudhary</description>
         <generator>Hugo -- gohugo.io</generator>
         <language>en-us</language>
-        <lastBuildDate>Sat, 03 Jul 2021 00:00:00 +0000</lastBuildDate><atom:link href="https://chaudhary1337.github.io/index.xml" rel="self" type="application/rss+xml" /><item>
+        <lastBuildDate>Tue, 13 Jul 2021 00:00:00 +0000</lastBuildDate><atom:link href="https://chaudhary1337.github.io/index.xml" rel="self" type="application/rss+xml" /><item>
+        <title>Hacker101 CTF: Micro-CMS v1 Writeup</title>
+        <link>https://chaudhary1337.github.io/p/hacker101-ctf-micro-cms-v1-writeup/</link>
+        <pubDate>Tue, 13 Jul 2021 00:00:00 +0000</pubDate>
+        
+        <guid>https://chaudhary1337.github.io/p/hacker101-ctf-micro-cms-v1-writeup/</guid>
+        <description>&lt;h1 id=&#34;hacker101-ctf-micro-cms-v1-writeup&#34;&gt;Hacker101 CTF: Micro-CMS v1 Writeup&lt;/h1&gt;
+&lt;h2 id=&#34;1-exploration&#34;&gt;1. Exploration&lt;/h2&gt;
+&lt;p&gt;Landing page shows two files. Looks like we are going to deal with markdown.
+&lt;img src=&#34;https://i.imgur.com/Qmb0Nz9.png&#34; alt=&#34;landing page where we see the list of pages&#34;  /&gt;&lt;/p&gt;
+&lt;p&gt;Creating new page allows us to put in title and some content.
+&lt;img src=&#34;https://i.imgur.com/SIT2g6R.png&#34; alt=&#34;page that creates markdown pages&#34;  /&gt;&lt;/p&gt;
+&lt;p&gt;Fact: markdown supports html. This means we can try all sorts of XSS attacks.
+&lt;img src=&#34;https://i.imgur.com/GJStdhR.png&#34; alt=&#34;testing out markdown stuff&#34;  /&gt;
+Script tag doesn&amp;rsquo;t work.&lt;/p&gt;
+&lt;h2 id=&#34;2-enumeration&#34;&gt;2. Enumeration&lt;/h2&gt;
+&lt;pre&gt;&lt;code&gt;┌──(kali㉿kali)-[~]
+└─$ gobuster dir -w /usr/share/wordlists/dirbuster/directory-list-2.3-medium.txt -x &#39;php,html,txt&#39; -t 32 -q -u http://35.190.155.168/46a90aa06a/page/
+/10                   (Status: 200) [Size: 309]
+/11                   (Status: 200) [Size: 213]
+/1                    (Status: 200) [Size: 239]
+/01                   (Status: 200) [Size: 239]
+/2                    (Status: 200) [Size: 433]
+/07                   (Status: 403) [Size: 234]
+&lt;/code&gt;&lt;/pre&gt;&lt;p&gt;10 &amp;amp; 11 are pages I created for funsies, and 1 &amp;amp; 2 were there already. 7 looks off.&lt;/p&gt;
+&lt;p&gt;The page itself is forbidden, as it shows status 403. We observe: &lt;code&gt;/page/edit/1&lt;/code&gt; is the path for editing the page. This means we can try editing the page 7.
+&lt;img src=&#34;https://i.imgur.com/IcWUB3E.png&#34; alt=&#34;editing the page 7&#34;  /&gt;
+and we get a flag!&lt;/p&gt;
+&lt;h2 id=&#34;3-xss&#34;&gt;3. XSS&lt;/h2&gt;
+&lt;p&gt;I was playing around with XSS and I realised that the image tag should work - because one sample page had it. Trying out &lt;code&gt;&amp;lt;image src=1 href=1 onerror=&amp;quot;javascript:alert(1)&amp;quot;&amp;gt;&amp;lt;/image&amp;gt;&lt;/code&gt; works!&lt;/p&gt;
+&lt;p&gt;Check the source code again for the flag. Try the same in the title, and get another flag!&lt;/p&gt;
+&lt;h2 id=&#34;4-sqli&#34;&gt;4. SQLI&lt;/h2&gt;
+&lt;p&gt;The attack - &lt;code&gt;/page/1&#39;&lt;/code&gt; does not work. &lt;code&gt;/page/edit/1&#39;&lt;/code&gt; works! We thus get the final flag.&lt;/p&gt;
+</description>
+        </item>
+        <item>
         <title>How-to: systemctl misconfiguration exploit</title>
         <link>https://chaudhary1337.github.io/p/how-to-systemctl-misconfiguration-exploit/</link>
         <pubDate>Sat, 03 Jul 2021 00:00:00 +0000</pubDate>

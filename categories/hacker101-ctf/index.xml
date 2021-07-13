@@ -1,0 +1,21 @@
+<?xml version="1.0" encoding="utf-8" standalone="yes"?>
+<rss version="2.0" xmlns:atom="http://www.w3.org/2005/Atom">
+  <channel>
+    <title>hacker101-ctf on Tanishq Chaudhary</title>
+    <link>https://chaudhary1337.github.io/categories/hacker101-ctf/</link>
+    <description>Recent content in hacker101-ctf on Tanishq Chaudhary</description>
+    <generator>Hugo -- gohugo.io</generator>
+    <language>en-us</language>
+    <lastBuildDate>Tue, 13 Jul 2021 00:00:00 +0000</lastBuildDate><atom:link href="https://chaudhary1337.github.io/categories/hacker101-ctf/index.xml" rel="self" type="application/rss+xml" />
+    <item>
+      <title>Hacker101 CTF: Micro-CMS v1 Writeup</title>
+      <link>https://chaudhary1337.github.io/p/hacker101-ctf-micro-cms-v1-writeup/</link>
+      <pubDate>Tue, 13 Jul 2021 00:00:00 +0000</pubDate>
+      
+      <guid>https://chaudhary1337.github.io/p/hacker101-ctf-micro-cms-v1-writeup/</guid>
+      <description>Hacker101 CTF: Micro-CMS v1 Writeup 1. Exploration Landing page shows two files. Looks like we are going to deal with markdown. Creating new page allows us to put in title and some content. Fact: markdown supports html. This means we can try all sorts of XSS attacks. Script tag doesn&amp;rsquo;t work.
+2. Enumeration ┌──(kali㉿kali)-[~] └─$ gobuster dir -w /usr/share/wordlists/dirbuster/directory-list-2.3-medium.txt -x &#39;php,html,txt&#39; -t 32 -q -u http://35.190.155.168/46a90aa06a/page/ /10 (Status: 200) [Size: 309] /11 (Status: 200) [Size: 213] /1 (Status: 200) [Size: 239] /01 (Status: 200) [Size: 239] /2 (Status: 200) [Size: 433] /07 (Status: 403) [Size: 234] 10 &amp;amp; 11 are pages I created for funsies, and 1 &amp;amp; 2 were there already.</description>
+    </item>
+    
+  </channel>
+</rss>
