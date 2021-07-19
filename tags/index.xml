@@ -6,22 +6,40 @@
     <description>Recent content in Tags on Tanishq Chaudhary</description>
     <generator>Hugo -- gohugo.io</generator>
     <language>en-us</language>
-    <lastBuildDate>Tue, 13 Jul 2021 00:00:00 +0000</lastBuildDate><atom:link href="https://chaudhary1337.github.io/tags/index.xml" rel="self" type="application/rss+xml" />
+    <lastBuildDate>Mon, 19 Jul 2021 00:00:00 +0000</lastBuildDate><atom:link href="https://chaudhary1337.github.io/tags/index.xml" rel="self" type="application/rss+xml" />
     <item>
-      <title>sql-injection</title>
-      <link>https://chaudhary1337.github.io/tags/sql-injection/</link>
-      <pubDate>Tue, 13 Jul 2021 00:00:00 +0000</pubDate>
+      <title>brute-forcing</title>
+      <link>https://chaudhary1337.github.io/tags/brute-forcing/</link>
+      <pubDate>Mon, 19 Jul 2021 00:00:00 +0000</pubDate>
       
-      <guid>https://chaudhary1337.github.io/tags/sql-injection/</guid>
+      <guid>https://chaudhary1337.github.io/tags/brute-forcing/</guid>
+      <description></description>
+    </item>
+    
+    <item>
+      <title>web</title>
+      <link>https://chaudhary1337.github.io/tags/web/</link>
+      <pubDate>Mon, 19 Jul 2021 00:00:00 +0000</pubDate>
+      
+      <guid>https://chaudhary1337.github.io/tags/web/</guid>
       <description></description>
     </item>
     
     <item>
       <title>xss</title>
       <link>https://chaudhary1337.github.io/tags/xss/</link>
-      <pubDate>Tue, 13 Jul 2021 00:00:00 +0000</pubDate>
+      <pubDate>Mon, 19 Jul 2021 00:00:00 +0000</pubDate>
       
       <guid>https://chaudhary1337.github.io/tags/xss/</guid>
+      <description></description>
+    </item>
+    
+    <item>
+      <title>sql-injection</title>
+      <link>https://chaudhary1337.github.io/tags/sql-injection/</link>
+      <pubDate>Tue, 13 Jul 2021 00:00:00 +0000</pubDate>
+      
+      <guid>https://chaudhary1337.github.io/tags/sql-injection/</guid>
       <description></description>
     </item>
     
@@ -94,15 +112,6 @@
       <pubDate>Mon, 28 Jun 2021 00:00:00 +0000</pubDate>
       
       <guid>https://chaudhary1337.github.io/tags/shady-scripts/</guid>
-      <description></description>
-    </item>
-    
-    <item>
-      <title>brute-forcing</title>
-      <link>https://chaudhary1337.github.io/tags/brute-forcing/</link>
-      <pubDate>Sat, 26 Jun 2021 00:00:00 +0000</pubDate>
-      
-      <guid>https://chaudhary1337.github.io/tags/brute-forcing/</guid>
       <description></description>
     </item>
     

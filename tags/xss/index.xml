@@ -6,7 +6,17 @@
     <description>Recent content in xss on Tanishq Chaudhary</description>
     <generator>Hugo -- gohugo.io</generator>
     <language>en-us</language>
-    <lastBuildDate>Tue, 13 Jul 2021 00:00:00 +0000</lastBuildDate><atom:link href="https://chaudhary1337.github.io/tags/xss/index.xml" rel="self" type="application/rss+xml" />
+    <lastBuildDate>Mon, 19 Jul 2021 00:00:00 +0000</lastBuildDate><atom:link href="https://chaudhary1337.github.io/tags/xss/index.xml" rel="self" type="application/rss+xml" />
+    <item>
+      <title>Hacker101 CTF: Petshop Pro Writeup</title>
+      <link>https://chaudhary1337.github.io/p/hacker101-ctf-petshop-pro-writeup/</link>
+      <pubDate>Mon, 19 Jul 2021 00:00:00 +0000</pubDate>
+      
+      <guid>https://chaudhary1337.github.io/p/hacker101-ctf-petshop-pro-writeup/</guid>
+      <description>Hacker101 CTF: Petshop Pro Writeup Flag 0 - Snooping Around Home page: Add to cart takes us to /add/0 or /add/1 for kitten/puppy respectively. /cart is another path. Source code for /checkout isn&amp;rsquo;t anything special: In the source code of /cart I found:
+	&amp;lt;form action=&amp;quot;checkout&amp;quot; method=&amp;quot;POST&amp;quot;&amp;gt; &amp;lt;input type=&amp;quot;hidden&amp;quot; name=&amp;quot;cart&amp;quot; value=&amp;quot;[[1, {&amp;amp;#34;logo&amp;amp;#34;: &amp;amp;#34;puppy.jpg&amp;amp;#34;, &amp;amp;#34;price&amp;amp;#34;: 7.95, &amp;amp;#34;name&amp;amp;#34;: &amp;amp;#34;Puppy&amp;amp;#34;, &amp;amp;#34;desc&amp;amp;#34;: &amp;amp;#34;8\&amp;amp;#34;x10\&amp;amp;#34; color glossy photograph of a puppy.&amp;amp;#34;}], [0, {&amp;amp;#34;logo&amp;amp;#34;: &amp;amp;#34;kitten.jpg&amp;amp;#34;, &amp;amp;#34;price&amp;amp;#34;: 8.95, &amp;amp;#34;name&amp;amp;#34;: &amp;amp;#34;Kitten&amp;amp;#34;, &amp;amp;#34;desc&amp;amp;#34;: &amp;amp;#34;8\&amp;amp;#34;x10\&amp;amp;#34; color glossy photograph of a kitten.</description>
+    </item>
+    
     <item>
       <title>Hacker101 CTF: Micro-CMS v1 Writeup</title>
       <link>https://chaudhary1337.github.io/p/hacker101-ctf-micro-cms-v1-writeup/</link>
