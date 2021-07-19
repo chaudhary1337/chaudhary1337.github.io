@@ -137,7 +137,7 @@ and we get a flag!&lt;/p&gt;
         <pubDate>Sat, 03 Jul 2021 00:00:00 +0000</pubDate>
         
         <guid>https://chaudhary1337.github.io/p/how-to-systemctl-misconfiguration-exploit/</guid>
-        <description>&lt;img src="https://i.imgur.com/ofnWIiq.png" alt="Featured image of post How-to: systemctl misconfiguration exploit" /&gt;&lt;h1 id=&#34;how-to-systemctl-sudosuid-exploit-explained&#34;&gt;How-to: systemctl sudo/suid Exploit Explained&lt;/h1&gt;
+        <description>&lt;h1 id=&#34;how-to-systemctl-sudosuid-exploit-explained&#34;&gt;How-to: systemctl sudo/suid Exploit Explained&lt;/h1&gt;
 &lt;h2 id=&#34;1-requirements&#34;&gt;1. Requirements&lt;/h2&gt;
 &lt;p&gt;&lt;strong&gt;Case 0&lt;/strong&gt;
 You have the permissions to run &lt;code&gt;/bin/systemctl&lt;/code&gt; as sudo or the SUID bit is set. This case is the easiest to deal with.&lt;/p&gt;
