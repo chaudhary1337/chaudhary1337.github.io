@@ -12,8 +12,7 @@
         <pubDate>Mon, 19 Jul 2021 00:00:00 +0000</pubDate>
         
         <guid>https://chaudhary1337.github.io/p/hacker101-ctf-petshop-pro-writeup/</guid>
-        <description>&lt;h1 id=&#34;hacker101-ctf-petshop-pro-writeup&#34;&gt;Hacker101 CTF: Petshop Pro Writeup&lt;/h1&gt;
-&lt;h2 id=&#34;flag-0---snooping-around&#34;&gt;Flag 0 - Snooping Around&lt;/h2&gt;
+        <description>&lt;h2 id=&#34;flag-0---snooping-around&#34;&gt;Flag 0 - Snooping Around&lt;/h2&gt;
 &lt;p&gt;Home page:
 &lt;img src=&#34;https://i.imgur.com/9KpnA8q.png&#34; alt=&#34;home page of petshop pro&#34;  /&gt;&lt;/p&gt;
 &lt;p&gt;Add to cart takes us to &lt;code&gt;/add/0&lt;/code&gt; or &lt;code&gt;/add/1&lt;/code&gt; for kitten/puppy respectively.
@@ -102,8 +101,7 @@ Hydra (https://github.com/vanhauser-thc/thc-hydra) finished at 2021-07-19 06:24:
         <pubDate>Tue, 13 Jul 2021 00:00:00 +0000</pubDate>
         
         <guid>https://chaudhary1337.github.io/p/hacker101-ctf-micro-cms-v1-writeup/</guid>
-        <description>&lt;h1 id=&#34;hacker101-ctf-micro-cms-v1-writeup&#34;&gt;Hacker101 CTF: Micro-CMS v1 Writeup&lt;/h1&gt;
-&lt;h2 id=&#34;1-exploration&#34;&gt;1. Exploration&lt;/h2&gt;
+        <description>&lt;h2 id=&#34;1-exploration&#34;&gt;1. Exploration&lt;/h2&gt;
 &lt;p&gt;Landing page shows two files. Looks like we are going to deal with markdown.
 &lt;img src=&#34;https://i.imgur.com/Qmb0Nz9.png&#34; alt=&#34;landing page where we see the list of pages&#34;  /&gt;&lt;/p&gt;
 &lt;p&gt;Creating new page allows us to put in title and some content.
